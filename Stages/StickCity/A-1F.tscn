@@ -338,7 +338,7 @@ text = "Here's our first instance of teaching the player to aim the air dash to 
 position = Vector2( 336, 616 )
 
 [node name="Rspr" parent="Objects/Rian" index="0"]
-frame = 8
+frame = 3
 
 [node name="Camera2D" parent="Objects" instance=ExtResource( 5 )]
 position = Vector2( 170, 500 )
