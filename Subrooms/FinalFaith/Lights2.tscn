@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sprites/Stage/FinalFaith/FFLights2.png" type="Texture" id=1]
+[ext_resource path="res://Subrooms/FinalFaithLight2.gd" type="Script" id=2]
+
+[node name="FaithlightB" type="Sprite"]
+position = Vector2( 464.177, 261.49 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+offset = Vector2( 11.311, 55.464 )
+script = ExtResource( 2 )
+
+[node name="visibletimer" type="Timer" parent="."]
+wait_time = 0.035
+autostart = true
+
+[connection signal="timeout" from="visibletimer" to="." method="_on_visibletimer_timeout"]

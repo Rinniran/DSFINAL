@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/SC_C1 Building.obj-856bb3bd5bf8d7d5d24dddf98a91c66b.mesh"
+
+[deps]
+
+files=[ "res://.import/SC_C1 Building.obj-856bb3bd5bf8d7d5d24dddf98a91c66b.mesh" ]
+
+source_file="res://meshes/SC_C1 Building.obj"
+dest_files=[ "res://.import/SC_C1 Building.obj-856bb3bd5bf8d7d5d24dddf98a91c66b.mesh", "res://.import/SC_C1 Building.obj-856bb3bd5bf8d7d5d24dddf98a91c66b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

@@ -1,0 +1,190 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://Stages/Stickhusk.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/StickHusk/Stickhusk_Idle.png" type="Texture" id=2]
+[ext_resource path="res://Audio/SE/hit.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sprites/Enemies/StickHusk/SHuskShoot4.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Enemies/StickHusk/SHuskShoot1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Enemies/StickHusk/SHuskShoot5.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Enemies/StickHusk/SHuskShoot3.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/gui/enemyhpover.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/gui/enemyhpprog.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/gui/enemyhpback.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Misc/Hdie.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Enemies/StickHusk/StickHuskMelee.png" type="Texture" id=13]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 12 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 12 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 12 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 13 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 13 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 13 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 13 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 13 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "die",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 15 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 16 ), SubResource( 16 ) ],
+"loop": true,
+"name": "melee",
+"speed": 18.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "shoot",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 40, 40 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 306, 214 )
+
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 57, 11 )
+
+[sub_resource type="RectangleShape2D" id=22]
+extents = Vector2( 28, 40 )
+
+[node name="Shusk" type="Area2D"]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 1 )
+
+[node name="Stickhusk" type="AnimatedSprite" parent="."]
+position = Vector2( -2.97301, -4.43238 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="Stickhusk"]
+volume_db = 8.946
+max_distance = 831.0
+bus = "SFX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -5.746
+bus = "SFX"
+
+[node name="multihurt" type="Timer" parent="."]
+wait_time = 1.301
+one_shot = true
+
+[node name="multihurtrepeat" type="Timer" parent="."]
+wait_time = 0.133
+
+[node name="EnemHealth" type="TextureProgress" parent="."]
+margin_left = -60.1626
+margin_top = -65.7838
+margin_right = 61.8374
+margin_bottom = -32.7838
+texture_under = ExtResource( 11 )
+texture_over = ExtResource( 9 )
+texture_progress = ExtResource( 10 )
+tint_progress = Color( 0.996078, 0.0823529, 0.945098, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hptween" type="Tween" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( -2, 18 )
+enabled = true
+cast_to = Vector2( -34, 30 )
+collision_mask = 2
+
+[node name="HorizDetect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HorizDetect"]
+position = Vector2( 0, 2 )
+shape = SubResource( 13 )
+
+[node name="Melee" type="Area2D" parent="." groups=["TouchHurt"]]
+
+[node name="Horz" type="CollisionShape2D" parent="Melee"]
+position = Vector2( -1, 1 )
+shape = SubResource( 21 )
+disabled = true
+
+[node name="Vert" type="CollisionShape2D" parent="Melee"]
+shape = SubResource( 22 )
+disabled = true
+
+[connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_Area2D_area_exited"]
+[connection signal="animation_finished" from="Stickhusk" to="." method="_on_Stickhusk_animation_finished"]
+[connection signal="timeout" from="multihurt" to="." method="_on_multihurt_timeout"]
+[connection signal="timeout" from="multihurtrepeat" to="." method="_on_multihurtrepeat_timeout"]
+[connection signal="area_entered" from="HorizDetect" to="." method="_on_HorizDetect_area_entered"]

@@ -1,0 +1,23 @@
+[gd_resource type="ParticlesMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://Materials/Scarf_Particle_Col.tres" type="Gradient" id=1]
+
+[sub_resource type="GradientTexture" id=1]
+gradient = ExtResource( 1 )
+
+[resource]
+emission_shape = 1
+emission_sphere_radius = 24.36
+flag_disable_z = true
+spread = 147.21
+gravity = Vector3( 0, 0, 0 )
+initial_velocity_random = 0.74
+angular_velocity = 204.33
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 100.0
+radial_accel_random = 0.56
+tangential_accel = 100.0
+tangential_accel_random = 0.94
+angle_random = 0.83
+color_ramp = SubResource( 1 )

@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Movies/logo.webm" type="VideoStream" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	update_activity()
+	pass # Replace with function body.
+
+func update_activity() -> void:
+	var activity = Discord.Activity.new()
+	activity.set_application_id(920666278652440577)
+	activity.set_type(Discord.ActivityType.Playing)
+	activity.set_state(\"Starting Up!\")
+	activity.set_details(\"Splash Screens\")
+	
+	var assets = activity.get_assets()
+	assets.set_large_image(\"dsdrp\")
+	
+	
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends VideoPlayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_VideoPlayer_finished():
+	get_tree().change_scene(\"res://Subrooms/trnk.tscn\")
+	pass # Replace with function body.
+"
+
+[node name="Node2D2" type="Node2D"]
+script = SubResource( 2 )
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+margin_right = 768.0
+margin_bottom = 432.0
+audio_track = 1
+stream = ExtResource( 1 )
+volume_db = 3.76
+autoplay = true
+script = SubResource( 1 )
+
+[connection signal="finished" from="VideoPlayer" to="VideoPlayer" method="_on_VideoPlayer_finished"]

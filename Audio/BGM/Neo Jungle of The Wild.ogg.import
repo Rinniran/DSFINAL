@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Neo Jungle of The Wild.ogg-60fc82a1402a6d5cac2e589b50855b09.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Neo Jungle of The Wild.ogg"
+dest_files=[ "res://.import/Neo Jungle of The Wild.ogg-60fc82a1402a6d5cac2e589b50855b09.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

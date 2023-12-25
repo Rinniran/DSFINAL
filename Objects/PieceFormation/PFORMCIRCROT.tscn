@@ -1,0 +1,94 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Subrooms/Piece.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+export var dir = \"right\"
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	match(dir):
+		\"right\":
+			rotation_degrees += 2
+		\"left\":
+			rotation_degrees -= 2
+#	pass
+"
+
+[node name="PFORMCIRCROT" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Pieceob" parent="." instance=ExtResource( 1 )]
+position = Vector2( -1, -129 )
+magnet = false
+
+[node name="Pieceob2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 137, -4 )
+magnet = false
+
+[node name="Pieceob13" parent="." instance=ExtResource( 1 )]
+position = Vector2( -131.161, -4.66153 )
+magnet = false
+
+[node name="Pieceob3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 45, -120 )
+magnet = false
+
+[node name="Pieceob10" parent="." instance=ExtResource( 1 )]
+position = Vector2( -53, -120 )
+magnet = false
+
+[node name="Pieceob4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 94.0488, -95.5815 )
+magnet = false
+
+[node name="Pieceob11" parent="." instance=ExtResource( 1 )]
+position = Vector2( -95.8381, -99.6998 )
+magnet = false
+
+[node name="Pieceob5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 118, -48 )
+magnet = false
+
+[node name="Pieceob12" parent="." instance=ExtResource( 1 )]
+position = Vector2( -122.971, -58.1211 )
+magnet = false
+
+[node name="Pieceob6" parent="." instance=ExtResource( 1 )]
+position = Vector2( -3.05632, 135.335 )
+magnet = false
+
+[node name="Pieceob7" parent="." instance=ExtResource( 1 )]
+position = Vector2( 102.42, 104.356 )
+magnet = false
+
+[node name="Pieceob15" parent="." instance=ExtResource( 1 )]
+position = Vector2( -92.5719, 96.9301 )
+magnet = false
+
+[node name="Pieceob8" parent="." instance=ExtResource( 1 )]
+position = Vector2( 129.04, 51.475 )
+magnet = false
+
+[node name="Pieceob14" parent="." instance=ExtResource( 1 )]
+position = Vector2( -125.031, 52.3948 )
+magnet = false
+
+[node name="Pieceob9" parent="." instance=ExtResource( 1 )]
+position = Vector2( 50.9179, 123.683 )
+magnet = false
+
+[node name="Pieceob16" parent="." instance=ExtResource( 1 )]
+position = Vector2( -51.8599, 120.563 )
+magnet = false

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Words (Credits theme).mp3-1ce1c630e3ba52a74ab6586ac96aed2c.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Words (Credits theme).mp3"
+dest_files=[ "res://.import/Words (Credits theme).mp3-1ce1c630e3ba52a74ab6586ac96aed2c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

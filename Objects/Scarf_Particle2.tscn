@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Materials/Scarf_Particle2.tres" type="Material" id=1]
+[ext_resource path="res://Sprites/Particles/Scarf 2.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Particles2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+
+	pass
+
+
+func _on_emittime_timeout():
+	
+	emitting = false
+	$ending.start()
+	pass # Replace with function body.
+
+
+func _on_ending_timeout():
+	pass # Replace with function body.
+"
+
+[node name="scarfpart2" type="Particles2D"]
+modulate = Color( 1, 0, 0, 1 )
+preprocess = 575.15
+speed_scale = 3.16
+randomness = 1.0
+process_material = ExtResource( 1 )
+texture = ExtResource( 2 )
+script = SubResource( 2 )
+
+[node name="emittime" type="Timer" parent="."]
+wait_time = 0.022
+one_shot = true
+autostart = true
+
+[node name="ending" type="Timer" parent="."]
+wait_time = 0.595
+one_shot = true
+
+[connection signal="timeout" from="emittime" to="." method="_on_emittime_timeout"]
+[connection signal="timeout" from="ending" to="." method="_on_ending_timeout"]

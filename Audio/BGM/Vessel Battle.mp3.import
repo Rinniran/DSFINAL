@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Vessel Battle.mp3-3fb6dd2c55b33dc71c15d01c41d4384d.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Vessel Battle.mp3"
+dest_files=[ "res://.import/Vessel Battle.mp3-3fb6dd2c55b33dc71c15d01c41d4384d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

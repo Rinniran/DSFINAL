@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/TG1 Hyper.ogg-8c8f1736c5babaaa21198d91b73bc61d.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/TG1 Hyper.ogg"
+dest_files=[ "res://.import/TG1 Hyper.ogg-8c8f1736c5babaaa21198d91b73bc61d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

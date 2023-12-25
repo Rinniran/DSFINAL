@@ -1,0 +1,1357 @@
+[gd_scene load_steps=133 format=2]
+
+[ext_resource path="res://Stages/ParallaxBackground.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Stage/SCity/clouds.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Stage/SCity/builds3.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Stage/SCity/builds4.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Stage/SCity/Monitors.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Stage/SCity/backbuilds.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Stage/SCity/builds2.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Stage/SCity/mount.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Stage/SCity/Back.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Stage/SCity/SC_A-1Terrain.png" type="Texture" id=10]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/Scene.gd" type="Script" id=12]
+[ext_resource path="res://Sprites/Stage/SCity/SC_A-1BGACC.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Stage/SCity/SC_A-1BUILDFRONT.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Stage/SCity/SC_A-1BUILDBACK.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Stage/SCity/SC_A-1FGACC.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Textures/clouds.jpg" type="Texture" id=17]
+[ext_resource path="res://Stages/Stickhusk.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Fonts/LanaPixel.ttf" type="DynamicFontData" id=19]
+[ext_resource path="res://Sprites/STGOBJ/Monitor.png" type="Texture" id=20]
+[ext_resource path="res://Subrooms/Piece.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Objects/HUD.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Subrooms/Driver.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Audio/BGM/Stick City A - 1 + 2.ogg" type="AudioStream" id=24]
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=25]
+[ext_resource path="res://Sprites/Light FX/light round.png" type="Texture" id=26]
+[ext_resource path="res://Objects/GoSign.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Audio/BGS/SCA-1BGS.ogg" type="AudioStream" id=28]
+[ext_resource path="res://Sprites/Stage/SCity/SCity.png" type="Texture" id=29]
+[ext_resource path="res://Stages/StickCity/Jumplabel.gd" type="Script" id=30]
+
+[sub_resource type="Shader" id=261]
+code = "// Hey this is Hei! This shader \"fakes\" a 3D-camera perspective on CanvasItems.
+// License: MIT
+
+shader_type canvas_item;
+
+// Camera FOV
+uniform float fov : hint_range(1, 179) = 90;
+uniform bool cull_back = true;
+uniform float y_rot : hint_range(-180, 180) = 0.0;
+uniform float x_rot : hint_range(-180, 180) = 0.0;
+// At 0, the image retains its size when unrotated.
+// At 1, the image is resized so that it can do a full
+// rotation without clipping inside its rect.
+uniform float inset : hint_range(0, 1) = 0.0;
+// Consider changing this to a uniform and changing it from code
+
+varying flat vec2 o;
+varying vec3 p;
+
+const float PI = 3.14159;
+
+ 
+
+// Creates rotation matrix
+void vertex(){
+	
+	
+	float sin_b = sin(y_rot / 180.0 * PI);
+	float cos_b = cos(y_rot / 180.0 * PI);
+	float sin_c = sin(x_rot / 180.0 * PI);
+	float cos_c = cos(x_rot / 180.0 * PI);
+	
+	mat3 inv_rot_mat;
+	inv_rot_mat[0][0] = cos_b;
+	inv_rot_mat[0][1] = 0.0;
+	inv_rot_mat[0][2] = -sin_b;
+	
+	inv_rot_mat[1][0] = sin_b * sin_c;
+	inv_rot_mat[1][1] = cos_c;
+	inv_rot_mat[1][2] = cos_b * sin_c;
+	
+	inv_rot_mat[2][0] = sin_b * cos_c;
+	inv_rot_mat[2][1] = -sin_c;
+	inv_rot_mat[2][2] = cos_b * cos_c;
+	
+	
+	float t = tan(fov / 360.0 * PI);
+	p = inv_rot_mat * vec3((UV - 0.5), 0.5 / t);
+	float v = (0.5 / t) + 0.5;
+	p.xy *= v * inv_rot_mat[2].z;
+	o = v * inv_rot_mat[2].xy;
+
+	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * t * (1.0 - inset);
+
+	
+}
+
+void fragment(){
+	
+	if (cull_back && p.z <= 0.0) discard;
+	vec2 uv = (p.xy / p.z).xy - o;
+    COLOR = texture(TEXTURE, uv + 0.5);
+	COLOR.a *= step(max(abs(uv.x), abs(uv.y)), 0.5);
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=248]
+shader = SubResource( 261 )
+shader_param/fov = 138.482
+shader_param/cull_back = true
+shader_param/y_rot = 0.0
+shader_param/x_rot = 46.753
+shader_param/inset = 0.572
+
+[sub_resource type="Shader" id=262]
+code = "shader_type canvas_item;
+
+uniform vec2 motion = vec2(0.0);
+uniform float scale = 1.0;
+uniform vec2 offset = vec2(0.0);
+
+void vertex(){
+	UV = (VERTEX + offset + TIME * motion) * TEXTURE_PIXEL_SIZE * (1.0/scale);
+}"
+
+[sub_resource type="ShaderMaterial" id=250]
+shader = SubResource( 262 )
+shader_param/motion = Vector2( 60, 60 )
+shader_param/scale = 0.5
+shader_param/offset = Vector2( 0, 0 )
+
+[sub_resource type="AtlasTexture" id=154]
+flags = 35
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=155]
+flags = 35
+atlas = ExtResource( 9 )
+region = Rect2( 320, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=156]
+flags = 35
+atlas = ExtResource( 9 )
+region = Rect2( 640, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=157]
+flags = 35
+atlas = ExtResource( 9 )
+region = Rect2( 960, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=158]
+flags = 35
+atlas = ExtResource( 9 )
+region = Rect2( 1280, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=159]
+flags = 35
+atlas = ExtResource( 9 )
+region = Rect2( 1600, 0, 320, 224 )
+
+[sub_resource type="SpriteFrames" id=235]
+animations = [ {
+"frames": [ SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+} ]
+
+[sub_resource type="AtlasTexture" id=161]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=162]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=163]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=164]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=165]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=166]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=167]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=168]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=169]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=170]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=171]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=172]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=173]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=174]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=175]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=176]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=177]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=178]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=179]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=180]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=181]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=182]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=183]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=184]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=185]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=186]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=187]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=188]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=189]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=190]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=191]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=192]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=193]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=194]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=195]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=196]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=197]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=198]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=199]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=200]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=201]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=202]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=203]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=204]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=205]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=206]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=207]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=208]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=209]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=210]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=211]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=212]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=213]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=214]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=215]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=216]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=217]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=218]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=219]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=220]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=221]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=222]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=223]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=224]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=225]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=226]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=227]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=228]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=229]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=230]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=231]
+atlas = ExtResource( 5 )
+region = Rect2( 1280, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=232]
+atlas = ExtResource( 5 )
+region = Rect2( 1600, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=233]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 2688, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=234]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 2688, 320, 224 )
+
+[sub_resource type="SpriteFrames" id=236]
+animations = [ {
+"frames": [ SubResource( 161 ), SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ), SubResource( 166 ), SubResource( 167 ), SubResource( 168 ), SubResource( 169 ), SubResource( 170 ), SubResource( 171 ), SubResource( 172 ), SubResource( 173 ), SubResource( 174 ), SubResource( 175 ), SubResource( 176 ), SubResource( 177 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 181 ), SubResource( 182 ), SubResource( 183 ), SubResource( 184 ), SubResource( 185 ), SubResource( 186 ), SubResource( 187 ), SubResource( 188 ), SubResource( 189 ), SubResource( 190 ), SubResource( 191 ), SubResource( 192 ), SubResource( 193 ), SubResource( 194 ), SubResource( 195 ), SubResource( 196 ), SubResource( 197 ), SubResource( 198 ), SubResource( 199 ), SubResource( 200 ), SubResource( 201 ), SubResource( 202 ), SubResource( 203 ), SubResource( 204 ), SubResource( 205 ), SubResource( 206 ), SubResource( 207 ), SubResource( 208 ), SubResource( 209 ), SubResource( 210 ), SubResource( 211 ), SubResource( 212 ), SubResource( 213 ), SubResource( 214 ), SubResource( 215 ), SubResource( 216 ), SubResource( 217 ), SubResource( 218 ), SubResource( 219 ), SubResource( 220 ), SubResource( 221 ), SubResource( 222 ), SubResource( 223 ), SubResource( 224 ), SubResource( 225 ), SubResource( 226 ), SubResource( 227 ), SubResource( 228 ), SubResource( 229 ), SubResource( 230 ), SubResource( 231 ), SubResource( 232 ), SubResource( 233 ), SubResource( 234 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[sub_resource type="AtlasTexture" id=239]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 3000, 600 )
+
+[sub_resource type="AtlasTexture" id=240]
+atlas = ExtResource( 10 )
+region = Rect2( 3000, 0, 3000, 600 )
+
+[sub_resource type="AtlasTexture" id=241]
+atlas = ExtResource( 10 )
+region = Rect2( 6000, 0, 3000, 600 )
+
+[sub_resource type="AtlasTexture" id=242]
+atlas = ExtResource( 10 )
+region = Rect2( 9000, 0, 3000, 600 )
+
+[sub_resource type="SpriteFrames" id=238]
+animations = [ {
+"frames": [ SubResource( 239 ), SubResource( 240 ), SubResource( 241 ), SubResource( 242 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=246]
+extents = Vector2( 1546.39, 280.369 )
+
+[sub_resource type="AtlasTexture" id=251]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 100, 78 )
+
+[sub_resource type="AtlasTexture" id=252]
+atlas = ExtResource( 20 )
+region = Rect2( 100, 0, 100, 78 )
+
+[sub_resource type="SpriteFrames" id=253]
+animations = [ {
+"frames": [ SubResource( 251 ), SubResource( 252 ) ],
+"loop": true,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="DynamicFont" id=266]
+size = 13
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 19 )
+
+[sub_resource type="Theme" id=255]
+default_font = SubResource( 266 )
+
+[sub_resource type="GDScript" id=263]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Globals.inputmode == \"kb\":
+		text = \"YOU CAN DASH IN ANY DIRECTION WHILE IN THE AIR! (SHIFT OR RIGHT CLICK)\\nDASHING DOUBLES AS A DODGE. 2 IN THE AIR, INFINITE ON THE GROUND!\" 
+	elif Globals.inputmode == \"joy\":
+		text = \"YOU CAN DASH IN ANY DIRECTION WHILE IN THE AIR! (PRESS B) \\nDASHING DOUBLES AS A DODGE. 2 IN THE AIR, INFINITE ON THE GROUND!\" 
+#	pass
+"
+
+[sub_resource type="GDScript" id=264]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Globals.inputmode == \"kb\":
+		text = \"PRESS X OR LEFT CLICK TO ATTACK!\" 
+	elif Globals.inputmode == \"joy\":
+		text = \"PRESS X TO ATTACK!\" 
+"
+
+[sub_resource type="RectangleShape2D" id=257]
+extents = Vector2( 13, 113 )
+
+[sub_resource type="GDScript" id=265]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Settings.SHADER == \"LOW\":
+		visible = false
+	else:
+		visible = true
+#	pass
+"
+
+[sub_resource type="Environment" id=260]
+background_mode = 4
+ambient_light_color = Color( 0.0980392, 0.207843, 0.929412, 1 )
+ambient_light_energy = 3.87
+tonemap_mode = 2
+tonemap_white = 0.79
+auto_exposure_enabled = true
+auto_exposure_min_luma = 0.39
+auto_exposure_max_luma = 7.39
+auto_exposure_speed = 17.73
+ss_reflections_enabled = true
+ss_reflections_depth_tolerance = 42.8
+ssao_enabled = true
+ssao_radius = 55.11
+ssao_intensity = 38.8
+ssao_light_affect = 0.24
+ssao_ao_channel_affect = 0.33
+ssao_color = Color( 0.372549, 0.364706, 1, 1 )
+ssao_edge_sharpness = 7.38
+glow_enabled = true
+glow_intensity = 0.7
+glow_strength = 0.51
+glow_bloom = 0.27
+glow_blend_mode = 1
+glow_hdr_threshold = 0.0
+glow_hdr_luminance_cap = 44.53
+glow_hdr_scale = 1.79
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 12 )
+next = "res://Stages/StickCity/A-2.tscn"
+musplay = ExtResource( 24 )
+
+[node name="GUIStuff" parent="." groups=["STGDATA"] instance=ExtResource( 22 )]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." groups=["STGDATA"]]
+layer = -128
+script = ExtResource( 1 )
+speed6 = -0.4
+
+[node name="ParallaxLayer11" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+z_index = -30
+motion_scale = Vector2( 0, 0 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="ParallaxBackground/ParallaxLayer11"]
+material = SubResource( 248 )
+margin_left = -1054.4
+margin_top = -792.088
+margin_right = 1803.6
+margin_bottom = 1511.91
+stretch = true
+stretch_shrink = 2
+
+[node name="Viewport" type="Viewport" parent="ParallaxBackground/ParallaxLayer11/ViewportContainer"]
+size = Vector2( 768, 432 )
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="Clouds" type="Sprite" parent="ParallaxBackground/ParallaxLayer11/ViewportContainer/Viewport"]
+modulate = Color( 0.0980392, 0.0313726, 0.305882, 1 )
+material = SubResource( 250 )
+position = Vector2( 459.64, 314.726 )
+z_index = -27
+z_as_relative = false
+texture = ExtResource( 17 )
+
+[node name="ParallaxLayer12" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.005, 0 )
+motion_mirroring = Vector2( 768, 432 )
+
+[node name="Sprite3" type="Sprite" parent="ParallaxBackground/ParallaxLayer12"]
+modulate = Color( 0.478431, 0.47451, 0.752941, 1 )
+position = Vector2( 383, 180 )
+texture = ExtResource( 29 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 639.943, 720 )
+
+[node name="Sprite" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -26, 106 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 235 )
+frame = 4
+playing = true
+centered = false
+
+[node name="Sprite2" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -26, 106 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 236 )
+frame = 48
+playing = true
+centered = false
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer7"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer8"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="ParallaxLayer10" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer10"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="ParallaxLayer9" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer9"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.01, 0.03 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+visible = false
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.05, 0.06 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+visible = false
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.08, 0.08 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.12, 0.1 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer6"]
+visible = false
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Terrain" type="Node2D" parent="." groups=["STGDATA"]]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="Terrain"]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Terrain/KinematicBody2D"]
+frames = SubResource( 238 )
+playing = true
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/KinematicBody2D"]
+visible = false
+polygon = PoolVector2Array( 0.480103, -600, 0.480103, 432, 576.48, 432, 576.48, 484, 768.48, 484, 768.48, 436, 1536.48, 436, 1600.48, 372, 1728.48, 372, 1728.48, 488, 1920.48, 488, 1920.48, 372, 2048.48, 372, 2112.48, 436, 3000.48, 436, 3000.48, 600, 0.480103, 600, -87.5199, 420, -123.52, -592 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/KinematicBody2D"]
+visible = false
+position = Vector2( 1535.24, -279.032 )
+shape = SubResource( 246 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Terrain/KinematicBody2D"]
+visible = false
+position = Vector2( 4545.66, 340.938 )
+shape = SubResource( 246 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BGACC" type="Sprite" parent="Terrain/KinematicBody2D"]
+z_index = -1
+texture = ExtResource( 13 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BGBUILD" type="Sprite" parent="Terrain/KinematicBody2D"]
+z_index = -1
+texture = ExtResource( 15 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FGACC" type="Sprite" parent="Terrain/KinematicBody2D"]
+z_index = 14
+texture = ExtResource( 16 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FGBUILD" type="Sprite" parent="Terrain/KinematicBody2D"]
+z_index = 14
+texture = ExtResource( 14 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Terrain/KinematicBody2D"]
+polygon = PoolVector2Array( 3010.24, 379.797, 2943.48, 364.109, 2931.31, 359.668, 2920, -8, 3032, -8, 3023.73, 393.651 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Objects" type="Node" parent="." groups=["STGDATA"]]
+
+[node name="Shusk" parent="Objects" instance=ExtResource( 18 )]
+position = Vector2( 2332.68, 415.449 )
+
+[node name="Shusk2" parent="Objects" instance=ExtResource( 18 )]
+position = Vector2( 2609.81, 415.923 )
+
+[node name="Monitors" type="Node" parent="Objects" groups=["STGDATA"]]
+
+[node name="Monitor" type="AnimatedSprite" parent="Objects/Monitors"]
+position = Vector2( 667.552, 387.025 )
+scale = Vector2( 2, 2 )
+z_index = -29
+frames = SubResource( 253 )
+playing = true
+
+[node name="Label" type="Label" parent="Objects/Monitors"]
+margin_left = 574.0
+margin_top = 314.0
+margin_right = 761.0
+margin_bottom = 419.0
+theme = SubResource( 255 )
+text = "PRESS  \"A\" TO JUMP! "
+align = 1
+valign = 1
+autowrap = true
+script = ExtResource( 30 )
+
+[node name="Monitor3" type="AnimatedSprite" parent="Objects/Monitors"]
+position = Vector2( 939, 288 )
+scale = Vector2( 2, 2 )
+z_index = -29
+frames = SubResource( 253 )
+playing = true
+
+[node name="Label4" type="Label" parent="Objects/Monitors"]
+margin_left = 845.448
+margin_top = 214.975
+margin_right = 1032.45
+margin_bottom = 319.975
+theme = SubResource( 255 )
+text = "COLLECTING PIECES  AND LANDING CONSECUTIVE HITS ON ENEMIES FILLS UP THE COMBO AND LINK COUNTER."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Monitor5" type="AnimatedSprite" parent="Objects/Monitors"]
+position = Vector2( 1158, 286 )
+scale = Vector2( 2, 2 )
+z_index = -29
+frames = SubResource( 253 )
+frame = 1
+playing = true
+
+[node name="Label5" type="Label" parent="Objects/Monitors"]
+margin_left = 1064.45
+margin_top = 212.975
+margin_right = 1251.45
+margin_bottom = 317.975
+theme = SubResource( 255 )
+text = "WHEN LINK REACHES 30, YOU'LL GAIN A HEAVY SPEED UP, WHILE A COMBO OF 60 WILL AWARD YOU THE ALL POWERFUL BREAKER DASH!
+DON'T GET HIT THOUGH, OR YOU'LL BE BACK TO SQUARE ONE."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Monitor2" type="AnimatedSprite" parent="Objects/Monitors"]
+position = Vector2( 1821, 364 )
+scale = Vector2( 2, 2 )
+z_index = -29
+frames = SubResource( 253 )
+playing = true
+
+[node name="Label2" type="Label" parent="Objects/Monitors"]
+margin_left = 1730.69
+margin_top = 294.896
+margin_right = 1913.69
+margin_bottom = 395.896
+theme = SubResource( 255 )
+text = "YOU CAN DASH IN ANY DIRECTION WHILE IN THE AIR! (PRESS \"B\")
+DASHING DOUBLES AS A DODGE. 2 IN THE AIR, INFINITE ON THE GROUND!"
+align = 1
+valign = 1
+autowrap = true
+script = SubResource( 263 )
+
+[node name="Monitor4" type="AnimatedSprite" parent="Objects/Monitors"]
+position = Vector2( 2216, 300 )
+scale = Vector2( 2, 2 )
+z_index = -29
+frames = SubResource( 253 )
+frame = 1
+playing = true
+
+[node name="Label3" type="Label" parent="Objects/Monitors"]
+margin_left = 2126.0
+margin_top = 229.0
+margin_right = 2307.0
+margin_bottom = 332.0
+theme = SubResource( 255 )
+text = "PRESS \"X\" TO ATTACK!"
+align = 1
+valign = 1
+autowrap = true
+script = SubResource( 264 )
+
+[node name="Pieces" type="Node2D" parent="Objects"]
+
+[node name="Pieceob" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 449, 419 )
+
+[node name="Pieceob2" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 482.984, 419 )
+
+[node name="Pieceob3" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 514.984, 419 )
+
+[node name="Pieceob4" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 546.984, 419 )
+
+[node name="Pieceob5" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 696, 472 )
+
+[node name="Pieceob6" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 713.843, 440 )
+
+[node name="Pieceob7" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 736, 411.353 )
+
+[node name="Pieceob8" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 768, 392 )
+
+[node name="Pieceob9" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 800, 394.929 )
+
+[node name="Pieceob10" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 832, 413.233 )
+
+[node name="Pieceob11" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 864, 423.103 )
+
+[node name="Pieceob12" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1040, 424 )
+
+[node name="Pieceob13" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1072, 424 )
+
+[node name="Pieceob14" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1104, 424 )
+
+[node name="Pieceob15" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1136, 424 )
+
+[node name="Pieceob16" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1168, 424 )
+
+[node name="Pieceob17" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1200, 424 )
+
+[node name="Pieceob66" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2144, 423.103 )
+
+[node name="Pieceob67" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2176, 423.103 )
+
+[node name="Pieceob68" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2208, 423.103 )
+
+[node name="Pieceob69" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2240, 423.103 )
+
+[node name="Pieceob70" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2272, 423.103 )
+
+[node name="Pieceob71" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2304, 423.103 )
+
+[node name="Pieceob72" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2408, 423.103 )
+
+[node name="Pieceob73" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2440, 423.103 )
+
+[node name="Pieceob74" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2472, 423.103 )
+
+[node name="Pieceob75" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2504, 423.103 )
+
+[node name="Pieceob76" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2536, 423.103 )
+
+[node name="Pieceob77" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2568, 423.103 )
+
+[node name="Pieceob78" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2792, 423.103 )
+
+[node name="Pieceob79" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2824, 423.103 )
+
+[node name="Pieceob80" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2856, 423.103 )
+
+[node name="Pieceob81" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2888, 423.103 )
+
+[node name="Pieceob82" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2920, 423.103 )
+
+[node name="Pieceob83" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 2952, 423.103 )
+
+[node name="Pieceob18" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1288, 312 )
+
+[node name="Pieceob19" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1320, 312 )
+
+[node name="Pieceob20" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1352, 312 )
+
+[node name="Pieceob21" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1384, 312 )
+
+[node name="Pieceob22" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1416, 312 )
+
+[node name="Pieceob23" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1632, 360 )
+
+[node name="Pieceob24" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1664, 360 )
+
+[node name="Pieceob25" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1696, 360 )
+
+[node name="Pieceob26" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1773.31, 472 )
+
+[node name="Pieceob27" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1803.6, 472 )
+
+[node name="Pieceob28" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1832, 472 )
+
+[node name="Pieceob29" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 472 )
+
+[node name="Pieceob30" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1896, 472 )
+
+[node name="Pieceob31" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1896, 440 )
+
+[node name="Pieceob32" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 440 )
+
+[node name="Pieceob33" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 440 )
+
+[node name="Pieceob34" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1832, 440 )
+
+[node name="Pieceob35" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1803.6, 440 )
+
+[node name="Pieceob36" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1773.31, 440 )
+
+[node name="Pieceob37" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 440 )
+
+[node name="Pieceob38" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 470 )
+
+[node name="Pieceob39" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 472 )
+
+[node name="Pieceob40" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 406.449 )
+
+[node name="Pieceob41" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1773.31, 406.449 )
+
+[node name="Pieceob42" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1803.6, 406.449 )
+
+[node name="Pieceob43" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1832, 406.449 )
+
+[node name="Pieceob44" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 406.449 )
+
+[node name="Pieceob45" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1896, 406.449 )
+
+[node name="Pieceob46" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1773.31, 304 )
+
+[node name="Pieceob47" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1803.6, 304 )
+
+[node name="Pieceob48" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1832, 304 )
+
+[node name="Pieceob49" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 304 )
+
+[node name="Pieceob50" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1896, 304 )
+
+[node name="Pieceob51" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1896, 272 )
+
+[node name="Pieceob52" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 272 )
+
+[node name="Pieceob53" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1864, 272 )
+
+[node name="Pieceob54" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1832, 272 )
+
+[node name="Pieceob55" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1803.6, 272 )
+
+[node name="Pieceob56" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1773.31, 272 )
+
+[node name="Pieceob57" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 272 )
+
+[node name="Pieceob58" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 302 )
+
+[node name="Pieceob59" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1744, 304 )
+
+[node name="Pieceob60" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1745, 436.449 )
+
+[node name="Pieceob61" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1774.31, 436.449 )
+
+[node name="Pieceob62" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1804.6, 436.449 )
+
+[node name="Pieceob63" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1833, 436.449 )
+
+[node name="Pieceob64" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1865, 436.449 )
+
+[node name="Pieceob65" parent="Objects/Pieces" instance=ExtResource( 21 )]
+position = Vector2( 1897, 436.449 )
+
+[node name="onedriver" parent="Objects" instance=ExtResource( 23 )]
+position = Vector2( 2856, 238.449 )
+
+[node name="Camera2D" parent="Objects" instance=ExtResource( 25 )]
+position = Vector2( 15, 147 )
+limit_right = 2999
+limit_bottom = 600
+target = NodePath("../Rian")
+
+[node name="Rian" parent="Objects" instance=ExtResource( 11 )]
+position = Vector2( 344, 412 )
+
+[node name="Triggers" type="Node" parent="." groups=["STGDATA"]]
+
+[node name="NextArea" type="Area2D" parent="." groups=["STGDATA"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextArea"]
+position = Vector2( 2976, 401.483 )
+shape = SubResource( 257 )
+
+[node name="Lights" type="Node2D" parent="."]
+script = SubResource( 265 )
+
+[node name="Light2D" type="Light2D" parent="Lights"]
+position = Vector2( 139, 417 )
+scale = Vector2( 0.77125, 0.4975 )
+texture = ExtResource( 26 )
+color = Color( 1, 0.529412, 0.803922, 1 )
+energy = 1.38
+mode = 2
+shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2D2" type="Light2D" parent="Lights"]
+position = Vector2( 505, 429 )
+scale = Vector2( 0.77125, 0.49375 )
+texture = ExtResource( 26 )
+color = Color( 0.529412, 0.603922, 1, 1 )
+energy = 1.38
+mode = 2
+shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2D3" type="Light2D" parent="Lights"]
+position = Vector2( 900, 439 )
+scale = Vector2( 0.901875, 0.49375 )
+texture = ExtResource( 26 )
+color = Color( 0.545098, 1, 0.529412, 1 )
+energy = 1.38
+mode = 2
+shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2D4" type="Light2D" parent="Lights"]
+position = Vector2( 1474, 418 )
+scale = Vector2( 1.12719, 0.520208 )
+texture = ExtResource( 26 )
+color = Color( 1, 0.529412, 0.529412, 1 )
+energy = 1.38
+mode = 2
+shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2D5" type="Light2D" parent="Lights"]
+position = Vector2( 2314, 458 )
+scale = Vector2( 1.12719, 0.520208 )
+texture = ExtResource( 26 )
+color = Color( 0.984314, 1, 0.529412, 1 )
+energy = 1.38
+mode = 2
+shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Light2D6" type="Light2D" parent="Lights"]
+position = Vector2( 2757, 456 )
+scale = Vector2( 1.12719, 0.520208 )
+texture = ExtResource( 26 )
+color = Color( 0.529412, 1, 0.988235, 1 )
+energy = 1.38
+mode = 2
+shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Accessories" type="Node" parent="."]
+
+[node name="GOSign" parent="Accessories" instance=ExtResource( 27 )]
+position = Vector2( 312, 396 )
+frame = 3
+
+[node name="GOSign2" parent="Accessories" instance=ExtResource( 27 )]
+position = Vector2( 660, 449 )
+frame = 3
+
+[node name="GOSign3" parent="Accessories" instance=ExtResource( 27 )]
+position = Vector2( 1270, 401 )
+frame = 0
+
+[node name="GOSign4" parent="Accessories" instance=ExtResource( 27 )]
+position = Vector2( 1983, 340 )
+frame = 0
+
+[node name="GOSign5" parent="Accessories" instance=ExtResource( 27 )]
+position = Vector2( 2487, 402 )
+frame = 3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 260 )
+
+[node name="BGS" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+volume_db = 11.732
+autoplay = true
+bus = "BGS"
+
+[connection signal="area_entered" from="NextArea" to="." method="_on_NextArea_area_entered"]

@@ -1,0 +1,141 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://meshes/Deathball.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Stages/modelrot.gd" type="Script" id=3]
+[ext_resource path="res://Stages/screen.gd" type="Script" id=4]
+[ext_resource path="res://Subrooms/Driver.gdshader" type="Shader" id=8]
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 8 )
+shader_param/pixelSize = 1
+
+[sub_resource type="GDScript" id=23]
+script/source = "extends Area2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var texture = $Viewport.get_texture()
+	$screen.texture = texture
+#	pass
+"
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_transparent = true
+flags_unshaded = true
+flags_world_triplanar = true
+flags_ensure_correct_normals = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+depth_enabled = true
+depth_scale = 6.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+refraction_enabled = true
+refraction_scale = -0.21
+refraction_texture_channel = 0
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_unshaded = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=18]
+flags_unshaded = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=19]
+flags_unshaded = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=20]
+flags_unshaded = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=21]
+flags_unshaded = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+
+[sub_resource type="SpatialMaterial" id=22]
+flags_unshaded = true
+albedo_color = Color( 0, 1, 0.0666667, 1 )
+
+[sub_resource type="RectangleShape2D" id=25]
+extents = Vector2( 2.65539, 7.22942 )
+
+[sub_resource type="CircleShape2D" id=24]
+radius = 18.1108
+
+[sub_resource type="RectangleShape2D" id=26]
+extents = Vector2( 13.5, 4.33334 )
+
+[node name="deathBall" type="Area2D" groups=["bighurt", "undodgeable"]]
+material = SubResource( 16 )
+position = Vector2( 383, 181 )
+scale = Vector2( 1.5, 1.5 )
+script = SubResource( 23 )
+
+[node name="screen" type="Sprite" parent="."]
+position = Vector2( 20.303, 22.233 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 6
+script = ExtResource( 4 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 400, 400 )
+own_world = true
+transparent_bg = true
+
+[node name="Spatial" type="Spatial" parent="Viewport"]
+
+[node name="KinematicBody" type="KinematicBody" parent="Viewport/Spatial"]
+script = ExtResource( 3 )
+speed = 80
+
+[node name="Driver" type="MeshInstance" parent="Viewport/Spatial/KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012712, 0.00828397, 0.00972861 )
+mesh = ExtResource( 1 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 15 )
+material/1 = SubResource( 17 )
+material/2 = SubResource( 18 )
+material/3 = SubResource( 19 )
+material/4 = SubResource( 20 )
+material/5 = SubResource( 21 )
+material/6 = SubResource( 22 )
+
+[node name="Camera" type="Camera" parent="Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.49919 )
+
+[node name="spikeup" type="CollisionShape2D" parent="."]
+position = Vector2( 20, -4.66667 )
+scale = Vector2( 1.8093, 1.69333 )
+shape = SubResource( 25 )
+
+[node name="spikedown" type="CollisionShape2D" parent="."]
+position = Vector2( 20, 52 )
+scale = Vector2( 1.8093, 1.69333 )
+shape = SubResource( 25 )
+
+[node name="circle" type="CollisionShape2D" parent="."]
+position = Vector2( 20, 22.6667 )
+shape = SubResource( 24 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -9.16667, 22.6667 )
+shape = SubResource( 26 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( 49.3333, 22 )
+shape = SubResource( 26 )
+
+[connection signal="area_entered" from="." to="." method="_on_kcard_area_entered"]

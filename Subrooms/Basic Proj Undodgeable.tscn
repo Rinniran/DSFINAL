@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Projectiles/Basic projectilenododge.png" type="Texture" id=1]
+[ext_resource path="res://Subrooms/Basic Proj.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Light FX/light round.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 11.3137
+
+[node name="BulletNoDodge" type="Area2D" groups=["enemproject", "undodgeable"]]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 2 )
+
+[node name="BSpr" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="kill" type="Timer" parent="."]
+wait_time = 2.87
+autostart = true
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 1.52588e-05, -3.8147e-06 )
+scale = Vector2( 0.14, 0.163333 )
+texture = ExtResource( 3 )
+color = Color( 0.984314, 0.0470588, 0.0470588, 1 )
+energy = 0.81
+shadow_enabled = true
+
+[connection signal="timeout" from="kill" to="." method="_on_kill_timeout"]

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/5.wav-a699cf0c83dd718b21af0907b64e457e.sample"
+
+[deps]
+
+source_file="res://Audio/Voices/Dialogue/Stick City/5.wav"
+dest_files=[ "res://.import/5.wav-a699cf0c83dd718b21af0907b64e457e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

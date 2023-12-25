@@ -1,0 +1,321 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://Subrooms/Scarf.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Audio/Voices/damage 2.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/SE/402767__mattix__8bit-coin-03.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/Voices/atkproj2.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/Voices/atkproj4.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/Voices/damage 1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Voices/atkproj3.wav" type="AudioStream" id=7]
+[ext_resource path="res://Audio/Voices/Dodge1.wav" type="AudioStream" id=8]
+[ext_resource path="res://Audio/Voices/atkproj1.wav" type="AudioStream" id=9]
+[ext_resource path="res://Audio/Voices/damage 3.wav" type="AudioStream" id=10]
+[ext_resource path="res://Objects/Scarf_Particle2.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Objects/Scarf_Particle.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Stages/player.gd" type="Script" id=13]
+[ext_resource path="res://Sprites/Players/Rian/RianFrames.tres" type="SpriteFrames" id=14]
+[ext_resource path="res://Audio/Voices/attack dash.wav" type="AudioStream" id=19]
+
+[sub_resource type="OccluderPolygon2D" id=2]
+cull_mode = 1
+polygon = PoolVector2Array( -8, 24, 4, 24, 8, 8, 4, -12, -4, -12, -12, -4 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 8.04666
+height = 14.825
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 45.7605, 21.5548 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 20.3787
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 18.99, 19.5956 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 10.0228, 19.0273 )
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 5.54294
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends AudioStreamPlayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends AudioStreamPlayer2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="CapsuleShape2D" id=12]
+radius = 24.6042
+height = 0.0
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends AudioStreamPlayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="RectangleShape2D" id=16]
+extents = Vector2( 20, 27.5 )
+
+[node name="Rian" type="KinematicBody2D"]
+script = ExtResource( 13 )
+
+[node name="Rspr" type="AnimatedSprite" parent="."]
+frames = ExtResource( 14 )
+animation = "idle"
+frame = 6
+playing = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Rspr"]
+visible = false
+occluder = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0.548088, 8.7432 )
+shape = SubResource( 3 )
+
+[node name="atkwait" type="Timer" parent="."]
+wait_time = 0.127
+one_shot = true
+
+[node name="atktimer" type="Timer" parent="."]
+wait_time = 0.382
+
+[node name="gtimer" type="Timer" parent="."]
+wait_time = 0.019
+autostart = true
+
+[node name="groundatk" type="Area2D" parent="." groups=["hit1"]]
+visible = false
+scale = Vector2( 1.84, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="groundatk"]
+position = Vector2( 11.544, 6.93416 )
+scale = Vector2( 0.244993, 0.80688 )
+shape = SubResource( 4 )
+
+[node name="airatk" type="Area2D" parent="." groups=["airhit"]]
+visible = false
+position = Vector2( 0, -7.99998 )
+scale = Vector2( 1.32, 1.24 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="airatk"]
+position = Vector2( 0.901918, 9.33198 )
+shape = SubResource( 5 )
+
+[node name="dashatkvoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+volume_db = 12.727
+bus = "Voices"
+
+[node name="Voices" type="Node2D" parent="."]
+visible = false
+
+[node name="dodgeVoices" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 8 )
+volume_db = 4.931
+bus = "Voices"
+
+[node name="AP1" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 9 )
+volume_db = 9.623
+bus = "Voices"
+
+[node name="AP2" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 4 )
+volume_db = 4.359
+bus = "Voices"
+
+[node name="AP3" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 7 )
+volume_db = 6.613
+bus = "Voices"
+
+[node name="AP4" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 5 )
+volume_db = 5.54
+bus = "Voices"
+
+[node name="DAM1" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 6 )
+volume_db = 9.512
+bus = "Voices"
+
+[node name="DAM2" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 2 )
+volume_db = 7.259
+bus = "Voices"
+
+[node name="DAM3" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 10 )
+volume_db = 6.818
+bus = "Voices"
+
+[node name="snapoff" type="Timer" parent="."]
+wait_time = 0.041
+one_shot = true
+
+[node name="attack3hit" type="Area2D" parent="." groups=["hit3"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack3hit"]
+position = Vector2( 18.99, 4.40444 )
+shape = SubResource( 6 )
+
+[node name="groundatk2" type="Area2D" parent="." groups=["hit2"]]
+visible = false
+position = Vector2( 20.807, 4.05005 )
+scale = Vector2( 1.84, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="groundatk2"]
+position = Vector2( 0.655399, 0.839147 )
+shape = SubResource( 7 )
+
+[node name="atkwait2" type="Timer" parent="."]
+wait_time = 0.062
+one_shot = true
+
+[node name="killhitbox2" type="Timer" parent="."]
+wait_time = 0.085
+one_shot = true
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["hurtbox"]]
+visible = false
+position = Vector2( -176, 16 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2( 176.834, -9.85198 )
+shape = SubResource( 8 )
+
+[node name="safe_frames" type="Timer" parent="Hurtbox"]
+process_mode = 0
+wait_time = 0.687
+one_shot = true
+
+[node name="dodge_window" type="Timer" parent="Hurtbox"]
+process_mode = 0
+wait_time = 0.061
+one_shot = true
+
+[node name="dsound" type="AudioStreamPlayer" parent="."]
+volume_db = -6.46
+bus = "SFX"
+script = SubResource( 13 )
+
+[node name="dashtimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.785
+one_shot = true
+
+[node name="damagepause" type="Timer" parent="."]
+wait_time = 0.246
+one_shot = true
+
+[node name="collect" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 8.264, -0.571728 )
+stream = ExtResource( 3 )
+volume_db = 0.031
+bus = "SFX"
+script = SubResource( 14 )
+
+[node name="Deathwait" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.96
+one_shot = true
+
+[node name="Chain" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -276.623 )
+
+[node name="zoomtime" type="Timer" parent="."]
+one_shot = true
+
+[node name="Zoombox" type="Area2D" parent="." groups=["BIGDAMAGE"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zoombox"]
+position = Vector2( 1, 4 )
+rotation = 1.5708
+shape = SubResource( 12 )
+
+[node name="otvoice" type="AudioStreamPlayer" parent="."]
+volume_db = -7.347
+bus = "Overlappingvoices"
+script = SubResource( 15 )
+
+[node name="dodge" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
+[node name="Collect" type="Area2D" parent="." groups=["collect"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collect"]
+position = Vector2( 0, 2.5 )
+shape = SubResource( 16 )
+
+[node name="scarfpart2" parent="." instance=ExtResource( 11 )]
+visible = false
+
+[node name="scarfpart" parent="." instance=ExtResource( 12 )]
+visible = false
+
+[connection signal="animation_finished" from="Rspr" to="." method="_on_Rspr_animation_finished"]
+[connection signal="timeout" from="atkwait" to="." method="_on_atkwait_timeout"]
+[connection signal="timeout" from="atktimer" to="." method="_on_atktimer_timeout"]
+[connection signal="timeout" from="gtimer" to="." method="_on_gtimer_timeout"]
+[connection signal="finished" from="dashatkvoice" to="." method="_on_dashatkvoice_finished"]
+[connection signal="timeout" from="atkwait2" to="." method="_on_atkwait2_timeout"]
+[connection signal="timeout" from="killhitbox2" to="." method="_on_killhitbox2_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="damagepause" to="." method="_on_damagepause_timeout"]
+[connection signal="timeout" from="Deathwait" to="." method="_on_Deathwait_timeout"]
+[connection signal="timeout" from="zoomtime" to="." method="_on_zoomtime_timeout"]
+[connection signal="area_entered" from="Collect" to="." method="_on_Collect_area_entered"]

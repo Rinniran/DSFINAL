@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/how to play.ogg-6abdcf142d88ce71e4a3b8961b487b96.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/how to play.ogg"
+dest_files=[ "res://.import/how to play.ogg-6abdcf142d88ce71e4a3b8961b487b96.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

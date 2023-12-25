@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Unusual.ogg-34b9b6a1eda8ef33fe48801336aff481.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Unusual.ogg"
+dest_files=[ "res://.import/Unusual.ogg-34b9b6a1eda8ef33fe48801336aff481.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=7.4

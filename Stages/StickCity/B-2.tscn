@@ -1,0 +1,1403 @@
+[gd_scene load_steps=124 format=2]
+
+[ext_resource path="res://Sprites/Stage/SCity/B-1 Street.png" type="Texture" id=1]
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/Stage/SCity/Bridge.png" type="Texture" id=4]
+[ext_resource path="res://Objects/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Stages/ParallaxBackground.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/Stage/SCity/builds4.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Stage/SCity/builds3.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Stage/SCity/clouds.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Stage/SCity/mount.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Stage/SCity/Back.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Stage/SCity/builds2.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Stage/SCity/Monitors.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Stage/SCity/backbuilds.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Textures/clouds.jpg" type="Texture" id=15]
+[ext_resource path="res://Audio/BGS/citybgs.ogg" type="AudioStream" id=17]
+
+[sub_resource type="GDScript" id=266]
+resource_name = "SCB-1"
+script/source = "extends Node
+
+export var next = \"Scene Path\"
+
+export (AudioStream) var musplay
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var done = 0
+
+var bossdefeated = 0
+
+# Called when the node enters the scene tree for the first time.
+
+
+
+
+
+func _ready():
+#	Globals.incutscene = 1
+#	$Rian/cameracutscene.play(\"intropan\")
+#
+	Globals.moveenabled = 1
+	Globals.incutscene = 0
+
+	
+	Globals.cur_scene = self
+	print_debug(\"self set current scene!\")
+	
+	Globals.stage_start = \"res://Stages/StickCity/A-1.tscn\"
+	print_debug(\"self set stage start!\")
+	
+	if musplay != null:
+		Globals.music.set_stream(musplay)
+		Globals.music.play()
+	
+
+func _physics_process(delta):
+	#print_debug(Globals.atkmult)
+#	if bossdefeated == 1:
+#			$Rian/StageMusic.play()
+#			$bossmus/bossmusic.stop()
+			
+			
+			
+	if Globals.ded == 1:
+		
+		
+		if Globals.didakill == 1:
+			bossdefeated = 1
+		
+		
+		
+			
+		
+		if done == 0:
+			#if Globals.lives == 0:
+			#	$Rian/StageMusic/musichandler.play(\"fadeout\")
+			#$Rian/Camera2D/CanvasLayer3/screenspr/Blackscreen.play(\"Fadeout\")
+			
+			done = 1
+			
+		
+	else:
+		if done == 1:
+			if Globals.ded == 0:
+				done = 0
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_NextArea_area_entered(area):
+	if area.is_in_group(\"hurtbox\"):
+		Engine.time_scale = 1.0
+		$Terrain.queue_free()
+		$ParallaxBackground.queue_free()
+		$Objects.queue_free()
+		Sys.load_scene(self,next)
+	pass # Replace with function body.
+"
+
+[sub_resource type="Shader" id=258]
+code = "// Hey this is Hei! This shader \"fakes\" a 3D-camera perspective on CanvasItems.
+// License: MIT
+
+shader_type canvas_item;
+
+// Camera FOV
+uniform float fov : hint_range(1, 179) = 90;
+uniform bool cull_back = true;
+uniform float y_rot : hint_range(-180, 180) = 0.0;
+uniform float x_rot : hint_range(-180, 180) = 0.0;
+// At 0, the image retains its size when unrotated.
+// At 1, the image is resized so that it can do a full
+// rotation without clipping inside its rect.
+uniform float inset : hint_range(0, 1) = 0.0;
+// Consider changing this to a uniform and changing it from code
+
+varying flat vec2 o;
+varying vec3 p;
+
+const float PI = 3.14159;
+
+ 
+
+// Creates rotation matrix
+void vertex(){
+	
+	
+	float sin_b = sin(y_rot / 180.0 * PI);
+	float cos_b = cos(y_rot / 180.0 * PI);
+	float sin_c = sin(x_rot / 180.0 * PI);
+	float cos_c = cos(x_rot / 180.0 * PI);
+	
+	mat3 inv_rot_mat;
+	inv_rot_mat[0][0] = cos_b;
+	inv_rot_mat[0][1] = 0.0;
+	inv_rot_mat[0][2] = -sin_b;
+	
+	inv_rot_mat[1][0] = sin_b * sin_c;
+	inv_rot_mat[1][1] = cos_c;
+	inv_rot_mat[1][2] = cos_b * sin_c;
+	
+	inv_rot_mat[2][0] = sin_b * cos_c;
+	inv_rot_mat[2][1] = -sin_c;
+	inv_rot_mat[2][2] = cos_b * cos_c;
+	
+	
+	float t = tan(fov / 360.0 * PI);
+	p = inv_rot_mat * vec3((UV - 0.5), 0.5 / t);
+	float v = (0.5 / t) + 0.5;
+	p.xy *= v * inv_rot_mat[2].z;
+	o = v * inv_rot_mat[2].xy;
+
+	VERTEX += (UV - 0.5) / TEXTURE_PIXEL_SIZE * t * (1.0 - inset);
+
+	
+}
+
+void fragment(){
+	
+	if (cull_back && p.z <= 0.0) discard;
+	vec2 uv = (p.xy / p.z).xy - o;
+    COLOR = texture(TEXTURE, uv + 0.5);
+	COLOR.a *= step(max(abs(uv.x), abs(uv.y)), 0.5);
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=260]
+shader = SubResource( 258 )
+shader_param/fov = 138.482
+shader_param/cull_back = true
+shader_param/y_rot = 0.0
+shader_param/x_rot = 46.753
+shader_param/inset = 0.572
+
+[sub_resource type="Shader" id=259]
+code = "shader_type canvas_item;
+
+uniform vec2 motion = vec2(0.0);
+uniform float scale = 1.0;
+uniform vec2 offset = vec2(0.0);
+
+void vertex(){
+	UV = (VERTEX + offset + TIME * motion) * TEXTURE_PIXEL_SIZE * (1.0/scale);
+}"
+
+[sub_resource type="ShaderMaterial" id=261]
+shader = SubResource( 259 )
+shader_param/motion = Vector2( 60, 60 )
+shader_param/scale = 0.5
+shader_param/offset = Vector2( 0, 0 )
+
+[sub_resource type="AtlasTexture" id=154]
+flags = 35
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=155]
+flags = 35
+atlas = ExtResource( 11 )
+region = Rect2( 320, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=156]
+flags = 35
+atlas = ExtResource( 11 )
+region = Rect2( 640, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=157]
+flags = 35
+atlas = ExtResource( 11 )
+region = Rect2( 960, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=158]
+flags = 35
+atlas = ExtResource( 11 )
+region = Rect2( 1280, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=159]
+flags = 35
+atlas = ExtResource( 11 )
+region = Rect2( 1600, 0, 320, 224 )
+
+[sub_resource type="SpriteFrames" id=262]
+animations = [ {
+"frames": [ SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+} ]
+
+[sub_resource type="AtlasTexture" id=161]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=162]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=163]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=164]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=165]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=166]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 0, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=167]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=168]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=169]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=170]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=171]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=172]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 224, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=173]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=174]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=175]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=176]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=177]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=178]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 448, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=179]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=180]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=181]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=182]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=183]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=184]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 672, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=185]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=186]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=187]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=188]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=189]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=190]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 896, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=191]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=192]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=193]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=194]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=195]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=196]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 1120, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=197]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=198]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=199]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=200]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=201]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=202]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 1344, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=203]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=204]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=205]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=206]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=207]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=208]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 1568, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=209]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=210]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=211]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=212]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=213]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=214]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 1792, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=215]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=216]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=217]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=218]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=219]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=220]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 2016, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=221]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=222]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=223]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=224]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=225]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=226]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 2240, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=227]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=228]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=229]
+atlas = ExtResource( 13 )
+region = Rect2( 640, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=230]
+atlas = ExtResource( 13 )
+region = Rect2( 960, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=231]
+atlas = ExtResource( 13 )
+region = Rect2( 1280, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=232]
+atlas = ExtResource( 13 )
+region = Rect2( 1600, 2464, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=233]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 2688, 320, 224 )
+
+[sub_resource type="AtlasTexture" id=234]
+atlas = ExtResource( 13 )
+region = Rect2( 320, 2688, 320, 224 )
+
+[sub_resource type="SpriteFrames" id=263]
+animations = [ {
+"frames": [ SubResource( 161 ), SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ), SubResource( 166 ), SubResource( 167 ), SubResource( 168 ), SubResource( 169 ), SubResource( 170 ), SubResource( 171 ), SubResource( 172 ), SubResource( 173 ), SubResource( 174 ), SubResource( 175 ), SubResource( 176 ), SubResource( 177 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 181 ), SubResource( 182 ), SubResource( 183 ), SubResource( 184 ), SubResource( 185 ), SubResource( 186 ), SubResource( 187 ), SubResource( 188 ), SubResource( 189 ), SubResource( 190 ), SubResource( 191 ), SubResource( 192 ), SubResource( 193 ), SubResource( 194 ), SubResource( 195 ), SubResource( 196 ), SubResource( 197 ), SubResource( 198 ), SubResource( 199 ), SubResource( 200 ), SubResource( 201 ), SubResource( 202 ), SubResource( 203 ), SubResource( 204 ), SubResource( 205 ), SubResource( 206 ), SubResource( 207 ), SubResource( 208 ), SubResource( 209 ), SubResource( 210 ), SubResource( 211 ), SubResource( 212 ), SubResource( 213 ), SubResource( 214 ), SubResource( 215 ), SubResource( 216 ), SubResource( 217 ), SubResource( 218 ), SubResource( 219 ), SubResource( 220 ), SubResource( 221 ), SubResource( 222 ), SubResource( 223 ), SubResource( 224 ), SubResource( 225 ), SubResource( 226 ), SubResource( 227 ), SubResource( 228 ), SubResource( 229 ), SubResource( 230 ), SubResource( 231 ), SubResource( 232 ), SubResource( 233 ), SubResource( 234 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[sub_resource type="Shader" id=264]
+code = "shader_type canvas_item;
+
+render_mode blend_add;
+
+uniform float EPS = 0.01;
+
+uniform vec2 mouse;
+
+vec2 rot2d(vec2 pos, float rad) {
+  return vec2(
+              pos.x * cos(rad) - pos.y * sin(rad),
+              pos.x * sin(rad) + pos.y * cos(rad)
+              );
+}
+
+float min4(float a, float b, float c, float d) {
+  return min(a, min(b, min(c, d)));
+}
+
+float tube(vec2 pos, float width) {
+  return length(pos) - width;
+}
+
+vec2 rep2(vec2 pos, float interval) {
+  return mod(pos, interval) - interval * 0.5;
+}
+
+vec3 rep3(vec3 pos, float interval){
+  return mod(pos, interval) - interval * .5;
+}
+
+float sphere(vec3 pos, float size) {
+  return length(pos) - size;
+}
+
+float tw(float time)
+{
+	return sin(time) * 0.5 + 0.5;
+}
+
+float dist(vec3 pos) {
+  return min4(
+              sphere(rep3(pos, 5.0), 1.0),
+              10000.0,//tube(rep2(pos.xz, 8.0), .5),
+              10000.0,//tube(rep2(pos.yx, 8.0), .5),
+              10000.0//tube(rep2(pos.yz, 8.0), .5)
+              );
+}
+
+vec3 normal(vec3 pos) {
+  return normalize(vec3(
+                        dist(pos) - dist(vec3(pos.x - EPS, pos.y, pos.z)),
+                        dist(pos) - dist(vec3(pos.x, pos.y - EPS, pos.z)),
+                        dist(pos) - dist(vec3(pos.x, pos.y, pos.z - EPS))
+                        ));
+}
+
+vec3 bg(vec2 pos) {
+  return vec3(pos / 2.0 + 0.5, 1.0);
+}
+
+void fragment() {
+  vec2 resolution = (1.0 / SCREEN_PIXEL_SIZE);
+  vec2 pos = (FRAGCOORD.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y) * 0.75;
+  vec2 mousepos = mouse * 7.0 - 1.0;
+  pos = rot2d(pos, TIME / 10.0);
+  mousepos = rot2d(mousepos, TIME / 10.0);
+
+  vec3 campos = vec3(2. * mousepos.x, -2. * mousepos.y, 5.0 + TIME);
+  vec3 camdir = vec3(0, 0, 1);
+  vec3 right = normalize(cross(camdir, vec3(0, 1, 0)));
+  vec3 up = normalize(cross(right, camdir));
+  vec3 raydir = normalize(pos.x * right + pos.y * up + camdir * 1.0);
+  vec3 lightdir = - camdir;
+
+  vec3 color = bg(pos);
+
+  vec3 march = campos;
+  for (int i = 0; i < 40; i++) {
+    float dist = dist(march);
+
+    if (dist < EPS) {
+      vec3 normal = normal(march);
+      float light = clamp(dot(normal, lightdir), 0.1, 1.0);
+      float depth = pow(clamp(distance(campos, march) / 65.0, 0.0, 1.0), 2.0);
+      color = mix(color, vec3(light) + vec3(.2, .2, .2), 1.0 - (1.8-depth));
+      break;
+    }
+
+    march += raydir * dist;
+  }
+
+  COLOR = vec4(color, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=265]
+shader = SubResource( 264 )
+shader_param/EPS = 0.256
+shader_param/mouse = Vector2( 0.124, 0 )
+
+[sub_resource type="Shader" id=11]
+code = "// Fire shader
+
+shader_type canvas_item;
+render_mode blend_add;
+
+uniform vec2 fireMovement = vec2(-0.01, -0.5);
+uniform vec2 distortionMovement = vec2(-0.01, -0.3);
+uniform float normalStrength = 40.0;
+uniform float distortionStrength=0.1;
+
+
+/** NOISE **/
+float rand(vec2 co) {
+  return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+vec2 hash( vec2 p ) {
+	p = vec2( dot(p,vec2(127.1,311.7)),
+			  dot(p,vec2(269.5,183.3)) );
+
+	return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+}
+
+float noise( in vec2 p ) {
+   float K1 = 0.366025404; // (sqrt(3)-1)/2;
+   float K2 = 0.211324865; // (3-sqrt(3))/6;
+
+	vec2 i = floor( p + (p.x+p.y)*K1 );
+	
+    vec2 a = p - i + (i.x+i.y)*K2;
+    vec2 o = step(a.yx,a.xy);    
+    vec2 b = a - o + K2;
+	vec2 c = a - 1.0 + 2.0*K2;
+
+    vec3 h = max( 0.5-vec3(dot(a,a), dot(b,b), dot(c,c) ), 0.0 );
+
+	vec3 n = h*h*h*h*vec3( dot(a,hash(i+0.0)), dot(b,hash(i+o)), dot(c,hash(i+1.0)));
+
+    return dot( n, vec3(70.0) );
+}
+
+float fbm ( in vec2 p ) {
+    float f = 0.0;
+    mat2 m = mat2(vec2(1.6,  1.2), vec2(-1.2,  1.6 ));
+    f  = 0.5000*noise(p); p = m*p;
+    f += 0.2500*noise(p); p = m*p;
+    f += 0.1250*noise(p); p = m*p;
+    f += 0.0625*noise(p); p = m*p;
+    f = 0.5 + 0.5 * f;
+    return f;
+}
+
+/** DISTORTION **/
+vec3 bumpMap(vec2 uv) { 
+	vec2 iResolution = vec2(1024,600);
+    vec2 s = 1. / iResolution.xy;
+    float p =  fbm(uv);
+    float h1 = fbm(uv + s * vec2(1., 0));
+    float v1 = fbm(uv + s * vec2(0, 1.));
+       
+   	vec2 xy = (p - vec2(h1, v1)) * normalStrength;
+    return vec3(xy + .5, 1.);
+}
+
+/** MAIN **/
+void fragment() {
+	float timeScale = TIME * 1.0;
+	vec2 iResolution = vec2(1024,600);
+    vec2 uv = FRAGCOORD.xy/iResolution.xy;
+
+    vec3 normal = bumpMap(uv * vec2(1.0, 0.3) + distortionMovement * timeScale);
+    
+    vec2 displacement = clamp((normal.xy - .5) * distortionStrength, -1., 1.);
+    uv += displacement; 
+    
+    vec2 uvT = (uv * vec2(1.0, 0.5)) + timeScale * fireMovement;
+    float n = pow(fbm(8.0 * uvT), 1.0);    
+    
+    float gradient = pow(1.0 - uv.y, 2.0) * 5.;
+    float finalNoise = n * gradient;
+    
+    vec3 color = finalNoise * vec3(2.*n, 2.*n*n*n, n*n*n*n);
+    COLOR = vec4(color, 1.);
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 11 )
+shader_param/fireMovement = Vector2( -0.153, -0.668 )
+shader_param/distortionMovement = Vector2( -0.283, -0.931 )
+shader_param/normalStrength = 0.0
+shader_param/distortionStrength = 0.5
+
+[sub_resource type="ConvexPolygonShape2D" id=267]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=268]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=269]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=270]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=271]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=272]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=273]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=274]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=275]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=276]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=277]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=278]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=279]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=280]
+points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
+
+[sub_resource type="TileSet" id=281]
+0/name = "B-1 Street.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "B-1 Street.png 1"
+1/texture = ExtResource( 1 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 64, 0, 64, 64 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "B-1 Street.png 2"
+2/texture = ExtResource( 1 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 128, 0, 64, 64 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "B-1 Street.png 3"
+3/texture = ExtResource( 1 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 0, 64, 64, 64 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape = SubResource( 274 )
+3/shape_one_way = false
+3/shape_one_way_margin = 1.0
+3/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 274 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+3/z_index = 0
+4/name = "B-1 Street.png 4"
+4/texture = ExtResource( 1 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 64, 64, 64, 64 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape = SubResource( 275 )
+4/shape_one_way = false
+4/shape_one_way_margin = 1.0
+4/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 275 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+4/z_index = 0
+5/name = "B-1 Street.png 5"
+5/texture = ExtResource( 1 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 128, 64, 64, 64 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape = SubResource( 276 )
+5/shape_one_way = false
+5/shape_one_way_margin = 1.0
+5/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 276 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+5/z_index = 0
+6/name = "B-1 Street.png 6"
+6/texture = ExtResource( 1 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 0, 128, 64, 64 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape = SubResource( 277 )
+6/shape_one_way = false
+6/shape_one_way_margin = 1.0
+6/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 277 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+6/z_index = 0
+7/name = "B-1 Street.png 7"
+7/texture = ExtResource( 1 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 64, 128, 64, 64 )
+7/tile_mode = 0
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shape_offset = Vector2( 0, 0 )
+7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape = SubResource( 278 )
+7/shape_one_way = false
+7/shape_one_way_margin = 1.0
+7/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 278 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+7/z_index = 0
+8/name = "B-1 Street.png 8"
+8/texture = ExtResource( 1 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 128, 128, 64, 64 )
+8/tile_mode = 0
+8/occluder_offset = Vector2( 0, 0 )
+8/navigation_offset = Vector2( 0, 0 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape = SubResource( 279 )
+8/shape_one_way = false
+8/shape_one_way_margin = 1.0
+8/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 279 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+8/z_index = 0
+9/name = "B-1 Street.png 9"
+9/texture = ExtResource( 1 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 192, 64, 64 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape = SubResource( 280 )
+9/shape_one_way = false
+9/shape_one_way_margin = 1.0
+9/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 280 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+9/z_index = 0
+10/name = "B-1 Street.png 10"
+10/texture = ExtResource( 1 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 64, 192, 64, 64 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape = SubResource( 267 )
+10/shape_one_way = false
+10/shape_one_way_margin = 1.0
+10/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 267 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+10/z_index = 0
+11/name = "B-1 Street.png 11"
+11/texture = ExtResource( 1 )
+11/tex_offset = Vector2( 0, 0 )
+11/modulate = Color( 1, 1, 1, 1 )
+11/region = Rect2( 128, 192, 64, 64 )
+11/tile_mode = 0
+11/occluder_offset = Vector2( 0, 0 )
+11/navigation_offset = Vector2( 0, 0 )
+11/shape_offset = Vector2( 0, 0 )
+11/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+11/shape = SubResource( 268 )
+11/shape_one_way = false
+11/shape_one_way_margin = 1.0
+11/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 268 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+11/z_index = 0
+12/name = "Bridge.png 12"
+12/texture = ExtResource( 4 )
+12/tex_offset = Vector2( 0, 0 )
+12/modulate = Color( 1, 1, 1, 1 )
+12/region = Rect2( 0, 0, 64, 64 )
+12/tile_mode = 0
+12/occluder_offset = Vector2( 0, 0 )
+12/navigation_offset = Vector2( 0, 0 )
+12/shape_offset = Vector2( 0, 0 )
+12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+12/shape = SubResource( 269 )
+12/shape_one_way = false
+12/shape_one_way_margin = 1.0
+12/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 269 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+12/z_index = 0
+13/name = "Bridge.png 13"
+13/texture = ExtResource( 4 )
+13/tex_offset = Vector2( 0, 0 )
+13/modulate = Color( 1, 1, 1, 1 )
+13/region = Rect2( 64, 0, 64, 64 )
+13/tile_mode = 0
+13/occluder_offset = Vector2( 0, 0 )
+13/navigation_offset = Vector2( 0, 0 )
+13/shape_offset = Vector2( 0, 0 )
+13/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+13/shape = SubResource( 270 )
+13/shape_one_way = false
+13/shape_one_way_margin = 1.0
+13/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 270 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+13/z_index = 0
+14/name = "Bridge.png 14"
+14/texture = ExtResource( 4 )
+14/tex_offset = Vector2( 0, 0 )
+14/modulate = Color( 1, 1, 1, 1 )
+14/region = Rect2( 128, 0, 64, 64 )
+14/tile_mode = 0
+14/occluder_offset = Vector2( 0, 0 )
+14/navigation_offset = Vector2( 0, 0 )
+14/shape_offset = Vector2( 0, 0 )
+14/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+14/shape = SubResource( 271 )
+14/shape_one_way = false
+14/shape_one_way_margin = 1.0
+14/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 271 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+14/z_index = 0
+15/name = "Bridge.png 15"
+15/texture = ExtResource( 4 )
+15/tex_offset = Vector2( 0, 0 )
+15/modulate = Color( 1, 1, 1, 1 )
+15/region = Rect2( 192, 0, 64, 64 )
+15/tile_mode = 0
+15/occluder_offset = Vector2( 0, 0 )
+15/navigation_offset = Vector2( 0, 0 )
+15/shape_offset = Vector2( 0, 0 )
+15/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+15/shape = SubResource( 272 )
+15/shape_one_way = false
+15/shape_one_way_margin = 1.0
+15/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 272 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+15/z_index = 0
+16/name = "Bridge.png 16"
+16/texture = ExtResource( 4 )
+16/tex_offset = Vector2( 0, 0 )
+16/modulate = Color( 1, 1, 1, 1 )
+16/region = Rect2( 256, 0, 64, 64 )
+16/tile_mode = 0
+16/occluder_offset = Vector2( 0, 0 )
+16/navigation_offset = Vector2( 0, 0 )
+16/shape_offset = Vector2( 0, 0 )
+16/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+16/shape = SubResource( 273 )
+16/shape_one_way = false
+16/shape_one_way_margin = 1.0
+16/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 273 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+16/z_index = 0
+17/name = "Bridge.png 17"
+17/texture = ExtResource( 4 )
+17/tex_offset = Vector2( 0, 0 )
+17/modulate = Color( 1, 1, 1, 1 )
+17/region = Rect2( 320, 0, 64, 64 )
+17/tile_mode = 0
+17/occluder_offset = Vector2( 0, 0 )
+17/navigation_offset = Vector2( 0, 0 )
+17/shape_offset = Vector2( 0, 0 )
+17/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+17/shape_one_way = false
+17/shape_one_way_margin = 0.0
+17/shapes = [  ]
+17/z_index = 0
+18/name = "Bridge.png 18"
+18/texture = ExtResource( 4 )
+18/tex_offset = Vector2( 0, 0 )
+18/modulate = Color( 1, 1, 1, 1 )
+18/region = Rect2( 384, 0, 64, 64 )
+18/tile_mode = 0
+18/occluder_offset = Vector2( 0, 0 )
+18/navigation_offset = Vector2( 0, 0 )
+18/shape_offset = Vector2( 0, 0 )
+18/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+18/shape_one_way = false
+18/shape_one_way_margin = 0.0
+18/shapes = [  ]
+18/z_index = 0
+19/name = "Bridge.png 19"
+19/texture = ExtResource( 4 )
+19/tex_offset = Vector2( 0, 0 )
+19/modulate = Color( 1, 1, 1, 1 )
+19/region = Rect2( 448, 0, 64, 64 )
+19/tile_mode = 0
+19/occluder_offset = Vector2( 0, 0 )
+19/navigation_offset = Vector2( 0, 0 )
+19/shape_offset = Vector2( 0, 0 )
+19/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+19/shape_one_way = false
+19/shape_one_way_margin = 0.0
+19/shapes = [  ]
+19/z_index = 0
+
+[sub_resource type="Environment" id=15]
+background_mode = 4
+ambient_light_color = Color( 0.0980392, 0.207843, 0.929412, 1 )
+ambient_light_energy = 3.87
+tonemap_mode = 2
+tonemap_exposure = 0.8
+tonemap_white = 0.79
+auto_exposure_enabled = true
+auto_exposure_min_luma = 1.01
+auto_exposure_max_luma = 9.85
+auto_exposure_speed = 34.96
+ss_reflections_enabled = true
+ss_reflections_fade_in = 0.356762
+ss_reflections_fade_out = 1.7411
+ss_reflections_depth_tolerance = 59.2
+ssao_enabled = true
+ssao_radius = 55.11
+ssao_intensity = 38.8
+ssao_intensity2 = 1.77
+ssao_light_affect = 0.24
+ssao_ao_channel_affect = 0.33
+ssao_color = Color( 0.372549, 0.364706, 1, 1 )
+ssao_edge_sharpness = 7.38
+glow_enabled = true
+glow_intensity = 0.7
+glow_strength = 0.77
+glow_bloom = 0.34
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_hdr_luminance_cap = 208.77
+glow_hdr_scale = 2.85
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_saturation = 1.1
+
+[node name="Node2D" type="Node2D"]
+script = SubResource( 266 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." groups=["STGDATA"]]
+layer = -128
+script = ExtResource( 6 )
+speed6 = -0.4
+
+[node name="ParallaxLayer11" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -30
+motion_scale = Vector2( 0, 0 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="ParallaxBackground/ParallaxLayer11"]
+material = SubResource( 260 )
+margin_left = -1054.4
+margin_top = -792.088
+margin_right = 1803.6
+margin_bottom = 1511.91
+stretch = true
+stretch_shrink = 2
+
+[node name="Viewport" type="Viewport" parent="ParallaxBackground/ParallaxLayer11/ViewportContainer"]
+size = Vector2( 768, 432 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Clouds" type="Sprite" parent="ParallaxBackground/ParallaxLayer11/ViewportContainer/Viewport"]
+modulate = Color( 1, 0, 0, 1 )
+material = SubResource( 261 )
+position = Vector2( 459.64, 314.726 )
+z_index = -27
+z_as_relative = false
+texture = ExtResource( 15 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 639.943, 720 )
+
+[node name="Sprite" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -43, 155.193 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 262 )
+frame = 4
+playing = true
+centered = false
+
+[node name="Sprite2" type="AnimatedSprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -43, 155.193 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 263 )
+frame = 69
+playing = true
+centered = false
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer7"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer8"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="ParallaxLayer10" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer10"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="ParallaxLayer9" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer9"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.01, 0.03 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+visible = false
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 14 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.05, 0.06 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+visible = false
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.08, 0.08 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.12, 0.1 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 7 )
+centered = false
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0.01, 0.05 )
+motion_mirroring = Vector2( 1090, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer6"]
+visible = false
+position = Vector2( -6.10352e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="ParallaxLayer12" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer12"]
+modulate = Color( 0.337255, 0.027451, 0.529412, 1 )
+material = SubResource( 265 )
+margin_right = 14119.0
+margin_bottom = 1988.0
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
+material = SubResource( 14 )
+margin_left = -10.0
+margin_top = 8.0
+margin_right = 13973.0
+margin_bottom = 1929.0
+
+[node name="Terrain" type="Node" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Terrain"]
+tile_set = SubResource( 281 )
+format = 1
+tile_data = PoolIntArray( 589824, 17, 0, 589825, 18, 0, 589826, 18, 0, 589827, 18, 0, 589828, 18, 0, 589829, 18, 0, 589830, 18, 0, 589831, 18, 0, 589832, 18, 0, 589833, 18, 0, 589834, 18, 0, 589835, 19, 0, 655360, 12, 0, 655361, 13, 0, 655362, 14, 0, 655363, 15, 0, 655364, 13, 0, 655365, 14, 0, 655366, 536870925, 0, 655367, 536870926, 0, 655368, 536870927, 0, 655369, 13, 0, 655370, 536870926, 0, 655371, 16, 0 )
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Rian" parent="Objects" instance=ExtResource( 3 )]
+position = Vector2( 311, 568 )
+
+[node name="Camera2D" parent="Objects/Rian" instance=ExtResource( 2 )]
+material = null
+position = Vector2( -402, -210 )
+process_mode = 0
+limit_right = 767
+limit_bottom = 706
+limit_smoothed = false
+offset_v = 1.0
+drag_margin_left = 0.8
+drag_margin_right = 0.78
+drag_margin_bottom = 1.0
+
+[node name="Enemies" type="Node" parent="Objects"]
+
+[node name="Pieces" type="Node" parent="Objects"]
+
+[node name="GUIStuff" parent="." groups=["STGDATA"] instance=ExtResource( 5 )]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 15 )
+
+[node name="BGS" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = 3.139
+autoplay = true
+bus = "BGS"

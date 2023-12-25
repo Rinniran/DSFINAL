@@ -1,0 +1,707 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Stages/HTP.gd" type="Script" id=1]
+[ext_resource path="res://Audio/BGM/how to play.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/gui/how to play screen L2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/gui/how to play screen L1.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/gui/how to play screen L3.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Misc/screenblack.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Light FX/light round.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Textures/LOADING.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Stage/SCity/FGwaver.png" type="Texture" id=9]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite4:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite4:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite5:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.968627, 0.968627, 0.968627, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BGM:stream")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BGM:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite5:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Sprite3:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 161.489, 99.6269 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Sprite:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 178.642, 102.894 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath(".:startallowed")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Startup"
+length = 26.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite4:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite5:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 2.3, 2.8, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.968627, 0.968627, 0.968627, 0 ), Color( 0.717647, 0.466667, 0.466667, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.717647, 0.466667, 0.466667, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BGM:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite5:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.8, 2.6, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2.8, 26.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 161.489, 99.6269 ), Vector2( 241.264, 99.627 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Sprite:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 2.9, 26.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 178.642, 102.894 ), Vector2( 141.021, 102.894 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:startallowed")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 2.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Shader" id=5]
+code = "/*
+	ギザギザトランジションシェーダー by あるる（きのもと 結衣）
+	Saw Transition Shader by KINOMOTO Yui
+
+	MIT License
+*/
+shader_type canvas_item;
+
+uniform float saw_b_shift = -0.267;
+uniform float saw_a_interval = 1.0;
+uniform float saw_b_interval = 2.0;
+uniform float saw_a_scale = 1.0;
+uniform float saw_b_scale = 0.821;
+
+uniform vec2 uv_scale = vec2( 3.0, 8.0 );
+uniform sampler2D tex : hint_albedo;
+uniform vec4 color : hint_color = vec4( 0.0, 0.0, 0.0, 1.0 );
+
+uniform float right = 0.0;
+uniform float left = -1.0;
+
+float calc_saw( float y, float interval, float scale )
+{
+	return max( ( abs( interval / 2.0 - mod( y, interval ) ) - ( interval / 2.0 - 0.5 ) ) * scale, 0.0 );
+}
+
+void fragment( )
+{
+	vec2 scaled_uv = UV * uv_scale;
+	float saw_a = calc_saw( scaled_uv.y, saw_a_interval, saw_a_scale );
+	float saw_b = calc_saw( scaled_uv.y + saw_b_shift, saw_b_interval, saw_b_scale );
+
+	vec4 texture_pixel = texture( tex, UV );
+
+	COLOR = vec4(
+		color.rgb * texture_pixel.rgb
+	,	color.a * texture_pixel.a
+		* float( scaled_uv.x < max( saw_a, saw_b ) + right )
+		* float( max( saw_a, saw_b ) + left < scaled_uv.x )
+	);
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/saw_b_shift = -0.267
+shader_param/saw_a_interval = 0.687
+shader_param/saw_b_interval = 2.0
+shader_param/saw_a_scale = 1.974
+shader_param/saw_b_scale = 0.821
+shader_param/uv_scale = Vector2( 3, 8 )
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/right = -1.012
+shader_param/left = 2.956
+shader_param/tex = ExtResource( 8 )
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/right")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -1.012 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/left")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.956 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "changescreen"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/right")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -1.012, 2.913 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/left")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -1.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "newscreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/right")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.957 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/left")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -1.0, 2.956 ]
+}
+
+[sub_resource type="Shader" id=10]
+code = "//SHADER ORIGINALY CREADED BY \"TimothyLottes\" FROM SHADERTOY
+//PORTED AND MODIFYED TO GODOT BY AHOPNESS (@ahopness)
+//LICENSE : CC0
+//COMATIBLE WITH : GLES2, GLES3, WEBGL
+//SHADERTOY LINK : https://www.shadertoy.com/view/MsjXzh
+
+// PUBLIC DOMAIN CRT STYLED SCAN-LINE SHADER
+//
+//   by Timothy Lottes
+//
+// This is more along the style of a really good CGA arcade monitor.
+// With RGB inputs instead of NTSC.
+// The shadow mask example has the mask rotated 90 degrees for less chromatic aberration.
+//
+// Left it unoptimized to show the theory behind the algorithm.
+//
+// It is an example what I personally would want as a display option for pixel art games.
+// Please take and use, change, or whatever.
+
+shader_type canvas_item;
+
+// Emulated input resolution.
+uniform vec2 res;
+
+// Mask type
+//  0 = Very compressed TV style shadow mask
+//  1 = Stretched VGA style shadow mask (same as prior shaders)
+//  2 = VGA style shadow mask 
+uniform int mask_type :hint_range(0, 2) = 0;
+
+// Bloom Type
+//  0 = Normalized exposure
+//  1 = Aditive bloom
+//  2 = No Bloom
+uniform int bloom_type :hint_range(0, 2) = 0;
+
+// Hardness of scanline.
+//  -8.0 = soft
+// -16.0 = medium
+uniform float hardScan :hint_range(-12.0, -1.0) = -8.0;
+
+// Hardness of pixels in scanline.
+// -2.0 = soft
+// -4.0 = hard
+uniform float hardPix :hint_range(-4.0, 0.0) = -2.0;
+
+// Hardness of short vertical bloom.
+//  -1.0 = wide to the point of clipping (bad)
+//  -1.5 = wide
+//  -4.0 = not very wide at all
+uniform float hardBloomScan :hint_range(-4.0, 0.0) = -2.0;
+
+// Hardness of short horizontal bloom.
+//  -0.5 = wide to the point of clipping (bad)
+//  -1.0 = wide
+//  -2.0 = not very wide at all
+uniform float hardBloomPix :hint_range(-2.0, 0.0) = -1.5;
+
+// Amount of small bloom effect.
+//  1.0/1.0 = only bloom
+//  1.0/16.0 = what I think is a good amount of small bloom
+//  0.0     = no bloom
+uniform float bloomAmount :hint_range(1.0, 16.0) = 16.0;
+
+// Display warp.
+// 0.0 = none
+// 1.0/8.0 = extreme
+uniform vec2 warp = vec2(64.0, 24.0); 
+
+// Amount of shadow mask.
+uniform float maskDark  :hint_range(0.0, 1.0) = 0.5;
+uniform float maskLight :hint_range(1.0, 2.0) = 1.5;
+
+//------------------------------------------------------------------------
+
+// sRGB to Linear.
+// Assuing using sRGB typed textures this should not be needed.
+float ToLinear1(float c){ return(c <= 0.04045) ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4); }
+vec3 ToLinear(vec3 c){ return vec3(ToLinear1(c.r), ToLinear1(c.g), ToLinear1(c.b)); }
+
+// Linear to sRGB.
+// Assuing using sRGB typed textures this should not be needed.
+float ToSrgb1(float c){ return(c < 0.0031308?c * 12.92 : 1.055 * pow(c, 0.41666) - 0.055); }
+vec3 ToSrgb(vec3 c){ return vec3(ToSrgb1(c.r), ToSrgb1(c.g), ToSrgb1(c.b)); }
+
+// Nearest emulated sample given floating point position and texel offset.
+// Also zero's off screen.
+vec3 Fetch(vec2 pos, vec2 off, sampler2D iChannel0){
+	pos = floor(pos * res + off) / res;
+	
+	if(max(abs(pos.x - 0.5), abs(pos.y - 0.5)) > 0.5){
+		return vec3(0.0, 0.0, 0.0);
+	}
+	
+	return ToLinear(texture(iChannel0 , pos.xy , -16.0).rgb);
+}
+
+// Distance in emulated pixels to nearest texel.
+vec2 Dist(vec2 pos){ 
+	pos = pos * res; 
+	return - ((pos - floor(pos)) - vec2(0.5));
+}
+    
+// 1D Gaussian.
+float Gaus(float pos, float scale){ return exp2(scale * pos * pos); }
+
+// 3-tap Gaussian filter along horz line.
+vec3 Horz3(vec2 pos, float off, sampler2D iChannel0){
+	vec3 b = Fetch(pos, vec2(-1.0, off), iChannel0);
+	vec3 c = Fetch(pos, vec2( 0.0, off), iChannel0);
+	vec3 d = Fetch(pos, vec2( 1.0, off), iChannel0);
+	float dst = Dist(pos).x;
+	
+	// Convert distance to weight.
+	float scale = hardPix;
+	float wb = Gaus(dst - 1.0, scale);
+	float wc = Gaus(dst + 0.0, scale);
+	float wd = Gaus(dst + 1.0, scale);
+	
+	// Return filtered sample.
+	return (b * wb + c * wc + d * wd) / (wb + wc + wd);
+}
+// 5-tap Gaussian filter along horz line.
+vec3 Horz5(vec2 pos, float off, sampler2D iChannel0){
+	vec3 a = Fetch(pos, vec2(-2.0, off), iChannel0);
+	vec3 b = Fetch(pos, vec2(-1.0, off), iChannel0);
+	vec3 c = Fetch(pos, vec2( 0.0, off), iChannel0);
+	vec3 d = Fetch(pos, vec2( 1.0, off), iChannel0);
+	vec3 e = Fetch(pos, vec2( 2.0, off), iChannel0);
+	float dst = Dist(pos).x;
+	
+	// Convert distance to weight.
+	float scale = hardPix;
+	float wa = Gaus(dst - 2.0, scale);
+	float wb = Gaus(dst - 1.0, scale);
+	float wc = Gaus(dst + 0.0, scale);
+	float wd = Gaus(dst + 1.0, scale);
+	float we = Gaus(dst + 2.0, scale);
+	
+	// Return filtered sample.
+	return (a * wa + b * wb + c * wc + d * wd + e * we) / (wa + wb + wc + wd + we);
+}
+// 7-tap Gaussian filter along horz line.
+vec3 Horz7(vec2 pos, float off, sampler2D iChannel0){
+	vec3 a = Fetch(pos, vec2(-3.0, off), iChannel0);
+	vec3 b = Fetch(pos, vec2(-2.0, off), iChannel0);
+	vec3 c = Fetch(pos, vec2( 1.0, off), iChannel0);
+	vec3 d = Fetch(pos, vec2( 0.0, off), iChannel0);
+	vec3 e = Fetch(pos, vec2( 1.0, off), iChannel0);
+	vec3 f = Fetch(pos, vec2( 2.0, off), iChannel0);
+	vec3 g = Fetch(pos, vec2( 3.0, off), iChannel0);
+	float dst = Dist(pos).x;
+	
+	// Convert distance to weight.
+	float scale = hardBloomPix;
+	float wa = Gaus(dst - 3.0, scale);
+	float wb = Gaus(dst - 2.0, scale);
+	float wc = Gaus(dst - 1.0, scale);
+	float wd = Gaus(dst + 0.0, scale);
+	float we = Gaus(dst + 1.0, scale);
+	float wf = Gaus(dst + 2.0, scale);
+	float wg = Gaus(dst + 3.0, scale);
+	
+	// Return filtered sample.
+	return (a * wa + b * wb + c * wc + d * wd + e * we + f * wf + g * wg) / (wa + wb + wc + wd + we + wf + wg);
+}
+
+// Return scanline weight.
+float Scan(vec2 pos, float off){
+	float dst = Dist(pos).y;
+	
+	return Gaus(dst + off, hardScan);
+}
+
+// Return scanline weight for bloom.
+float BloomScan(vec2 pos, float off){
+	float dst = Dist(pos).y;
+	
+	return Gaus(dst + off, hardBloomScan);
+}
+
+// Allow nearest three lines to effect pixel.
+vec3 Tri(vec2 pos, sampler2D iChannel0){
+	vec3 a = Horz3(pos,-1.0, iChannel0);
+	vec3 b = Horz5(pos, 0.0, iChannel0);
+	vec3 c = Horz3(pos, 1.0, iChannel0);
+	
+	float wa = Scan(pos,-1.0);
+	float wb = Scan(pos, 0.0);
+	float wc = Scan(pos, 1.0);
+	
+	return a * wa + b * wb + c * wc;
+}
+
+// Small bloom.
+vec3 Bloom(vec2 pos, sampler2D iChannel0){
+	vec3 a = Horz5(pos,-2.0, iChannel0);
+	vec3 b = Horz7(pos,-1.0, iChannel0);
+	vec3 c = Horz7(pos, 0.0, iChannel0);
+	vec3 d = Horz7(pos, 1.0, iChannel0);
+	vec3 e = Horz5(pos, 2.0, iChannel0);
+	
+	float wa = BloomScan(pos,-2.0);
+	float wb = BloomScan(pos,-1.0);
+	float wc = BloomScan(pos, 0.0);
+	float wd = BloomScan(pos, 1.0);
+	float we = BloomScan(pos, 2.0);
+	
+	return a * wa + b * wb + c * wc + d * wd + e * we;
+}
+
+// Distortion of scanlines, and end of screen alpha.
+vec2 Warp(vec2 pos){
+	pos = pos * 2.0 - 1.0;    
+	pos *= vec2(1.0 + (pos.y * pos.y) * 1.0 / warp.x, 1.0 + (pos.x * pos.x) * 1.0/ warp.y);
+	
+	return pos * 0.5+0.5;
+}
+
+vec3 Mask(vec2 pos){
+	if (mask_type == 0){
+		float line = maskLight;
+		float odd = 0.0;
+		
+		if(fract(pos.x / 6.0) < 0.5) odd = 1.0;
+		if(fract((pos.y + odd) / 2.0) < 0.5) line = maskDark;  
+		pos.x = fract(pos.x / 3.0);
+		
+		vec3 mask = vec3(maskDark, maskDark, maskDark);
+		if(pos.x < 0.333)mask.r = maskLight;
+		else if(pos.x < 0.666)mask.g = maskLight;
+		else mask.b = maskLight;
+		
+		mask *= line;
+		return mask;
+	}else if (mask_type == 1){
+		pos.x += pos.y * 3.0;
+		
+		vec3 mask = vec3(maskDark, maskDark, maskDark);
+		pos.x = fract(pos.x / 6.0);
+		if(pos.x < 0.333)mask.r = maskLight;
+		else if(pos.x < 0.666)mask.g = maskLight;
+		else mask.b = maskLight;
+		
+		return mask;
+	}else if (mask_type == 2){
+		pos.xy = floor(pos.xy * vec2(1.0, 0.5));
+		pos.x += pos.y * 3.0;
+		
+		vec3 mask = vec3(maskDark, maskDark, maskDark);
+		pos.x = fract(pos.x / 6.0);
+		if(pos.x < 0.333)mask.r = maskLight;
+		else if(pos.x < 0.666)mask.g = maskLight;
+		else mask.b = maskLight;
+	
+		return mask;
+	}
+  }    
+
+// Draw dividing bars.
+float Bar(float pos, float bar){ pos -= bar; return pos * pos < 4.0 ? 0.0 : 1.0; }
+
+// Entry.
+void fragment(){
+	vec2 pos = Warp(FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy);
+	
+	COLOR.rgb = Tri(pos, SCREEN_TEXTURE) * Mask(FRAGCOORD.xy);
+	if (bloom_type == 0){ 
+		COLOR.rgb = mix(COLOR.rgb,Bloom(pos, SCREEN_TEXTURE), 1.0 / bloomAmount);    
+	}else if (bloom_type == 1){
+		COLOR.rgb += Bloom(pos, SCREEN_TEXTURE) * 1.0 / bloomAmount;    
+	} 
+	
+	COLOR.a = 1.0;  
+	COLOR.rgb = ToSrgb(COLOR.rgb);
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+render_priority = 42
+shader = SubResource( 10 )
+shader_param/res = Vector2( 960, 576 )
+shader_param/mask_type = 0
+shader_param/bloom_type = 1
+shader_param/hardScan = -1.904
+shader_param/hardPix = 0.0
+shader_param/hardBloomScan = -1.25
+shader_param/hardBloomPix = -0.526
+shader_param/bloomAmount = 16.0
+shader_param/warp = Vector2( 200, 400 )
+shader_param/maskDark = 1.0
+shader_param/maskLight = 1.75
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2( 3, 3 )
+script = ExtResource( 1 )
+startallowed = 1
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 178.642, 102.894 )
+scale = Vector2( 1.12537, 1.15029 )
+texture = ExtResource( 3 )
+
+[node name="Sprite3" type="Sprite" parent="."]
+position = Vector2( 161.489, 99.6269 )
+scale = Vector2( 0.990696, 1.02637 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 159.977, 96.0159 )
+scale = Vector2( 1.33319, 1.34277 )
+texture = ExtResource( 4 )
+
+[node name="Sprite4" type="Sprite" parent="."]
+position = Vector2( 164.333, 95.6667 )
+scale = Vector2( 0.696667, 0.401111 )
+texture = ExtResource( 6 )
+
+[node name="Sprite5" type="Sprite" parent="."]
+modulate = Color( 0.968627, 0.968627, 0.968627, 0 )
+position = Vector2( 130.667, 104 )
+scale = Vector2( 1.45677, 1.25389 )
+texture = ExtResource( 7 )
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 8.946
+
+[node name="startup" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/Startup = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.728
+one_shot = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 6 )
+margin_right = 320.0
+margin_bottom = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="transition" type="AnimationPlayer" parent="ColorRect"]
+anims/RESET = SubResource( 7 )
+anims/changescreen = SubResource( 8 )
+anims/newscreen = SubResource( 9 )
+
+[node name="crt" type="Sprite" parent="ColorRect"]
+modulate = Color( 1, 1, 1, 0.45098 )
+material = SubResource( 11 )
+position = Vector2( 483.347, 286.994 )
+scale = Vector2( 1.51316, 1.60841 )
+texture = ExtResource( 9 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="animation_finished" from="ColorRect/transition" to="." method="_on_transition_animation_finished"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Stick City B.ogg-5fce0c73672904947d3429e6dd695ddd.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Stick City B.ogg"
+dest_files=[ "res://.import/Stick City B.ogg-5fce0c73672904947d3429e6dd695ddd.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

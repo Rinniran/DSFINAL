@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Subrooms/SCardBannerPink.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/gui/Stage Card Banner 2.png" type="Texture" id=2]
+
+[node name="BannerPink" type="Sprite"]
+rotation = 0.418879
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 900, 30 )
+script = ExtResource( 1 )

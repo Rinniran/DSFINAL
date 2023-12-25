@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Outlandish City Under the Night Sky ~ Stick City.mp3-ede663a4dc02c0f34de907cd33941496.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Outlandish City Under the Night Sky ~ Stick City.mp3"
+dest_files=[ "res://.import/Outlandish City Under the Night Sky ~ Stick City.mp3-ede663a4dc02c0f34de907cd33941496.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

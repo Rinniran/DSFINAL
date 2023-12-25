@@ -1,0 +1,392 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/Stage/SCity/Train.png" type="Texture" id=37]
+[ext_resource path="res://Audio/BGS/Train BGS.mp3" type="AudioStream" id=38]
+[ext_resource path="res://Subrooms/bgmtrigger.tscn" type="PackedScene" id=39]
+[ext_resource path="res://Stages/ParallaxBackground.gd" type="Script" id=40]
+[ext_resource path="res://Sprites/Stage/Boss 1/Trees 1.png" type="Texture" id=41]
+[ext_resource path="res://Sprites/Stage/Boss 1/Mountain.png" type="Texture" id=42]
+[ext_resource path="res://Sprites/Stage/Boss 1/landscape.png" type="Texture" id=43]
+[ext_resource path="res://Sprites/Stage/Boss 1/Trees 2.png" type="Texture" id=44]
+[ext_resource path="res://Sprites/Stage/Boss 1/Moon.png" type="Texture" id=45]
+[ext_resource path="res://Sprites/Stage/Boss 1/Trees 3.png" type="Texture" id=46]
+[ext_resource path="res://Sprites/Stage/Boss 1/sky.png" type="Texture" id=47]
+[ext_resource path="res://Sprites/Stage/Boss 1/Grass Front.png" type="Texture" id=48]
+[ext_resource path="res://Sprites/Stage/Boss 1/Grass Middle.png" type="Texture" id=49]
+[ext_resource path="res://Sprites/Stage/Boss 1/Foliage.png" type="Texture" id=50]
+[ext_resource path="res://Sprites/Stage/Boss 1/Grass Back.png" type="Texture" id=51]
+[ext_resource path="res://Sprites/Stage/Boss 1/clouds 1.png" type="Texture" id=52]
+[ext_resource path="res://Sprites/Stage/Boss 1/clouds 2.png" type="Texture" id=53]
+[ext_resource path="res://Sprites/Stage/Boss 1/clouds 3.png" type="Texture" id=54]
+
+[sub_resource type="GDScript" id=281]
+script/source = "extends Node
+
+export var next = \"Scene Path\"
+
+export (AudioStream) var musplay
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var done = 0
+
+var bossdefeated = 0
+
+# Called when the node enters the scene tree for the first time.
+
+
+
+
+
+func _ready():
+#	Globals.incutscene = 1
+#	$Rian/cameracutscene.play(\"intropan\")
+#
+	Globals.ded = 0
+	Globals.moveenabled = 1
+	Globals.incutscene = 0
+
+	
+	Globals.cur_scene = self
+	print_debug(\"self set current scene!\")
+	
+	Globals.stage_start = \"res://Stages/StickCity/A-1.tscn\"
+	print_debug(\"self set stage start!\")
+	
+	if musplay != null:
+		Globals.music.set_stream(musplay)
+		Globals.music.play()
+	
+
+func _physics_process(delta):
+	#print_debug(Globals.atkmult)
+#	if bossdefeated == 1:
+#			$Rian/StageMusic.play()
+#			$bossmus/bossmusic.stop()
+			
+			
+			
+	if Globals.ded == 1:
+		
+		
+		if Globals.didakill == 1:
+			bossdefeated = 1
+		
+		
+		
+			
+		
+		if done == 0:
+			#if Globals.lives == 0:
+			#	$Rian/StageMusic/musichandler.play(\"fadeout\")
+			#$Rian/Camera2D/CanvasLayer3/screenspr/Blackscreen.play(\"Fadeout\")
+			
+			done = 1
+			
+		
+	else:
+		if done == 1:
+			if Globals.ded == 0:
+				done = 0
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func _on_NextArea_area_entered(area):
+	if area.is_in_group(\"hurtbox\"):
+		Engine.time_scale = 1.0
+		$Terrain.queue_free()
+		$ParallaxBackground.queue_free()
+		$Objects.queue_free()
+		Sys.load_scene(self,next)
+	pass # Replace with function body.
+"
+
+[sub_resource type="RectangleShape2D" id=248]
+extents = Vector2( 2023, 49 )
+
+[sub_resource type="RectangleShape2D" id=249]
+extents = Vector2( 118, 758 )
+
+[sub_resource type="Environment" id=280]
+background_mode = 4
+background_energy = 2.45
+ambient_light_color = Color( 0.137255, 0.168627, 0.964706, 1 )
+ambient_light_energy = 0.24
+fog_enabled = true
+fog_sun_amount = 0.3
+fog_transmit_enabled = true
+fog_height_enabled = true
+tonemap_mode = 2
+tonemap_exposure = 0.89
+tonemap_white = 5.91
+auto_exposure_min_luma = 0.24
+auto_exposure_max_luma = 15.03
+auto_exposure_speed = 8.88
+ss_reflections_enabled = true
+ssao_enabled = true
+ssao_radius = 29.94
+ssao_intensity = 26.91
+ssao_radius2 = 19.81
+ssao_intensity2 = 44.53
+ssao_bias = 2.771
+ssao_light_affect = 0.2
+ssao_ao_channel_affect = 0.09
+ssao_color = Color( 0.180392, 0.396078, 0.615686, 1 )
+ssao_quality = 2
+ssao_blur = 2
+ssao_edge_sharpness = 7.81
+dof_blur_far_distance = 1.18
+dof_blur_far_transition = 0.13
+dof_blur_far_amount = 0.08
+dof_blur_far_quality = 2
+dof_blur_near_distance = 0.34
+dof_blur_near_transition = 0.67
+dof_blur_near_amount = 0.54
+dof_blur_near_quality = 2
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/4 = true
+glow_levels/7 = true
+glow_intensity = 1.41
+glow_strength = 0.4
+glow_bloom = 0.29
+glow_hdr_threshold = 1.03
+glow_hdr_luminance_cap = 93.87
+glow_hdr_scale = 2.01
+glow_bicubic_upscale = true
+glow_high_quality = true
+adjustment_enabled = true
+adjustment_brightness = 1.05
+adjustment_contrast = 1.04
+adjustment_saturation = 1.29
+
+[node name="Node2D" type="Node2D"]
+script = SubResource( 281 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enable = true
+
+[node name="Train" type="TextureRect" parent="CanvasLayer"]
+margin_left = 8.0
+margin_top = 2072.0
+margin_right = 5695.0
+margin_bottom = 2172.0
+grow_horizontal = 2
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 37 )
+stretch_mode = 2
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="CanvasLayer/Train"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Train/KinematicBody2D"]
+position = Vector2( 2023, 57 )
+shape = SubResource( 248 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="CanvasLayer/Train/KinematicBody2D"]
+position = Vector2( 2012, -206 )
+shape = SubResource( 248 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CanvasLayer/Train/KinematicBody2D"]
+position = Vector2( -114, -704 )
+shape = SubResource( 249 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="CanvasLayer/Train/KinematicBody2D"]
+position = Vector2( 1426, -368 )
+shape = SubResource( 249 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 3784, 8672 )
+
+[node name="BGS" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 38 )
+volume_db = -6.71
+autoplay = true
+bus = "BGS"
+
+[node name="BGMActivate" parent="." instance=ExtResource( 39 )]
+position = Vector2( 1310, 1476 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_offset = Vector2( 2000, 0 )
+scroll_limit_end = Vector2( 20000, 0 )
+script = ExtResource( 40 )
+speed3 = -20.0
+speed4 = -10.0
+speed5 = -5.0
+speed6 = -20.0
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 0, -56 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 47 )
+centered = false
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 0, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer7"]
+position = Vector2( -52, 4.2998 )
+scale = Vector2( 3, 2 )
+texture = ExtResource( 45 )
+centered = false
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer7"]
+position = Vector2( -52, 4.2998 )
+scale = Vector2( 3, 2 )
+texture = ExtResource( 42 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 0, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( -2.28882e-05, 12 )
+scale = Vector2( 3, 2 )
+texture = ExtResource( 43 )
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 3.05176e-05, 4 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 51 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2( 4, 4 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 49 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 3.05176e-05, 28 )
+scale = Vector2( 1.715, 1.745 )
+texture = ExtResource( 48 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer8"]
+position = Vector2( -16, -93 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 54 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer8"]
+position = Vector2( 3.05176e-05, -4 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 46 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="ParallaxLayer9" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer9"]
+position = Vector2( 2.38419e-07, 8 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 44 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer9"]
+position = Vector2( 2.38419e-07, 8 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 53 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="ParallaxLayer10" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer10"]
+position = Vector2( 2.38419e-07, -4 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 41 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground/ParallaxLayer10"]
+position = Vector2( 2.38419e-07, -4 )
+scale = Vector2( 1.71473, 1.82083 )
+texture = ExtResource( 52 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( 0, 2099.85 )
+motion_scale = Vector2( 0.01, 0 )
+motion_mirroring = Vector2( 548.573, 720 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer6"]
+position = Vector2( 3.05176e-05, 0 )
+scale = Vector2( 1.71473, 1.82083 )
+z_index = 18
+texture = ExtResource( 50 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 2000, 318 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ParallaxBackground/ParallaxLayer6"]
+environment = SubResource( 280 )
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Rian" parent="Objects" instance=ExtResource( 2 )]
+position = Vector2( 134, 2063 )
+
+[node name="Camera2D" parent="Objects" instance=ExtResource( 1 )]
+position = Vector2( 157, 1354 )
+limit_top = 1561
+limit_right = 2653
+limit_bottom = 2163
+target = NodePath("../Rian")

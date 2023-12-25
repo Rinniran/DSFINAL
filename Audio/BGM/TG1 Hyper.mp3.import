@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/TG1 Hyper.mp3-675db05995c17414d2219e6f1faef0d3.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/TG1 Hyper.mp3"
+dest_files=[ "res://.import/TG1 Hyper.mp3-675db05995c17414d2219e6f1faef0d3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

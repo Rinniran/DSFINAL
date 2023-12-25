@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="ShaderMaterial" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Camera2D
+
+
+onready var shakeTimer = $Timer
+onready var tween = $Tween
+
+var shake_amount = 0
+var default_offset = offset
+
+export var target : NodePath
+
+var gonowmyson
+var focusx = 3
+
+func _ready():
+	
+	gonowmyson = get_node(target)
+	
+	
+	
+	if current:
+		Globals.camera = self
+	set_process(false)
+
+
+func _physics_process(delta):
+	if current:
+		Globals.camera = self
+	offset = Vector2(rand_range(-shake_amount, shake_amount), rand_range(-shake_amount, shake_amount)) * delta + default_offset
+	#print_debug(str(\"Cam Pos: \") + str(position))
+	
+	if gonowmyson:
+		if Globals.playerspriteflip == false:
+			if focusx < 2.5:
+				focusx += 0.025
+		elif Globals.playerspriteflip == true:
+			if focusx > 1.5:
+				focusx -= 0.025
+		position.x = gonowmyson.position.x - (384 / focusx) * zoom.x
+		position.y = gonowmyson.position.y - (224/ 1.8) * zoom.y
+	
+
+
+func shake(new_shake, shake_time=0.4, shake_limit=100):
+	shake_amount += new_shake
+	if shake_amount > shake_limit:
+		shake_amount = shake_limit
+	
+	$Timer.wait_time = shake_time
+	
+	tween.stop_all()
+	set_process(true)
+	$Timer.start()
+
+
+func _on_Timer_timeout():
+	
+	shake_amount = 0
+	set_process(false)
+	
+	tween.interpolate_property(self, \"offset\", offset, default_offset,
+	0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	tween.start()
+"
+
+[node name="Camera2D" type="Camera2D"]
+material = SubResource( 3 )
+anchor_mode = 0
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 1536
+limit_bottom = 1296
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 20.0
+offset_h = -1.0
+drag_margin_left = 0.44
+drag_margin_top = 1.0
+drag_margin_right = 0.54
+drag_margin_bottom = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+autostart = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

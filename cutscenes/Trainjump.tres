@@ -1,0 +1,41 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "Trainjump"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Rspr:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.6, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "SCIntro", "jump", "fall", "SCIntro" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.4, 1.6, 2.6, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 41498.4, 2509.49 ), Vector2( 41498.4, 2509.49 ), Vector2( 42387.9, 2105.16 ), Vector2( 42459.2, 2071.86 ), Vector2( 43152.7, 3246.25 ), Vector2( 45572.7, 3250.74 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("..:dashing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}

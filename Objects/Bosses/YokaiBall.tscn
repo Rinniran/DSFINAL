@@ -1,0 +1,400 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Sprites/Bosses/YokaiBall/Ball.png" type="Texture" id=1]
+[ext_resource path="res://Audio/SE/hit.wav" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/Bosses/MotiveBall/MotiveBallGun.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Bosses/MotiveBall/MotiveBallIdle.png" type="Texture" id=4]
+[ext_resource path="res://Audio/SE/SHuskShoot.wav" type="AudioStream" id=5]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends KinematicBody2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var speed = 5
+var hp = 70
+export var active = 0
+var velocity = Vector2(-1,1)
+var noshoot = 0
+
+const mainbul = preload(\"res://Subrooms/Basic Proj Boss.tscn\")
+
+var cooldown = 1
+var dielol = 0
+var coollimit = 20
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	match Globals.diff:
+		0:
+			hp = 25
+		1:
+			hp = 40
+		2:
+			hp = 70
+		
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+	$Sprite.rotation_degrees += 5
+	#print_debug(hp)
+	match(Globals.diff):
+		0:
+			if hp < 5:
+				speed = 10
+				if noshoot == 0:
+					cooldown -= 1
+		1:
+			if hp < 20:
+				speed = 7
+				if noshoot == 0:
+					cooldown -= 1
+				if noshoot == 0:
+					if hp <= 20:
+						dotherotate(0.01)
+						coollimit = 30
+				elif hp <= 10:
+					dotherotate(0.03)
+					coollimit = 20
+		2:
+			if hp < 40:
+				speed = 5
+				coollimit = 2
+				if noshoot == 0:
+					cooldown -= 1
+	if hp <= 0:
+		dotherotate(0)
+		noshoot = 1
+	if hp <= 0:
+		if dielol == 0:
+			Globals.balldestroy = 1
+			frameFreezedeath(0.05, 0.9)
+			dielol = 1
+
+	if cooldown <= 0 && Globals.diff > 0:
+		schuut()
+		if hp < 20: 
+			cooldown = coollimit / 2
+		else:
+			cooldown = coollimit
+	
+	
+		
+#	if noshoot == 0:
+#		if hp <= 20:
+#			dotherotate(0.01)
+#			coollimit = 20
+#
+#		elif hp <= 10:
+#			dotherotate(0.03)
+#			coollimit = 5
+	if active == 1:
+		
+		var collision_info = move_and_collide(velocity * speed)
+		if collision_info:
+			position.x = clamp(position.x,Globals.camera.limit_left + 20,Globals.camera.limit_right + 20)
+			velocity = velocity.bounce(collision_info.normal)
+	
+	
+#	pass
+
+
+func frameFreeze(timeScale, duration):
+	
+	
+	if hp <= 0:
+		var DS = preload(\"res://Subrooms/Dspark.tscn\")
+		var buble = DS.instance()
+		buble.position = global_position
+		get_parent().add_child(buble)
+	Globals.canthurt = 1
+	Engine.time_scale = timeScale
+	yield(get_tree().create_timer(duration * timeScale), \"timeout\")
+	Engine.time_scale = 1.0
+	Globals.canthurt = 0
+	var diesound = preload(\"res://Audio/SE/Enemdie.wav\")
+	#Globals.atkmult += (.3)
+	if hp <= 0:
+		Globals.score += 200
+		$Sounds.stream = diesound
+		$Sounds.play()
+
+
+func _on_Attack_area_entered(area):
+	if area.is_in_group(\"hit1\"):
+		Globals.combotimer = 60 * 10
+		Globals.combo += 1
+		hp -= 0.8 + Globals.atkmult
+		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.play()
+		var hs = preload(\"res://Subrooms/hitspark.tscn\")
+		var ma = hs.instance()
+		ma.position = global_position
+		get_parent().add_child(ma)
+		if hp > 0:
+			frameFreeze(0.05, 0.3)
+
+		
+	if area.is_in_group(\"slash\"):
+		Globals.combotimer = 60 * 10
+		hp -= 0.5 + Globals.atkmult
+		Globals.combo += 1
+		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.play()
+		var hs = preload(\"res://Subrooms/hitspark.tscn\")
+		var ma = hs.instance()
+		ma.position = global_position
+		get_parent().add_child(ma)
+		if hp > 0:
+			frameFreeze(0.05, 0.3)
+
+
+		
+	if area.is_in_group(\"hit2\"):
+		Globals.combotimer = 60 * 10
+		hp -=  1 + Globals.atkmult
+		Globals.combo += 1
+		Input.start_joy_vibration(0, 1, 1, 0.3) 
+		$hurt.play()
+		var hs = preload(\"res://Subrooms/hitspark.tscn\")
+		var ma = hs.instance()
+		ma.position = global_position
+		get_parent().add_child(ma)
+		if hp > 0:
+			frameFreeze(0.05, 0.1)
+
+		
+		
+	if area.is_in_group(\"hit3\"):
+		Globals.combotimer = 60 * 10
+		hp -= 0.4 + Globals.atkmult
+		Globals.combo += 1
+		Input.start_joy_vibration(0, 1, 1, 0.3) 
+		$multihurt.start()
+		$multihurtrepeat.start()
+		$hurt.play()
+		var hs = preload(\"res://Subrooms/hitspark.tscn\")
+		var ma = hs.instance()
+		ma.position = global_position
+		get_parent().add_child(ma)
+		if hp > 0:
+			frameFreeze(0.05, 0.1)
+			
+#
+		
+		
+	if area.is_in_group(\"airhit\"):
+		Globals.combotimer = 60 * 10
+		hp -= 1 + Globals.atkmult
+		Globals.combo += 1
+		Input.start_joy_vibration(0, 1, 1, 0.3) 
+		$multihurt.start()
+		$multihurtrepeat.start()
+		$hurt.play()
+		var hs = preload(\"res://Subrooms/hitspark.tscn\")
+		var ma = hs.instance()
+		ma.position = global_position
+		get_parent().add_child(ma)
+		if hp > 0:
+			frameFreeze(0.05, 0.1)
+
+
+	if area.is_in_group(\"BIGDAMAGE\"):
+		Globals.combotimer = 60 * 10
+		hp -= 7 + Globals.atkmult
+		Globals.combo += 1
+		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.play()
+		var hs = preload(\"res://Subrooms/hitspark.tscn\")
+		var ma = hs.instance()
+		ma.position = global_position
+		get_parent().add_child(ma)
+		if hp > 0:
+			frameFreeze(0.05, 0.3)
+	pass # Replace with function body.
+	
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+
+
+
+
+func dotherotate(var speed):
+	$Sprite/Ball/Gun.rotation += speed 
+	$Sprite/Ball/Gun2.rotation += speed 
+	$Sprite/Ball/Gun3.rotation += speed 
+	$Sprite/Ball/Gun4.rotation += speed 
+	
+
+
+func schuut():
+#	var new_bullet = mainbul.instance()
+	var new_bullet2 = mainbul.instance()
+#	var new_bullet3 = mainbul.instance()
+	var new_bullet4 = mainbul.instance()
+	
+#	new_bullet.position = $Sprite/Ball/Gun/Position2D.global_position
+#	new_bullet.rotation = $Sprite/Ball/Gun.global_rotation - 14.15
+		
+	new_bullet2.position = $Sprite/Ball/Gun2/Position2D.global_position
+	new_bullet2.rotation = $Sprite/Ball/Gun2.global_rotation - 14.15
+		
+#	new_bullet3.position = $Sprite/Ball/Gun3/Position2D.global_position
+#	new_bullet3.rotation = $Sprite/Ball/Gun3.global_rotation - 14.15
+		
+	new_bullet4.position = $Sprite/Ball/Gun4/Position2D.global_position
+	new_bullet4.rotation = $Sprite/Ball/Gun4.global_rotation - 14.15
+		
+	#get_parent().add_child(new_bullet)
+	get_parent().add_child(new_bullet2)
+	#get_parent().add_child(new_bullet3)
+	get_parent().add_child(new_bullet4)
+	$atksnd.play()
+
+func frameFreezedeath(timeScale, duration):
+	
+	var DS = preload(\"res://Subrooms/Dspark.tscn\").instance()
+	DS.position = position
+	get_parent().add_child(DS)
+	Globals.canthurt = 1
+	Engine.time_scale = timeScale
+	yield(get_tree().create_timer(duration * timeScale), \"timeout\")
+	
+	
+	Engine.time_scale = 1.0
+	Globals.canthurt = 0
+	var diesound = preload(\"res://Audio/SE/Enemdie.wav\")
+	#Globals.atkmult += (.3)
+	Globals.didakill = 1
+	queue_free()
+
+func _on_multihurt_timeout():
+	$multihurtrepeat.stop()
+
+func _on_multihurtrepeat_timeout():
+	if !$multihurt.is_stopped():
+		if hp > 0:
+			$multihurtrepeat.start()
+			Input.start_joy_vibration(0, 1, 1, 0.2) 
+			$hurt.play()
+			var hs = preload(\"res://Subrooms/hitspark.tscn\")
+			var ma = hs.instance()
+			ma.position = global_position
+			get_parent().add_child(ma)
+			Globals.combotimer = 60 * 3
+			hp -= 0.3 + Globals.atkmult
+			Globals.combo += 1
+			if hp > 0:
+				frameFreeze(0.05, 0.3)
+
+func _on_Attack_area_exited(area):
+	$multihurt.stop()
+	pass # Replace with function body.
+"
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 72.111
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 47.0106
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 49.0408
+
+[node name="Node2D" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 2
+script = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="Ball" type="Area2D" parent="Sprite" groups=["springhurt"]]
+scale = Vector2( 0.5, 0.5 )
+z_index = -5
+
+[node name="Gun" type="Sprite" parent="Sprite/Ball"]
+z_index = 4
+texture = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="Sprite/Ball/Gun"]
+position = Vector2( 0, -90 )
+
+[node name="Gun2" type="Sprite" parent="Sprite/Ball"]
+rotation = 1.5708
+z_index = 4
+texture = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="Sprite/Ball/Gun2"]
+position = Vector2( 0, -90 )
+
+[node name="Gun3" type="Sprite" parent="Sprite/Ball"]
+rotation = 3.14159
+z_index = 4
+texture = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="Sprite/Ball/Gun3"]
+position = Vector2( 0, -90 )
+
+[node name="Gun4" type="Sprite" parent="Sprite/Ball"]
+rotation = 4.71239
+z_index = 4
+texture = ExtResource( 3 )
+
+[node name="Position2D" type="Position2D" parent="Sprite/Ball/Gun4"]
+position = Vector2( 0, -90 )
+
+[node name="BallAnims" type="AnimatedSprite" parent="Sprite/Ball"]
+visible = false
+z_index = 5
+frames = SubResource( 4 )
+animation = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Ball"]
+shape = SubResource( 5 )
+
+[node name="Attack" type="Area2D" parent="." groups=["TouchHurt"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+shape = SubResource( 1 )
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="."]
+
+[node name="multihurt" type="Timer" parent="."]
+wait_time = 1.301
+one_shot = true
+
+[node name="multihurtrepeat" type="Timer" parent="."]
+wait_time = 0.133
+
+[node name="atksnd" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -5.746
+bus = "SFX"
+
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -5.746
+bus = "SFX"
+
+[node name="Bounce" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )
+
+[connection signal="area_entered" from="Attack" to="." method="_on_Attack_area_entered"]
+[connection signal="area_exited" from="Attack" to="." method="_on_Attack_area_exited"]
+[connection signal="timeout" from="multihurt" to="." method="_on_multihurt_timeout"]
+[connection signal="timeout" from="multihurtrepeat" to="." method="_on_multihurtrepeat_timeout"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sprites/Stage/SCity/C-1 CARS.png" type="Texture" id=1]
+
+[node name="Car" type="KinematicBody2D"]
+
+[node name="AnimatedSprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -32, 0 )
+polygon = PoolVector2Array( 79, -8, 92, 5, 92, 20, 77, 20, -29, 20, -29, 6, -16, -8, -7, -8, 6, -23, 58, -23, 72, -8 )

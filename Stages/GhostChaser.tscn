@@ -1,0 +1,247 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Stages/GhostChaser.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Enemies/Chaser/Sleep.png" type="Texture" id=2]
+[ext_resource path="res://Audio/SE/hit.wav" type="AudioStream" id=3]
+[ext_resource path="res://Sprites/Misc/Hdie.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/gui/enemyhpover.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/gui/enemyhpprog.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/gui/enemyhpback.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Enemies/Chaser/mainspr.png" type="Texture" id=12]
+
+[sub_resource type="GDScript" id=25]
+script/source = "extends KinematicBody2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var direction = Vector2()
+var move = Vector3.ZERO
+var speed = 200
+var dielol = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+
+func frameFreeze(timeScale, duration):
+	Engine.time_scale = timeScale
+	yield(get_tree().create_timer(duration * timeScale), \"timeout\")
+	Engine.time_scale = 1.0
+	queue_free()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+	
+	
+	if position.x < Globals.camera.limit_left || position.x > Globals.camera.limit_right || position.y < Globals.camera.limit_top || position.y > Globals.camera.limit_bottom:
+		queue_free()
+	
+	if $Chaser.dead == 1:
+		
+		queue_free()
+		
+		
+	if $Chaser.active && !Globals.incutscene:
+		
+		if position != Globals.playerpos && !dielol:
+			move = position.direction_to(Globals.playerpos) * speed
+			move_and_slide(move)
+		
+		
+		if get_slide_count() > 0:
+			var collision = get_slide_collision(0)
+			if collision != null:
+				direction = direction.bounce(collision.normal) # do ball bounce
+#	pass
+"
+
+[sub_resource type="Shader" id=26]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=27]
+shader = SubResource( 26 )
+shader_param/speed = 3.0
+shader_param/waves = 50.0
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 12 )
+region = Rect2( 192, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 12 )
+region = Rect2( 288, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 12 )
+region = Rect2( 384, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 12 )
+region = Rect2( 480, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "chase",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": false,
+"name": "die",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "sleep",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 22.4746, 21.7255 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 117.617, 99.4578 )
+
+[sub_resource type="OccluderPolygon2D" id=16]
+closed = false
+cull_mode = 2
+polygon = PoolVector2Array( -21.5139, -19.5662, -0.108124, -23.7285, 23.6761, -6.48494, 11.784, 16.7046, -3.08116, 19.6777, -19.1355, 16.11, -26.2707, 3.02873, -22.7031, -17.1878 )
+
+[node name="GhostChaser" type="KinematicBody2D"]
+scale = Vector2( 0.5, 0.5 )
+script = SubResource( 25 )
+
+[node name="Chaser" type="Area2D" parent="." groups=["TouchHurt"]]
+script = ExtResource( 1 )
+
+[node name="Stickhusk" type="AnimatedSprite" parent="Chaser"]
+modulate = Color( 0, 0.854902, 1, 1 )
+material = SubResource( 27 )
+position = Vector2( -2.97301, -4.43238 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+animation = "sleep"
+playing = true
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="Chaser/Stickhusk"]
+volume_db = 8.945
+max_distance = 831.0
+bus = "SFX"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chaser"]
+position = Vector2( -3.06821, -5.14513 )
+scale = Vector2( 1.72, 1.72 )
+shape = SubResource( 2 )
+
+[node name="hurt" type="AudioStreamPlayer" parent="Chaser"]
+stream = ExtResource( 3 )
+volume_db = -3.51
+bus = "SFX"
+
+[node name="multihurt" type="Timer" parent="Chaser"]
+wait_time = 1.301
+one_shot = true
+
+[node name="multihurtrepeat" type="Timer" parent="Chaser"]
+wait_time = 0.133
+
+[node name="HorizDetect" type="Area2D" parent="Chaser"]
+position = Vector2( -200.773, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chaser/HorizDetect"]
+position = Vector2( 82.8045, -0.22998 )
+scale = Vector2( 1, 1.88 )
+shape = SubResource( 7 )
+
+[node name="HorizDetectright" type="Area2D" parent="Chaser"]
+position = Vector2( -200.773, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chaser/HorizDetectright"]
+position = Vector2( 318.195, -0.0981141 )
+scale = Vector2( 1, 1.88 )
+shape = SubResource( 7 )
+
+[node name="CeilingCheck" type="RayCast2D" parent="Chaser"]
+enabled = true
+cast_to = Vector2( 0, -300 )
+
+[node name="EnemHealth" type="TextureProgress" parent="Chaser"]
+margin_left = -62.541
+margin_top = -90.1626
+margin_right = 59.459
+margin_bottom = -57.1626
+texture_under = ExtResource( 11 )
+texture_over = ExtResource( 9 )
+texture_progress = ExtResource( 10 )
+tint_progress = Color( 0.996078, 0.0823529, 0.945098, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="hptween" type="Tween" parent="Chaser"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 16 )
+
+[node name="multihit" type="Timer" parent="."]
+wait_time = 0.03
+autostart = true
+
+[connection signal="area_entered" from="Chaser" to="Chaser" method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Chaser" to="Chaser" method="_on_Area2D_area_exited"]
+[connection signal="animation_finished" from="Chaser/Stickhusk" to="Chaser" method="_on_Stickhusk_animation_finished"]
+[connection signal="timeout" from="Chaser/multihurt" to="Chaser" method="_on_multihurt_timeout"]
+[connection signal="timeout" from="Chaser/multihurtrepeat" to="Chaser" method="_on_multihurtrepeat_timeout"]
+[connection signal="area_entered" from="Chaser/HorizDetect" to="Chaser" method="_on_HorizDetect_area_entered"]
+[connection signal="area_entered" from="Chaser/HorizDetectright" to="Chaser" method="_on_HorizDetectright_area_entered"]
+[connection signal="timeout" from="multihit" to="Chaser" method="_on_multihit_timeout"]

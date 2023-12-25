@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Dream World Stage 1.ogg-b73096bf3833fbf7c38b1ec1f5719efe.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Dream World Stage 1.ogg"
+dest_files=[ "res://.import/Dream World Stage 1.ogg-b73096bf3833fbf7c38b1ec1f5719efe.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=12.35

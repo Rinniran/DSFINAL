@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Sprites/Bosses/Yaiba(Bike)/Yaiba Ride.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Bosses/Yaiba(Bike)/Yaiba Skid.png" type="Texture" id=2]
+[ext_resource path="res://Subrooms/Yaiba(Bike).gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 48 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 48 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "Drive",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "Skid",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 26.9058, 19.6192 )
+
+[node name="Node2D" type="Area2D"]
+scale = Vector2( 2, 2 )
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+animation = "Drive"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.114273, 4.06834 )
+shape = SubResource( 4 )

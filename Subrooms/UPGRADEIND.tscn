@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/gui/SPEEDUP.png" type="Texture" id=1]
+[ext_resource path="res://Subrooms/UPGRADEIND.gd" type="Script" id=2]
+[ext_resource path="res://Audio/SE/Burstloop.wav" type="AudioStream" id=3]
+
+[node name="upgin" type="Sprite"]
+scale = Vector2( 4, 4 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="lifespan" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+autostart = true
+
+[node name="sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 5.591
+pitch_scale = 0.57
+autoplay = true
+bus = "SFX"
+
+[connection signal="timeout" from="lifespan" to="." method="_on_lifespan_timeout"]

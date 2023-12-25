@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/atkproj1.wav-4e073df3d7151b99e59f9acaf2f2d2eb.sample"
+
+[deps]
+
+source_file="res://Audio/Voices/atkproj1.wav"
+dest_files=[ "res://.import/atkproj1.wav-4e073df3d7151b99e59f9acaf2f2d2eb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

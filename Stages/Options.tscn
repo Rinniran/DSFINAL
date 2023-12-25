@@ -1,0 +1,586 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Audio/BGM/Night_Fantasy_LofiHipHop.wav" type="AudioStream" id=1]
+[ext_resource path="res://src/settings/GeneralOptions.gd" type="Script" id=2]
+[ext_resource path="res://TextMain.tres" type="Theme" id=3]
+[ext_resource path="res://Objects/UI/Cursor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/Textures/twoDriver.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/gui/OPTKEY8.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/gui/OPTKEY6.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/gui/OPTKEY7.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/gui/OPTKEY5.png" type="Texture" id=9]
+
+[sub_resource type="GDScript" id=189]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+var kbQ = preload(\"res://Sprites/gui/OPTKEY1.png\")
+
+var kbE = preload(\"res://Sprites/gui/OPTKEY2.png\")
+
+var kbESC = preload(\"res://Sprites/gui/OPTKEY3.png\")
+
+var kbZ = preload(\"res://Sprites/gui/OPTKEY4.png\")
+
+var gpL = preload(\"res://Sprites/gui/OPTKEY5.png\")
+
+var gpR = preload(\"res://Sprites/gui/OPTKEY6.png\")
+
+var gpA = preload(\"res://Sprites/gui/OPTKEY7.png\")
+
+var gpB = preload(\"res://Sprites/gui/OPTKEY8.png\")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if $GeneralOptions.visible:
+		if Input.is_action_just_pressed(\"OptRight\"):
+			$GeneralOptions.visible = false
+			$GeneralOptions.select = 0
+			$GameOptions.visible = true
+		
+	elif $GameOptions.visible:
+		if Input.is_action_just_pressed(\"OptLeft\"):
+			$GameOptions.visible = false
+			$GameOptions.select = 0
+			$GeneralOptions.visible = true
+		if Input.is_action_just_pressed(\"OptRight\"):
+			$GameOptions.visible = false
+			$GameOptions.select = 0
+			$KeyConfig.visible = true
+	
+	elif $KeyConfig.visible:
+		if Input.is_action_just_pressed(\"OptLeft\"):
+			$KeyConfig.visible = false
+			$KeyConfig.select = 0
+			$GameOptions.visible = true
+	
+	match(Globals.inputmode):
+		\"kb\":
+			$OPTLEFT.texture = kbQ
+			$OPTRIGHT.texture = kbE
+			$OPTACCEPT.texture = kbZ
+			$OPTBACK.texture = kbESC
+		\"joy\":
+			$OPTLEFT.texture = gpL
+			$OPTRIGHT.texture = gpR
+			$OPTACCEPT.texture = gpA
+			$OPTBACK.texture = gpB
+	
+	if Input.is_action_just_pressed(\"ui_cancel\"):
+		Sys.load_scene(self,\"res://Stages/Titlescreen.tscn\")
+#	pass
+"
+
+[sub_resource type="GDScript" id=188]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var select = 0
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if visible:
+		$FLASHYVIS.text = str(\"FLASHY VISUALS: \") + str(Settings.FLASHYVIS)
+		
+		$MUSPAUSE.text = str(\"JUST DODGE MUSIC PAUSE: \") + str(Settings.MUSPAUSE)
+		
+		$SHADER.text = str(\"SHADER EFFECTS: \") + str(Settings.SHADER)
+		
+		$CRT.text = str(\"CRT FILTER: \") + str(Settings.CRT)
+		
+		if Input.is_action_just_pressed(\"ui_down\"):
+			select += 1
+			if select > 4:
+				select = 0
+		
+		if Input.is_action_just_pressed(\"ui_up\"):
+			select -= 1
+			if select < 0:
+				select = 4
+		
+		
+		
+		match(select):
+			0:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 39
+				if Input.is_action_just_pressed(\"ui_left\"):
+					Settings.MUSPAUSE = \"OFF\"
+				if Input.is_action_just_pressed(\"ui_right\"):
+					Settings.MUSPAUSE = \"ON\"
+			1:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 92
+				if Input.is_action_just_pressed(\"ui_left\"):
+					Settings.FLASHYVIS = \"OFF\"
+				if Input.is_action_just_pressed(\"ui_right\"):
+					Settings.FLASHYVIS = \"ON\"
+			2:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 148
+				match(Settings.SHADER):
+					\"HIGH\":
+						if Input.is_action_just_pressed(\"ui_left\"):
+							Settings.SHADER = \"MED\"
+						if Input.is_action_just_pressed(\"ui_right\"):
+							Settings.SHADER = \"HIGH\"
+					\"MED\":
+						if Input.is_action_just_pressed(\"ui_left\"):
+							Settings.SHADER = \"LOW\"
+						if Input.is_action_just_pressed(\"ui_right\"):
+							Settings.SHADER = \"HIGH\"
+					\"LOW\":
+						if Input.is_action_just_pressed(\"ui_left\"):
+							Settings.SHADER = \"LOW\"
+						if Input.is_action_just_pressed(\"ui_right\"):
+							Settings.SHADER = \"MED\"
+				if Input.is_action_just_pressed(\"ui_left\") && Settings.SFXVOL > 0:
+					Settings.SFXVOL -= 1
+				if Input.is_action_just_pressed(\"ui_right\") && Settings.SFXVOL < 8:
+					Settings.SFXVOL += 1
+			
+			3:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 205
+				if Input.is_action_just_pressed(\"ui_left\"):
+					Settings.CRT = \"OFF\"
+				if Input.is_action_just_pressed(\"ui_right\"):
+					Settings.CRT = \"ON\"
+			
+			4:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 406
+				if Input.is_action_just_pressed(\"ui_left\"):
+					Settings.Fscreen = false
+				if Input.is_action_just_pressed(\"ui_right\"):
+					Settings.Fscreen = true
+		
+		
+		match(Settings.Fscreen):
+			false:
+				$resolution.text = str(\"VIDEO MODE: WINDOWED\")
+			true:
+				$resolution.text = str(\"VIDEO MODE: FULLSCREEN\")
+	#	pass
+"
+
+[sub_resource type="GDScript" id=187]
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var select = 0
+
+var buttranslate = InputMap.get_action_list(\"jump\")[1].as_text()
+
+var rebinding = 0
+
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed:
+			pass
+	elif event is InputEventJoypadButton:
+		if event.pressed:
+			pass
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	print_debug(InputMap.get_action_list(\"jump\")[1].as_text())
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if visible:
+		$JUMP.text = str(\"JUMP: \") + str(\"Keyboard = \") + str(InputMap.get_action_list(\"jump\")[0].as_text()) + str(\" | Gamepad = \") + str(buttranslate)
+		
+		$DASH.text = str(\"DASH: \") #+ str(Settings.BGMVOL)
+		
+		$ATTACK.text = str(\"ATTACK: \") #+ str(Settings.SFXVOL)
+		
+		$resolution.text = str(\"\")
+		
+		#$VOICE.text = str(\"VOICE: \") + str(Settings.VOICEVOL)
+		
+		match(select):
+			0:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 39
+				if Input.is_action_just_pressed(\"ui_accept\"):
+					select = 1
+			1:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 99
+				for x in InputMap.get_action_list(\"jump\"):
+					if x is InputEventJoypadButton:
+						InputMap.action_erase_event(\"jump\", x)
+				
+			2:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 154
+				if Input.is_action_just_pressed(\"ui_left\") && Settings.SFXVOL > 0:
+					Settings.SFXVOL -= 1
+				if Input.is_action_just_pressed(\"ui_right\") && Settings.SFXVOL < 8:
+					Settings.SFXVOL += 1
+			
+			3:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 209
+				if Input.is_action_just_pressed(\"ui_left\") && Settings.VOICEVOL > 0:
+					Settings.VOICEVOL -= 1
+				if Input.is_action_just_pressed(\"ui_right\") && Settings.VOICEVOL < 8:
+					Settings.VOICEVOL += 1
+			
+			4:
+				$Cursor.position.x = 186.125
+				$Cursor.position.y = 406
+				if Input.is_action_just_pressed(\"ui_left\"):
+					Settings.Fscreen = false
+				if Input.is_action_just_pressed(\"ui_right\"):
+					Settings.Fscreen = true
+		
+		
+
+	
+	if buttranslate == \"InputEventJoypadButton : button_index=0, pressed=false, pressure=0\":
+		buttranslate = \"A\"
+	#	pass
+"
+
+[sub_resource type="Shader" id=190]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=185]
+shader = SubResource( 190 )
+shader_param/speed = 1.0
+shader_param/waves = 24.0
+
+[sub_resource type="GDScript" id=186]
+script/source = "extends Sprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	rotation_degrees += 0.1
+#	pass
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource( 189 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = 5.778
+autoplay = true
+bus = "BGM"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 771.0
+margin_bottom = 18.0
+color = Color( 0, 0, 0, 0.486275 )
+
+[node name="GeneralOptions" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Header" type="Label" parent="GeneralOptions"]
+margin_right = 767.0
+margin_bottom = 32.0
+theme = ExtResource( 3 )
+text = "General"
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BGM" type="Label" parent="GeneralOptions"]
+margin_left = 23.0
+margin_top = 86.0
+margin_right = 983.0
+margin_bottom = 118.0
+theme = ExtResource( 3 )
+text = "BGM: 5"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MASTER" type="Label" parent="GeneralOptions"]
+margin_left = 22.0
+margin_top = 32.0
+margin_right = 982.0
+margin_bottom = 64.0
+theme = ExtResource( 3 )
+text = "MASTER: 5"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SFX" type="Label" parent="GeneralOptions"]
+margin_left = 22.0
+margin_top = 141.0
+margin_right = 982.0
+margin_bottom = 173.0
+theme = ExtResource( 3 )
+text = "SFX: 5"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VOICE" type="Label" parent="GeneralOptions"]
+margin_left = 22.0
+margin_top = 198.0
+margin_right = 982.0
+margin_bottom = 230.0
+theme = ExtResource( 3 )
+text = "VOICE: 5"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="resolution" type="Label" parent="GeneralOptions"]
+margin_left = 22.0
+margin_top = 401.0
+margin_right = 982.0
+margin_bottom = 433.0
+theme = ExtResource( 3 )
+text = "VIDEO MODE: WINDOWED"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Cursor" parent="GeneralOptions" instance=ExtResource( 4 )]
+position = Vector2( 186.125, 406 )
+scale = Vector2( 0.939375, 0.27 )
+
+[node name="GameOptions" type="Node2D" parent="."]
+visible = false
+script = SubResource( 188 )
+
+[node name="Header" type="Label" parent="GameOptions"]
+margin_right = 767.0
+margin_bottom = 32.0
+theme = ExtResource( 3 )
+text = "Game Settings"
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="FLASHYVIS" type="Label" parent="GameOptions"]
+margin_left = 23.0
+margin_top = 86.0
+margin_right = 983.0
+margin_bottom = 118.0
+theme = ExtResource( 3 )
+text = "FLASHY VISUALS: ON "
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MUSPAUSE" type="Label" parent="GameOptions"]
+margin_left = 22.0
+margin_top = 32.0
+margin_right = 982.0
+margin_bottom = 64.0
+theme = ExtResource( 3 )
+text = "JUST DODGE MUSIC PAUSE: ON"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SHADER" type="Label" parent="GameOptions"]
+margin_left = 22.0
+margin_top = 141.0
+margin_right = 982.0
+margin_bottom = 173.0
+theme = ExtResource( 3 )
+text = "SHADER EFFECTS: HIGH"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CRT" type="Label" parent="GameOptions"]
+margin_left = 22.0
+margin_top = 198.0
+margin_right = 982.0
+margin_bottom = 230.0
+theme = ExtResource( 3 )
+text = "CRT FILTER: ON"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="resolution" type="Label" parent="GameOptions"]
+margin_left = 22.0
+margin_top = 401.0
+margin_right = 982.0
+margin_bottom = 433.0
+theme = ExtResource( 3 )
+text = "VIDEO MODE: WINDOWED"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Cursor" parent="GameOptions" instance=ExtResource( 4 )]
+position = Vector2( 186.125, 406 )
+scale = Vector2( 0.939375, 0.27 )
+
+[node name="KeyConfig" type="Node2D" parent="."]
+visible = false
+script = SubResource( 187 )
+
+[node name="Header" type="Label" parent="KeyConfig"]
+margin_right = 767.0
+margin_bottom = 32.0
+theme = ExtResource( 3 )
+text = "Key Config"
+align = 1
+
+[node name="REBIND" type="Label" parent="KeyConfig"]
+margin_left = 18.0
+margin_top = 33.0
+margin_right = 978.0
+margin_bottom = 65.0
+theme = ExtResource( 3 )
+text = "REBIND"
+
+[node name="JUMP" type="Label" parent="KeyConfig"]
+margin_left = 22.0
+margin_top = 94.0
+margin_right = 982.0
+margin_bottom = 126.0
+theme = ExtResource( 3 )
+text = "JUMP"
+
+[node name="DASH" type="Label" parent="KeyConfig"]
+margin_left = 23.0
+margin_top = 148.0
+margin_right = 983.0
+margin_bottom = 180.0
+theme = ExtResource( 3 )
+text = "DASH
+"
+
+[node name="ATTACK" type="Label" parent="KeyConfig"]
+margin_left = 22.0
+margin_top = 203.0
+margin_right = 982.0
+margin_bottom = 235.0
+theme = ExtResource( 3 )
+text = "ATTACK"
+
+[node name="resolution" type="Label" parent="KeyConfig"]
+margin_left = 1.0
+margin_top = 398.0
+margin_right = 765.0
+margin_bottom = 430.0
+theme = ExtResource( 3 )
+text = "PRESS A BUTTON TO REBIND \"ACTION\""
+align = 1
+
+[node name="Cursor" parent="KeyConfig" instance=ExtResource( 4 )]
+position = Vector2( 188, 209 )
+scale = Vector2( 0.939375, 0.27 )
+
+[node name="BG" type="Sprite" parent="."]
+material = SubResource( 185 )
+position = Vector2( 384, 216 )
+z_index = -1
+texture = ExtResource( 5 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1024, 1024 )
+script = SubResource( 186 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="OPTLEFT" type="Sprite" parent="."]
+position = Vector2( 20, 9 )
+texture = ExtResource( 9 )
+
+[node name="OPTRIGHT" type="Sprite" parent="."]
+position = Vector2( 754, 9 )
+texture = ExtResource( 7 )
+
+[node name="OPTACCEPT" type="Sprite" parent="."]
+position = Vector2( 509, 420 )
+texture = ExtResource( 8 )
+
+[node name="OPTBACK" type="Sprite" parent="."]
+position = Vector2( 685, 421 )
+texture = ExtResource( 6 )
+
+[node name="LEFT" type="Label" parent="."]
+margin_left = 37.0
+margin_top = 2.0
+margin_right = 95.0
+margin_bottom = 18.0
+theme = ExtResource( 3 )
+text = "<"
+
+[node name="RIGHT" type="Label" parent="."]
+margin_left = 730.0
+margin_top = 2.0
+margin_right = 788.0
+margin_bottom = 18.0
+theme = ExtResource( 3 )
+text = ">"
+
+[node name="ACCEPT" type="Label" parent="."]
+margin_left = 526.0
+margin_top = 415.0
+margin_right = 646.0
+margin_bottom = 429.0
+theme = ExtResource( 3 )
+text = "SAVE CHANGES"
+
+[node name="ACCEPT2" type="Label" parent="."]
+margin_left = 702.0
+margin_top = 415.0
+margin_right = 757.0
+margin_bottom = 429.0
+theme = ExtResource( 3 )
+text = "BACK"

@@ -1,0 +1,143 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://meshes/Driver.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Subrooms/Drivertwo.gd" type="Script" id=2]
+[ext_resource path="res://Stages/modelrot.gd" type="Script" id=3]
+[ext_resource path="res://Stages/screen.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/Textures/twoDriver.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Misc/deathspark.png" type="Texture" id=6]
+[ext_resource path="res://Audio/SE/Start.wav" type="AudioStream" id=7]
+[ext_resource path="res://Subrooms/Driver.gdshader" type="Shader" id=8]
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 8 )
+shader_param/pixelSize = 1
+
+[sub_resource type="SpatialMaterial" id=15]
+flags_transparent = true
+flags_unshaded = true
+flags_world_triplanar = true
+flags_ensure_correct_normals = true
+albedo_texture = ExtResource( 5 )
+depth_enabled = true
+depth_scale = 6.05
+depth_deep_parallax = false
+depth_flip_tangent = false
+depth_flip_binormal = false
+refraction_enabled = true
+refraction_scale = -0.21
+refraction_texture_channel = 0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 19.1313, 21.9953 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 192, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 288, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 384, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 480, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 576, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
+region = Rect2( 672, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 6 )
+region = Rect2( 768, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 6 )
+region = Rect2( 864, 0, 96, 96 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 960, 0, 96, 96 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": false,
+"name": "get",
+"speed": 40.0
+} ]
+
+[node name="twodriver" type="Area2D"]
+material = SubResource( 16 )
+scale = Vector2( 1.5, 1.5 )
+script = ExtResource( 2 )
+
+[node name="screen" type="Sprite" parent="."]
+position = Vector2( 20.303, 22.233 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 6
+script = ExtResource( 4 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 400, 400 )
+own_world = true
+transparent_bg = true
+
+[node name="Spatial" type="Spatial" parent="Viewport"]
+
+[node name="KinematicBody" type="KinematicBody" parent="Viewport/Spatial"]
+script = ExtResource( 3 )
+speed = 80
+
+[node name="Driver" type="MeshInstance" parent="Viewport/Spatial/KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012712, 0.00828397, 0.00972861 )
+mesh = ExtResource( 1 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 15 )
+
+[node name="Camera" type="Camera" parent="Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.49919 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 20.4842, 22.7006 )
+shape = SubResource( 2 )
+
+[node name="dietime" type="Timer" parent="."]
+
+[node name="collect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 17.892
+pitch_scale = 1.47
+bus = "SFX"
+
+[node name="collectspr" type="AnimatedSprite" parent="."]
+position = Vector2( 23.9115, 27.3724 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 14 )
+playing = true
+
+[connection signal="area_entered" from="." to="." method="_on_kcard_area_entered"]
+[connection signal="timeout" from="dietime" to="." method="_on_dietime_timeout"]
+[connection signal="finished" from="collect" to="." method="_on_collect_finished"]
+[connection signal="animation_finished" from="collectspr" to="." method="_on_collectspr_animation_finished"]

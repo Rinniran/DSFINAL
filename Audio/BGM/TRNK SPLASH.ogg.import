@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/TRNK SPLASH.ogg-1fdcee582c4370a118a9716b90f53f00.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/TRNK SPLASH.ogg"
+dest_files=[ "res://.import/TRNK SPLASH.ogg-1fdcee582c4370a118a9716b90f53f00.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

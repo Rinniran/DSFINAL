@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/Particles/Scarf.png" type="Texture" id=1]
+[ext_resource path="res://Materials/Scarf_Particle_Col.tres" type="Gradient" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends CPUParticles2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	
+	pass
+
+
+func _on_emittime_timeout():
+	#print_debug(\"HELLO\")
+	emitting = false
+	$ending.start()
+	pass # Replace with function body.
+
+
+func _on_ending_timeout():
+	#print_debug(\"KYS\")
+	pass # Replace with function body.
+"
+
+[node name="scarfpart" type="CPUParticles2D"]
+modulate = Color( 1, 0, 0, 1 )
+material = SubResource( 1 )
+preprocess = 597.37
+speed_scale = 3.16
+randomness = 1.0
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 24.36
+spread = 147.21
+gravity = Vector2( 0, 0 )
+initial_velocity_random = 0.74
+angular_velocity = 204.33
+radial_accel = 100.0
+radial_accel_random = 0.56
+tangential_accel = 100.0
+tangential_accel_random = 0.94
+angle_random = 0.83
+scale_amount = 0.35
+color_ramp = ExtResource( 2 )
+hue_variation_random = 0.86
+anim_speed = 88.5
+anim_offset_random = 0.65
+script = SubResource( 2 )
+
+[node name="emittime" type="Timer" parent="."]
+wait_time = 0.148
+one_shot = true
+autostart = true
+
+[node name="ending" type="Timer" parent="."]
+wait_time = 0.595
+one_shot = true
+
+[connection signal="timeout" from="emittime" to="." method="_on_emittime_timeout"]
+[connection signal="timeout" from="ending" to="." method="_on_ending_timeout"]

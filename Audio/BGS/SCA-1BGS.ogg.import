@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/SCA-1BGS.ogg-2cfdccdbe141645bf35a01ef6102883f.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGS/SCA-1BGS.ogg"
+dest_files=[ "res://.import/SCA-1BGS.ogg-2cfdccdbe141645bf35a01ef6102883f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Stages/screen.gd" type="Script" id=1]
+[ext_resource path="res://Subrooms/CheckpObj.gd" type="Script" id=2]
+[ext_resource path="res://meshes/SAVECRYSTAL.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Subrooms/SAVECRYSTAL.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 30.9795, 1354.57 )
+
+[sub_resource type="Environment" id=6]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.254902, 0.921569, 0.101961, 1 )
+
+[node name="SCrys" type="Area2D"]
+position = Vector2( 184.833, 195.318 )
+z_index = 36
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 9.17407, -925.548 )
+shape = SubResource( 1 )
+
+[node name="screen" type="Sprite" parent="."]
+position = Vector2( 20.303, 22.233 )
+scale = Vector2( 0.5, 0.5 )
+z_index = -5
+script = ExtResource( 1 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 640, 480 )
+own_world = true
+transparent_bg = true
+
+[node name="Spatial" type="Spatial" parent="Viewport"]
+
+[node name="Camera" type="Camera" parent="Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015, -0.004, 5.744 )
+environment = SubResource( 6 )
+fov = 42.5
+
+[node name="SAVECRYSTAL" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0170073, 0.0471654, 0.0498989 )
+visible = false
+mesh = ExtResource( 3 )
+material/0 = SubResource( 3 )
+script = ExtResource( 4 )
+
+[connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]

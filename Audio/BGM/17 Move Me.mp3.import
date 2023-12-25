@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/17 Move Me.mp3-f4c7c25fb1b0d09843b426509a77b6ca.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/17 Move Me.mp3"
+dest_files=[ "res://.import/17 Move Me.mp3-f4c7c25fb1b0d09843b426509a77b6ca.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
