@@ -35,7 +35,7 @@ flags_transparent = true
 flags_unshaded = true
 flags_world_triplanar = true
 flags_ensure_correct_normals = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 depth_enabled = true
 depth_scale = 6.05
 depth_deep_parallax = false
@@ -47,27 +47,27 @@ refraction_texture_channel = 0
 
 [sub_resource type="SpatialMaterial" id=17]
 flags_unshaded = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=18]
 flags_unshaded = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=19]
 flags_unshaded = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=20]
 flags_unshaded = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=21]
 flags_unshaded = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=22]
 flags_unshaded = true
-albedo_color = Color( 0, 1, 0.0666667, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="RectangleShape2D" id=25]
 extents = Vector2( 2.65539, 7.22942 )

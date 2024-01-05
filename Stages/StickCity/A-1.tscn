@@ -676,7 +676,6 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 235 )
-frame = 4
 playing = true
 centered = false
 
@@ -684,7 +683,7 @@ centered = false
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 236 )
-frame = 48
+frame = 60
 playing = true
 centered = false
 
@@ -803,6 +802,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Terrain/KinematicBody2D"]
 frames = SubResource( 238 )
+frame = 3
 playing = true
 centered = false
 __meta__ = {
@@ -885,6 +885,7 @@ position = Vector2( 667.552, 387.025 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="Objects/Monitors"]
@@ -904,6 +905,7 @@ position = Vector2( 939, 288 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label4" type="Label" parent="Objects/Monitors"]
@@ -922,7 +924,6 @@ position = Vector2( 1158, 286 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label5" type="Label" parent="Objects/Monitors"]
@@ -942,6 +943,7 @@ position = Vector2( 1821, 364 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label2" type="Label" parent="Objects/Monitors"]
@@ -962,7 +964,6 @@ position = Vector2( 2216, 300 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label3" type="Label" parent="Objects/Monitors"]
@@ -1327,23 +1328,20 @@ __meta__ = {
 
 [node name="GOSign" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 312, 396 )
-frame = 3
 
 [node name="GOSign2" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 660, 449 )
-frame = 3
 
 [node name="GOSign3" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 1270, 401 )
-frame = 0
+frame = 2
 
 [node name="GOSign4" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 1983, 340 )
-frame = 0
+frame = 2
 
 [node name="GOSign5" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 2487, 402 )
-frame = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 260 )

@@ -95,7 +95,7 @@ tile_data = PoolIntArray( 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 
 position = Vector2( 41, 649 )
 
 [node name="Rspr" parent="Objects/Rian" index="0"]
-frame = 5
+frame = 1
 
 [node name="Camera2D" parent="Objects" instance=ExtResource( 1 )]
 position = Vector2( 0, 517 )

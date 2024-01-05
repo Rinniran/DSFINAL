@@ -1,0 +1,440 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://TextMain.tres" type="Theme" id=1]
+[ext_resource path="res://src/Scene.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Stage/ph.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Cache.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/Stage/phHAZARD.png" type="Texture" id=15]
+[ext_resource path="res://Objects/Hazards/Ouchbox.tscn" type="PackedScene" id=16]
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 16, 16, 0, 16, 16, 0, 16, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 0, 0, 0, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+points = PoolVector2Array( 16, 0, 16, 16, 0, 0 )
+
+[sub_resource type="TileSet" id=13]
+0/name = "ph.png 0"
+0/texture = ExtResource( 3 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 48, 16, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 8 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 8 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "ph.png 1"
+1/texture = ExtResource( 3 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 32, 16, 16, 16 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 9 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+2/name = "ph.png 2"
+2/texture = ExtResource( 3 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 64, 16, 16, 16 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape = SubResource( 10 )
+2/shape_one_way = false
+2/shape_one_way_margin = 1.0
+2/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 10 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+2/z_index = 0
+3/name = "ph.png 3"
+3/texture = ExtResource( 3 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 32, 32, 16, 16 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape = SubResource( 11 )
+3/shape_one_way = false
+3/shape_one_way_margin = 1.0
+3/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 11 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+3/z_index = 0
+4/name = "ph.png 4"
+4/texture = ExtResource( 3 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 32, 48, 16, 16 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape = SubResource( 12 )
+4/shape_one_way = false
+4/shape_one_way_margin = 1.0
+4/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 12 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+4/z_index = 0
+
+[sub_resource type="ConvexPolygonShape2D" id=14]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+
+[sub_resource type="TileSet" id=15]
+0/name = "phHAZARD.png 0"
+0/texture = ExtResource( 15 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 48, 32, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 14 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 14 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void vertex() {
+    // This function is necessary even if empty
+}
+
+void fragment() {
+    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
+    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+
+    // Scale the RGB values to fit within the 5-bit range
+    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
+
+    // Create the final color
+    vec4 final_color = vec4(scaled_color, original_color.a);
+
+    // Output the final color
+    COLOR = final_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="Shader" id=3]
+code = "/*
+	CRT shader for Godot Engine by Yui Kinomoto @arlez80
+*/
+shader_type canvas_item;
+
+const float PI = 3.1415926535;
+
+// ブラウン管のガラスの曲がり具合（フラットなやつは0.0でいいかな）
+uniform float crt_curve : hint_range( 0.0, 1.0 ) = 0.02;
+// 走査線の濃さ
+uniform float crt_scan_line_color : hint_range( 0.0, 1.0 ) = 0.347;
+// 光量
+uniform float aperture_grille_rate : hint_range( 0.0, 1.0 ) = 0.4;
+// RFスイッチ的ブラー
+uniform float rf_switch_esque_blur : hint_range( 0.0, 1.0 ) = 1.0;
+// 白色ノイズ
+uniform float white_noise_rate : hint_range( 0.0, 1.0 ) = 0.0;
+
+float random( vec2 pos )
+{ 
+	return fract(sin(dot(pos, vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment( )
+{
+	// ガラスの曲がり具合
+	vec2 crt_curve_shift = ( vec2( 1.0, 1.0 ) - sin( UV.yx * PI ) ) * crt_curve;
+	vec2 crt_curve_scale = vec2( 1.0, 1.0 ) + crt_curve_shift * 2.0;
+	vec2 texture_fixed_uv = UV * crt_curve_scale - crt_curve_shift;
+	vec2 fixed_uv = SCREEN_UV * crt_curve_scale - crt_curve_shift;
+	// 範囲外を消す
+	float enable_color = float( 0.0 <= texture_fixed_uv.x && texture_fixed_uv.x <= 1.0 && 0.0 <= texture_fixed_uv.y && texture_fixed_uv.y <= 1.0 );
+
+	// ガラスの曲がり具合から元色を取得 + RFスイッチ的ブラー
+	COLOR.rgb = (
+		(
+			texture( SCREEN_TEXTURE, fixed_uv ).rgb
+		*	( 1.0 - rf_switch_esque_blur * 0.5 )
+		)
+	+	(
+			(
+				texture( SCREEN_TEXTURE, fixed_uv + vec2( -SCREEN_PIXEL_SIZE.x * 3.1, 0.0 ) ).rgb
+			+	texture( SCREEN_TEXTURE, fixed_uv + vec2( SCREEN_PIXEL_SIZE.x * 3.1, 0.0 ) ).rgb
+			)
+			*	( rf_switch_esque_blur * 0.25 )	// （RFノイズ）0.5 * （テクスチャから読んだ2箇所を半分にしたい）0.5
+		)
+	) * enable_color;
+	COLOR.a = 1.0;
+
+	// ------------------------------------------------
+	// 以下はアパーチャグリル上の1ピクセルごとの処理
+	vec2 aperture_grille_pixel = vec2( floor( ( fixed_uv.x / SCREEN_PIXEL_SIZE.x ) / 3.0 ) * 3.0, fixed_uv.y );
+
+	// 白色ノイズ
+	float white_noise = random( aperture_grille_pixel + vec2( sin( TIME * 0.543254 ), cos( TIME * 0.254323563 ) ) );
+	COLOR.rgb = mix(
+		COLOR.rgb
+	,	vec3( white_noise, white_noise, white_noise )
+	,	white_noise_rate * enable_color
+	);
+
+	// アパーチャグリル再現
+	float aperture_grille_point = mod( ( ( SCREEN_UV.x * crt_curve_scale.x ) - crt_curve_shift.x ) / SCREEN_PIXEL_SIZE.x, 3.0 );
+	float aperture_grille_r_rate = clamp( 1.0 - aperture_grille_point, 0.0, 1.0 ) + clamp( aperture_grille_point - 2.0, 0.0, 1.0 );
+	float aperture_grille_g_rate = clamp( 1.0 - abs( 1.0 - aperture_grille_point ), 0.0, 1.0 );
+	float aperture_grille_b_rate = 1.0 - aperture_grille_r_rate - aperture_grille_g_rate;
+	COLOR = clamp(
+		COLOR * vec4(
+			normalize( vec3(
+				clamp( aperture_grille_r_rate, aperture_grille_rate, 1.0 )
+			,	clamp( aperture_grille_g_rate, aperture_grille_rate, 1.0 )
+			,	clamp( aperture_grille_b_rate, aperture_grille_rate, 1.0 )
+			) )
+		,	1.0
+		)
+	,	vec4( 0.0, 0.0, 0.0, 0.0 )
+	,	vec4( 1.0, 1.0, 1.0, 1.0 )
+	);
+
+	// 走査線
+	COLOR = mix(
+		COLOR
+	,	vec4( 0.0, 0.0, 0.0, 1.0 )
+	,	float( 0 == int( fixed_uv.y / SCREEN_PIXEL_SIZE.y ) % 2 ) * crt_scan_line_color
+	);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/crt_curve = 0.027
+shader_param/crt_scan_line_color = 0.239
+shader_param/aperture_grille_rate = 0.53
+shader_param/rf_switch_esque_blur = 0.333
+shader_param/white_noise_rate = 0.027
+
+[sub_resource type="Environment" id=5]
+background_mode = 6
+background_energy = 7.77
+ssao_radius = 23.96
+ssao_intensity = 1.98
+ssao_intensity2 = 1.83
+ssao_light_affect = 0.47
+ssao_ao_channel_affect = 0.46
+glow_strength = 0.74
+glow_bloom = 0.17
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_hdr_luminance_cap = 45.95
+glow_hdr_scale = 2.51
+glow_bicubic_upscale = true
+adjustment_brightness = 1.2
+
+[sub_resource type="Animation" id=6]
+resource_name = "AutoplayTest"
+length = 4.0
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath("Objects/Rian")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.6, 1, 1.8, 1.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movleft"
+}, {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "dash"
+}, {
+"args": [  ],
+"method": "jump"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Objects/Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movleftoff"
+}, {
+"args": [  ],
+"method": "movrightoff"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Objects/Rian/Rspr:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.65 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "stop" ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Objects/Rian/Rspr:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "idle" ]
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+next = "Scene Pares://Stages/StickCity/A-2.tscnth"
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 13 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( -262011, 3, 0, -262010, 3, 0, -262009, 3, 0, -262008, 3, 0, -262007, 3, 0, -262006, 3, 0, -262005, 3, 0, -262004, 3, 0, -196468, 3, 0, -196467, 3, 0, -196466, 3, 0, -130929, 3, 0, -130928, 3, 0, -130927, 3, 0, -65416, 3, 0, -65415, 3, 0, -65414, 3, 0, -65413, 3, 0, -65412, 3, 0, -65411, 3, 0, -65410, 3, 0, -65409, 3, 0, -65408, 3, 0, -65407, 3, 0, -65406, 3, 0, -65405, 3, 0, -65404, 3, 0, -65403, 3, 0, -65402, 3, 0, -65401, 3, 0, -65400, 3, 0, -65399, 3, 0, -65398, 3, 0, -65397, 3, 0, -65396, 3, 0, -65395, 3, 0, -65394, 3, 0, -65393, 3, 0, -65392, 3, 0, -65391, 3, 0, -65390, 3, 0, -65389, 3, 0, -65388, 3, 0, 148, 4, 0, 149, 3, 0, 65685, 4, 0, 65686, 3, 0, 131222, 4, 0, 131223, 3, 0, 131240, 3, 0, 131241, 3, 0, 196759, 4, 0, 196760, 3, 0, 196774, 1, 0, 196775, 3, 0, 262296, 4, 0, 262297, 3, 0, 262309, 1, 0, 262310, 3, 0, 262315, 0, 0, 262316, 0, 0, 262317, 0, 0, 262318, 0, 0, 262319, 0, 0, 262320, 0, 0, 262321, 0, 0, 262322, 0, 0, 262323, 0, 0, 262324, 0, 0, 262325, 0, 0, 262326, 0, 0, 262327, 0, 0, 262328, 0, 0, 262329, 0, 0, 262330, 0, 0, 327833, 4, 0, 327843, 1, 0, 327844, 3, 0, 327845, 3, 0, 327850, 0, 0, 327851, 536870916, 0, 327866, 4, 0, 327867, 0, 0, 327868, 0, 0, 327869, 0, 0, 393370, 4, 0, 393371, 3, 0, 393378, 1, 0, 393379, 3, 0, 393385, 0, 0, 393386, 536870916, 0, 393406, 4, 0, 393407, 0, 0, 393408, 0, 0, 458907, 4, 0, 458913, 1, 0, 458920, 0, 0, 458921, 536870916, 0, 458944, 4, 0, 524444, 4, 0, 524445, 3, 0, 524447, 1, 0, 524448, 3, 0, 524451, 3, 0, 524452, 3, 0, 524453, 3, 0, 524454, 3, 0, 524456, 0, 0, 524481, 0, 0, 589981, 4, 0, 589982, 3, 0, 589983, 3, 0, 589984, 3, 0, 589985, 3, 0, 589986, 3, 0, 589987, 536870916, 0, 589991, 4, 0, 589992, 0, 0, 590016, 1, 0, 590017, 0, 0, 655552, 0, 0, 721088, 0, 0, 786623, 1, 0, 786624, 0, 0, 852159, 0, 0, 917695, 0, 0, 983191, 1, 0, 983192, 3, 0, 983193, 3, 0, 983194, 3, 0, 983195, 3, 0, 983196, 3, 0, 983197, 3, 0, 983198, 3, 0, 983199, 3, 0, 983200, 3, 0, 983201, 3, 0, 983202, 3, 0, 983203, 3, 0, 983204, 0, 0, 983205, 2, 0, 983230, 1, 0, 983231, 0, 0, 1048727, 3, 0, 1048740, 0, 0, 1048741, 0, 0, 1048766, 0, 0, 1114263, 3, 0, 1114277, 0, 0, 1114278, 2, 0, 1114301, 1, 0, 1114302, 0, 0, 1179798, 1, 0, 1179799, 3, 0, 1179813, 0, 0, 1179814, 0, 0, 1179815, 2, 0, 1179837, 0, 0, 1245334, 3, 0, 1245351, 0, 0, 1245352, 0, 0, 1245353, 2, 0, 1245372, 1, 0, 1245373, 0, 0, 1310869, 1, 0, 1310870, 3, 0, 1310889, 0, 0, 1310890, 0, 0, 1310891, 2, 0, 1310907, 1, 0, 1310908, 0, 0, 1376405, 3, 0, 1376427, 0, 0, 1376428, 0, 0, 1376429, 0, 0, 1376430, 0, 0, 1376431, 0, 0, 1376432, 0, 0, 1376433, 0, 0, 1376434, 0, 0, 1376435, 0, 0, 1376436, 0, 0, 1376437, 0, 0, 1376438, 0, 0, 1376439, 0, 0, 1376440, 0, 0, 1376441, 0, 0, 1376442, 0, 0, 1376443, 0, 0, 1441941, 3, 0, 1507477, 4, 0, 1507478, 3, 0, 1507479, 3, 0, 1573015, 4, 0, 1573016, 3, 0, 1638552, 4, 0, 1638553, 3, 0, 1638554, 3, 0, 1704090, 4, 0, 1704091, 3, 0, 1704092, 3, 0, 1769628, 4, 0, 1769629, 3, 0, 1769630, 3, 0, 1835166, 4, 0, 1835167, 3, 0, 1835168, 3, 0, 1835169, 3, 0, 1900705, 4, 0, 1900706, 3, 0, 1900707, 3, 0, 1966243, 4, 0, 1966244, 3, 0, 1966245, 3, 0, 2031781, 4, 0, 2031782, 3, 0, 2031783, 3, 0, 2031784, 3, 0, 2031785, 3, 0, 2097319, 4, 0, 2097320, 3, 0, 2097321, 3, 0, 2097322, 3, 0, 2162858, 4, 0, 2162859, 3, 0, 2162860, 0, 0, 2162861, 0, 0, 2228397, 4, 0, 2228398, 0, 0, 2293934, 0, 0, 2359470, 4, 0, 2359471, 0, 0, 2425007, 0, 0, 2490543, 4, 0, 2490544, 0, 0, 2556080, 0, 0, 2621616, 0, 0, 2687152, 0, 0, 2752688, 0, 0, 2818224, 0, 0, 2883760, 0, 0, 2949296, 4, 0, 2949297, 0, 0, 3014833, 0, 0, 3080369, 0, 0, 3145904, 1, 0, 3145905, 0, 0, 3211440, 0, 0, 3276976, 0, 0, 3342512, 0, 0, 3408047, 1, 0, 3473582, 1, 0, 3473583, 0, 0, 3539118, 0, 0, 3604654, 0, 0, 3670190, 0, 0, 3735725, 1, 0, 3735726, 0, 0, 3801261, 0, 0, 3866796, 1, 0, 3932332, 0, 0, 3997867, 1, 0, 3997868, 0, 0, 4063403, 0, 0, 4128939, 0, 0, 4194475, 0, 0, 4260011, 4, 0, 4325548, 0, 0, 4391084, 4, 0, 4391085, 0, 0, 4456476, 1, 0, 4456477, 0, 0, 4456478, 0, 0, 4456479, 0, 0, 4456480, 0, 0, 4456481, 0, 0, 4456482, 0, 0, 4456483, 0, 0, 4456484, 0, 0, 4456485, 0, 0, 4456486, 2, 0, 4456510, 1, 0, 4456511, 3, 0, 4456512, 3, 0, 4456513, 3, 0, 4456514, 536870913, 0, 4456621, 4, 0, 4456622, 0, 0, 4522012, 0, 0, 4522013, 0, 0, 4522014, 0, 0, 4522015, 0, 0, 4522016, 0, 0, 4522017, 0, 0, 4522018, 0, 0, 4522019, 0, 0, 4522020, 0, 0, 4522021, 0, 0, 4522022, 0, 0, 4522042, 1, 0, 4522043, 3, 0, 4522044, 3, 0, 4522045, 3, 0, 4522046, 3, 0, 4522047, 3, 0, 4522048, 3, 0, 4522049, 3, 0, 4522050, 3, 0, 4522051, 3, 0, 4522052, 3, 0, 4522053, 3, 0, 4522054, 536870913, 0, 4522158, 4, 0, 4587548, 0, 0, 4587549, 0, 0, 4587550, 0, 0, 4587551, 0, 0, 4587552, 0, 0, 4587553, 0, 0, 4587554, 0, 0, 4587555, 0, 0, 4587556, 0, 0, 4587557, 0, 0, 4587558, 0, 0, 4587577, 1, 0, 4587578, 3, 0, 4587579, 3, 0, 4587580, 3, 0, 4587581, 3, 0, 4587582, 3, 0, 4587583, 3, 0, 4587584, 3, 0, 4587585, 3, 0, 4587586, 3, 0, 4587587, 3, 0, 4587588, 3, 0, 4587589, 3, 0, 4587590, 3, 0, 4587591, 536870913, 0, 4587695, 4, 0, 4587696, 0, 0, 4653113, 4, 0, 4653114, 3, 0, 4653115, 3, 0, 4653116, 3, 0, 4653117, 3, 0, 4653118, 3, 0, 4653119, 3, 0, 4653120, 3, 0, 4653121, 3, 0, 4653122, 3, 0, 4653123, 3, 0, 4653124, 3, 0, 4653125, 3, 0, 4653126, 3, 0, 4653127, 3, 0, 4653128, 536870913, 0, 4653232, 4, 0, 4653233, 0, 0, 4653234, 0, 0, 4718651, 4, 0, 4718652, 3, 0, 4718653, 3, 0, 4718654, 3, 0, 4718655, 3, 0, 4718656, 3, 0, 4718657, 3, 0, 4718658, 3, 0, 4718659, 3, 0, 4718660, 3, 0, 4718661, 3, 0, 4718662, 3, 0, 4718663, 3, 0, 4718664, 3, 0, 4718665, 536870913, 0, 4784189, 4, 0, 4784190, 3, 0, 4784191, 3, 0, 4784192, 3, 0, 4784193, 3, 0, 4784194, 3, 0, 4784195, 3, 0, 4784196, 3, 0, 4784197, 3, 0, 4784198, 3, 0, 4784199, 3, 0, 4784200, 3, 0, 4784201, 3, 0, 4784219, 1, 0, 4784220, 0, 0, 4784221, 0, 0, 4784222, 0, 0, 4784223, 2, 0, 4849727, 4, 0, 4849728, 3, 0, 4849729, 3, 0, 4849730, 3, 0, 4849731, 3, 0, 4849732, 3, 0, 4849733, 3, 0, 4849734, 3, 0, 4849735, 3, 0, 4849736, 3, 0, 4849737, 536870916, 0, 4849755, 0, 0, 4849759, 0, 0, 4915266, 4, 0, 4915267, 3, 0, 4915268, 3, 0, 4915269, 3, 0, 4915270, 3, 0, 4915271, 3, 0, 4915272, 536870916, 0, 4915291, 0, 0, 4915295, 0, 0, 4980827, 0, 0, 4980831, 0, 0, 5046281, 536870914, 0, 5046282, 536870912, 0, 5046283, 536870912, 0, 5046284, 536870912, 0, 5046285, 536870912, 0, 5046286, 536870912, 0, 5046287, 536870912, 0, 5046288, 536870912, 0, 5046289, 536870912, 0, 5046290, 536870912, 0, 5046291, 536870912, 0, 5046292, 536870912, 0, 5046293, 536870912, 0, 5046294, 536870912, 0, 5046295, 536870912, 0, 5046296, 536870912, 0, 5046297, 536870912, 0, 5046298, 536870912, 0, 5046299, 536870912, 0, 5046300, 536870912, 0, 5046301, 536870912, 0, 5046302, 536870912, 0, 5046303, 536870912, 0, 5046304, 536870912, 0, 5046305, 536870912, 0, 5046306, 536870912, 0, 5046307, 536870912, 0, 5046308, 536870912, 0, 5046309, 536870912, 0, 5046310, 536870912, 0, 5046363, 0, 0, 5046367, 0, 0, 5111816, 536870914, 0, 5111846, 536870915, 0, 5111899, 0, 0, 5111903, 0, 0, 5242877, 0, 0, 5242878, 0, 0, 5242879, 0, 0, 5177344, 536870912, 0, 5177345, 536870912, 0, 5177346, 536870912, 0, 5177347, 536870912, 0, 5177348, 536870912, 0, 5177349, 536870912, 0, 5177350, 536870912, 0, 5177351, 536870912, 0, 5177382, 536870915, 0, 5177383, 536870915, 0, 5177384, 536870915, 0, 5177385, 536870915, 0, 5177386, 536870915, 0, 5177387, 536870915, 0, 5177388, 536870915, 0, 5177389, 536870915, 0, 5177390, 536870915, 0, 5177391, 2, 0, 5177433, 1, 0, 5177434, 0, 0, 5177435, 0, 0, 5177440, 0, 0, 5177441, 0, 0, 5177442, 2, 0, 5177510, 1, 0, 5177511, 0, 0, 5177512, 0, 0, 5177513, 0, 0, 5177514, 0, 0, 5177515, 0, 0, 5177516, 0, 0, 5177517, 0, 0, 5177518, 0, 0, 5242928, 2, 0, 5242967, 1, 0, 5242968, 0, 0, 5242969, 0, 0, 5242978, 0, 0, 5242979, 2, 0, 5243045, 1, 0, 5308465, 2, 0, 5308503, 0, 0, 5308515, 0, 0, 5308570, 1, 0, 5308571, 0, 0, 5308572, 0, 0, 5308573, 0, 0, 5308574, 0, 0, 5308575, 0, 0, 5308576, 0, 0, 5308577, 0, 0, 5308578, 0, 0, 5308579, 0, 0, 5308580, 0, 0, 5308581, 0, 0, 5374002, 2, 0, 5374039, 0, 0, 5374040, 0, 0, 5374041, 0, 0, 5374042, 0, 0, 5374043, 0, 0, 5374044, 0, 0, 5374045, 0, 0, 5374046, 0, 0, 5374047, 0, 0, 5374048, 0, 0, 5374049, 0, 0, 5374050, 0, 0, 5374051, 0, 0, 5374100, 1, 0, 5374101, 0, 0, 5374102, 0, 0, 5374103, 0, 0, 5374104, 0, 0, 5374105, 0, 0, 5374106, 0, 0, 5439539, 3, 0, 5439540, 3, 0, 5439541, 3, 0, 5439542, 3, 0, 5439543, 3, 0, 5439544, 3, 0, 5439545, 3, 0, 5439546, 2, 0, 5439632, 1, 0, 5439633, 0, 0, 5439634, 0, 0, 5439635, 0, 0, 5505083, 2, 0, 5505148, 1, 0, 5505149, 0, 0, 5505150, 0, 0, 5505151, 0, 0, 5505152, 0, 0, 5505153, 0, 0, 5505154, 0, 0, 5505155, 0, 0, 5505156, 0, 0, 5505157, 0, 0, 5505158, 0, 0, 5505159, 0, 0, 5505160, 0, 0, 5505161, 0, 0, 5505162, 0, 0, 5505163, 0, 0, 5505164, 0, 0, 5505165, 0, 0, 5505166, 0, 0, 5505167, 0, 0, 5505168, 0, 0, 5570620, 2, 0, 5570683, 1, 0, 5636157, 3, 0, 5636158, 3, 0, 5636159, 3, 0, 5636160, 3, 0, 5636161, 3, 0, 5636162, 3, 0, 5636163, 2, 0, 5636219, 0, 0, 5701698, 0, 0, 5701699, 0, 0, 5701755, 0, 0, 5767234, 0, 0, 5767235, 0, 0, 5767288, 1, 0, 5767289, 0, 0, 5767290, 0, 0, 5767291, 0, 0, 5832770, 0, 0, 5832771, 0, 0, 5832788, 1, 0, 5832789, 0, 0, 5832790, 0, 0, 5832791, 0, 0, 5832792, 0, 0, 5832793, 0, 0, 5832794, 0, 0, 5832795, 0, 0, 5832796, 0, 0, 5832797, 0, 0, 5832798, 0, 0, 5832799, 2, 0, 5832823, 1, 0, 5898307, 0, 0, 5898322, 1, 0, 5898323, 0, 0, 5898324, 0, 0, 5898336, 2, 0, 5898359, 0, 0, 5963843, 0, 0, 5963849, 1, 0, 5963850, 0, 0, 5963851, 0, 0, 5963852, 0, 0, 5963853, 0, 0, 5963854, 0, 0, 5963855, 0, 0, 5963856, 0, 0, 5963857, 0, 0, 5963858, 0, 0, 5963873, 2, 0, 5963885, 1, 0, 5963886, 0, 0, 5963887, 0, 0, 5963888, 0, 0, 5963889, 0, 0, 5963890, 0, 0, 5963891, 0, 0, 5963892, 0, 0, 5963893, 0, 0, 5963894, 0, 0, 5963895, 0, 0, 6029379, 0, 0, 6029380, 0, 0, 6029381, 0, 0, 6029382, 0, 0, 6029383, 0, 0, 6029384, 0, 0, 6029385, 0, 0, 6029410, 2, 0, 6029420, 1, 0, 6094947, 0, 0, 6094948, 0, 0, 6094949, 0, 0, 6094950, 0, 0, 6094951, 0, 0, 6094952, 0, 0, 6094953, 0, 0, 6094954, 0, 0, 6094955, 0, 0 )
+
+[node name="Hazard Marker" type="TileMap" parent="."]
+tile_set = SubResource( 15 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="Notes" type="Node2D" parent="."]
+
+[node name="N01" type="Label" parent="Notes"]
+margin_left = 2454.0
+margin_top = 186.0
+margin_right = 2493.0
+margin_bottom = 202.0
+rect_scale = Vector2( 2, 2 )
+theme = ExtResource( 1 )
+text = "DW Location"
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Rian" parent="Objects" instance=ExtResource( 4 )]
+position = Vector2( 172, 1208 )
+
+[node name="Rspr" parent="Objects/Rian" index="0"]
+frame = 2
+
+[node name="Camera2D" parent="Objects" instance=ExtResource( 5 )]
+position = Vector2( 170, 500 )
+limit_right = 10312
+limit_bottom = 4119
+limit_smoothed = false
+target = NodePath("../Rian")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 2 )
+margin_right = 496.0
+margin_bottom = 224.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+visible = false
+material = SubResource( 4 )
+margin_right = 496.0
+margin_bottom = 224.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="MatCache" parent="." instance=ExtResource( 8 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AutoplayTest = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+
+[node name="Hazards" type="Node" parent="."]
+
+[node name="Ouchbox" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( -184, 633 )
+scale = Vector2( 12.92, 1 )
+
+[editable path="Objects/Rian"]

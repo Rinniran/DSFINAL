@@ -10,10 +10,10 @@ export  var jump_strength: = 1.0
 const Up = Vector2.UP
 var gravity: = 1100.0
 const SNAPDIR = Vector2.DOWN
-var SNAPLEN = 32.0
+var SNAPLEN = 24.0
 const MAXFALLSPEED = 200 / 2
-const MAXSPEED = 100
-var SUPERSPEED = 300
+const MAXSPEED = 200
+var SUPERSPEED = 400
 var WAVESPEED = 600 / 2
 const ATKMSPEED = 150 / 2
 const ZOOMSPEED = 800
@@ -181,13 +181,14 @@ func _physics_process(delta)->void :
 	
 	if $Rspr.animation == "idle":
 		waittimer -= 1
-		print_debug(waittimer)
+		#print_debug(waittimer)
 	
 	
 	if $damagepause.is_stopped() == false:
 				$Rspr.animation = "Fling"
 				Globals.moveenabled = 0
 				hurt = 1
+				$Graze.nvm = true
 				motion.y = 0
 				motion.y -=  200
 				if $Rspr.flip_h:
@@ -1037,6 +1038,7 @@ func _on_Hurtbox_area_entered(area):
 					if Globals.hpcount <= 0:
 						$otvoice.stop()
 						$Rspr.play("die")
+						$Graze.nvm = true
 						$otvoice.set_stream(die)
 						dashing = 0
 						zooming = 0
@@ -1095,7 +1097,8 @@ func _on_Hurtbox_area_entered(area):
 func _on_damagepause_timeout():
 	Globals.moveenabled = 1
 	hurt = 0
-	$Hurtbox / safe_frames.start()
+	$Hurtbox/safe_frames.start()
+	$Graze.nvm = true
 
 
 func _on_Deathwait_timeout():
@@ -1170,3 +1173,8 @@ func _on_Collect_area_entered(area):
 			$collect.set_stream(wunup)
 			$collect.play()
 	pass
+
+
+func _on_safe_frames_timeout():
+	$Graze.nvm = false
+	pass # Replace with function body.
