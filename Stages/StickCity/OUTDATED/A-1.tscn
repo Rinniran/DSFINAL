@@ -676,6 +676,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 235 )
+frame = 3
 playing = true
 centered = false
 
@@ -683,7 +684,7 @@ centered = false
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 236 )
-frame = 60
+frame = 12
 playing = true
 centered = false
 
@@ -885,7 +886,6 @@ position = Vector2( 667.552, 387.025 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="Objects/Monitors"]
@@ -905,7 +905,6 @@ position = Vector2( 939, 288 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label4" type="Label" parent="Objects/Monitors"]
@@ -924,6 +923,7 @@ position = Vector2( 1158, 286 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label5" type="Label" parent="Objects/Monitors"]
@@ -943,7 +943,6 @@ position = Vector2( 1821, 364 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label2" type="Label" parent="Objects/Monitors"]
@@ -964,6 +963,7 @@ position = Vector2( 2216, 300 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label3" type="Label" parent="Objects/Monitors"]

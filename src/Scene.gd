@@ -13,6 +13,7 @@ var bossdefeated = 0
 
 # Called when the node enters the scene tree for the first time.
 
+export var reset_location = "res://Stages/StickCity/Section 1.tscn"
 
 
 
@@ -41,7 +42,7 @@ func _ready():
 	Globals.cur_scene = self
 	print_debug("self set current scene!")
 	
-	Globals.stage_start = "res://Stages/StickCity/A-1.tscn"
+	Globals.stage_start = reset_location
 	print_debug("self set stage start!")
 	
 	if musplay != null:

@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/poweredby-probrain.jpg-97f483f8e2060c4fc6c20328d6945c3e.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/poweredby-probrain.jpg"
+dest_files=[ "res://.import/poweredby-probrain.jpg-97f483f8e2060c4fc6c20328d6945c3e.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

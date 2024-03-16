@@ -113,7 +113,7 @@ script = ExtResource( 13 )
 [node name="Rspr" type="AnimatedSprite" parent="."]
 frames = ExtResource( 14 )
 animation = "idle"
-frame = 6
+frame = 8
 playing = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Rspr"]

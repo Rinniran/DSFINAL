@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "AudioManage",
+"language": "GDScript",
+"path": "res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/addons/WebAudioExternal/AudioManager.gd"
+}, {
+"base": "Node2D",
+"class": "AudioSpacial2D",
+"language": "GDScript",
+"path": "res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/addons/WebAudioExternal/AudioSpacial2D.gd"
+}, {
 "base": "Resource",
 "class": "ChatMessage",
 "language": "GDScript",
@@ -89,6 +99,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/game_state.gd"
 }, {
+"base": "Node",
+"class": "JavascriptManage",
+"language": "GDScript",
+"path": "res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/addons/WebAudioExternal/JavascriptManager.gd"
+}, {
 "base": "Resource",
 "class": "Member",
 "language": "GDScript",
@@ -115,6 +130,8 @@ _global_script_classes=[ {
 "path": "res://addons/subtitles/scenes/SubtitlesLayerDialogue.gd"
 } ]
 _global_script_class_icons={
+"AudioManage": "",
+"AudioSpacial2D": "",
 "ChatMessage": "",
 "DiscordActivity": "",
 "DiscordActivityAssets": "",
@@ -131,6 +148,7 @@ _global_script_class_icons={
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
+"JavascriptManage": "",
 "Member": "",
 "SubtitleData": "",
 "SubtitlesLayer2D": "",
@@ -148,6 +166,11 @@ boot_splash/image="res://Yaiba mini boss Illustration + logo.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://Icon.png"
 config/windows_native_icon="res://icon (2).ico"
+
+[audio]
+
+output_latency=100
+output_latency.web=100
 
 [autoload]
 
@@ -374,6 +397,7 @@ common/enable_pause_aware_picking=true
 
 quality/driver/fallback_to_gles2=true
 threads/thread_model=2
+threads/thread_safe_bvh=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_clear_color=Color( 0, 0, 0, 1 )

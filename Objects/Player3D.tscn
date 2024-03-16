@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/Players/Rian/RianFrames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/Rian3D.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape" id=1]
+
+[node name="Rian" type="KinematicBody"]
+script = ExtResource( 2 )
+
+[node name="ANIM" type="AnimatedSprite3D" parent="."]
+frames = ExtResource( 1 )
+animation = "idle"
+frame = 7
+playing = true
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.114, 0, 0, 0, -4.37114e-09, -0.135, 0, 0.1, -5.90104e-09, 0, -0.068774, 0 )
+shape = SubResource( 1 )

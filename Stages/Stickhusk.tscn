@@ -101,7 +101,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 40, 40 )
+extents = Vector2( 28, 40 )
 
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 306, 214 )
@@ -112,7 +112,7 @@ extents = Vector2( 57, 11 )
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 28, 40 )
 
-[node name="Shusk" type="Area2D"]
+[node name="Shusk" type="Area2D" groups=["TouchHurt"]]
 scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 1 )
 
@@ -120,7 +120,6 @@ script = ExtResource( 1 )
 position = Vector2( -2.97301, -4.43238 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="Sounds" type="AudioStreamPlayer2D" parent="Stickhusk"]
@@ -128,7 +127,7 @@ volume_db = 8.946
 max_distance = 831.0
 bus = "SFX"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["TouchHurt"]]
 shape = SubResource( 2 )
 
 [node name="hurt" type="AudioStreamPlayer" parent="."]

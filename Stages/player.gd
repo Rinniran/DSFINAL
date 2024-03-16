@@ -403,16 +403,16 @@ func _physics_process(delta)->void :
 					MSPEED = gospeed
 				else:
 					MSPEED = SUPERSPEED
-					if Globals.camera.zoom.x < 1.3:
-						Globals.camera.zoom.x += 0.02
-						Globals.camera.zoom.y += 0.02
-						comebacktimer = 60
-			else:
-				if comebacktimer <= 0:
-					if Globals.camera.zoom.x > 1:
-						Globals.camera.zoom.x -= 0.02
-						Globals.camera.zoom.y -= 0.02
-				else: comebacktimer -= 1
+#					if Globals.camera.zoom.x < 1.3:
+#						Globals.camera.zoom.x += 0.02
+#						Globals.camera.zoom.y += 0.02
+#						comebacktimer = 60
+#			else:
+#				if comebacktimer <= 0:
+#					if Globals.camera.zoom.x > 1:
+#						Globals.camera.zoom.x -= 0.02
+#						Globals.camera.zoom.y -= 0.02
+#				else: comebacktimer -= 1
 	
 	
 	

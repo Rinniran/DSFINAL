@@ -832,6 +832,7 @@ position = Vector2( 160, 1135 )
 scale = Vector2( 2, 2 )
 z_index = -1
 frames = SubResource( 256 )
+frame = 1
 playing = true
 
 [node name="Monitor2" type="AnimatedSprite" parent="Objects/Monitors"]
@@ -839,7 +840,6 @@ position = Vector2( 1392, 728 )
 scale = Vector2( 2, 2 )
 z_index = -1
 frames = SubResource( 256 )
-frame = 1
 playing = true
 
 [node name="Monitor3" type="AnimatedSprite" parent="Objects/Monitors"]
@@ -847,7 +847,6 @@ position = Vector2( 496, 227 )
 scale = Vector2( 3, 2 )
 z_index = -1
 frames = SubResource( 256 )
-frame = 1
 playing = true
 
 [node name="Rian" parent="Objects" instance=ExtResource( 3 )]

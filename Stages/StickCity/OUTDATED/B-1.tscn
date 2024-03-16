@@ -1168,7 +1168,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 262 )
-frame = 5
+frame = 4
 playing = true
 centered = false
 
@@ -1176,7 +1176,7 @@ centered = false
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 263 )
-frame = 23
+frame = 5
 playing = true
 centered = false
 
