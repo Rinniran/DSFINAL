@@ -1,14 +1,10 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://TextMain.tres" type="Theme" id=1]
-[ext_resource path="res://src/Scene.gd" type="Script" id=2]
 [ext_resource path="res://Blockout.tres" type="TileSet" id=3]
-[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Sprites/Textures/twoDriver.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Wave.tres" type="Material" id=7]
 [ext_resource path="res://Objects/Cache.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=9]
 [ext_resource path="res://Stages/Stickhusk.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Stages/GhostChaser.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Sprites/Stage/phHAZARD.png" type="Texture" id=15]
@@ -40,31 +36,6 @@ points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 } ]
 0/z_index = 0
 
-[sub_resource type="Shader" id=18]
-code = "shader_type canvas_item;
-
-void vertex() {
-    // This function is necessary even if empty
-}
-
-void fragment() {
-    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
-    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
-
-    // Scale the RGB values to fit within the 5-bit range
-    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
-
-    // Create the final color
-    vec4 final_color = vec4(scaled_color, original_color.a);
-
-    // Output the final color
-    COLOR = final_color;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 18 )
-
 [sub_resource type="Environment" id=5]
 background_mode = 6
 background_energy = 7.77
@@ -86,77 +57,11 @@ adjustment_brightness = 1.2
 resource_name = "AutoplayTest"
 length = 4.0
 step = 0.05
-tracks/0/type = "method"
-tracks/0/path = NodePath("Objects/Rian")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.6, 1, 1.8, 1.9 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "movleft"
-}, {
-"args": [  ],
-"method": "movright"
-}, {
-"args": [  ],
-"method": "dash"
-}, {
-"args": [  ],
-"method": "jump"
-} ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("Objects/Rian")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1, 1.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "movleftoff"
-}, {
-"args": [  ],
-"method": "movrightoff"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Objects/Rian/Rspr:animation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 1.65 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "stop" ]
-}
 
 [sub_resource type="Animation" id=7]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Objects/Rian/Rspr:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ "idle" ]
-}
 
-[node name="Node2D" type="Node2D"]
-script = ExtResource( 2 )
-next = "Scene Pares://Stages/StickCity/A-2.tscnth"
+[node name="Caverns" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 3 )
@@ -2498,19 +2403,6 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 
 [node name="Objects" type="Node" parent="."]
 
-[node name="Rian" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 172, 1208 )
-
-[node name="Rspr" parent="Objects/Rian" index="0"]
-frame = 5
-
-[node name="Camera2D" parent="Objects" instance=ExtResource( 5 )]
-position = Vector2( 170, 500 )
-limit_right = 29376
-limit_bottom = 4119
-limit_smoothed = false
-target = NodePath("../Rian")
-
 [node name="Shusk2" parent="Objects" instance=ExtResource( 10 )]
 position = Vector2( 585, 1212 )
 
@@ -2763,21 +2655,6 @@ position = Vector2( 21221, 2779 )
 [node name="GhostChaser66" parent="Objects" instance=ExtResource( 11 )]
 position = Vector2( 21795, 2758 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 128
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource( 2 )
-margin_right = 496.0
-margin_bottom = 224.0
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
-material = ExtResource( 9 )
-margin_right = 384.0
-margin_bottom = 228.0
-rect_pivot_offset = Vector2( 173, 289 )
-color = Color( 1, 1, 1, 0.498039 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
 
@@ -3024,10 +2901,6 @@ scale = Vector2( 21.5271, -6.26615 )
 [node name="Ouchbox59" parent="Hazards" instance=ExtResource( 16 )]
 position = Vector2( 10525, 2112 )
 scale = Vector2( 21.5271, -6.26615 )
-
-[node name="Ouchbox60" parent="Hazards" instance=ExtResource( 16 )]
-position = Vector2( 10957, 2112 )
-scale = Vector2( 5.79655, -4.32582 )
 
 [node name="Ouchbox61" parent="Hazards" instance=ExtResource( 16 )]
 position = Vector2( 10800, 2096 )
@@ -3593,5 +3466,3 @@ stretch_mode = 2
 __meta__ = {
 "_edit_lock_": true
 }
-
-[editable path="Objects/Rian"]

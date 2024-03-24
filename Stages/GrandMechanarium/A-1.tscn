@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://TextMain.tres" type="Theme" id=1]
 [ext_resource path="res://src/Scene.gd" type="Script" id=2]
@@ -16,7 +16,7 @@
 [ext_resource path="res://Objects/Extender.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Sprites/Stage/phHAZARD.png" type="Texture" id=15]
 [ext_resource path="res://Objects/Hazards/Ouchbox.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=17]
+[ext_resource path="res://Audio/BGM/17 Move Me.mp3" type="AudioStream" id=18]
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -255,34 +255,11 @@ tracks/0/keys = {
 "values": [ "idle" ]
 }
 
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-
-void vertex() {
-    // This function is necessary even if empty
-}
-
-void fragment() {
-    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
-    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
-
-    // Scale the RGB values to fit within the 5-bit range
-    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
-
-    // Create the final color
-    vec4 final_color = vec4(scaled_color, original_color.a);
-
-    // Output the final color
-    COLOR = final_color;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=17]
-shader = SubResource( 1 )
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 next = "res://Stages/StickCity/A-2.tscn"
+musplay = ExtResource( 18 )
+reset_location = "res://Stages/GrandMechanarium/A-1.tscn"
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 13 )
@@ -883,10 +860,13 @@ text = "Teach the player to jump"
 position = Vector2( 448, 2162 )
 
 [node name="Rspr" parent="Objects/Rian" index="0"]
-frame = 7
+frame = 0
+
+[node name="SPARKS" parent="Objects/Rian" index="30"]
+frame = 5
 
 [node name="Camera2D" parent="Objects" instance=ExtResource( 5 )]
-position = Vector2( 170, 500 )
+position = Vector2( 261, 2032 )
 limit_right = 10312
 limit_bottom = 4119
 limit_smoothed = false
@@ -1202,20 +1182,5 @@ scale = Vector2( 1, 6.92 )
 [node name="Ouchbox14" parent="Hazards" instance=ExtResource( 16 )]
 position = Vector2( 9910, 1182 )
 scale = Vector2( 1, 6.92 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 128
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource( 17 )
-margin_right = 496.0
-margin_bottom = 224.0
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
-material = ExtResource( 17 )
-margin_right = 384.0
-margin_bottom = 228.0
-rect_pivot_offset = Vector2( 173, 289 )
-color = Color( 1, 1, 1, 0.498039 )
 
 [editable path="Objects/Rian"]

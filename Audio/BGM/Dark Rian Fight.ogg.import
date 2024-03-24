@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Dark Rian Fight.ogg-3dfde1cc40574d7503d55d770f42fd94.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Dark Rian Fight.ogg"
+dest_files=[ "res://.import/Dark Rian Fight.ogg-3dfde1cc40574d7503d55d770f42fd94.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

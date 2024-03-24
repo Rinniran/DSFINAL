@@ -18,6 +18,7 @@ func _ready():
 
 func _on_Area2D_area_entered(area):
 	if area.is_in_group("hurtbox") && $Sprite.frame == 0:
+		Globals.player.dashmeter += 60
 		Globals.player.dashes += 1
 		$Sprite.frame = 1 
 		$Timer.start()

@@ -751,7 +751,7 @@ animations = [ {
 "speed": 25.0
 } ]
 
-[sub_resource type="Shader" id=286]
+[sub_resource type="Shader" id=307]
 code = "// original wind shader from https://github.com/Maujoe/godot-simple-wind-shader-2d/tree/master/assets/maujoe.simple_wind_shader_2d
 // original script modified by HungryProton so that the assets are moving differently : https://pastebin.com/VL3AfV8D
 //
@@ -797,7 +797,7 @@ void vertex() {
 }"
 
 [sub_resource type="ShaderMaterial" id=287]
-shader = SubResource( 286 )
+shader = SubResource( 307 )
 shader_param/speed = 3.672
 shader_param/minStrength = 0.05
 shader_param/maxStrength = 0.16
@@ -1345,17 +1345,18 @@ frame = 2
 [node name="Flame" type="AnimatedSprite" parent="Terrain"]
 position = Vector2( 624, 656 )
 frames = SubResource( 285 )
+frame = 1
 playing = true
 
 [node name="Flame2" type="AnimatedSprite" parent="Terrain"]
 position = Vector2( 816, 624 )
 frames = SubResource( 285 )
-frame = 1
 playing = true
 
 [node name="Flame3" type="AnimatedSprite" parent="Terrain"]
 position = Vector2( 1200, 624 )
 frames = SubResource( 285 )
+frame = 1
 playing = true
 
 [node name="Objects" type="Node" parent="." groups=["STGDATA"]]
@@ -1592,7 +1593,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -39.091, 70.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 252 )
-frame = 1
+frame = 4
 playing = true
 centered = false
 
@@ -1600,7 +1601,7 @@ centered = false
 position = Vector2( -39.091, 70.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 253 )
-frame = 40
+frame = 5
 playing = true
 centered = false
 

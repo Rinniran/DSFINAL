@@ -31,7 +31,7 @@ func _process(delta):
 		if dielol == 0:
 			frameFreeze(0.05, 0.75)
 			Globals.camera.shake(100,0.5,900 * 2)
-			
+			$CollisionShape2D.queue_free()
 			dielol = 1
 		
 		
@@ -323,4 +323,5 @@ func _on_Stickhusk_animation_finished():
 			$Stickhusk.play("default")
 		
 	if $Stickhusk.animation == "die":
+		
 		queue_free()

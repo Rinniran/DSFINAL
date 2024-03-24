@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Wayward Aura Part 1.ogg-42057ded6872054af0ce5e10a685a3a1.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Wayward Aura Part 1.ogg"
+dest_files=[ "res://.import/Wayward Aura Part 1.ogg-42057ded6872054af0ce5e10a685a3a1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

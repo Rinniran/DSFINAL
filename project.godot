@@ -9,16 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "AudioManage",
-"language": "GDScript",
-"path": "res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/addons/WebAudioExternal/AudioManager.gd"
-}, {
-"base": "Node2D",
-"class": "AudioSpacial2D",
-"language": "GDScript",
-"path": "res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/addons/WebAudioExternal/AudioSpacial2D.gd"
-}, {
 "base": "Resource",
 "class": "ChatMessage",
 "language": "GDScript",
@@ -99,11 +89,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/game_state.gd"
 }, {
-"base": "Node",
-"class": "JavascriptManage",
-"language": "GDScript",
-"path": "res://addons/godot_web_external_audio_motor-a8ddcb8cf950b67795fe976739f2ea57e7304a1c/addons/WebAudioExternal/JavascriptManager.gd"
-}, {
 "base": "Resource",
 "class": "Member",
 "language": "GDScript",
@@ -130,8 +115,6 @@ _global_script_classes=[ {
 "path": "res://addons/subtitles/scenes/SubtitlesLayerDialogue.gd"
 } ]
 _global_script_class_icons={
-"AudioManage": "",
-"AudioSpacial2D": "",
 "ChatMessage": "",
 "DiscordActivity": "",
 "DiscordActivityAssets": "",
@@ -148,7 +131,6 @@ _global_script_class_icons={
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
-"JavascriptManage": "",
 "Member": "",
 "SubtitleData": "",
 "SubtitlesLayer2D": "",
@@ -160,7 +142,7 @@ _global_script_class_icons={
 
 config/name="DreamShock"
 config/description="A blast through space, time, and dreams!"
-run/main_scene="res://Subrooms/GamepadNotice.tscn"
+run/main_scene="res://Stages/StickCity/SC COMPILED.tscn"
 run/low_processor_mode=true
 boot_splash/image="res://Yaiba mini boss Illustration + logo.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
@@ -189,7 +171,7 @@ window/size/width=384
 window/size/height=224
 window/size/test_width=768
 window/size/test_height=640
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor]

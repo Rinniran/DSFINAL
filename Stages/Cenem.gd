@@ -6,7 +6,7 @@ extends KinematicBody2D
 # var b = "text"
 var direction = Vector2()
 var move = Vector3.ZERO
-var speed = 200
+var speed = 100
 var dielol = 0
 
 # Called when the node enters the scene tree for the first time.

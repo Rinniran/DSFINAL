@@ -48,8 +48,11 @@ var parttimer = 2
 var speedup = 1
 var jumping = false
 
+var superdash = false
+
 var comebacktimer = 0
 
+var dashmeter = 0
 
 var maxpow = 1
 
@@ -172,6 +175,7 @@ func _physics_process(delta)->void :
 	
 	Globals.playerspriteflip = $Rspr.flip_h
 	
+	$Meter.value = dashmeter
 	
 	
 	if Kpause and Globals.paused == 0:
@@ -182,6 +186,23 @@ func _physics_process(delta)->void :
 	if $Rspr.animation == "idle":
 		waittimer -= 1
 		#print_debug(waittimer)
+	
+	
+	if dashmeter != (60) && dashes > 0:
+		dashmeter += 1
+		
+	if dashmeter < 30:
+		$Meter.tint_progress = Color(0.350586, 0.350586, 0.350586)
+	elif dashmeter < 60:
+		$Meter.tint_progress = Color(0, 0.996078, 1)
+	elif dashmeter == 60:
+		$Meter.tint_progress = Color(1, 0.896484, 0)
+		$Meter/FULLREADY.visible = true
+		superdash = true
+	
+	if dashmeter > (60):
+		
+		dashmeter = 60
 	
 	
 	if $damagepause.is_stopped() == false:
@@ -249,6 +270,13 @@ func _physics_process(delta)->void :
 	WAVESPEED = 1250 / 2
 	
 	
+	
+	if Globals.combo >= 48:
+		dashmeter = 60
+		$Meter.tint_progress = Color(1, 0, 0)
+		maxpow = 1
+	
+	
 	if Globals.visibox == true:
 		if go:
 			Globals.visibox = false
@@ -286,7 +314,7 @@ func _physics_process(delta)->void :
 			if $attack3hit / CollisionShape2D.disabled == false:
 				$groundatk2 / CollisionShape2D.disabled = true
 				
-			if zooming == 0 or Globals.combo < 60 and dashing == 0:
+			if zooming == 0 or superdash and dashing == 0:
 				$Zoombox / CollisionShape2D.disabled = true
 			
 			if atkg == 0:
@@ -324,15 +352,16 @@ func _physics_process(delta)->void :
 					motion.y = 0
 					
 				
-				if Globals.combo >= 60:
+				if superdash:
 					$Zoombox / CollisionShape2D.disabled = false
 				
-				if atkg or Globals.combo >= 60:
+				if atkg or superdash:
 					var dashfx = preload("res://Stages/dashfx.tscn").instance()
 					
-					get_parent().add_child(dashfx)
-					dashfx.position = position
-					dashfx.flip_h = $Rspr.flip_h
+#					get_parent().add_child(dashfx)
+#					dashfx.position = position
+#					dashfx.flip_h = $Rspr.flip_h
+					$SPARKS.visible = true
 					
 					
 							
@@ -563,18 +592,18 @@ func _physics_process(delta)->void :
 					$snapoff.start()
 				
 					
-			if (Kdash and Globals.moveenabled == 1) || (dash):
+			if (Kdash and  dashmeter >= 30 and Globals.moveenabled == 1) || (dash):
 				
 				dashoff()
 				if dashes > 0:
 					dashing = 1
 					nodown = 0
-					
+					$SPARKS.frame = 0
 					
 					
 					$Hurtbox / dodge_window.start()
 					dashtimer = 800
-					
+					dashmeter = 0
 					if not is_on_floor():
 						atka = 0
 						if Kstrafe:
@@ -638,7 +667,7 @@ func _physics_process(delta)->void :
 				randomize()
 				var clip_to_play = audio_stream_array[randi() % audio_stream_array.size()]
 						
-				if atkpts == 3 and (Kattack || attack) and not leaving and Globals.moveenabled == 1:
+				if atkpts == 3 and (Kattack and not leaving and Globals.moveenabled == 1) or (attack and not leaving):
 					attack = false
 					$atktimer.start()
 					$atkwait.start()
@@ -656,11 +685,12 @@ func _physics_process(delta)->void :
 					
 					$Rspr.animation != "run"
 					$Rspr.play("attackg_a")
+					
 					var atkfxinst = atkfx.instance()
 					atkfxinst.position.x = position.x
 					atkfxinst.position.y = position.y
-					
-					
+
+
 					atkfxinst.flip_h = $Rspr.flip_h
 					get_parent().add_child(atkfxinst)
 					atkpts -= 1
@@ -672,7 +702,7 @@ func _physics_process(delta)->void :
 					$Rspr.play("stop")
 					waittimer = 60 * 7
 					
-				elif atkpts == 2 and (Kattack || attack) and not leaving and $atkwait.is_stopped() and Globals.moveenabled == 1:
+				elif (atkpts == 2 and (Kattack) and not leaving and $atkwait.is_stopped() and Globals.moveenabled == 1) or (atkpts == 2 and (attack) and not leaving and $atkwait.is_stopped()):
 					attack = false
 					$groundatk / CollisionShape2D.disabled = true
 					$atktimer.start()
@@ -689,7 +719,7 @@ func _physics_process(delta)->void :
 					$Voices / dodgeVoices.play()
 						
 					atkpts -= 1
-				elif atkpts == 1 and (Kattack || attack) and not leaving and $killhitbox2.is_stopped() and Globals.moveenabled == 1:
+				elif (atkpts == 1 and (Kattack) and not leaving and $killhitbox2.is_stopped() and (Globals.moveenabled == 1)) or (atkpts == 1 and (attack) and not leaving and $killhitbox2.is_stopped()):
 					attack = false
 					$attack3hit / CollisionShape2D.disabled = true
 					$atktimer.start()
@@ -705,7 +735,7 @@ func _physics_process(delta)->void :
 					
 					$Rspr.play("attackg_c")
 					atkpts -= 1
-				elif dashing and motion.x != 0 and Globals.moveenabled == 1:
+				elif dashing and motion.x != 0 :#and Globals.moveenabled == 1
 					if $Rspr.animation != "attackair":
 						atka = 0
 						if wavedashing:
@@ -764,8 +794,10 @@ func _physics_process(delta)->void :
 			if dashtimer > 0:
 				dashtimer -= (1 / delta * Engine.time_scale)
 				if dashtimer <= 0:
+					$SPARKS.visible = false
 					leavetimer = 0
 					atkg = 0
+					superdash = 0
 					dashing = 0
 					
 					
@@ -1022,10 +1054,17 @@ func _on_Hurtbox_area_entered(area):
 			if $damagepause.is_stopped():
 				if $Hurtbox / safe_frames.is_stopped():
 					if area.is_in_group("bighurt"):
+							var hs = preload("res://Subrooms/hurtspark.tscn")
+							var ma = hs.instance()
+							ma.position = global_position
+							get_parent().add_child(ma)
 							Globals.hpcount -= 3
 							Globals.combo = 0
 					if area.is_in_group("TouchHurt") and not atka or area.is_in_group("enemproject"):
-						
+						var hs = preload("res://Subrooms/hurtspark.tscn")
+						var ma = hs.instance()
+						ma.position = global_position
+						get_parent().add_child(ma)
 						Globals.hpcount -= 1
 						Globals.pieces -= 5
 						Globals.link = 0
@@ -1155,13 +1194,13 @@ func _on_dashatkvoice_finished():
 	if Globals.link >= 30:
 		speedup = 1
 		
-	if Globals.combo >= 60:
-		maxpow = 1
+	
 
 
 func _on_Collect_area_entered(area):
+	
 	if area.is_in_group("pieceobject"):
-		
+		Globals.combotimer += 60 * 10
 		
 		if $collect.stream == wunup and $collect.is_playing():
 			pass
@@ -1177,4 +1216,9 @@ func _on_Collect_area_entered(area):
 
 func _on_safe_frames_timeout():
 	$Graze.nvm = false
+	pass # Replace with function body.
+
+
+func _on_FULLREADY_animation_finished():
+	$Meter/FULLREADY.visible = false
 	pass # Replace with function body.

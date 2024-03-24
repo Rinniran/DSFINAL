@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=1]
 
 [sub_resource type="ShaderMaterial" id=3]
 
@@ -68,11 +70,35 @@ func _on_Timer_timeout():
 	tween.start()
 "
 
+[sub_resource type="Shader" id=18]
+code = "shader_type canvas_item;
+
+void vertex() {
+    // This function is necessary even if empty
+}
+
+void fragment() {
+    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
+    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+
+    // Scale the RGB values to fit within the 5-bit range
+    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
+
+    // Create the final color
+    vec4 final_color = vec4(scaled_color, original_color.a);
+
+    // Output the final color
+    COLOR = final_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = SubResource( 18 )
+
 [node name="Camera2D" type="Camera2D"]
 material = SubResource( 3 )
 anchor_mode = 0
 current = true
-zoom = Vector2( 1.3, 1.3 )
 limit_left = 0
 limit_top = 0
 limit_right = 1536
@@ -97,5 +123,20 @@ one_shot = true
 autostart = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 19 )
+margin_right = 496.0
+margin_bottom = 224.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource( 1 )
+margin_right = 384.0
+margin_bottom = 225.0
+rect_pivot_offset = Vector2( 173, 289 )
+color = Color( 1, 1, 1, 0.498039 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

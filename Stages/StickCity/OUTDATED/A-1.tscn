@@ -621,7 +621,7 @@ adjustment_saturation = 1.1
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 12 )
-next = "res://Stages/StickCity/A-2.tscn"
+next = "res://Stages/StickCity/OUTDATED/A-2.tscn"
 musplay = ExtResource( 24 )
 
 [node name="GUIStuff" parent="." groups=["STGDATA"] instance=ExtResource( 22 )]
@@ -676,7 +676,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 235 )
-frame = 3
+frame = 4
 playing = true
 centered = false
 
@@ -684,7 +684,7 @@ centered = false
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 236 )
-frame = 12
+frame = 55
 playing = true
 centered = false
 
@@ -803,7 +803,6 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Terrain/KinematicBody2D"]
 frames = SubResource( 238 )
-frame = 3
 playing = true
 centered = false
 __meta__ = {

@@ -17,6 +17,7 @@ var cantalk = false
 var text = 0
 var txt 
 var incutscene = 0
+var demoscene = 1
 var checkpX
 var checkpY
 var continused = 0
@@ -93,11 +94,11 @@ func _input(event):
 	if event is InputEventKey:
 		if event.pressed:
 			inputmode = "kb"
-			print_debug(inputmode)
+			#print_debug(inputmode)
 	elif event is InputEventJoypadButton:
 		if event.pressed:
 			inputmode = "joy"
-			print_debug(inputmode)
+			#print_debug(inputmode)
 
 func _init():
 	atkmult = 0.00
@@ -107,11 +108,12 @@ func _init():
 	music.play()
 	add_child(music)
 	
+	combotimer = 0
 	OS.window_size = Vector2(768, 432)
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	
+	print(combotimer)
 	
 	
 	if Engine.time_scale < 1.0:
