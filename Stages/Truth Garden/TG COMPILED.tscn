@@ -17,12 +17,14 @@ musplay = ExtResource( 5 )
 reset_location = "res://Stages/Truth Garden/TG COMPILED.tscn"
 
 [node name="Garden" parent="." instance=ExtResource( 1 )]
+position = Vector2( 4.33681e-19, -360 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="Rian" parent="." instance=ExtResource( 3 )]
-position = Vector2( 80, 903 )
+position = Vector2( 64, 362 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( -16, 789 )
+position = Vector2( -32, 248 )
 limit_top = -858
 limit_right = 20733
 limit_bottom = 2850
@@ -33,7 +35,7 @@ script = ExtResource( 6 )
 musplay = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SongSwitch"]
-position = Vector2( 10630, 2115 )
+position = Vector2( 8512, 1320 )
 shape = SubResource( 1 )
 
 [connection signal="area_entered" from="SongSwitch" to="SongSwitch" method="_on_SongSwitch_area_entered"]

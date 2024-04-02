@@ -59,6 +59,7 @@ func _process(delta):
 					
 					
 					
+					
 					$Stickhusk/Sounds.stream = Shootsound
 					$Stickhusk/Sounds.play()
 					BulletA.mode = 1
@@ -160,6 +161,13 @@ func _on_Area2D_area_entered(area):
 			Globals.combo += 1
 			
 			hp -= 0.8 + Globals.atkmult
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(0.8 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -174,7 +182,11 @@ func _on_Area2D_area_entered(area):
 			hp -= 0.5 + Globals.atkmult
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
-			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(0.5 + Globals.atkmult)
+			get_parent().add_child(damobj)
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -190,6 +202,13 @@ func _on_Area2D_area_entered(area):
 			hp -=  1 + Globals.atkmult
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(1 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -203,6 +222,15 @@ func _on_Area2D_area_entered(area):
 			
 		if area.is_in_group("hit3"):
 			hp -= 0.4 + Globals.atkmult
+			
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(0.4 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
+			
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
@@ -220,6 +248,14 @@ func _on_Area2D_area_entered(area):
 			hp -= 2 
 			Globals.combotimer = 60 * 10
 			Globals.combo += 4
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(2 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
+			
 			$hurt.play()
 			Globals.score += 100
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -235,6 +271,14 @@ func _on_Area2D_area_entered(area):
 			hp -= 1 + Globals.atkmult
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(1 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
+			
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
 			$multihurt.start()
 			$multihurtrepeat.start()
@@ -251,6 +295,13 @@ func _on_Area2D_area_entered(area):
 			hp -= 7 + Globals.atkmult
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(7 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -283,6 +334,13 @@ func _on_multihurtrepeat_timeout():
 			ma.position = global_position
 			get_parent().add_child(ma)
 			hp -= 0.3 + Globals.atkmult
+			
+			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(hp - 0.3 + Globals.atkmult)
+			get_parent().add_child(damobj)
+			
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
 			if hp > 0:

@@ -67,9 +67,9 @@ var slashallowed = 1
 
 var waittimer = 60 * 7
 
+var parrytime = 20
 
-
-
+var hittype = ""
 
 var spvoice = preload("res://Audio/Voices/speedup.wav")
 
@@ -100,6 +100,8 @@ var atkv4 = preload("res://Audio/Voices/atkproj4.wav")
 var peece = preload("res://Audio/SE/402767__mattix__8bit-coin-03.wav")
 var wunup = preload("res://Audio/SE/1up.wav")
 
+var danger = preload("res://Audio/SE/Deathhit.wav")
+
 var dam1 = preload("res://Audio/Voices/damage 1.wav")
 var dam2 = preload("res://Audio/Voices/damage 2.wav")
 var dam3 = preload("res://Audio/Voices/damage 3.wav")
@@ -114,6 +116,8 @@ var atkfx = preload("res://Stages/Attackfx1.tscn")
 var hurt = 0
 
 var nodown = 0
+
+var is_hit = false
 
 #======================Command Variables cause I'll be fucking damned if I lose everything AGAIN===========================
 
@@ -188,10 +192,10 @@ func _physics_process(delta)->void :
 		#print_debug(waittimer)
 	
 	
-	if dashmeter != (60) && dashes > 0:
+	if dashmeter != (60):
 		dashmeter += 1
 		
-	if dashmeter < 30:
+	if dashmeter < 15:
 		$Meter.tint_progress = Color(0.350586, 0.350586, 0.350586)
 	elif dashmeter < 60:
 		$Meter.tint_progress = Color(0, 0.996078, 1)
@@ -251,7 +255,7 @@ func _physics_process(delta)->void :
 
 	Globals.camera.rotation_degrees = $Rspr.rotation_degrees
 	
-	if $Rspr.animation == "Fjump":
+	if $Rspr.animation == "Fjump" and !is_hit:
 		if $Rspr.flip_h == true:
 			$Rspr.rotation_degrees -= 8
 		if $Rspr.flip_h == false:
@@ -497,7 +501,7 @@ func _physics_process(delta)->void :
 					$Rspr.scale.y = 1
 			
 			
-			if Kright and Globals.moveenabled == 1 || (movright):
+			if Kright and !is_hit and Globals.moveenabled == 1 || (movright):
 				if is_on_floor() and not atkg and not dashing:
 					if Kstrafe and $Rspr.flip_h == false:
 						$Rspr.play("StrafeF")
@@ -519,7 +523,7 @@ func _physics_process(delta)->void :
 						motion.x = 0
 				facedir = 1
 				
-			elif Kleft and Globals.moveenabled == 1 || (movleft):
+			elif Kleft and  !is_hit and Globals.moveenabled == 1 || (movleft):
 				if is_on_floor() and not atkg and not dashing:
 					if Kstrafe and $Rspr.flip_h == false:
 						$Rspr.play("StrafeB")
@@ -592,7 +596,7 @@ func _physics_process(delta)->void :
 					$snapoff.start()
 				
 					
-			if (Kdash and  dashmeter >= 30 and Globals.moveenabled == 1) || (dash):
+			if (Kdash and  dashmeter >= 15 and !is_hit and Globals.moveenabled == 1) || (dash):
 				
 				dashoff()
 				if dashes > 0:
@@ -833,12 +837,33 @@ func _physics_process(delta)->void :
 			
 		
 		
+		
+		
 		if position.y > Globals.camera.limit_bottom + 24:
 			Globals.hpcount = 0
 		
 	if not is_on_floor() and jumping == false and dashing:
 		jumpdash = 1
-		
+	
+	if is_hit && parrytime > 0:
+		motion.x = 0
+		motion.y = 0
+		$Rspr.playing = false
+		parrytime -= 1
+	
+	if is_hit && parrytime > 0 && dashmeter >= 15:
+		if Input.is_action_just_pressed("dash"):
+			$Rspr/Shaders.play("Parry flash")
+			$dodge.set_stream(dodges)
+			$dodge.play()
+			dashmeter -= 15
+			is_hit = false
+			$Rspr.playing = true
+	elif is_hit && parrytime <= 0:
+		damagehandle(hittype)
+		is_hit = false
+		$Rspr.playing = true
+	
 
 func attack():
 	attack = true
@@ -1050,61 +1075,44 @@ func _on_Hurtbox_area_entered(area):
 		var audio_stream_array = [dam1, dam2, dam3]
 		randomize()
 		var clip_to_play = audio_stream_array[randi() % audio_stream_array.size()]
-		if not dashing and not zooming and not jumpdash and Globals.canthurt == 0 or area.is_in_group("undodgeable"):
+		if not dashing and not zooming and not jumpdash and not is_hit and Globals.canthurt == 0 or area.is_in_group("undodgeable"):
 			if $damagepause.is_stopped():
 				if $Hurtbox / safe_frames.is_stopped():
 					if area.is_in_group("bighurt"):
-							var hs = preload("res://Subrooms/hurtspark.tscn")
-							var ma = hs.instance()
-							ma.position = global_position
-							get_parent().add_child(ma)
-							Globals.hpcount -= 3
-							Globals.combo = 0
-					if area.is_in_group("TouchHurt") and not atka or area.is_in_group("enemproject"):
+						motion.x = 0
+						motion.y = 0
+						dashing = 0
+						parrytime = 6
+						hittype = "bighit"
+						is_hit = true
 						var hs = preload("res://Subrooms/hurtspark.tscn")
 						var ma = hs.instance()
 						ma.position = global_position
 						get_parent().add_child(ma)
-						Globals.hpcount -= 1
-						Globals.pieces -= 5
-						Globals.link = 0
-						Globals.combo = 0
-						Globals.atkmult -= (1)
-					if Globals.pieces < 0:
-						Globals.pieces = 0
-					if Globals.atkmult < 0.01:
-						Globals.atkmult = 0.01
-					if Globals.hpcount <= 0:
-						$otvoice.stop()
-						$Rspr.play("die")
-						$Graze.nvm = true
-						$otvoice.set_stream(die)
-						dashing = 0
-						zooming = 0
-						jumpdash = 0
+						$dodge.set_stream(danger)
+						$dodge.play()
+						
+					if area.is_in_group("TouchHurt") and not atka or area.is_in_group("enemproject"):
 						motion.x = 0
 						motion.y = 0
-						Globals.ded = 1
-						$otvoice.volume_db = - 14
-						$otvoice.play()
-						$Deathwait.start()
-					else :
-						Globals.moveenabled = 0
-						hurt = 1
-						$scarfpart.gravity = motion / 4
-						$scarfpart.emitting = true
-						$damagepause.start()
-						$Rspr.play("damage")
-						$Voices/dodgeVoices.set_stream(clip_to_play)
-						$Voices/dodgeVoices.play()
-						atkg = 0
+						dashing = 0
+						parrytime = 10
+						hittype = "touchhit"
+						is_hit = true
+						var hs = preload("res://Subrooms/hurtspark.tscn")
+						var ma = hs.instance()
+						ma.position = global_position
+						get_parent().add_child(ma)
+						$dodge.set_stream(danger)
+						$dodge.play()
+					
 							
 						
 					
 					
 					
 		
-		if dashing:
+		if dashing && !area.is_in_group("undodgeable"):
 			if $Hurtbox / dodge_window.is_stopped() == false:
 				
 			
@@ -1172,7 +1180,68 @@ func _on_GOAnimate_animation_finished(anim_name):
 
 
 
-
+func damagehandle(var type):
+	match(type):
+		"bighit":
+			var hs = preload("res://Subrooms/hurtspark.tscn")
+			var ma = hs.instance()
+			ma.position = global_position
+			get_parent().add_child(ma)
+			Globals.hpcount -= 3
+			var damage = preload("res://Subrooms/DAMAGE PLAYER.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(3)
+			get_parent().add_child(damobj)
+			Globals.combo = 0
+		"touchhit":
+			var hs = preload("res://Subrooms/hurtspark.tscn")
+			var ma = hs.instance()
+			ma.position = global_position
+			get_parent().add_child(ma)
+			Globals.hpcount -= 1
+			var damage = preload("res://Subrooms/DAMAGE PLAYER.tscn")
+			var damobj = damage.instance()
+			damobj.position = global_position
+			damobj.value = str(1)
+			get_parent().add_child(damobj)
+			Globals.pieces -= 5
+			Globals.link = 0
+			Globals.combo = 0
+			Globals.atkmult -= (1)
+	
+	var audio_stream_array = [dam1, dam2, dam3]
+	randomize()
+	var clip_to_play = audio_stream_array[randi() % audio_stream_array.size()]
+	
+	if Globals.pieces < 0:
+		Globals.pieces = 0
+	if Globals.atkmult < 0.01:
+		Globals.atkmult = 0.01
+	if Globals.hpcount <= 0:
+		$otvoice.stop()
+		$Rspr.play("die")
+		$Graze.nvm = true
+		$otvoice.set_stream(die)
+		dashing = 0
+		zooming = 0
+		jumpdash = 0
+		motion.x = 0
+		motion.y = 0
+		Globals.ded = 1
+		$otvoice.volume_db = - 14
+		$otvoice.play()
+		$Deathwait.start()
+	else :
+		Globals.moveenabled = 0
+		hurt = 1
+		$scarfpart.gravity = motion / 4
+		$scarfpart.emitting = true
+		$damagepause.start()
+		$Rspr.play("damage")
+		$Voices/dodgeVoices.set_stream(clip_to_play)
+		$Voices/dodgeVoices.play()
+		atkg = 0
 
 
 

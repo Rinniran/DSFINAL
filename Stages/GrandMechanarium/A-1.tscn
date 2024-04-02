@@ -860,10 +860,13 @@ text = "Teach the player to jump"
 position = Vector2( 448, 2162 )
 
 [node name="Rspr" parent="Objects/Rian" index="0"]
-frame = 0
+frame = 5
+
+[node name="FULLREADY" parent="Objects/Rian/Meter" index="0"]
+frame = 1
 
 [node name="SPARKS" parent="Objects/Rian" index="30"]
-frame = 5
+frame = 4
 
 [node name="Camera2D" parent="Objects" instance=ExtResource( 5 )]
 position = Vector2( 261, 2032 )

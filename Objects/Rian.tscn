@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Subrooms/Scarf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Audio/Voices/damage 2.wav" type="AudioStream" id=2]
@@ -23,9 +23,59 @@
 [ext_resource path="res://Sprites/VFX/Hit(fx)_1.png" type="Texture" id=21]
 [ext_resource path="res://Sprites/VFX/Hit(fx)_6-2.png" type="Texture" id=22]
 
+[sub_resource type="Shader" id=32]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color
+	}
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=33]
+shader = SubResource( 32 )
+shader_param/active = false
+
 [sub_resource type="OccluderPolygon2D" id=2]
 cull_mode = 1
 polygon = PoolVector2Array( -8, 24, 4, 24, 8, 8, 4, -12, -4, -12, -12, -4 )
+
+[sub_resource type="Animation" id=34]
+resource_name = "Parry flash"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false ]
+}
+
+[sub_resource type="Animation" id=35]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="CapsuleShape2D" id=3]
 radius = 8.04666
@@ -181,14 +231,20 @@ animations = [ {
 script = ExtResource( 13 )
 
 [node name="Rspr" type="AnimatedSprite" parent="."]
+material = SubResource( 33 )
+position = Vector2( 1, 0 )
 frames = ExtResource( 14 )
 animation = "idle"
-frame = 2
+frame = 6
 playing = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Rspr"]
 visible = false
 occluder = SubResource( 2 )
+
+[node name="Shaders" type="AnimationPlayer" parent="Rspr"]
+"anims/Parry flash" = SubResource( 34 )
+anims/RESET = SubResource( 35 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 6 )
@@ -405,7 +461,7 @@ tint_progress = Color( 1, 0, 0, 1 )
 position = Vector2( 59, 9.83606 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 31 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="SPARKS" type="AnimatedSprite" parent="."]
@@ -413,7 +469,7 @@ visible = false
 scale = Vector2( 1.5, 1.5 )
 z_index = 6
 frames = SubResource( 26 )
-frame = 7
+frame = 1
 playing = true
 
 [connection signal="animation_finished" from="Rspr" to="." method="_on_Rspr_animation_finished"]

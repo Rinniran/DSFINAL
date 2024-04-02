@@ -1,18 +1,16 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Stages/Titlescreen.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Misc/Dreamshock Logo.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Misc/Dreamshock Logo Final.png" type="Texture" id=2]
 [ext_resource path="res://meshes/TITCYL/title cylinder.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://Sprites/Textures/scityfogeffect.png" type="Texture" id=4]
 [ext_resource path="res://Stages/title cylinder.gd" type="Script" id=5]
-[ext_resource path="res://Audio/BGM/Outlandish City Under the Night Sky ~ Stick City.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Audio/BGM/Intro.wav" type="AudioStream" id=6]
 [ext_resource path="res://TextMain.tres" type="Theme" id=7]
 [ext_resource path="res://Sprites/Misc/SAGE2023ALTPIXELART.PNG" type="Texture" id=8]
 [ext_resource path="res://Audio/SE/Start.wav" type="AudioStream" id=9]
 [ext_resource path="res://Sprites/Textures/LOADING.png" type="Texture" id=10]
-[ext_resource path="res://Sprites/Stage/SCity/FGwaver.png" type="Texture" id=11]
 [ext_resource path="res://Subrooms/SESC.gd" type="Script" id=12]
-[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=13]
 
 [sub_resource type="SpatialMaterial" id=17]
 flags_unshaded = true
@@ -29,7 +27,177 @@ params_cull_mode = 2
 albedo_color = Color( 0.321569, 0.305882, 0.878431, 1 )
 albedo_texture = ExtResource( 4 )
 
+[sub_resource type="Shader" id=23]
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = SubResource( 23 )
+
+[sub_resource type="Shader" id=24]
+code = "/*
+	Glitch Effect Shader by Yui Kinomoto @arlez80
+
+	MIT License
+*/
+
+shader_type canvas_item;
+
+// 振動の強さ
+uniform float shake_power = 0.03;
+// 振動率
+uniform float shake_rate : hint_range( 0.0, 1.0 ) = 0.2;
+// 振動速度
+uniform float shake_speed = 5.0;
+// 振動ブロックサイズ
+uniform float shake_block_size = 30.5;
+// 色の分離率
+uniform float shake_color_rate : hint_range( 0.0, 1.0 ) = 0.01;
+
+float random( float seed )
+{
+	return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46, -54.3415 ) ) ) );
+}
+
+void fragment( )
+{
+	float enable_shift = float(
+		random( trunc( TIME * shake_speed ) )
+	<	shake_rate
+	);
+
+	vec2 fixed_uv = SCREEN_UV;
+	fixed_uv.x += (
+		random(
+			( trunc( SCREEN_UV.y * shake_block_size ) / shake_block_size )
+		+	TIME
+		) - 0.5
+	) * shake_power * enable_shift;
+
+	vec4 pixel_color = textureLod( SCREEN_TEXTURE, fixed_uv, 0.0 );
+	pixel_color.r = mix(
+		pixel_color.r
+	,	textureLod( SCREEN_TEXTURE, fixed_uv + vec2( shake_color_rate, 0.0 ), 0.0 ).r
+	,	enable_shift
+	);
+	pixel_color.b = mix(
+		pixel_color.b
+	,	textureLod( SCREEN_TEXTURE, fixed_uv + vec2( -shake_color_rate, 0.0 ), 0.0 ).b
+	,	enable_shift
+	);
+	COLOR = pixel_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=25]
+shader = SubResource( 24 )
+shader_param/shake_power = 0.01
+shader_param/shake_rate = 0.106
+shader_param/shake_speed = 10.0
+shader_param/shake_block_size = 3.0
+shader_param/shake_color_rate = 0.01
+
+[sub_resource type="Shader" id=26]
+code = "// Converted/modified from ShaderToy: https://www.shadertoy.com/view/ldBXDD
+// Attach this shader to a ColorRect
+
+shader_type canvas_item;
+
+uniform float wave_count : hint_range(1.0, 20.0, 1.0) = 20.0;
+uniform float speed : hint_range(0.0, 10.0, 0.1) = 3.0;
+uniform float height : hint_range(0.0, 0.1, 0.001) = 0.003;
+
+void fragment() {
+	vec2 cPos = -1.0 + 2.0 * UV / (1.0 / TEXTURE_PIXEL_SIZE);
+	float cLength = length(cPos);
+	vec2 uv = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy + (cPos/cLength) * cos(cLength * wave_count - TIME * speed) * height;
+    vec3 col = texture(SCREEN_TEXTURE,uv).xyz;
+	COLOR = vec4(col,1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=27]
+shader = SubResource( 26 )
+shader_param/wave_count = 20.0
+shader_param/speed = 3.0
+shader_param/height = 0.003
+
 [sub_resource type="Environment" id=2]
+
+[sub_resource type="PlaneMesh" id=28]
+
+[sub_resource type="Shader" id=29]
+code = "/*
+	動的電撃シェーダー by あるる（きのもと 結衣）
+	Procedural Electric Current Shader by Yui Kinomoto @arlez80
+
+	MIT License
+*/
+shader_type spatial;
+render_mode unshaded, blend_add;
+
+uniform vec4 light_color : hint_color = vec4( 0.32, 0.5, 0.82, 0.5 );
+uniform vec4 arc_color : hint_color = vec4( 0.46, 0.68, 1.0, 1.0 );
+
+uniform vec2 seed = vec2( 0.0, 0.0 );
+uniform float speed = 5.1;
+uniform float random_scale = 4.6;
+uniform float electro_scale = 11.459;
+
+vec2 random( vec2 pos )
+{ 
+	return fract(
+		sin(
+			vec2(
+				dot(pos, vec2(12.9898,78.233))
+			,	dot(pos, vec2(-148.998,-65.233))
+			)
+		) * 43758.5453
+	);
+}
+
+float value_noise( vec2 pos )
+{
+	vec2 p = floor( pos );
+	vec2 f = fract( pos );
+
+	float v00 = random( p + vec2( 0.0, 0.0 ) ).x;
+	float v10 = random( p + vec2( 1.0, 0.0 ) ).x;
+	float v01 = random( p + vec2( 0.0, 1.0 ) ).x;
+	float v11 = random( p + vec2( 1.0, 1.0 ) ).x;
+
+	vec2 u = f * f * ( 3.0 - 2.0 * f );
+
+	return mix( mix( v00, v10, u.x ), mix( v01, v11, u.x ), u.y );
+}
+
+float noise_tex( vec2 p )
+{
+	return (
+		value_noise( p * 0.984864 ) * 0.5
+	+	value_noise( p * 2.543 ) * 0.25
+	+	value_noise( p * 9.543543 ) * 0.125
+	+	value_noise( p * 21.65436 ) * 0.0625
+	+	value_noise( p * 42.0 ) * 0.03125
+	+	value_noise( p * 87.135148 ) * 0.015625
+	+	value_noise( p * 340.66534654 ) * 0.0078125
+	);
+}
+
+void fragment( )
+{
+	vec2 uv = seed + vec2( UV.x + cos( TIME * 1321.21 + UV.y * 348.513 ) * 0.004, UV.y + sin( TIME * 421.21 + UV.x * 314.513 ) * 0.0016 );
+	float f = abs( cos( TIME * speed + noise_tex( uv * random_scale ) * electro_scale ) );
+
+	ALBEDO = mix( light_color, arc_color, 1.0 - clamp( ( f - 0.08 ) * 20.0, 0.0, 1.0 ) ).rgb;
+	ALPHA = 1.0 - clamp( ( f - 0.3 ) * 3.0, 0.0, 1.0 );
+}"
+
+[sub_resource type="ShaderMaterial" id=30]
+shader = SubResource( 29 )
+shader_param/light_color = Color( 0.0627451, 0, 0.807843, 1 )
+shader_param/arc_color = Color( 0.639216, 0.639216, 0.639216, 1 )
+shader_param/seed = Vector2( 0, 0 )
+shader_param/speed = 0.6
+shader_param/random_scale = 1.0
+shader_param/electro_scale = 50.0
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -267,299 +435,6 @@ tracks/0/keys = {
 "values": [ -1.012, 2.913 ]
 }
 
-[sub_resource type="Shader" id=15]
-code = "//SHADER ORIGINALY CREADED BY \"TimothyLottes\" FROM SHADERTOY
-//PORTED AND MODIFYED TO GODOT BY AHOPNESS (@ahopness)
-//LICENSE : CC0
-//COMATIBLE WITH : GLES2, GLES3, WEBGL
-//SHADERTOY LINK : https://www.shadertoy.com/view/MsjXzh
-
-// PUBLIC DOMAIN CRT STYLED SCAN-LINE SHADER
-//
-//   by Timothy Lottes
-//
-// This is more along the style of a really good CGA arcade monitor.
-// With RGB inputs instead of NTSC.
-// The shadow mask example has the mask rotated 90 degrees for less chromatic aberration.
-//
-// Left it unoptimized to show the theory behind the algorithm.
-//
-// It is an example what I personally would want as a display option for pixel art games.
-// Please take and use, change, or whatever.
-
-shader_type canvas_item;
-
-// Emulated input resolution.
-uniform vec2 res;
-
-// Mask type
-//  0 = Very compressed TV style shadow mask
-//  1 = Stretched VGA style shadow mask (same as prior shaders)
-//  2 = VGA style shadow mask 
-uniform int mask_type :hint_range(0, 2) = 0;
-
-// Bloom Type
-//  0 = Normalized exposure
-//  1 = Aditive bloom
-//  2 = No Bloom
-uniform int bloom_type :hint_range(0, 2) = 0;
-
-// Hardness of scanline.
-//  -8.0 = soft
-// -16.0 = medium
-uniform float hardScan :hint_range(-12.0, -1.0) = -8.0;
-
-// Hardness of pixels in scanline.
-// -2.0 = soft
-// -4.0 = hard
-uniform float hardPix :hint_range(-4.0, 0.0) = -2.0;
-
-// Hardness of short vertical bloom.
-//  -1.0 = wide to the point of clipping (bad)
-//  -1.5 = wide
-//  -4.0 = not very wide at all
-uniform float hardBloomScan :hint_range(-4.0, 0.0) = -2.0;
-
-// Hardness of short horizontal bloom.
-//  -0.5 = wide to the point of clipping (bad)
-//  -1.0 = wide
-//  -2.0 = not very wide at all
-uniform float hardBloomPix :hint_range(-2.0, 0.0) = -1.5;
-
-// Amount of small bloom effect.
-//  1.0/1.0 = only bloom
-//  1.0/16.0 = what I think is a good amount of small bloom
-//  0.0     = no bloom
-uniform float bloomAmount :hint_range(1.0, 16.0) = 16.0;
-
-// Display warp.
-// 0.0 = none
-// 1.0/8.0 = extreme
-uniform vec2 warp = vec2(64.0, 24.0); 
-
-// Amount of shadow mask.
-uniform float maskDark  :hint_range(0.0, 1.0) = 0.5;
-uniform float maskLight :hint_range(1.0, 2.0) = 1.5;
-
-//------------------------------------------------------------------------
-
-// sRGB to Linear.
-// Assuing using sRGB typed textures this should not be needed.
-float ToLinear1(float c){ return(c <= 0.04045) ? c / 12.92 : pow((c + 0.055) / 1.055, 2.4); }
-vec3 ToLinear(vec3 c){ return vec3(ToLinear1(c.r), ToLinear1(c.g), ToLinear1(c.b)); }
-
-// Linear to sRGB.
-// Assuing using sRGB typed textures this should not be needed.
-float ToSrgb1(float c){ return(c < 0.0031308?c * 12.92 : 1.055 * pow(c, 0.41666) - 0.055); }
-vec3 ToSrgb(vec3 c){ return vec3(ToSrgb1(c.r), ToSrgb1(c.g), ToSrgb1(c.b)); }
-
-// Nearest emulated sample given floating point position and texel offset.
-// Also zero's off screen.
-vec3 Fetch(vec2 pos, vec2 off, sampler2D iChannel0){
-	pos = floor(pos * res + off) / res;
-	
-	if(max(abs(pos.x - 0.5), abs(pos.y - 0.5)) > 0.5){
-		return vec3(0.0, 0.0, 0.0);
-	}
-	
-	return ToLinear(texture(iChannel0 , pos.xy , -16.0).rgb);
-}
-
-// Distance in emulated pixels to nearest texel.
-vec2 Dist(vec2 pos){ 
-	pos = pos * res; 
-	return - ((pos - floor(pos)) - vec2(0.5));
-}
-    
-// 1D Gaussian.
-float Gaus(float pos, float scale){ return exp2(scale * pos * pos); }
-
-// 3-tap Gaussian filter along horz line.
-vec3 Horz3(vec2 pos, float off, sampler2D iChannel0){
-	vec3 b = Fetch(pos, vec2(-1.0, off), iChannel0);
-	vec3 c = Fetch(pos, vec2( 0.0, off), iChannel0);
-	vec3 d = Fetch(pos, vec2( 1.0, off), iChannel0);
-	float dst = Dist(pos).x;
-	
-	// Convert distance to weight.
-	float scale = hardPix;
-	float wb = Gaus(dst - 1.0, scale);
-	float wc = Gaus(dst + 0.0, scale);
-	float wd = Gaus(dst + 1.0, scale);
-	
-	// Return filtered sample.
-	return (b * wb + c * wc + d * wd) / (wb + wc + wd);
-}
-// 5-tap Gaussian filter along horz line.
-vec3 Horz5(vec2 pos, float off, sampler2D iChannel0){
-	vec3 a = Fetch(pos, vec2(-2.0, off), iChannel0);
-	vec3 b = Fetch(pos, vec2(-1.0, off), iChannel0);
-	vec3 c = Fetch(pos, vec2( 0.0, off), iChannel0);
-	vec3 d = Fetch(pos, vec2( 1.0, off), iChannel0);
-	vec3 e = Fetch(pos, vec2( 2.0, off), iChannel0);
-	float dst = Dist(pos).x;
-	
-	// Convert distance to weight.
-	float scale = hardPix;
-	float wa = Gaus(dst - 2.0, scale);
-	float wb = Gaus(dst - 1.0, scale);
-	float wc = Gaus(dst + 0.0, scale);
-	float wd = Gaus(dst + 1.0, scale);
-	float we = Gaus(dst + 2.0, scale);
-	
-	// Return filtered sample.
-	return (a * wa + b * wb + c * wc + d * wd + e * we) / (wa + wb + wc + wd + we);
-}
-// 7-tap Gaussian filter along horz line.
-vec3 Horz7(vec2 pos, float off, sampler2D iChannel0){
-	vec3 a = Fetch(pos, vec2(-3.0, off), iChannel0);
-	vec3 b = Fetch(pos, vec2(-2.0, off), iChannel0);
-	vec3 c = Fetch(pos, vec2( 1.0, off), iChannel0);
-	vec3 d = Fetch(pos, vec2( 0.0, off), iChannel0);
-	vec3 e = Fetch(pos, vec2( 1.0, off), iChannel0);
-	vec3 f = Fetch(pos, vec2( 2.0, off), iChannel0);
-	vec3 g = Fetch(pos, vec2( 3.0, off), iChannel0);
-	float dst = Dist(pos).x;
-	
-	// Convert distance to weight.
-	float scale = hardBloomPix;
-	float wa = Gaus(dst - 3.0, scale);
-	float wb = Gaus(dst - 2.0, scale);
-	float wc = Gaus(dst - 1.0, scale);
-	float wd = Gaus(dst + 0.0, scale);
-	float we = Gaus(dst + 1.0, scale);
-	float wf = Gaus(dst + 2.0, scale);
-	float wg = Gaus(dst + 3.0, scale);
-	
-	// Return filtered sample.
-	return (a * wa + b * wb + c * wc + d * wd + e * we + f * wf + g * wg) / (wa + wb + wc + wd + we + wf + wg);
-}
-
-// Return scanline weight.
-float Scan(vec2 pos, float off){
-	float dst = Dist(pos).y;
-	
-	return Gaus(dst + off, hardScan);
-}
-
-// Return scanline weight for bloom.
-float BloomScan(vec2 pos, float off){
-	float dst = Dist(pos).y;
-	
-	return Gaus(dst + off, hardBloomScan);
-}
-
-// Allow nearest three lines to effect pixel.
-vec3 Tri(vec2 pos, sampler2D iChannel0){
-	vec3 a = Horz3(pos,-1.0, iChannel0);
-	vec3 b = Horz5(pos, 0.0, iChannel0);
-	vec3 c = Horz3(pos, 1.0, iChannel0);
-	
-	float wa = Scan(pos,-1.0);
-	float wb = Scan(pos, 0.0);
-	float wc = Scan(pos, 1.0);
-	
-	return a * wa + b * wb + c * wc;
-}
-
-// Small bloom.
-vec3 Bloom(vec2 pos, sampler2D iChannel0){
-	vec3 a = Horz5(pos,-2.0, iChannel0);
-	vec3 b = Horz7(pos,-1.0, iChannel0);
-	vec3 c = Horz7(pos, 0.0, iChannel0);
-	vec3 d = Horz7(pos, 1.0, iChannel0);
-	vec3 e = Horz5(pos, 2.0, iChannel0);
-	
-	float wa = BloomScan(pos,-2.0);
-	float wb = BloomScan(pos,-1.0);
-	float wc = BloomScan(pos, 0.0);
-	float wd = BloomScan(pos, 1.0);
-	float we = BloomScan(pos, 2.0);
-	
-	return a * wa + b * wb + c * wc + d * wd + e * we;
-}
-
-// Distortion of scanlines, and end of screen alpha.
-vec2 Warp(vec2 pos){
-	pos = pos * 2.0 - 1.0;    
-	pos *= vec2(1.0 + (pos.y * pos.y) * 1.0 / warp.x, 1.0 + (pos.x * pos.x) * 1.0/ warp.y);
-	
-	return pos * 0.5+0.5;
-}
-
-vec3 Mask(vec2 pos){
-	if (mask_type == 0){
-		float line = maskLight;
-		float odd = 0.0;
-		
-		if(fract(pos.x / 6.0) < 0.5) odd = 1.0;
-		if(fract((pos.y + odd) / 2.0) < 0.5) line = maskDark;  
-		pos.x = fract(pos.x / 3.0);
-		
-		vec3 mask = vec3(maskDark, maskDark, maskDark);
-		if(pos.x < 0.333)mask.r = maskLight;
-		else if(pos.x < 0.666)mask.g = maskLight;
-		else mask.b = maskLight;
-		
-		mask *= line;
-		return mask;
-	}else if (mask_type == 1){
-		pos.x += pos.y * 3.0;
-		
-		vec3 mask = vec3(maskDark, maskDark, maskDark);
-		pos.x = fract(pos.x / 6.0);
-		if(pos.x < 0.333)mask.r = maskLight;
-		else if(pos.x < 0.666)mask.g = maskLight;
-		else mask.b = maskLight;
-		
-		return mask;
-	}else if (mask_type == 2){
-		pos.xy = floor(pos.xy * vec2(1.0, 0.5));
-		pos.x += pos.y * 3.0;
-		
-		vec3 mask = vec3(maskDark, maskDark, maskDark);
-		pos.x = fract(pos.x / 6.0);
-		if(pos.x < 0.333)mask.r = maskLight;
-		else if(pos.x < 0.666)mask.g = maskLight;
-		else mask.b = maskLight;
-	
-		return mask;
-	}
-  }    
-
-// Draw dividing bars.
-float Bar(float pos, float bar){ pos -= bar; return pos * pos < 4.0 ? 0.0 : 1.0; }
-
-// Entry.
-void fragment(){
-	vec2 pos = Warp(FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy);
-	
-	COLOR.rgb = Tri(pos, SCREEN_TEXTURE) * Mask(FRAGCOORD.xy);
-	if (bloom_type == 0){ 
-		COLOR.rgb = mix(COLOR.rgb,Bloom(pos, SCREEN_TEXTURE), 1.0 / bloomAmount);    
-	}else if (bloom_type == 1){
-		COLOR.rgb += Bloom(pos, SCREEN_TEXTURE) * 1.0 / bloomAmount;    
-	} 
-	
-	COLOR.a = 1.0;  
-	COLOR.rgb = ToSrgb(COLOR.rgb);
-}"
-
-[sub_resource type="ShaderMaterial" id=16]
-render_priority = 42
-shader = SubResource( 15 )
-shader_param/res = Vector2( 960, 576 )
-shader_param/mask_type = 0
-shader_param/bloom_type = 1
-shader_param/hardScan = -1.904
-shader_param/hardPix = 0.0
-shader_param/hardBloomScan = -1.25
-shader_param/hardBloomPix = -0.526
-shader_param/bloomAmount = 16.0
-shader_param/warp = Vector2( 200, 400 )
-shader_param/maskDark = 1.0
-shader_param/maskLight = 1.75
-
 [node name="Titlescreen" type="Node"]
 script = ExtResource( 1 )
 
@@ -578,15 +453,38 @@ material/0 = SubResource( 18 )
 script = ExtResource( 5 )
 
 [node name="DreamshockLogoGameVersion" type="Sprite" parent="."]
-position = Vector2( 392, 80 )
+material = SubResource( 22 )
+position = Vector2( 192, 61 )
+scale = Vector2( 0.593137, 0.593137 )
 texture = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="DreamshockLogoGameVersion"]
+visible = false
+material = SubResource( 25 )
+margin_left = -170.0
+margin_top = -93.0
+margin_right = 164.0
+margin_bottom = 118.0
+
+[node name="ColorRect2" type="ColorRect" parent="DreamshockLogoGameVersion"]
+modulate = Color( 1, 1, 1, 0.34 )
+material = SubResource( 27 )
+margin_left = -172.0
+margin_top = -101.0
+margin_right = 182.0
+margin_bottom = 86.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
+[node name="CSGMesh" type="CSGMesh" parent="."]
+transform = Transform( 6.34178, 0, 0, 0, 3.07796, -3.23112, 0, 0.0799944, 1.50465, 0, 9.39334, 0.228354 )
+mesh = SubResource( 28 )
+material = SubResource( 30 )
+
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.858289, 0.513167, 0, -0.513167, 0.858289, 0, 13.0196, 5.80838 )
-fov = 55.9
+fov = 53.8
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
@@ -609,10 +507,10 @@ texture = ExtResource( 8 )
 script = ExtResource( 12 )
 
 [node name="copyright stuff" type="Label" parent="."]
-margin_left = 1.0
-margin_top = 409.0
-margin_right = 765.0
-margin_bottom = 434.0
+margin_top = 215.0
+margin_right = 768.0
+margin_bottom = 225.0
+rect_scale = Vector2( 0.5, 1 )
 theme = ExtResource( 7 )
 text = "TRNK MEDIA/CHRONICLE 2022, 2023                                                      SAGE DEMO"
 align = 1
@@ -629,9 +527,11 @@ text = "V1.01D"
 position = Vector2( -79, -131 )
 
 [node name="startgame" type="Label" parent="labels"]
-margin_top = 302.319
-margin_right = 959.0
-margin_bottom = 353.319
+margin_left = 79.0
+margin_top = 242.0
+margin_right = 847.0
+margin_bottom = 255.0
+rect_scale = Vector2( 0.5, 1 )
 theme = ExtResource( 7 )
 text = "Start Game"
 align = 1
@@ -641,9 +541,11 @@ anims/RESET = SubResource( 3 )
 anims/alph = SubResource( 4 )
 
 [node name="Training" type="Label" parent="labels"]
-margin_top = 349.0
-margin_right = 959.0
-margin_bottom = 400.0
+margin_left = 79.0
+margin_top = 258.0
+margin_right = 847.0
+margin_bottom = 270.0
+rect_scale = Vector2( 0.5, 1 )
 theme = ExtResource( 7 )
 text = "Training"
 align = 1
@@ -653,10 +555,11 @@ anims/RESET = SubResource( 19 )
 anims/alph = SubResource( 20 )
 
 [node name="xstory" type="Label" parent="labels"]
-margin_left = 1.0
-margin_top = 394.0
-margin_right = 960.0
-margin_bottom = 445.0
+margin_left = 79.0
+margin_top = 273.0
+margin_right = 847.0
+margin_bottom = 287.0
+rect_scale = Vector2( 0.5, 1 )
 theme = ExtResource( 7 )
 text = "X story"
 align = 1
@@ -666,10 +569,11 @@ anims/RESET = SubResource( 5 )
 anims/alph = SubResource( 6 )
 
 [node name="extras" type="Label" parent="labels"]
-margin_left = 1.0
-margin_top = 446.0
-margin_right = 960.0
-margin_bottom = 497.0
+margin_left = 79.0
+margin_top = 287.0
+margin_right = 847.0
+margin_bottom = 297.0
+rect_scale = Vector2( 0.5, 1 )
 theme = ExtResource( 7 )
 text = "Extras"
 align = 1
@@ -679,10 +583,11 @@ anims/RESET = SubResource( 7 )
 anims/alph = SubResource( 8 )
 
 [node name="options" type="Label" parent="labels"]
-margin_left = 1.0
-margin_top = 498.0
-margin_right = 960.0
-margin_bottom = 549.0
+margin_left = 79.0
+margin_top = 300.0
+margin_right = 847.0
+margin_bottom = 311.0
+rect_scale = Vector2( 0.5, 1 )
 theme = ExtResource( 7 )
 text = "Options"
 align = 1
@@ -699,21 +604,13 @@ volume_db = 15.663
 material = SubResource( 12 )
 margin_right = 768.0
 margin_bottom = 432.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="transition" type="AnimationPlayer" parent="ColorRect"]
 anims/RESET = SubResource( 13 )
 anims/changescreen = SubResource( 14 )
-
-[node name="crt" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.45098 )
-material = SubResource( 16 )
-position = Vector2( 387, 218 )
-scale = Vector2( 1.20135, 1.21533 )
-texture = ExtResource( 11 )
-
-[node name="Camera2D" parent="." instance=ExtResource( 13 )]
-limit_right = 768
-limit_bottom = 433
 
 [connection signal="finished" from="Accept" to="." method="_on_Accept_finished"]
 [connection signal="animation_finished" from="ColorRect/transition" to="." method="_on_transition_animation_finished"]

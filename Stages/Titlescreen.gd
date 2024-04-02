@@ -7,7 +7,7 @@ extends Node
 #==================================================================
 # LOGO TEXTURE VARIABLES
 #==================================================================
-var ENG = preload("res://Sprites/Misc/Dreamshock Logo.png")
+var ENG = preload("res://Sprites/Misc/Dreamshock Logo Final.png")
 
 var JP = preload("res://Sprites/Misc/Dreamshock Logo JP.png")
 var nomore = 0
@@ -17,6 +17,7 @@ export var opt = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
 	pass # Replace with function body.
 
 

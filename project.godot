@@ -142,7 +142,7 @@ _global_script_class_icons={
 
 config/name="DreamShock"
 config/description="A blast through space, time, and dreams!"
-run/main_scene="res://Stages/StickCity/SC COMPILED.tscn"
+run/main_scene="res://Stages/GrandMechanarium/A-1.tscn"
 run/low_processor_mode=true
 boot_splash/image="res://Yaiba mini boss Illustration + logo.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )

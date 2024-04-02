@@ -99,6 +99,7 @@ z_index = 100
 z_as_relative = false
 frames = SubResource( 17 )
 animation = "1"
+frame = 2
 speed_scale = 2.0
 playing = true
 script = ExtResource( 3 )

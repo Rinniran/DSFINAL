@@ -676,7 +676,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 235 )
-frame = 4
+frame = 5
 playing = true
 centered = false
 
@@ -684,7 +684,7 @@ centered = false
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 236 )
-frame = 55
+frame = 1
 playing = true
 centered = false
 
@@ -803,6 +803,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Terrain/KinematicBody2D"]
 frames = SubResource( 238 )
+frame = 1
 playing = true
 centered = false
 __meta__ = {
@@ -1327,20 +1328,21 @@ __meta__ = {
 
 [node name="GOSign" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 312, 396 )
+frame = 0
 
 [node name="GOSign2" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 660, 449 )
+frame = 0
 
 [node name="GOSign3" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 1270, 401 )
-frame = 2
 
 [node name="GOSign4" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 1983, 340 )
-frame = 2
 
 [node name="GOSign5" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 2487, 402 )
+frame = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 260 )

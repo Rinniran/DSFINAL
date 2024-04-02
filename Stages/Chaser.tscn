@@ -90,6 +90,15 @@ func _on_Area2D_area_entered(area):
 		Globals.combotimer = 60 * 10
 		Globals.combo += 1
 		hp -= 0.8 + Globals.atkmult
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.transform.scale = 2
+		damobj.value = str(1 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
@@ -105,6 +114,15 @@ func _on_Area2D_area_entered(area):
 		Globals.combotimer = 60 * 10
 		hp -= 0.5 + Globals.atkmult
 		Globals.combo += 1
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(0.5 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
+		
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
@@ -121,6 +139,15 @@ func _on_Area2D_area_entered(area):
 		Globals.combotimer = 60 * 10
 		hp -=  1 + Globals.atkmult
 		Globals.combo += 1
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(1 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
+		
 		Input.start_joy_vibration(0, 1, 1, 0.3) 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
@@ -138,6 +165,16 @@ func _on_Area2D_area_entered(area):
 		Globals.combotimer = 60 * 10
 		hp -= 0.4 + Globals.atkmult
 		Globals.combo += 1
+		
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(0.4 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
+		
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$multihurt.start()
 		$multihurtrepeat.start()
@@ -158,6 +195,14 @@ func _on_Area2D_area_entered(area):
 		Globals.combo += 4
 		$hurt.play()
 		Globals.score += 100
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(2 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
 		ba.position = position
@@ -170,6 +215,14 @@ func _on_Area2D_area_entered(area):
 		Globals.combotimer = 60 * 10
 		hp -= 1 + Globals.atkmult
 		Globals.combo += 1
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(1 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$multihurt.start()
 		$multihurtrepeat.start()
@@ -185,6 +238,15 @@ func _on_Area2D_area_entered(area):
 	if area.is_in_group(\"BIGDAMAGE\"):
 		Globals.combotimer = 60 * 10
 		hp -= 7 + Globals.atkmult
+		
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(7 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
 		Globals.combo += 1
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$hurt.play()
@@ -215,9 +277,17 @@ func _on_multihurtrepeat_timeout():
 		$hurt.play()
 		Globals.combotimer = 60 * 10
 		hp -= 0.3 + Globals.atkmult
+		
+		var damage = preload(\"res://Subrooms/DAMAGE ENEMY.tscn\")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(0.3 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
-		ba.position = global_position
+		ba.position = position
 		get_parent().add_child(ba)
 		if hp > 0:
 			frameFreeze(0.05, 0.3)
