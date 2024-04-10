@@ -69,27 +69,7 @@ func frameFreeze(timeScale, duration):
 		$Stickhusk.play("die")
 	
 
-func _on_Area2D_area_entered(area):
-	if area.is_in_group("hurtbox") && Globals.player.dashing:
-		Globals.combotimer = 60 * 10
-		hp -= 7 + Globals.atkmult
-		Globals.combo += 1
-		
-		var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
-		var damobj = damage.instance()
-		damobj.position = $Stickhusk.position
-		damobj.scale = Vector2(2,2)
-		damobj.value = str(7 + Globals.atkmult)
-		get_parent().add_child(damobj)
-		
-		Input.start_joy_vibration(0, 1, 1, 0.2) 
-		$hurt.play()
-		var jj = preload("res://Subrooms/hitspark.tscn")
-		var ba = jj.instance()
-		ba.position = position
-		get_parent().add_child(ba)
-		if hp > 0:
-			frameFreeze(0.05, 0.3)
+
 
 
 
@@ -162,3 +142,27 @@ func _on_Stickhusk_animation_finished():
 
 func _on_multihit_timeout():
 	$CollisionShape2D.disabled = !$CollisionShape2D.disabled
+
+
+func _on_hurtbox_area_entered(area):
+	if (area.is_in_group("hurtbox") && Globals.player.dashing) || area.is_in_group("Odachi"):
+		Globals.combotimer = 60 * 10
+		hp -= 7 + Globals.atkmult
+		Globals.combo += 1
+		
+		var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
+		var damobj = damage.instance()
+		damobj.position = $Stickhusk.position
+		damobj.scale = Vector2(2,2)
+		damobj.value = str(7 + Globals.atkmult)
+		get_parent().add_child(damobj)
+		
+		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.play()
+		var jj = preload("res://Subrooms/hitspark.tscn")
+		var ba = jj.instance()
+		ba.position = position
+		get_parent().add_child(ba)
+		if hp > 0:
+			frameFreeze(0.05, 0.3)
+	pass # Replace with function body.

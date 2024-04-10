@@ -1280,7 +1280,7 @@ adjustment_enabled = true
 
 [node name="Node2D" type="Node2D"]
 script = SubResource( 256 )
-next = "res://Stages/StickCity/B-1.tscn"
+next = "res://Stages/StickCity/OUTDATED/B-1.tscn"
 
 [node name="GUIStuff" parent="." instance=ExtResource( 5 )]
 
@@ -1522,7 +1522,6 @@ position = Vector2( 37, 449 )
 process_mode = 0
 limit_right = 4606
 limit_bottom = 911
-limit_smoothed = false
 offset_v = 1.0
 drag_margin_left = 0.8
 drag_margin_right = 0.78
@@ -1593,7 +1592,6 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -39.091, 70.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 252 )
-frame = 4
 playing = true
 centered = false
 
@@ -1601,7 +1599,7 @@ centered = false
 position = Vector2( -39.091, 70.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 253 )
-frame = 5
+frame = 46
 playing = true
 centered = false
 

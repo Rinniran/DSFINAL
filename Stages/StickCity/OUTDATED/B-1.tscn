@@ -1124,7 +1124,7 @@ extents = Vector2( 13, 113 )
 
 [node name="Node2D" type="Node2D"]
 script = SubResource( 271 )
-next = "res://Stages/StickCity/C-1.tscn"
+next = "res://Stages/StickCity/OUTDATED/C-1.tscn"
 musplay = ExtResource( 16 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." groups=["STGDATA"]]
@@ -1168,7 +1168,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 262 )
-frame = 3
+frame = 5
 playing = true
 centered = false
 
@@ -1176,7 +1176,6 @@ centered = false
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 263 )
-frame = 39
 playing = true
 centered = false
 
@@ -1318,6 +1317,7 @@ position = Vector2( 785, 526 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 267 )
+frame = 1
 playing = true
 
 [node name="Label4" type="Label" parent="Objects"]
@@ -1336,6 +1336,7 @@ position = Vector2( 13476, 1094 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 267 )
+frame = 1
 playing = true
 
 [node name="Label5" type="Label" parent="Objects"]
@@ -1647,7 +1648,6 @@ position = Vector2( -91, 358 )
 process_mode = 0
 limit_right = 13749
 limit_bottom = 1851
-limit_smoothed = false
 offset_v = 1.0
 drag_margin_left = 0.8
 drag_margin_right = 0.78

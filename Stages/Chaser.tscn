@@ -95,7 +95,6 @@ func _on_Area2D_area_entered(area):
 		var damobj = damage.instance()
 		damobj.position = $Stickhusk.position
 		damobj.scale = Vector2(2,2)
-		damobj.transform.scale = 2
 		damobj.value = str(1 + Globals.atkmult)
 		get_parent().add_child(damobj)
 		

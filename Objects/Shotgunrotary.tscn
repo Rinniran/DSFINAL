@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/rotary.gd" type="Script" id=1]
+[ext_resource path="res://Audio/SE/Pump.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/Players/Rian/VectorSummon/ShotgunRotary.png" type="Texture" id=3]
+[ext_resource path="res://src/Shotgunrotary.gd" type="Script" id=4]
+
+[node name="Area2D" type="Area2D" groups=["airhit"]]
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="Sprite" parent="."]
+position = Vector2( 0, -1.5 )
+texture = ExtResource( 3 )
+script = ExtResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+pitch_scale = 1.45
+autoplay = true
+bus = "SFX"
+
+[node name="Angle" type="Position2D" parent="."]
+position = Vector2( 130, -1.5 )
+
+[node name="Angle2" type="Position2D" parent="."]
+position = Vector2( 100, 88.5 )
+
+[node name="Angle3" type="Position2D" parent="."]
+position = Vector2( 0, 128.5 )
+
+[node name="Angle4" type="Position2D" parent="."]
+position = Vector2( -100, 88.5 )
+
+[node name="Angle5" type="Position2D" parent="."]
+position = Vector2( -130, -1.5 )
+
+[node name="Angle6" type="Position2D" parent="."]
+position = Vector2( -100, -91.5 )
+
+[node name="Angle7" type="Position2D" parent="."]
+position = Vector2( 0, -131.5 )
+
+[node name="Angle8" type="Position2D" parent="."]
+position = Vector2( 100, -91.5 )
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

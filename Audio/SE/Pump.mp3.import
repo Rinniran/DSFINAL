@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Pump.mp3-18c26fce158a965ff2b0966caf4c121c.mp3str"
+
+[deps]
+
+source_file="res://Audio/SE/Pump.mp3"
+dest_files=[ "res://.import/Pump.mp3-18c26fce158a965ff2b0966caf4c121c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

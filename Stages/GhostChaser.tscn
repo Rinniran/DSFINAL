@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Stages/GhostChaser.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Enemies/Chaser/Sleep.png" type="Texture" id=2]
@@ -57,6 +57,10 @@ func _physics_process(delta):
 			if collision != null:
 				direction = direction.bounce(collision.normal) # do ball bounce
 #	pass
+
+
+func _on_hurtbox_area_entered(area):
+	pass # Replace with function body.
 "
 
 [sub_resource type="Shader" id=26]
@@ -151,6 +155,9 @@ extents = Vector2( 22.4746, 21.7255 )
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 117.617, 99.4578 )
 
+[sub_resource type="RectangleShape2D" id=28]
+extents = Vector2( 12, 12 )
+
 [sub_resource type="OccluderPolygon2D" id=16]
 closed = false
 cull_mode = 2
@@ -230,6 +237,13 @@ __meta__ = {
 
 [node name="hptween" type="Tween" parent="Chaser"]
 
+[node name="hurtbox" type="Area2D" parent="Chaser"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chaser/hurtbox"]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( -2, -2 )
+shape = SubResource( 28 )
+
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource( 16 )
 
@@ -244,4 +258,5 @@ autostart = true
 [connection signal="timeout" from="Chaser/multihurtrepeat" to="Chaser" method="_on_multihurtrepeat_timeout"]
 [connection signal="area_entered" from="Chaser/HorizDetect" to="Chaser" method="_on_HorizDetect_area_entered"]
 [connection signal="area_entered" from="Chaser/HorizDetectright" to="Chaser" method="_on_HorizDetectright_area_entered"]
+[connection signal="area_entered" from="Chaser/hurtbox" to="Chaser" method="_on_hurtbox_area_entered"]
 [connection signal="timeout" from="multihit" to="Chaser" method="_on_multihit_timeout"]

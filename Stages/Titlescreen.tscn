@@ -507,12 +507,12 @@ texture = ExtResource( 8 )
 script = ExtResource( 12 )
 
 [node name="copyright stuff" type="Label" parent="."]
-margin_top = 215.0
-margin_right = 768.0
-margin_bottom = 225.0
-rect_scale = Vector2( 0.5, 1 )
+margin_left = -192.0
+margin_top = 212.0
+margin_right = 576.0
+margin_bottom = 222.0
 theme = ExtResource( 7 )
-text = "TRNK MEDIA/CHRONICLE 2022, 2023                                                      SAGE DEMO"
+text = "PEASANT PALS/CHRONICLE 2024            SAGE DEMO"
 align = 1
 
 [node name="version" type="Label" parent="."]
@@ -527,11 +527,10 @@ text = "V1.01D"
 position = Vector2( -79, -131 )
 
 [node name="startgame" type="Label" parent="labels"]
-margin_left = 79.0
-margin_top = 242.0
-margin_right = 847.0
-margin_bottom = 255.0
-rect_scale = Vector2( 0.5, 1 )
+margin_left = 146.0
+margin_top = 244.0
+margin_right = 392.0
+margin_bottom = 257.0
 theme = ExtResource( 7 )
 text = "Start Game"
 align = 1
@@ -541,11 +540,10 @@ anims/RESET = SubResource( 3 )
 anims/alph = SubResource( 4 )
 
 [node name="Training" type="Label" parent="labels"]
-margin_left = 79.0
-margin_top = 258.0
-margin_right = 847.0
-margin_bottom = 270.0
-rect_scale = Vector2( 0.5, 1 )
+margin_left = -114.0
+margin_top = 261.0
+margin_right = 654.0
+margin_bottom = 273.0
 theme = ExtResource( 7 )
 text = "Training"
 align = 1
@@ -555,11 +553,10 @@ anims/RESET = SubResource( 19 )
 anims/alph = SubResource( 20 )
 
 [node name="xstory" type="Label" parent="labels"]
-margin_left = 79.0
-margin_top = 273.0
-margin_right = 847.0
-margin_bottom = 287.0
-rect_scale = Vector2( 0.5, 1 )
+margin_left = -112.0
+margin_top = 278.0
+margin_right = 656.0
+margin_bottom = 292.0
 theme = ExtResource( 7 )
 text = "X story"
 align = 1
@@ -569,11 +566,10 @@ anims/RESET = SubResource( 5 )
 anims/alph = SubResource( 6 )
 
 [node name="extras" type="Label" parent="labels"]
-margin_left = 79.0
-margin_top = 287.0
-margin_right = 847.0
-margin_bottom = 297.0
-rect_scale = Vector2( 0.5, 1 )
+margin_left = -111.0
+margin_top = 295.0
+margin_right = 657.0
+margin_bottom = 305.0
 theme = ExtResource( 7 )
 text = "Extras"
 align = 1
@@ -583,11 +579,10 @@ anims/RESET = SubResource( 7 )
 anims/alph = SubResource( 8 )
 
 [node name="options" type="Label" parent="labels"]
-margin_left = 79.0
-margin_top = 300.0
-margin_right = 847.0
-margin_bottom = 311.0
-rect_scale = Vector2( 0.5, 1 )
+margin_left = -110.0
+margin_top = 313.0
+margin_right = 658.0
+margin_bottom = 324.0
 theme = ExtResource( 7 )
 text = "Options"
 align = 1

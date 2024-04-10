@@ -64,6 +64,7 @@ var memory = {"L":0, "U":0, "D":0, "R":0, "Jump":0, "Attack":0, "Dash":0}
 var frames = 0
 
 var slashallowed = 1
+var rotallowed = 1
 
 var waittimer = 60 * 7
 
@@ -110,6 +111,7 @@ var die = preload("res://Audio/Voices/Rded4.ogg")
 var thing = preload("res://Objects/UI/Pause.tscn")
 
 var slash = preload("res://Objects/Air_Slash.tscn")
+var sgr = preload("res://Objects/Shotgunrotary.tscn")
 var dust = preload("res://Subrooms/dust.tscn")
 var atkfx = preload("res://Stages/Attackfx1.tscn")
 
@@ -172,7 +174,7 @@ func _physics_process(delta)->void :
 	var Kstrafepr = Input.is_action_just_pressed("ui_strafe")
 	var Kstraferel = Input.is_action_just_released("ui_strafe")
 	var Kstrafe = Input.is_action_pressed("ui_strafe")
-	var Kgrab = Input.is_action_pressed("grab")
+	var Kgrab = Input.is_action_just_pressed("grab")
 	var go = Input.is_action_pressed("jump")
 	
 	Globals.playerpos = global_position
@@ -337,7 +339,10 @@ func _physics_process(delta)->void :
 			if atka == 0 or $Rspr.animation == "idle" or $Rspr.animation == "Stance" or $Rspr.animation == "run" or $Rspr.animation == "dash" or $Rspr.animation == "BDash":
 				$airatk / CollisionShape2D.disabled = true
 			
-				
+			if $Rspr.frame > 1 && $Rspr.animation == "OdachiFlash":
+				$Odachi/CollisionShape2D.disabled = false
+			else:
+				$Odachi/CollisionShape2D.disabled = true
 			
 			
 			
@@ -358,6 +363,9 @@ func _physics_process(delta)->void :
 				
 				if superdash:
 					$Zoombox / CollisionShape2D.disabled = false
+				
+				if Kgrab:
+					OdachiFlash()
 				
 				if atkg or superdash:
 					var dashfx = preload("res://Stages/dashfx.tscn").instance()
@@ -642,6 +650,7 @@ func _physics_process(delta)->void :
 					jumping = false
 				dashes = 2
 				slashallowed = 1
+				rotallowed = 1
 				
 				
 					
@@ -760,12 +769,20 @@ func _physics_process(delta)->void :
 			else :
 					
 					if not is_on_floor():
+						
+						if (Kgrab and rotallowed == 1 and atka == 1):
+								print_debug("FUCK")
+								get_parent().add_child(sgr.instance())
+								rotallowed = 0
+						
 						if (Kattack || attack):
 							attack = false
 							atkg = 0
 							if slashallowed == 1 and atka == 1:
 								get_parent().add_child(slash.instance())
 								slashallowed = 0
+								
+							
 							atka = 1
 							$airatk / CollisionShape2D.disabled = false
 							$atktimer.start()
@@ -811,19 +828,19 @@ func _physics_process(delta)->void :
 				
 			if not is_on_floor():
 				
-				if motion.y > 0 and not dashing and $Rspr.animation != "attackair":
+				if motion.y > 0 and not dashing and $Rspr.animation != "attackair" && $Rspr.animation != "OdachiFlash":
 					if ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == false && motion.x < 1 || ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == true && motion.x > 1 && $damagepause.is_stopped():
 						$Rspr.play("BJump")
 					elif ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == true && motion.x < 1 || ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == false && motion.x > 1 && $damagepause.is_stopped():
 							$Rspr.play("Fjump")
 					else:
 						$Rspr.play("fall")
-				elif motion.y < 0 and not dashing and $Rspr.animation != "attackair":
+				elif motion.y < 0 and not dashing and  $Rspr.animation != "attackair" && $Rspr.animation != "OdachiFlash":
 					if ((Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == false && motion.x < 1 || (Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == true && motion.x > 1) && $damagepause.is_stopped():
 						$Rspr.play("BJump")
 					elif ((Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == true && motion.x < 1 || (Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == false && motion.x > 1) && $damagepause.is_stopped():
 						$Rspr.play("Fjump")
-					elif $Rspr.animation != "Fjump" && $Rspr.animation != "Bjump" && $damagepause.is_stopped() == true:
+					elif $Rspr.animation != "Fjump" && $Rspr.animation != "Bjump" && $Rspr.animation != "OdachiFlash" && $damagepause.is_stopped() == true:
 						$Rspr.play("jump")
 			
 			
@@ -903,11 +920,28 @@ func movleftoff():
 
 func movrightoff():
 	movright = false
+	
+
+
+func OdachiFlash():
+	$Rspr.frame = 0
+	if $Rspr.flip_h == false:
+		$Odachi/CollisionShape2D.scale.x = 1
+	
+	if $Rspr.flip_h == true:
+		$Odachi/CollisionShape2D.scale.x = -1
+	
+	if dashing && !is_on_floor():
+		$Rspr.play("OdachiFlash")
+	
 
 func _on_Rspr_animation_finished():
 	if $Rspr.animation == "idle" && waittimer <= 0:
 		$Rspr.frame = 0
 		$Rspr.play("WaitA")
+	
+	if $Rspr.animation == "OdachiFlash":
+		$Rspr.animation = "fall"
 
 	elif $Rspr.animation == "WaitA":
 		$Rspr.frame = 0

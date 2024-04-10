@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=187 format=2]
+[gd_resource type="SpriteFrames" load_steps=192 format=2]
 
 [ext_resource path="res://Sprites/Players/Rian_Run_Final.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Players/Rian/Rian_Idle_Final.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://Sprites/Players/Rian/Rian_Die.png" type="Texture" id=25]
 [ext_resource path="res://Sprites/Players/Rian/Rian_WaitA.png" type="Texture" id=26]
 [ext_resource path="res://Sprites/Players/Rian/Rian_WaitB.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Players/Rian/VectorSummon/OdachiFlash.png" type="Texture" id=28]
 
 [sub_resource type="AtlasTexture" id=304]
 atlas = ExtResource( 16 )
@@ -199,6 +200,22 @@ region = Rect2( 96, 0, 48, 48 )
 [sub_resource type="AtlasTexture" id=295]
 atlas = ExtResource( 11 )
 region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=326]
+atlas = ExtResource( 28 )
+region = Rect2( 0, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=327]
+atlas = ExtResource( 28 )
+region = Rect2( 200, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=328]
+atlas = ExtResource( 28 )
+region = Rect2( 400, 0, 200, 200 )
+
+[sub_resource type="AtlasTexture" id=329]
+atlas = ExtResource( 28 )
+region = Rect2( 600, 0, 200, 200 )
 
 [sub_resource type="AtlasTexture" id=170]
 atlas = ExtResource( 24 )
@@ -541,38 +558,47 @@ atlas = ExtResource( 19 )
 region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=265]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=266]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=267]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=268]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=269]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=270]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=271]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 288, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=272]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 336, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=273]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 384, 0, 48, 48 )
 
@@ -597,26 +623,32 @@ atlas = ExtResource( 22 )
 region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=208]
+flags = 16
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=209]
+flags = 16
 atlas = ExtResource( 1 )
 region = Rect2( 48, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=210]
+flags = 16
 atlas = ExtResource( 1 )
 region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=211]
+flags = 16
 atlas = ExtResource( 1 )
 region = Rect2( 144, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=212]
+flags = 16
 atlas = ExtResource( 1 )
 region = Rect2( 192, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=213]
+flags = 16
 atlas = ExtResource( 1 )
 region = Rect2( 240, 0, 48, 48 )
 
@@ -645,10 +677,12 @@ atlas = ExtResource( 20 )
 region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=274]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 336, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=275]
+flags = 16
 atlas = ExtResource( 2 )
 region = Rect2( 384, 0, 48, 48 )
 
@@ -700,6 +734,11 @@ animations = [ {
 "loop": true,
 "name": "Fling",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 326 ), SubResource( 327 ), SubResource( 328 ), SubResource( 329 ) ],
+"loop": false,
+"name": "OdachiFlash",
+"speed": 12.0
 }, {
 "frames": [ SubResource( 170 ), SubResource( 171 ), SubResource( 172 ), SubResource( 173 ), SubResource( 174 ), SubResource( 175 ), SubResource( 176 ) ],
 "loop": false,

@@ -13,20 +13,16 @@ script = ExtResource( 4 )
 [node name="Rian" parent="." instance=ExtResource( 3 )]
 position = Vector2( 283, 1210 )
 
-[node name="Rspr" parent="Rian" index="0"]
-frame = 8
-
 [node name="FULLREADY" parent="Rian/Meter" index="0"]
 frame = 2
 
 [node name="SPARKS" parent="Rian" index="30"]
-frame = 7
+frame = 4
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 76, 1096 )
 limit_right = 17459
 limit_bottom = 4119
-limit_smoothed = false
 target = NodePath("../Rian")
 
 [editable path="Rian"]

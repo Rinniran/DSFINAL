@@ -44,7 +44,10 @@ func _physics_process(delta):
 			if focusx > 1.5:
 				focusx -= 0.025
 		position.x = gonowmyson.position.x - (384 / focusx) * zoom.x
-		position.y = gonowmyson.position.y - (224/ 1.8) * zoom.y
+		if position.y > gonowmyson.position.y - (180/ 1.8) * zoom.y:
+			position.y = gonowmyson.position.y - (180/ 1.8) * zoom.y
+		elif position.y < gonowmyson.position.y - (290/ 1.8) * zoom.y:
+			position.y = gonowmyson.position.y - (290/ 1.8) * zoom.y
 	
 
 
@@ -103,10 +106,8 @@ limit_left = 0
 limit_top = 0
 limit_right = 1536
 limit_bottom = 1296
-limit_smoothed = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-smoothing_enabled = true
 smoothing_speed = 20.0
 offset_h = -1.0
 drag_margin_left = 0.44

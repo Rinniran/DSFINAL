@@ -1013,10 +1013,31 @@ flip_h = true
 position = Vector2( 0, 19 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 285 )
-frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/MedPlat2"]
+polygon = PoolVector2Array( -65, -24, 65, -23, 48, -8, -49, -8 )
+
+[node name="Sprite3" type="Sprite" parent="Terrain/MedPlat2"]
+position = Vector2( 2106.5, 224.8 )
+texture = ExtResource( 21 )
+offset = Vector2( -48, 0 )
+
+[node name="Sprite4" type="Sprite" parent="Terrain/MedPlat2"]
+position = Vector2( 2106.5, 224.8 )
+texture = ExtResource( 21 )
+offset = Vector2( 48, 0 )
+flip_h = true
+
+[node name="Flame2" type="AnimatedSprite" parent="Terrain/MedPlat2"]
+position = Vector2( 2106.5, 243.8 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 285 )
+frame = 1
+playing = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Terrain/MedPlat2"]
+position = Vector2( 2106.5, 224.8 )
 polygon = PoolVector2Array( -65, -24, 65, -23, 48, -8, -49, -8 )
 
 [node name="TileMap" type="TileMap" parent="Terrain"]
