@@ -1168,7 +1168,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 262 )
-frame = 5
+frame = 1
 playing = true
 centered = false
 
@@ -1176,6 +1176,7 @@ centered = false
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 263 )
+frame = 20
 playing = true
 centered = false
 
@@ -1317,7 +1318,6 @@ position = Vector2( 785, 526 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 267 )
-frame = 1
 playing = true
 
 [node name="Label4" type="Label" parent="Objects"]
@@ -1336,7 +1336,6 @@ position = Vector2( 13476, 1094 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 267 )
-frame = 1
 playing = true
 
 [node name="Label5" type="Label" parent="Objects"]

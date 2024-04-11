@@ -276,6 +276,12 @@ func _physics_process(delta)->void :
 	WAVESPEED = 1250 / 2
 	
 	
+	if $Rspr.flip_h == false:
+		$Odachi/CollisionShape2D.scale.x = 1
+	
+	if $Rspr.flip_h == true:
+		$Odachi/CollisionShape2D.scale.x = -1
+	
 	
 	if Globals.combo >= 48:
 		dashmeter = 60
@@ -925,11 +931,6 @@ func movrightoff():
 
 func OdachiFlash():
 	$Rspr.frame = 0
-	if $Rspr.flip_h == false:
-		$Odachi/CollisionShape2D.scale.x = 1
-	
-	if $Rspr.flip_h == true:
-		$Odachi/CollisionShape2D.scale.x = -1
 	
 	if dashing && !is_on_floor():
 		$Rspr.play("OdachiFlash")
@@ -939,13 +940,14 @@ func _on_Rspr_animation_finished():
 	if $Rspr.animation == "idle" && waittimer <= 0:
 		$Rspr.frame = 0
 		$Rspr.play("WaitA")
-	
-	if $Rspr.animation == "OdachiFlash":
-		$Rspr.animation = "fall"
-
+		
 	elif $Rspr.animation == "WaitA":
 		$Rspr.frame = 0
 		$Rspr.play("WaitB")
+	
+	
+	if $Rspr.animation == "OdachiFlash":
+		$Rspr.animation = "fall"
 	
 	if $Rspr.animation == "attackg_a" or $Rspr.animation == "dash" and dashing == 0 or $Rspr.animation == "BDash" and dashing == 0 or $Rspr.animation == "waveburst" and zooming == 0:
 		atkg = 0

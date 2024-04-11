@@ -16,7 +16,7 @@ script/source = "extends Area2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
-var hp = 3
+var hp = 2
 var active = false
 var BSpeed = 200
 var Shootsound = preload(\"res://Audio/SE/SHuskShoot.wav\")

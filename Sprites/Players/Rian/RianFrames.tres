@@ -738,7 +738,7 @@ animations = [ {
 "frames": [ SubResource( 326 ), SubResource( 327 ), SubResource( 328 ), SubResource( 329 ) ],
 "loop": false,
 "name": "OdachiFlash",
-"speed": 12.0
+"speed": 24.0
 }, {
 "frames": [ SubResource( 170 ), SubResource( 171 ), SubResource( 172 ), SubResource( 173 ), SubResource( 174 ), SubResource( 175 ), SubResource( 176 ) ],
 "loop": false,

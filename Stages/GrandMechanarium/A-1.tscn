@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://TextMain.tres" type="Theme" id=1]
 [ext_resource path="res://src/Scene.gd" type="Script" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://Sprites/Stage/phHAZARD.png" type="Texture" id=15]
 [ext_resource path="res://Objects/Hazards/Ouchbox.tscn" type="PackedScene" id=16]
 [ext_resource path="res://addons/smoothing/smoothing_2d.gd" type="Script" id=17]
-[ext_resource path="res://Audio/BGM/17 Move Me.mp3" type="AudioStream" id=18]
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -259,7 +258,6 @@ tracks/0/keys = {
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 next = "res://Stages/StickCity/A-2.tscn"
-musplay = ExtResource( 18 )
 reset_location = "res://Stages/GrandMechanarium/A-1.tscn"
 
 [node name="Smoothing2D" type="Node2D" parent="."]
@@ -871,10 +869,10 @@ animation = "idle"
 frame = 0
 
 [node name="FULLREADY" parent="Objects/Rian/Meter" index="0"]
-frame = 0
+frame = 2
 
 [node name="SPARKS" parent="Objects/Rian" index="30"]
-frame = 2
+frame = 3
 
 [node name="Camera2D" parent="Objects" instance=ExtResource( 5 )]
 position = Vector2( 261, 2032 )

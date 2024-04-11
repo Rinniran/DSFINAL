@@ -58,9 +58,6 @@ func _physics_process(delta):
 				direction = direction.bounce(collision.normal) # do ball bounce
 #	pass
 
-
-func _on_hurtbox_area_entered(area):
-	pass # Replace with function body.
 "
 
 [sub_resource type="Shader" id=26]
@@ -251,8 +248,6 @@ occluder = SubResource( 16 )
 wait_time = 0.03
 autostart = true
 
-[connection signal="area_entered" from="Chaser" to="Chaser" method="_on_Area2D_area_entered"]
-[connection signal="area_exited" from="Chaser" to="Chaser" method="_on_Area2D_area_exited"]
 [connection signal="animation_finished" from="Chaser/Stickhusk" to="Chaser" method="_on_Stickhusk_animation_finished"]
 [connection signal="timeout" from="Chaser/multihurt" to="Chaser" method="_on_multihurt_timeout"]
 [connection signal="timeout" from="Chaser/multihurtrepeat" to="Chaser" method="_on_multihurtrepeat_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://TextMain.tres" type="Theme" id=1]
 [ext_resource path="res://Sprites/Stage/SCity.tres" type="TileSet" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Objects/Launcher.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Stages/GhostChaser.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Stages/Chaser.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -337,11 +338,20 @@ text = "Here's our first instance of teaching the player to aim the air dash to 
 [node name="Rian" parent="Objects" instance=ExtResource( 10 )]
 position = Vector2( 336, 616 )
 
+[node name="Rspr" parent="Objects/Rian" index="0"]
+animation = "idle"
+frame = 0
+
+[node name="FULLREADY" parent="Objects/Rian/Meter" index="0"]
+frame = 0
+
+[node name="SPARKS" parent="Objects/Rian" index="30"]
+frame = 0
+
 [node name="Camera2D" parent="Objects" instance=ExtResource( 9 )]
 position = Vector2( 170, 500 )
 limit_right = 10312
 limit_bottom = 1736
-limit_smoothed = false
 target = NodePath("../Rian")
 
 [node name="Launcher" parent="Objects" instance=ExtResource( 11 )]
@@ -389,6 +399,15 @@ position = Vector2( 2097, 478 )
 
 [node name="Bhusk3" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 2080, 765 )
+
+[node name="Cenem" parent="Objects" instance=ExtResource( 13 )]
+position = Vector2( 615, 549 )
+
+[node name="Cenem2" parent="Objects" instance=ExtResource( 13 )]
+position = Vector2( 851, 552 )
+
+[node name="Cenem3" parent="Objects" instance=ExtResource( 13 )]
+position = Vector2( 722, 463 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

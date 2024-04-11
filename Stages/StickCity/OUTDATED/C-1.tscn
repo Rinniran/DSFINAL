@@ -1013,6 +1013,7 @@ flip_h = true
 position = Vector2( 0, 19 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 285 )
+frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Terrain/MedPlat2"]
@@ -1033,7 +1034,6 @@ flip_h = true
 position = Vector2( 2106.5, 243.8 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 285 )
-frame = 1
 playing = true
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Terrain/MedPlat2"]
@@ -1080,6 +1080,7 @@ position = Vector2( 168, 1328 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 255 )
+frame = 1
 playing = true
 
 [node name="Label2" type="Label" parent="Objects/Monitors"]
@@ -1098,6 +1099,7 @@ position = Vector2( 672, 1328 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 255 )
+frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="Objects/Monitors"]

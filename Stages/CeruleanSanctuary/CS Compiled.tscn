@@ -17,7 +17,7 @@ position = Vector2( 283, 1210 )
 frame = 2
 
 [node name="SPARKS" parent="Rian" index="30"]
-frame = 4
+frame = 5
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
 position = Vector2( 76, 1096 )
