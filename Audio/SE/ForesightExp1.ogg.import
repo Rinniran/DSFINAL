@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ForesightExp1.ogg-7fa1cae1ecf165f21cbdd48690830818.oggstr"
+
+[deps]
+
+source_file="res://Audio/SE/ForesightExp1.ogg"
+dest_files=[ "res://.import/ForesightExp1.ogg-7fa1cae1ecf165f21cbdd48690830818.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

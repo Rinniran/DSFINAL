@@ -1,0 +1,469 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://Fonts/Medabots Italic.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Sprites/gui/TYPE1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/gui/TYPE2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/gui/Charseldescription.png" type="Texture" id=4]
+[ext_resource path="res://TextMain.tres" type="Theme" id=5]
+[ext_resource path="res://Sprites/Players/Rian/RianFrames.tres" type="SpriteFrames" id=6]
+[ext_resource path="res://Fonts/PublicPixel.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://src/SELECT.gd" type="Script" id=8]
+[ext_resource path="res://Audio/BGM/Characterselect.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Sprites/VFX/Hit(fx)_11.png" type="Texture" id=10]
+[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=11]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform bool enabled = false;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+	if (enabled){
+		float s = 0.0, v = 0.0;
+	vec2 ires = 1.0 / SCREEN_PIXEL_SIZE;
+	vec2 uv = (FRAGCOORD.xy/ ires) * 2.0 - 1.;
+    float itime = (TIME-2.0)*58.0;
+	vec3 col = vec3(0);
+    vec3 init = vec3(sin(itime * .0032)*.3, .35 - cos(itime * .005)*.3, itime * 0.002);
+	for (int r = 0; r < 100; r++) 
+	{
+		vec3 p = init + s * vec3(uv, 0.05);
+		p.z = fract(p.z);
+        // Thanks to Kali's little chaotic loop...
+		for (int i=0; i < 10; i++)	p = abs(p * 2.04) / dot(p, p) - .9;
+		v += pow(dot(p, p), .7) * .06;
+		col +=  vec3(v * 0.5+.1, 11.-s*2., .1 + v * 2.) * v * 0.00003;
+		s += .02;
+	}
+	COLOR = vec4(clamp(col, 0.0, 1.0), 1.0);
+	}	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/enabled = true
+
+[sub_resource type="DynamicFont" id=3]
+size = 14
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 6
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 49, 49 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 10 )
+region = Rect2( 49, 0, 49, 49 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 10 )
+region = Rect2( 98, 0, 49, 49 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 10 )
+region = Rect2( 147, 0, 49, 49 )
+
+[sub_resource type="SpriteFrames" id=14]
+animations = [ {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "default",
+"speed": 12.0
+} ]
+
+[sub_resource type="Shader" id=15]
+code = "shader_type spatial;
+render_mode unshaded,blend_mix,depth_prepass_alpha,cull_disabled,specular_disabled;
+uniform sampler2D sprite_texture : source_color, filter_linear;
+
+uniform vec4 line_color : source_color = vec4(1.0,1.0,1.0,1.0); // Glow or outline color
+uniform float glowSize: hint_range(0.0, 300) = 15.0; // Size of glow
+uniform int glowDensity: hint_range(0, 30) = 3; // How many stamps to repeat in one direction
+uniform int glowRadialCoverage: hint_range(0, 32) = 4; // How many directions to spread out
+uniform float glowAngle: hint_range(0.0, 6.28) = 1.57; // The starting angle. More important if you want to use this as a trail.
+uniform float glowSharpness: hint_range(0.0, 5.0) = 1.0; // Effect how quickly stamps become transparent as they move out
+uniform float alphaThreshold: hint_range(0.0, 1.0) =  0.2; // Alpha level a pixel should be considered a glow
+
+//Goes through every single pixle and does thing
+void fragment() {
+	vec4 col = texture(sprite_texture, UV); // Gets color at uv position of pixel
+	
+	// Sets source image as default pixel
+	ALBEDO = col.rgb;
+	ALPHA = col.a;
+	
+	vec2 pixel_size = 1.0 / vec2(textureSize(sprite_texture, 0)); // Set pixel size
+	float alph = 0.0; // Start with a 0 alpha to add to with each check
+	for (int i = 0; i < glowRadialCoverage; i++) { // Goes around in a circle
+		for (int j = 0; j < glowDensity; j++) { // Extends out
+			float radians360 = 6.28;
+			// The angle from which to grab pixel information
+			float angle = (radians360 / float(glowRadialCoverage))*float(i+1) + glowAngle;
+			// The distance to reach to grab pixel information
+			float dist = glowSize * float(j + 1) / float(glowDensity);
+			// Pixel coordinate to grab
+			vec2 pixel_coor = vec2( sin(angle) , cos(angle) );
+			// Gets the pixel based on the previous information
+    		vec4 tex = texture(sprite_texture, UV + pixel_coor * pixel_size * dist);
+			
+			// Sharpness. If you don't care about this, enable the next line and delete the next 3
+			//alph += tex.a * line_color.a;
+			float distFrom = float(glowDensity-j) / float(glowDensity); // Distance iteration number (how far out)
+			float sharpness = mix(0.0, 1.0, pow(distFrom, glowSharpness) ); // Figure out sharpness level, interplote with distance and Glow Sharpness modifier
+			alph += (tex.a * line_color.a) * sharpness; // Apply sharpness
+		}
+	}
+	
+	// Adds outline if this part of the image is transparent
+	if (ALPHA < alphaThreshold){
+		ALBEDO = line_color.rgb;
+		ALPHA = alph;
+	}
+	
+	// Enabling this line will cut out the image and leave the outline
+	//ALPHA -= col.a * 10.0; 
+	// if you set blend to add, and set this as a second pass, you'll get a better glow effect
+}"
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = SubResource( 15 )
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CHARSELECT:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TYPESELECT:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimatedSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 60, 177 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "RianBack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("TYPESELECT:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CHARSELECT:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimatedSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 164, 109 ), Vector2( 60, 177 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "RianSelect"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CHARSELECT:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TYPESELECT:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimatedSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 60, 177 ), Vector2( 164, 109 ) ]
+}
+
+[sub_resource type="Shader" id=21]
+code = "shader_type canvas_item;
+
+void vertex() {
+    // This function is necessary even if empty
+}
+
+void fragment() {
+    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
+    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+
+    // Scale the RGB values to fit within the 5-bit range
+    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
+
+    // Create the final color
+    vec4 final_color = vec4(scaled_color, original_color.a);
+
+    // Output the final color
+    COLOR = final_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=22]
+shader = SubResource( 21 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 8 )
+musplay = ExtResource( 9 )
+
+[node name="TextureRect" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_right = 384.0
+margin_bottom = 223.0
+
+[node name="CHARSELECT" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CHARSELECT"]
+margin_top = 202.0
+margin_right = 384.0
+margin_bottom = 223.0
+color = Color( 0, 0, 0, 0.713726 )
+
+[node name="Label" type="Label" parent="CHARSELECT"]
+margin_left = -1.0
+margin_top = 2.0
+margin_right = 383.0
+margin_bottom = 30.0
+theme = SubResource( 4 )
+text = "CHOOSE YOUR CHARACTER"
+
+[node name="Charseldescription" type="Sprite" parent="CHARSELECT"]
+position = Vector2( 180, 132 )
+texture = ExtResource( 4 )
+offset = Vector2( -35, -19 )
+
+[node name="Charseldescription2" type="Sprite" parent="CHARSELECT"]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 290, 132 )
+texture = ExtResource( 4 )
+offset = Vector2( -35, -19 )
+
+[node name="Label2" type="Label" parent="CHARSELECT"]
+margin_left = 95.0
+margin_top = 28.0
+margin_right = 194.0
+margin_bottom = 180.0
+theme = SubResource( 6 )
+text = "      RIAN
+	
+
+
+ TRAITS
+
+ VECTOR AIR:
+ allows you
+ to soar long
+ distances
+
+ WAVEBURST:
+ Speed up 
+ upon hitting
+ the ground
+ with an air
+ dash"
+
+[node name="Label4" type="Label" parent="CHARSELECT"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = 98.0
+margin_top = 181.0
+margin_right = 171.0
+margin_bottom = 196.0
+theme = SubResource( 6 )
+text = "ADVANCED TYPE
+    ONLY
+"
+
+[node name="Label3" type="Label" parent="CHARSELECT"]
+margin_left = 206.0
+margin_top = 27.0
+margin_right = 302.0
+margin_bottom = 167.0
+theme = ExtResource( 5 )
+text = " 
+
+
+
+
+
+
+ COMING SOON"
+
+[node name="DESCRIPTION" type="Label" parent="CHARSELECT"]
+margin_left = 3.0
+margin_top = 202.0
+margin_right = 388.0
+margin_bottom = 280.0
+theme = ExtResource( 5 )
+text = "NORMALLY A LONER IN THE BACK ALLEYS, RIAN ENDED
+UP HAVING A BONE TO PICK WITH THE TOWN'S MAYOR!"
+
+[node name="TYPESELECT" type="Node2D" parent="."]
+visible = false
+
+[node name="Cursor" type="AnimatedSprite" parent="TYPESELECT"]
+modulate = Color( 1, 0.937255, 0, 1 )
+position = Vector2( 116, 160 )
+scale = Vector2( 6, 3 )
+frames = SubResource( 14 )
+frame = 2
+playing = true
+
+[node name="Label" type="Label" parent="TYPESELECT"]
+margin_left = -1.0
+margin_top = 2.0
+margin_right = 383.0
+margin_bottom = 30.0
+theme = SubResource( 4 )
+text = "CHOOSE YOUR TYPE"
+
+[node name="Type1" type="Sprite" parent="TYPESELECT"]
+material = SubResource( 16 )
+position = Vector2( 113, 76 )
+texture = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="TYPESELECT"]
+margin_left = 222.0
+margin_top = 8.0
+margin_right = 369.0
+margin_bottom = 215.0
+color = Color( 0, 0, 0, 0.713726 )
+
+[node name="Label2" type="Label" parent="TYPESELECT"]
+margin_left = 244.0
+margin_top = 18.0
+margin_right = 353.0
+margin_bottom = 195.0
+theme = SubResource( 6 )
+text = "SIMPLE:
+
+This type simplifies your character's moveset to be easier to control. This type is for new players.
+
+
+ADVANCED:
+
+This type gives you all of your character's tools. For players with legacy skill who don't mind learning new tricks as they go."
+autowrap = true
+
+[node name="Type2" type="Sprite" parent="TYPESELECT"]
+position = Vector2( 114, 163 )
+texture = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 60, 177 )
+frames = ExtResource( 6 )
+animation = "WaitB"
+frame = 7
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 7 )
+anims/RianBack = SubResource( 8 )
+anims/RianSelect = SubResource( 9 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 22 )
+margin_right = 384.0
+margin_bottom = 223.0
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = ExtResource( 11 )
+margin_right = 384.0
+margin_bottom = 225.0
+rect_pivot_offset = Vector2( 173, 289 )
+color = Color( 1, 1, 1, 0.498039 )

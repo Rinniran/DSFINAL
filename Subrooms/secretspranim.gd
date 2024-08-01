@@ -15,7 +15,7 @@ func _ready():
 func _process(delta):
 	var this_ghost = preload("res://Stages/ghostrainbow.tscn").instance()
 	get_parent().add_child(this_ghost)
-	this_ghost.position = position
+	this_ghost.position = global_position
 	this_ghost.texture = frames.get_frame(animation, frame)
 	this_ghost.visible = visible
 	

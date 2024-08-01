@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Sprites/HOWTOPLAY/Border.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/HOWTOPLAY/Stick.png" type="Texture" id=2]
@@ -10,9 +10,10 @@
 [ext_resource path="res://Sprites/Stage/SCity/SCity.png" type="Texture" id=8]
 [ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=10]
-[ext_resource path="res://TextMain.tres" type="Theme" id=11]
+[ext_resource path="res://Fonts/LanaPixel.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://src/Scene.gd" type="Script" id=12]
 [ext_resource path="res://Audio/BGM/how to play.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Stages/DEMO/Node.gd" type="Script" id=14]
 
 [sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
@@ -109,7 +110,7 @@ tracks/0/keys = {
 "values": [ "Move left and right with the D-pad and analog stick!", "Jump with A (Pad) / Z (key)!", "Dash with B (pad) / Shift (key)!", "Press X (pad/key) to attack!", "Jump during a dash to activate Vector air! Free invincibility for you!", "Those are the basics. Remember to experiment with your moveset! There's a lot you're able to do!" ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Overlay/Stick:frame")
+tracks/1/path = NodePath("Node/Overlay/Stick:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -121,7 +122,7 @@ tracks/1/keys = {
 "values": [ 4, 3, 4, 5, 4, 3, 4, 5, 4, 3, 4, 5, 4, 3, 4, 5, 4, 1, 7, 4, 3, 4, 5, 4, 3, 4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Overlay/ButtonA2:frame")
+tracks/2/path = NodePath("Node/Overlay/ButtonA2:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -133,7 +134,7 @@ tracks/2/keys = {
 "values": [ 3, 4, 5, 4, 5, 4, 3, 4, 5, 4, 5, 4, 3, 5, 3, 5, 3, 5, 3, 5, 3 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Overlay/ButtonA3:frame")
+tracks/3/path = NodePath("Node/Overlay/ButtonA3:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -145,7 +146,7 @@ tracks/3/keys = {
 "values": [ 0, 2, 1, 2, 1, 2, 0, 2, 1, 2, 1, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Overlay/ButtonA:frame")
+tracks/4/path = NodePath("Node/Overlay/ButtonA:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -157,7 +158,7 @@ tracks/4/keys = {
 "values": [ 6, 8, 7, 8, 6, 8, 7, 8, 6, 8, 7, 8, 6, 8, 6, 8, 6 ]
 }
 tracks/5/type = "method"
-tracks/5/path = NodePath("Overlay/ViewportContainer/Viewport/Rian")
+tracks/5/path = NodePath("Node/Overlay/ViewportContainer/Viewport/Rian")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -276,7 +277,7 @@ tracks/5/keys = {
 } ]
 }
 tracks/6/type = "method"
-tracks/6/path = NodePath("Overlay/ViewportContainer/Viewport/Rian")
+tracks/6/path = NodePath("Node/Overlay/ViewportContainer/Viewport/Rian")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -327,6 +328,18 @@ tracks/7/keys = {
 "method": "loadnext"
 } ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("Node/AnimationPlayer/Label:text")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 5.02, 9.98, 16.38, 21.08, 26.18 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "Move left and right with the D-pad and analog stick!", "Jump with A (Pad) / Z (key)!", "Dash with B (pad) / Shift (key)!", "Press X (pad/key) to attack!", "Jump during a dash to activate Vector air! Free invincibility from blue attacks!!", "Those are the basics. Remember to experiment with your moveset! There's a lot you're able to do!" ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.001
@@ -343,7 +356,7 @@ tracks/0/keys = {
 "values": [ "Move left and right with the D-pad and analog stick!" ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Overlay/Stick:frame")
+tracks/1/path = NodePath("Node/Overlay/Stick:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -355,7 +368,7 @@ tracks/1/keys = {
 "values": [ 4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Overlay/ButtonA2:frame")
+tracks/2/path = NodePath("Node/Overlay/ButtonA2:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -367,7 +380,7 @@ tracks/2/keys = {
 "values": [ 4 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Overlay/ButtonA3:frame")
+tracks/3/path = NodePath("Node/Overlay/ButtonA3:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -379,7 +392,7 @@ tracks/3/keys = {
 "values": [ 0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Overlay/ButtonA:frame")
+tracks/4/path = NodePath("Node/Overlay/ButtonA:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -390,6 +403,32 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 6 ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Node/AnimationPlayer/Label:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "Move left and right with the D-pad and analog stick!" ]
+}
+
+[sub_resource type="DynamicFont" id=14]
+size = 9
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=15]
+default_font = SubResource( 14 )
+
+[sub_resource type="Environment" id=16]
+background_mode = 4
+background_canvas_max_layer = 200
+adjustment_enabled = true
+adjustment_brightness = 1.31
+adjustment_saturation = 1.64
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 12 )
@@ -398,98 +437,101 @@ musplay = ExtResource( 13 )
 canmove = 0
 demo = 1
 vidmode = 1
+zoomallowed = false
 
 [node name="Node" type="Node" parent="."]
+script = ExtResource( 14 )
 
-[node name="Camera2D" parent="." instance=ExtResource( 9 )]
-position = Vector2( -2, 0 )
-limit_right = 370
+[node name="Camera2D" parent="Node" instance=ExtResource( 9 )]
+position = Vector2( 3, -2 )
+limit_right = 383
 limit_bottom = 224
+HudVisible = false
 
-[node name="Overlay" type="Node2D" parent="."]
+[node name="Overlay" type="Node2D" parent="Node"]
 position = Vector2( 130, 34 )
 
-[node name="ViewportContainer" type="ViewportContainer" parent="Overlay"]
-margin_left = -90.0
+[node name="ViewportContainer" type="ViewportContainer" parent="Node/Overlay"]
+margin_left = -61.0
 margin_top = -12.0
-margin_right = 230.0
+margin_right = 259.0
 margin_bottom = 212.0
 rect_scale = Vector2( 0.753, 0.705 )
 rect_clip_content = true
 
-[node name="Viewport" type="Viewport" parent="Overlay/ViewportContainer"]
+[node name="Viewport" type="Viewport" parent="Node/Overlay/ViewportContainer"]
 size = Vector2( 320, 224 )
 handle_input_locally = false
 disable_3d = true
 usage = 1
 render_target_update_mode = 3
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="Overlay/ViewportContainer/Viewport"]
+[node name="CanvasLayer2" type="CanvasLayer" parent="Node/Overlay/ViewportContainer/Viewport"]
 visible = false
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Overlay/ViewportContainer/Viewport/CanvasLayer2"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Node/Overlay/ViewportContainer/Viewport/CanvasLayer2"]
 
-[node name="SCity" type="Sprite" parent="Overlay/ViewportContainer/Viewport/CanvasLayer2/ParallaxBackground"]
+[node name="SCity" type="Sprite" parent="Node/Overlay/ViewportContainer/Viewport/CanvasLayer2/ParallaxBackground"]
 position = Vector2( 160.5, 110.5 )
 scale = Vector2( 0.49349, 0.581019 )
 texture = ExtResource( 8 )
 
-[node name="TileMap" type="TileMap" parent="Overlay/ViewportContainer/Viewport"]
+[node name="TileMap" type="TileMap" parent="Node/Overlay/ViewportContainer/Viewport"]
 position = Vector2( 112, 85 )
 scale = Vector2( 0.5, 0.5 )
 tile_set = ExtResource( 7 )
 format = 1
-tile_data = PoolIntArray( 327673, 7, 0, 327674, 7, 0, 327675, 7, 0, 327676, 7, 0, 327677, 7, 0, 327678, 7, 0, 327679, 7, 0, 262144, 7, 0, 262145, 7, 0, 262146, 7, 0, 262147, 7, 0, 262148, 7, 0, 262149, 7, 0, 262150, 7, 0, 262151, 7, 0, 262152, 7, 0, 262153, 7, 0, 262154, 7, 0, 262155, 7, 0, 262156, 7, 0, 393209, 8, 0, 393210, 8, 0, 393211, 8, 0, 393212, 8, 0, 393213, 8, 0, 393214, 8, 0, 393215, 8, 0, 327680, 8, 0, 327681, 8, 0, 327682, 8, 0, 327683, 8, 0, 327684, 8, 0, 327685, 8, 0, 327686, 8, 0, 327687, 8, 0, 327688, 8, 0, 327689, 8, 0, 327690, 8, 0, 327691, 8, 0, 327692, 8, 0, 458745, 8, 0, 458746, 8, 0, 458747, 8, 0, 458748, 8, 0, 458749, 8, 0, 458750, 8, 0, 458751, 8, 0, 393216, 8, 0, 393217, 8, 0, 393218, 8, 0, 393219, 8, 0, 393220, 8, 0, 393221, 8, 0, 393222, 8, 0, 393223, 8, 0, 393224, 8, 0, 393225, 8, 0, 393226, 8, 0, 393227, 8, 0, 393228, 8, 0, 524281, 8, 0, 524282, 8, 0, 524283, 8, 0, 524284, 8, 0, 524285, 8, 0, 524286, 8, 0, 524287, 8, 0, 458752, 8, 0, 458753, 8, 0, 458754, 8, 0, 458755, 8, 0, 458756, 8, 0, 458757, 8, 0, 458758, 8, 0, 458759, 8, 0, 458760, 8, 0, 458761, 8, 0, 458762, 8, 0, 458763, 8, 0, 458764, 8, 0, 589817, 8, 0, 589818, 8, 0, 589819, 8, 0, 589820, 8, 0, 589821, 8, 0, 589822, 8, 0, 589823, 8, 0, 524288, 8, 0, 524289, 8, 0, 524290, 8, 0, 524291, 8, 0, 524292, 8, 0, 524293, 8, 0, 524294, 8, 0, 524295, 8, 0, 524296, 8, 0, 524297, 8, 0, 524298, 8, 0, 524299, 8, 0, 524300, 8, 0, 655353, 8, 0, 655354, 8, 0, 655355, 8, 0, 655356, 8, 0, 655357, 8, 0, 655358, 8, 0, 655359, 8, 0, 589824, 8, 0, 589825, 8, 0, 589826, 8, 0, 589827, 8, 0, 589828, 8, 0, 589829, 8, 0, 589830, 8, 0, 589831, 8, 0, 589832, 8, 0, 589833, 8, 0, 589834, 8, 0, 589835, 8, 0, 589836, 8, 0, 720889, 8, 0, 720890, 8, 0, 720891, 8, 0, 720892, 8, 0, 720893, 8, 0, 720894, 8, 0, 720895, 8, 0, 655360, 8, 0, 655361, 8, 0, 655362, 8, 0, 655363, 8, 0, 655364, 8, 0, 655365, 8, 0, 655366, 8, 0, 655367, 8, 0, 655368, 8, 0, 655369, 8, 0, 655370, 8, 0, 655371, 8, 0, 655372, 8, 0, 786425, 8, 0, 786426, 8, 0, 786427, 8, 0, 786428, 8, 0, 786429, 8, 0, 786430, 8, 0, 786431, 8, 0, 720896, 8, 0, 720897, 8, 0, 720898, 8, 0, 720899, 8, 0, 720900, 8, 0, 720901, 8, 0, 720902, 8, 0, 720903, 8, 0, 720904, 8, 0, 720905, 8, 0, 720906, 8, 0, 720907, 8, 0, 720908, 8, 0 )
+tile_data = PoolIntArray( -196602, 8, 0, -196601, 8, 0, -131065, 8, 0, -65529, 8, 0, 7, 8, 0, 65543, 8, 0, 131079, 8, 0, 196615, 8, 0, 327673, 7, 0, 327674, 7, 0, 327675, 7, 0, 327676, 7, 0, 327677, 7, 0, 327678, 7, 0, 327679, 7, 0, 262144, 7, 0, 262145, 7, 0, 262146, 7, 0, 262147, 7, 0, 262148, 7, 0, 262149, 7, 0, 262150, 7, 0, 262151, 7, 0, 262152, 7, 0, 262153, 7, 0, 262154, 7, 0, 262155, 7, 0, 262156, 7, 0, 393209, 8, 0, 393210, 8, 0, 393211, 8, 0, 393212, 8, 0, 393213, 8, 0, 393214, 8, 0, 393215, 8, 0, 327680, 8, 0, 327681, 8, 0, 327682, 8, 0, 327683, 8, 0, 327684, 8, 0, 327685, 8, 0, 327686, 8, 0, 327687, 8, 0, 327688, 8, 0, 327689, 8, 0, 327690, 8, 0, 327691, 8, 0, 327692, 8, 0, 458745, 8, 0, 458746, 8, 0, 458747, 8, 0, 458748, 8, 0, 458749, 8, 0, 458750, 8, 0, 458751, 8, 0, 393216, 8, 0, 393217, 8, 0, 393218, 8, 0, 393219, 8, 0, 393220, 8, 0, 393221, 8, 0, 393222, 8, 0, 393223, 8, 0, 393224, 8, 0, 393225, 8, 0, 393226, 8, 0, 393227, 8, 0, 393228, 8, 0, 524281, 8, 0, 524282, 8, 0, 524283, 8, 0, 524284, 8, 0, 524285, 8, 0, 524286, 8, 0, 524287, 8, 0, 458752, 8, 0, 458753, 8, 0, 458754, 8, 0, 458755, 8, 0, 458756, 8, 0, 458757, 8, 0, 458758, 8, 0, 458759, 8, 0, 458760, 8, 0, 458761, 8, 0, 458762, 8, 0, 458763, 8, 0, 458764, 8, 0, 589817, 8, 0, 589818, 8, 0, 589819, 8, 0, 589820, 8, 0, 589821, 8, 0, 589822, 8, 0, 589823, 8, 0, 524288, 8, 0, 524289, 8, 0, 524290, 8, 0, 524291, 8, 0, 524292, 8, 0, 524293, 8, 0, 524294, 8, 0, 524295, 8, 0, 524296, 8, 0, 524297, 8, 0, 524298, 8, 0, 524299, 8, 0, 524300, 8, 0, 655353, 8, 0, 655354, 8, 0, 655355, 8, 0, 655356, 8, 0, 655357, 8, 0, 655358, 8, 0, 655359, 8, 0, 589824, 8, 0, 589825, 8, 0, 589826, 8, 0, 589827, 8, 0, 589828, 8, 0, 589829, 8, 0, 589830, 8, 0, 589831, 8, 0, 589832, 8, 0, 589833, 8, 0, 589834, 8, 0, 589835, 8, 0, 589836, 8, 0, 720889, 8, 0, 720890, 8, 0, 720891, 8, 0, 720892, 8, 0, 720893, 8, 0, 720894, 8, 0, 720895, 8, 0, 655360, 8, 0, 655361, 8, 0, 655362, 8, 0, 655363, 8, 0, 655364, 8, 0, 655365, 8, 0, 655366, 8, 0, 655367, 8, 0, 655368, 8, 0, 655369, 8, 0, 655370, 8, 0, 655371, 8, 0, 655372, 8, 0, 786425, 8, 0, 786426, 8, 0, 786427, 8, 0, 786428, 8, 0, 786429, 8, 0, 786430, 8, 0, 786431, 8, 0, 720896, 8, 0, 720897, 8, 0, 720898, 8, 0, 720899, 8, 0, 720900, 8, 0, 720901, 8, 0, 720902, 8, 0, 720903, 8, 0, 720904, 8, 0, 720905, 8, 0, 720906, 8, 0, 720907, 8, 0, 720908, 8, 0 )
 
-[node name="Rian" parent="Overlay/ViewportContainer/Viewport" instance=ExtResource( 10 )]
+[node name="Rian" parent="Node/Overlay/ViewportContainer/Viewport" instance=ExtResource( 10 )]
 position = Vector2( 63, 189 )
 
-[node name="ColorRect" type="ColorRect" parent="Overlay"]
-margin_left = -49.0
+[node name="ColorRect" type="ColorRect" parent="Node/Overlay"]
+margin_left = -20.0
 margin_top = -10.0
-margin_right = 204.0
+margin_right = 233.0
 margin_bottom = 50.0
 rect_scale = Vector2( 0.625219, 0.702535 )
 color = Color( 0, 0, 0, 0.556863 )
 
-[node name="Border" type="Sprite" parent="Overlay"]
-position = Vector2( -130, -34 )
+[node name="Border" type="Sprite" parent="Node/Overlay"]
+position = Vector2( -101, -34 )
 scale = Vector2( 0.625, 0.7 )
 texture = ExtResource( 1 )
 centered = false
 
-[node name="Stick" type="Sprite" parent="Overlay"]
-position = Vector2( -84, 155 )
+[node name="Stick" type="Sprite" parent="Node/Overlay"]
+position = Vector2( -55, 155 )
 texture = ExtResource( 2 )
 hframes = 3
 vframes = 3
 frame = 4
 
-[node name="ButtonA" type="Sprite" parent="Overlay"]
-position = Vector2( 1, 166 )
+[node name="ButtonA" type="Sprite" parent="Node/Overlay"]
+position = Vector2( 30, 166 )
 texture = ExtResource( 3 )
 hframes = 3
 vframes = 3
 frame = 6
 
-[node name="ButtonA2" type="Sprite" parent="Overlay"]
-position = Vector2( 81, 161 )
+[node name="ButtonA2" type="Sprite" parent="Node/Overlay"]
+position = Vector2( 110, 161 )
 texture = ExtResource( 3 )
 hframes = 3
 vframes = 3
 frame = 4
 
-[node name="ButtonA3" type="Sprite" parent="Overlay"]
-position = Vector2( 159, 158 )
+[node name="ButtonA3" type="Sprite" parent="Node/Overlay"]
+position = Vector2( 188, 158 )
 texture = ExtResource( 3 )
 hframes = 3
 vframes = 3
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Overlay"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Node/Overlay"]
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Overlay/CanvasLayer"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Node/Overlay/CanvasLayer"]
 
-[node name="BG" type="Sprite" parent="Overlay/CanvasLayer/ParallaxBackground"]
+[node name="BG" type="Sprite" parent="Node/Overlay/CanvasLayer/ParallaxBackground"]
 material = SubResource( 10 )
 position = Vector2( 256, 160 )
 scale = Vector2( 1.7, 1.7 )
@@ -500,7 +542,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1024, 1024 )
 script = SubResource( 11 )
 
-[node name="TextureRect" type="TextureRect" parent="Overlay/CanvasLayer/ParallaxBackground"]
+[node name="TextureRect" type="TextureRect" parent="Node/Overlay/CanvasLayer/ParallaxBackground"]
 material = SubResource( 7 )
 margin_left = 1.0
 margin_right = 513.0
@@ -510,30 +552,33 @@ size_flags_stretch_ratio = 2.0
 texture = ExtResource( 4 )
 stretch_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="Overlay/CanvasLayer/ParallaxBackground"]
+[node name="TextureRect2" type="TextureRect" parent="Node/Overlay/CanvasLayer/ParallaxBackground"]
 material = SubResource( 8 )
 margin_left = -45.0
-margin_top = -78.0
+margin_top = -93.0
 margin_right = 595.0
-margin_bottom = 402.0
+margin_bottom = 387.0
 texture = ExtResource( 5 )
 stretch_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node"]
+root_node = NodePath("../..")
 autoplay = "HowToplay"
 anims/HowToplay = SubResource( 12 )
 anims/RESET = SubResource( 13 )
 
-[node name="Label" type="Label" parent="AnimationPlayer"]
-margin_left = 83.0
-margin_top = 26.0
-margin_right = 334.0
-margin_bottom = 85.0
-rect_scale = Vector2( 0.63, 0.65 )
-theme = ExtResource( 11 )
+[node name="DemoScreen" type="Node2D" parent="Node/AnimationPlayer"]
+position = Vector2( 112, 85 )
+z_index = -18
+
+[node name="Label" type="Label" parent="Node/AnimationPlayer"]
+margin_left = 110.0
+margin_top = 24.0
+margin_right = 267.0
+margin_bottom = 65.0
+theme = SubResource( 15 )
 text = "Move left and right with the D-pad and analog stick!"
 autowrap = true
 
-[node name="DemoScreen" type="Node2D" parent="AnimationPlayer"]
-position = Vector2( 112, 85 )
-z_index = -18
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 16 )

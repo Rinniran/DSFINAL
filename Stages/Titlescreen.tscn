@@ -506,13 +506,12 @@ position = Vector2( 577, 132 )
 texture = ExtResource( 8 )
 script = ExtResource( 12 )
 
-[node name="copyright stuff" type="Label" parent="."]
-margin_left = -192.0
-margin_top = 212.0
-margin_right = 576.0
-margin_bottom = 222.0
+[node name="copyrightstuff" type="Label" parent="."]
+margin_top = 213.0
+margin_right = 384.0
+margin_bottom = 223.0
 theme = ExtResource( 7 )
-text = "PEASANT PALS/CHRONICLE 2024            SAGE DEMO"
+text = "PEASANT PALS/CHRONICLE 2024"
 align = 1
 
 [node name="version" type="Label" parent="."]

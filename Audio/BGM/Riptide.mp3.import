@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Riptide.mp3-c815534dd56c86a18bb2bd7c8e4cf861.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Riptide.mp3"
+dest_files=[ "res://.import/Riptide.mp3-c815534dd56c86a18bb2bd7c8e4cf861.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

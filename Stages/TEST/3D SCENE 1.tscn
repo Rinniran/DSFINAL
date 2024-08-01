@@ -1,23 +1,82 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Objects/Camera3D.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Objects/Player3D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Rian3D.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scene.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/Textures/LOADING.png" type="Texture" id=4]
+[ext_resource path="res://Objects/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=6]
+[ext_resource path="res://TextMain.tres" type="Theme" id=7]
 
 [sub_resource type="CubeMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0, 1, 0.184314, 1 )
+albedo_texture = ExtResource( 4 )
 
 [sub_resource type="BoxShape" id=3]
 
 [sub_resource type="CapsuleShape" id=4]
 
+[sub_resource type="Environment" id=5]
+ambient_light_color = Color( 1, 1, 1, 1 )
+glow_enabled = true
+glow_intensity = 1.03
+glow_strength = 1.06
+glow_bloom = 0.38
+
+[sub_resource type="Shader" id=21]
+code = "shader_type canvas_item;
+
+void vertex() {
+    // This function is necessary even if empty
+}
+
+void fragment() {
+    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
+    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+
+    // Scale the RGB values to fit within the 5-bit range
+    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
+
+    // Create the final color
+    vec4 final_color = vec4(scaled_color, original_color.a);
+
+    // Output the final color
+    COLOR = final_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = SubResource( 21 )
+
+[sub_resource type="GDScript" id=20]
+resource_name = "Glist"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.stuntList) + str(\"\\n\") + str (Globals.groovePoints) + str(\"\\n\") + str (Globals.grooveRankText)
+"
+
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
 transform = Transform( 4.70403, 0, 0, 0, 0.069602, 0, 0, 0, 2.35546, 0, -0.0593131, 0 )
 
 [node name="CSGMesh" type="CSGMesh" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.064208, 0, 0 )
 mesh = SubResource( 1 )
 material = SubResource( 2 )
 
@@ -46,11 +105,39 @@ material = SubResource( 2 )
 shape = SubResource( 3 )
 
 [node name="Rian" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3836, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.332722, 0 )
 
-[node name="Camera" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, -5.95696e-08, -2.04482e-09, 5.96046e-08, 0.999411, 0.0343065, 0, -0.0343065, 0.999411, 0, 1.27889, 2.3761 )
+[node name="Camera" parent="Rian" instance=ExtResource( 1 )]
+transform = Transform( 1, -5.95695e-08, -2.04483e-09, 5.96046e-08, 0.999411, 0.0343065, 0, -0.0343065, 0.999411, 0, 0.24534, 1.69952 )
+current = true
 script = null
 
-[node name="SpringArm" type="SpringArm" parent="Camera"]
+[node name="SpringArm" type="SpringArm" parent="Rian/Camera"]
 shape = SubResource( 4 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="GUIStuff" parent="." instance=ExtResource( 5 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 19 )
+margin_right = 496.0
+margin_bottom = 224.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource( 6 )
+margin_right = 384.0
+margin_bottom = 225.0
+rect_pivot_offset = Vector2( 173, 289 )
+color = Color( 1, 1, 1, 0.498039 )
+
+[node name="groovelist" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 7 )
+text = "These are my extras."
+script = SubResource( 20 )

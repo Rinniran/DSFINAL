@@ -120,7 +120,7 @@ script = ExtResource( 1 )
 position = Vector2( -2.97301, -4.43238 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Sounds" type="AudioStreamPlayer2D" parent="Stickhusk"]

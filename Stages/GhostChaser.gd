@@ -67,6 +67,12 @@ func frameFreeze(timeScale, duration):
 		$Stickhusk/Sounds.stream = diesound
 		$Stickhusk/Sounds.play()
 		$Stickhusk.play("die")
+		Globals.stuntTimer = 30
+		if !Globals.stuntList.empty():
+			if Globals.player.is_on_floor():
+				Globals.stuntList.append("GroundedKill")
+			else:
+				Globals.stuntList.append("AerialKill")
 	
 
 

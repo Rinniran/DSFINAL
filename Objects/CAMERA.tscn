@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=1]
+[ext_resource path="res://TextMain.tres" type="Theme" id=2]
+[ext_resource path="res://Objects/HUD.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ShaderMaterial" id=3]
 
@@ -15,6 +16,8 @@ var shake_amount = 0
 var default_offset = offset
 
 export var target : NodePath
+
+export var HudVisible = true
 
 var gonowmyson
 var focusx = 3
@@ -31,11 +34,16 @@ func _ready():
 
 
 func _physics_process(delta):
+	
+	
+	$GUIStuff.visible = HudVisible
+	
 	if current:
+		
 		Globals.camera = self
 	offset = Vector2(rand_range(-shake_amount, shake_amount), rand_range(-shake_amount, shake_amount)) * delta + default_offset
 	#print_debug(str(\"Cam Pos: \") + str(position))
-	
+	gonowmyson = get_node(target)
 	if gonowmyson:
 		if Globals.playerspriteflip == false:
 			if focusx < 2.5:
@@ -43,12 +51,25 @@ func _physics_process(delta):
 		elif Globals.playerspriteflip == true:
 			if focusx > 1.5:
 				focusx -= 0.025
-		position.x = gonowmyson.position.x - (384 / focusx) * zoom.x
-		if position.y > gonowmyson.position.y - (180/ 1.8) * zoom.y:
-			position.y = gonowmyson.position.y - (180/ 1.8) * zoom.y
-		elif position.y < gonowmyson.position.y - (290/ 1.8) * zoom.y:
-			position.y = gonowmyson.position.y - (290/ 1.8) * zoom.y
-	
+		
+		if Globals.windowmode == 1:
+			position.x = gonowmyson.global_position.x - (384 / focusx) * zoom.x
+			if position.y > gonowmyson.global_position.y - (180/ 1.8) * zoom.y:
+				position.y = gonowmyson.global_position.y - (180/ 1.8) * zoom.y
+			elif position.y < gonowmyson.global_position.y - (290/ 1.8) * zoom.y:
+				position.y = gonowmyson.global_position.y - (290/ 1.8) * zoom.y
+		
+		if Globals.windowmode == 0:
+			position.x = gonowmyson.global_position.x - (320 / focusx) * zoom.x
+			if position.y > gonowmyson.global_position.y - (180/ 1.8) * zoom.y:
+				position.y = gonowmyson.global_position.y - (180/ 1.8) * zoom.y
+			elif position.y < gonowmyson.global_position.y - (290/ 1.8) * zoom.y:
+				position.y = gonowmyson.global_position.y - (290/ 1.8) * zoom.y
+		
+	if Globals.windowmode == 1:
+		position.x = clamp(position.x, 0, limit_right - 384)
+	if Globals.windowmode == 0:
+		position.x = clamp(position.x, 0, limit_right - 320)
 
 
 func shake(new_shake, shake_time=0.4, shake_limit=100):
@@ -73,7 +94,7 @@ func _on_Timer_timeout():
 	tween.start()
 "
 
-[sub_resource type="Shader" id=18]
+[sub_resource type="Shader" id=21]
 code = "shader_type canvas_item;
 
 void vertex() {
@@ -96,7 +117,124 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id=19]
-shader = SubResource( 18 )
+shader = SubResource( 21 )
+
+[sub_resource type="Shader" id=22]
+code = "/*
+	CRT shader for Godot Engine by Yui Kinomoto @arlez80
+*/
+shader_type canvas_item;
+
+const float PI = 3.1415926535;
+
+// ブラウン管のガラスの曲がり具合（フラットなやつは0.0でいいかな）
+uniform float crt_curve : hint_range( 0.0, 1.0 ) = 0.02;
+// 走査線の濃さ
+uniform float crt_scan_line_color : hint_range( 0.0, 1.0 ) = 0.347;
+// 光量
+uniform float aperture_grille_rate : hint_range( 0.0, 1.0 ) = 0.4;
+// RFスイッチ的ブラー
+uniform float rf_switch_esque_blur : hint_range( 0.0, 1.0 ) = 1.0;
+// 白色ノイズ
+uniform float white_noise_rate : hint_range( 0.0, 1.0 ) = 0.0;
+
+float random( vec2 pos )
+{ 
+	return fract(sin(dot(pos, vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment( )
+{
+	// ガラスの曲がり具合
+	vec2 crt_curve_shift = ( vec2( 1.0, 1.0 ) - sin( UV.yx * PI ) ) * crt_curve;
+	vec2 crt_curve_scale = vec2( 1.0, 1.0 ) + crt_curve_shift * 2.0;
+	vec2 texture_fixed_uv = UV * crt_curve_scale - crt_curve_shift;
+	vec2 fixed_uv = SCREEN_UV * crt_curve_scale - crt_curve_shift;
+	// 範囲外を消す
+	float enable_color = float( 0.0 <= texture_fixed_uv.x && texture_fixed_uv.x <= 1.0 && 0.0 <= texture_fixed_uv.y && texture_fixed_uv.y <= 1.0 );
+
+	// ガラスの曲がり具合から元色を取得 + RFスイッチ的ブラー
+	COLOR.rgb = (
+		(
+			texture( SCREEN_TEXTURE, fixed_uv ).rgb
+		*	( 1.0 - rf_switch_esque_blur * 0.5 )
+		)
+	+	(
+			(
+				texture( SCREEN_TEXTURE, fixed_uv + vec2( -SCREEN_PIXEL_SIZE.x * 3.1, 0.0 ) ).rgb
+			+	texture( SCREEN_TEXTURE, fixed_uv + vec2( SCREEN_PIXEL_SIZE.x * 3.1, 0.0 ) ).rgb
+			)
+			*	( rf_switch_esque_blur * 0.25 )	// （RFノイズ）0.5 * （テクスチャから読んだ2箇所を半分にしたい）0.5
+		)
+	) * enable_color;
+	COLOR.a = 1.0;
+
+	// ------------------------------------------------
+	// 以下はアパーチャグリル上の1ピクセルごとの処理
+	vec2 aperture_grille_pixel = vec2( floor( ( fixed_uv.x / SCREEN_PIXEL_SIZE.x ) / 3.0 ) * 3.0, fixed_uv.y );
+
+	// 白色ノイズ
+	float white_noise = random( aperture_grille_pixel + vec2( sin( TIME * 0.543254 ), cos( TIME * 0.254323563 ) ) );
+	COLOR.rgb = mix(
+		COLOR.rgb
+	,	vec3( white_noise, white_noise, white_noise )
+	,	white_noise_rate * enable_color
+	);
+
+	// アパーチャグリル再現
+	float aperture_grille_point = mod( ( ( SCREEN_UV.x * crt_curve_scale.x ) - crt_curve_shift.x ) / SCREEN_PIXEL_SIZE.x, 3.0 );
+	float aperture_grille_r_rate = clamp( 1.0 - aperture_grille_point, 0.0, 1.0 ) + clamp( aperture_grille_point - 2.0, 0.0, 1.0 );
+	float aperture_grille_g_rate = clamp( 1.0 - abs( 1.0 - aperture_grille_point ), 0.0, 1.0 );
+	float aperture_grille_b_rate = 1.0 - aperture_grille_r_rate - aperture_grille_g_rate;
+	COLOR = clamp(
+		COLOR * vec4(
+			normalize( vec3(
+				clamp( aperture_grille_r_rate, aperture_grille_rate, 1.0 )
+			,	clamp( aperture_grille_g_rate, aperture_grille_rate, 1.0 )
+			,	clamp( aperture_grille_b_rate, aperture_grille_rate, 1.0 )
+			) )
+		,	1.0
+		)
+	,	vec4( 0.0, 0.0, 0.0, 0.0 )
+	,	vec4( 1.0, 1.0, 1.0, 1.0 )
+	);
+
+	// 走査線
+	COLOR = mix(
+		COLOR
+	,	vec4( 0.0, 0.0, 0.0, 1.0 )
+	,	float( 0 == int( fixed_uv.y / SCREEN_PIXEL_SIZE.y ) % 2 ) * crt_scan_line_color
+	);
+}
+"
+
+[sub_resource type="ShaderMaterial" id=23]
+shader = SubResource( 22 )
+shader_param/crt_curve = 0.0
+shader_param/crt_scan_line_color = 0.206
+shader_param/aperture_grille_rate = 0.119
+shader_param/rf_switch_esque_blur = 0.876
+shader_param/white_noise_rate = 0.0
+
+[sub_resource type="GDScript" id=20]
+resource_name = "Glist"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.stuntList) + str(\"\\n\") + str (Globals.groovePoints) + str(\"\\n\") + str (Globals.grooveRankText)
+"
 
 [node name="Camera2D" type="Camera2D"]
 material = SubResource( 3 )
@@ -134,10 +272,18 @@ margin_right = 496.0
 margin_bottom = 224.0
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
-material = ExtResource( 1 )
+material = SubResource( 23 )
 margin_right = 384.0
 margin_bottom = 225.0
 rect_pivot_offset = Vector2( 173, 289 )
-color = Color( 1, 1, 1, 0.498039 )
+
+[node name="groovelist" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 2 )
+text = "These are my extras."
+script = SubResource( 20 )
+
+[node name="GUIStuff" parent="." instance=ExtResource( 3 )]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

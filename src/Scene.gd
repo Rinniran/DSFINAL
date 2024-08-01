@@ -4,11 +4,15 @@ export var next = "Scene Path"
 
 export (AudioStream) var musplay
 
+export var initialTime = 0
+
 export var canmove = 1
 
 export  var demo = 0
 
 export var vidmode = 0
+
+export var zoomallowed = true
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -29,6 +33,9 @@ func _ready():
 #	$Rian/cameracutscene.play("intropan")
 	#$AnimationPlayer.play("AutoplayTest")
 	
+	Globals.grooveList = [null, null, null, null, null]
+	Globals.stuntList =[]
+	Globals.grooveTimer = 0
 	Globals.ded = 0
 	Globals.hpcount = 5
 	Globals.lives = 3
@@ -38,12 +45,18 @@ func _ready():
 	Globals.demoscene = demo
 	Globals.incutscene = 0
 	Globals.minute = 0
-	Globals.sec = 0
-	Globals.mili = 0
+	Globals.sec = initialTime
+	Globals.mili = 60
 	if vidmode == 0:
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
+		if Globals.windowmode == 1:
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
+		elif Globals.windowmode == 0:
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,SceneTree.STRETCH_ASPECT_KEEP,Vector2(320,224),1)
 	elif vidmode == 1:
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
+		if Globals.windowmode == 1:
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
+		elif Globals.windowmode == 0:
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(320,224),1)
 	Globals.combo = 0
 	Globals.combotimer = 0
 	Globals.link = 0
@@ -66,6 +79,7 @@ func _physics_process(delta):
 #			$Rian/StageMusic.play()
 #			$bossmus/bossmusic.stop()
 	
+	Globals.zoomallowed = zoomallowed
 	
 	
 	if Globals.ded == 1:
@@ -114,4 +128,9 @@ func loadnext():
 	Sys.load_scene(self,next)
 
 func _on_Area2D_area_entered(area):
+	pass # Replace with function body.
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	
 	pass # Replace with function body.

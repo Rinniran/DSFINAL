@@ -649,7 +649,7 @@ shader = SubResource( 264 )
 shader_param/EPS = 0.256
 shader_param/mouse = Vector2( 0.124, 0 )
 
-[sub_resource type="Shader" id=11]
+[sub_resource type="Shader" id=275]
 code = "// Fire shader
 
 shader_type canvas_item;
@@ -736,7 +736,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=14]
-shader = SubResource( 11 )
+shader = SubResource( 275 )
 shader_param/fireMovement = Vector2( -0.153, -0.668 )
 shader_param/distortionMovement = Vector2( -0.283, -0.931 )
 shader_param/normalStrength = 0.0
@@ -1168,7 +1168,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 262 )
-frame = 1
+frame = 2
 playing = true
 centered = false
 
@@ -1176,7 +1176,7 @@ centered = false
 position = Vector2( -43, 155.193 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 263 )
-frame = 20
+frame = 18
 playing = true
 centered = false
 
@@ -1290,6 +1290,7 @@ texture = ExtResource( 9 )
 centered = false
 
 [node name="ParallaxLayer12" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground/ParallaxLayer12"]
 modulate = Color( 0.337255, 0.027451, 0.529412, 1 )
@@ -1318,6 +1319,7 @@ position = Vector2( 785, 526 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 267 )
+frame = 1
 playing = true
 
 [node name="Label4" type="Label" parent="Objects"]
@@ -1336,6 +1338,7 @@ position = Vector2( 13476, 1094 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 267 )
+frame = 1
 playing = true
 
 [node name="Label5" type="Label" parent="Objects"]

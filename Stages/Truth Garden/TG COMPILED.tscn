@@ -18,19 +18,19 @@ reset_location = "res://Stages/Truth Garden/TG COMPILED.tscn"
 
 [node name="Garden" parent="." instance=ExtResource( 1 )]
 position = Vector2( 4.33681e-19, -360 )
-scale = Vector2( 0.8, 0.8 )
 
 [node name="Rian" parent="." instance=ExtResource( 3 )]
-position = Vector2( 64, 362 )
+position = Vector2( 64, 546 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( -32, 248 )
+position = Vector2( -32, 432 )
 limit_top = -858
 limit_right = 20733
 limit_bottom = 2850
 target = NodePath("../Rian")
 
 [node name="SongSwitch" type="Area2D" parent="."]
+position = Vector2( 2288, 400 )
 script = ExtResource( 6 )
 musplay = ExtResource( 7 )
 

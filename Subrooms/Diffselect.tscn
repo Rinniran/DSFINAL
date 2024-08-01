@@ -18,6 +18,7 @@ script/source = "extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
 	pass # Replace with function body.
 
 
@@ -31,16 +32,16 @@ func _process(delta):
 	
 	match(Globals.diff):
 		0:
-			$Cursor.position.x = 377
-			$Cursor.position.y = 120
+			$Cursor.position.x = 189
+			$Cursor.position.y = 46
 			$DESCRIPTION.text = \"Enemies are few and far between and are not too aggressive\"
 		1:
-			$Cursor.position.x = 377
-			$Cursor.position.y = 219
+			$Cursor.position.x = 189
+			$Cursor.position.y = 99
 			$DESCRIPTION.text = \"Enemies are fairly spaced out and put up a decent amount of challenge\"
 		2:
-			$Cursor.position.x = 377
-			$Cursor.position.y = 323
+			$Cursor.position.x = 189
+			$Cursor.position.y = 148
 			$DESCRIPTION.text = \"An onslaught of highly aggressive foes!\"
 	
 	
@@ -67,11 +68,10 @@ script = ExtResource( 1 )
 speed1 = -0.5
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 1536, 0 )
+motion_mirroring = Vector2( 768, 0 )
 
 [node name="BG" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 764, 92 )
-scale = Vector2( 2, 2 )
+position = Vector2( 385, 17 )
 texture = ExtResource( 2 )
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -99,50 +99,49 @@ autoplay = true
 [node name="HEADER" type="Label" parent="."]
 margin_left = 2.0
 margin_top = 1.0
-margin_right = 767.0
-margin_bottom = 34.0
+margin_right = 383.0
+margin_bottom = 12.0
 theme = ExtResource( 5 )
 text = "SELECT A DIFFICULTY!"
 align = 1
 valign = 1
 
 [node name="EASY" type="Label" parent="."]
-margin_left = 174.0
-margin_top = 97.0
-margin_right = 588.0
-margin_bottom = 125.0
+margin_left = -1.0
+margin_top = 23.0
+margin_right = 385.0
+margin_bottom = 65.0
 theme = SubResource( 1 )
 text = "EASY"
 align = 1
 
 [node name="NORMAL" type="Label" parent="."]
-margin_left = 174.0
-margin_top = 197.0
-margin_right = 588.0
-margin_bottom = 225.0
+margin_left = 1.0
+margin_top = 76.0
+margin_right = 385.0
+margin_bottom = 118.0
 theme = SubResource( 1 )
 text = "NORMAL"
 align = 1
 
 [node name="HARD" type="Label" parent="."]
-margin_left = 174.0
-margin_top = 300.0
-margin_right = 588.0
-margin_bottom = 328.0
+margin_top = 127.0
+margin_right = 383.0
+margin_bottom = 169.0
 theme = SubResource( 1 )
 text = "HARD"
 align = 1
 
 [node name="DESCRIPTION" type="Label" parent="."]
-margin_left = 1.0
-margin_top = 401.0
-margin_right = 766.0
-margin_bottom = 431.0
+margin_top = 203.0
+margin_right = 637.0
+margin_bottom = 227.0
+rect_scale = Vector2( 0.6, 0.6 )
 theme = ExtResource( 5 )
 text = "ENEMIES ARE REALLY REALLY MAD AT YOU LOL"
 align = 1
 valign = 1
 
 [node name="Cursor" parent="." instance=ExtResource( 6 )]
-position = Vector2( 381, 323 )
+position = Vector2( 189, 148 )
 scale = Vector2( 0.8125, 0.54 )

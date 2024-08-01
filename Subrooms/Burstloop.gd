@@ -18,5 +18,6 @@ func _ready():
 
 func _on_Burstloop_area_entered(area):
 	if area.is_in_group("hurtbox"):
+		
 		Globals.player.zoomdir = 0
 		$woosh.play()

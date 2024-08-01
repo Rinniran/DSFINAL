@@ -3,16 +3,17 @@
 importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.s3tc.stex"
+path.etc2="res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.etc2.stex"
 path.etc="res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://meshes/textures/Rian/body.png"
-dest_files=[ "res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.s3tc.stex", "res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.etc.stex" ]
+dest_files=[ "res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.s3tc.stex", "res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.etc2.stex", "res://.import/body.png-d092c4b815f774a4aa962f4ac52af899.etc.stex" ]
 
 [params]
 

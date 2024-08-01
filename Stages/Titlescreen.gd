@@ -29,6 +29,18 @@ func _process(delta):
 	
 	var secret = Input.is_action_pressed("dash")
 	
+	
+	
+	
+	if Globals.windowmode == 1:
+		$DreamshockLogoGameVersion.position.x = 192
+		$copyrightstuff.margin_right = 384
+		$labels.position.x = -79
+	if Globals.windowmode == 0:
+		$DreamshockLogoGameVersion.position.x = 192 - 32
+		$copyrightstuff.margin_right = 384 - 64
+		$labels.position.x = -79 - 32
+	
 	#==================================================================
 	# CHANGE LOGO TEXTURE BASED ON LANGUAGE SELECTION
 	#==================================================================
@@ -160,7 +172,7 @@ func _on_transition_animation_finished(anim_name):
 				Sys.load_scene(self,"res://Subrooms/StgSelect.tscn")
 			else:
 				
-				Sys.load_scene(self,"res://Subrooms/Diffselect.tscn")
+				Sys.load_scene(self,"res://Subrooms/CharacterSelect.tscn")
 				
 		1:
 			Sys.load_scene(self,"res://Stages/tut.tscn")

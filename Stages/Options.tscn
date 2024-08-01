@@ -36,6 +36,7 @@ var gpB = preload(\"res://Sprites/gui/OPTKEY8.png\")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
 	pass # Replace with function body.
 
 
@@ -229,6 +230,8 @@ func _process(delta):
 			1:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 99
+				InputHelper.get_action_button(\"jump\")
+				InputHelper.set_action_button(\"jump\", KEY_4)
 				for x in InputMap.get_action_list(\"jump\"):
 					if x is InputEventJoypadButton:
 						InputMap.action_erase_event(\"jump\", x)
@@ -310,6 +313,7 @@ func _process(delta):
 "
 
 [node name="Node2D" type="Node2D"]
+scale = Vector2( 0.5, 0.5 )
 script = SubResource( 189 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

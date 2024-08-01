@@ -31,7 +31,7 @@
 [ext_resource path="res://Sprites/Stage/SCity/SCity.png" type="Texture" id=29]
 [ext_resource path="res://Stages/StickCity/Jumplabel.gd" type="Script" id=30]
 
-[sub_resource type="Shader" id=261]
+[sub_resource type="Shader" id=267]
 code = "// Hey this is Hei! This shader \"fakes\" a 3D-camera perspective on CanvasItems.
 // License: MIT
 
@@ -99,14 +99,14 @@ void fragment(){
 }"
 
 [sub_resource type="ShaderMaterial" id=248]
-shader = SubResource( 261 )
+shader = SubResource( 267 )
 shader_param/fov = 138.482
 shader_param/cull_back = true
 shader_param/y_rot = 0.0
 shader_param/x_rot = 46.753
 shader_param/inset = 0.572
 
-[sub_resource type="Shader" id=262]
+[sub_resource type="Shader" id=268]
 code = "shader_type canvas_item;
 
 uniform vec2 motion = vec2(0.0);
@@ -118,7 +118,7 @@ void vertex(){
 }"
 
 [sub_resource type="ShaderMaterial" id=250]
-shader = SubResource( 262 )
+shader = SubResource( 268 )
 shader_param/motion = Vector2( 60, 60 )
 shader_param/scale = 0.5
 shader_param/offset = Vector2( 0, 0 )
@@ -676,7 +676,7 @@ motion_mirroring = Vector2( 639.943, 720 )
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 235 )
-frame = 1
+frame = 2
 playing = true
 centered = false
 
@@ -684,7 +684,7 @@ centered = false
 position = Vector2( -26, 106 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 236 )
-frame = 57
+frame = 61
 playing = true
 centered = false
 
@@ -886,6 +886,7 @@ position = Vector2( 667.552, 387.025 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="Objects/Monitors"]
@@ -905,6 +906,7 @@ position = Vector2( 939, 288 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label4" type="Label" parent="Objects/Monitors"]
@@ -923,7 +925,6 @@ position = Vector2( 1158, 286 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label5" type="Label" parent="Objects/Monitors"]
@@ -943,6 +944,7 @@ position = Vector2( 1821, 364 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
+frame = 1
 playing = true
 
 [node name="Label2" type="Label" parent="Objects/Monitors"]
@@ -963,7 +965,6 @@ position = Vector2( 2216, 300 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 253 )
-frame = 1
 playing = true
 
 [node name="Label3" type="Label" parent="Objects/Monitors"]
@@ -1328,23 +1329,21 @@ __meta__ = {
 
 [node name="GOSign" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 312, 396 )
-frame = 2
+frame = 0
 
 [node name="GOSign2" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 660, 449 )
-frame = 2
+frame = 0
 
 [node name="GOSign3" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 1270, 401 )
-frame = 3
 
 [node name="GOSign4" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 1983, 340 )
-frame = 3
 
 [node name="GOSign5" parent="Accessories" instance=ExtResource( 27 )]
 position = Vector2( 2487, 402 )
-frame = 2
+frame = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 260 )

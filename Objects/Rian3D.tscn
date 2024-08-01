@@ -1,0 +1,521 @@
+[gd_scene load_steps=54 format=2]
+
+[ext_resource path="res://Subrooms/Scarf.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Audio/Voices/damage 2.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/SE/402767__mattix__8bit-coin-03.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/Voices/atkproj2.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/Voices/atkproj4.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/Voices/damage 1.wav" type="AudioStream" id=6]
+[ext_resource path="res://Audio/Voices/atkproj3.wav" type="AudioStream" id=7]
+[ext_resource path="res://Audio/Voices/Dodge1.wav" type="AudioStream" id=8]
+[ext_resource path="res://Audio/Voices/atkproj1.wav" type="AudioStream" id=9]
+[ext_resource path="res://Audio/Voices/damage 3.wav" type="AudioStream" id=10]
+[ext_resource path="res://Objects/Scarf_Particle2.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Objects/Scarf_Particle.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/Rian3DReal.gd" type="Script" id=13]
+[ext_resource path="res://Sprites/Players/Rian/RianFrames.tres" type="SpriteFrames" id=14]
+[ext_resource path="res://src/Graze3D.gd" type="Script" id=15]
+[ext_resource path="res://Sprites/gui/enemyhpover.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/gui/enemyhpback.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/gui/enemyhpprog.png" type="Texture" id=18]
+[ext_resource path="res://Audio/Voices/attack dash.wav" type="AudioStream" id=19]
+[ext_resource path="res://Sprites/VFX/Hit(fx)_7.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/VFX/Hit(fx)_1.png" type="Texture" id=21]
+[ext_resource path="res://Sprites/VFX/Hit(fx)_6-2.png" type="Texture" id=22]
+
+[sub_resource type="Animation" id=34]
+resource_name = "Parry flash"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false ]
+}
+
+[sub_resource type="Animation" id=35]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="CapsuleShape" id=36]
+radius = 0.1
+height = 0.1
+
+[sub_resource type="BoxShape" id=37]
+extents = Vector3( 0.186, 0.188, 0.253 )
+
+[sub_resource type="SphereShape" id=38]
+radius = 0.25
+
+[sub_resource type="BoxShape" id=39]
+extents = Vector3( 0.18, 0.138, 0.178 )
+
+[sub_resource type="BoxShape" id=40]
+extents = Vector3( 0.227, 0.215, 0.29 )
+
+[sub_resource type="SphereShape" id=41]
+radius = 0.1
+
+[sub_resource type="GDScript" id=13]
+script/source = "extends AudioStreamPlayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends AudioStreamPlayer2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="CapsuleShape" id=42]
+radius = 0.2
+height = 0.1
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends AudioStreamPlayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="BoxShape" id=43]
+extents = Vector3( 0.192, 0.214, 0.178 )
+
+[sub_resource type="SphereShape" id=44]
+radius = 0.2
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 22 )
+region = Rect2( 0, 0, 59, 64 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 22 )
+region = Rect2( 59, 0, 59, 64 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 22 )
+region = Rect2( 118, 0, 59, 64 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 22 )
+region = Rect2( 177, 0, 59, 64 )
+
+[sub_resource type="SpriteFrames" id=31]
+animations = [ {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 16
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 53, 50 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 16
+atlas = ExtResource( 20 )
+region = Rect2( 159, 0, 53, 50 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 16
+atlas = ExtResource( 20 )
+region = Rect2( 106, 0, 53, 50 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 16
+atlas = ExtResource( 20 )
+region = Rect2( 53, 0, 53, 50 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 16
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 16
+atlas = ExtResource( 21 )
+region = Rect2( 40, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 16
+atlas = ExtResource( 21 )
+region = Rect2( 80, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 16
+atlas = ExtResource( 21 )
+region = Rect2( 120, 0, 40, 40 )
+
+[sub_resource type="SpriteFrames" id=26]
+animations = [ {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ) ],
+"loop": true,
+"name": "default",
+"speed": 32.0
+} ]
+
+[sub_resource type="BoxShape" id=45]
+extents = Vector3( 0.597, 0.53, 0.77 )
+
+[sub_resource type="BoxShape" id=46]
+extents = Vector3( 0.819, 0.486, 0.296 )
+
+[sub_resource type="BoxShape" id=47]
+extents = Vector3( 0.058, 0.401, 0.258 )
+
+[node name="Rian" type="KinematicBody"]
+axis_lock_motion_z = true
+move_lock_z = true
+script = ExtResource( 13 )
+
+[node name="Rspr" type="AnimatedSprite3D" parent="."]
+portal_mode = 1
+cast_shadow = 2
+use_in_baked_light = true
+lightmap_scale = 3
+lod_min_hysteresis = 91.0
+lod_max_hysteresis = 47.0
+shaded = true
+alpha_cut = 2
+frames = ExtResource( 14 )
+animation = "idle"
+frame = 2
+playing = true
+
+[node name="Shaders" type="AnimationPlayer" parent="Rspr"]
+"anims/Parry flash" = SubResource( 34 )
+anims/RESET = SubResource( 35 )
+
+[node name="CollisionShape2D" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.072577, 0 )
+shape = SubResource( 36 )
+
+[node name="atkwait" type="Timer" parent="."]
+wait_time = 0.127
+one_shot = true
+
+[node name="atktimer" type="Timer" parent="."]
+wait_time = 0.382
+
+[node name="gtimer" type="Timer" parent="."]
+wait_time = 0.019
+autostart = true
+
+[node name="groundatk" type="Area" parent="." groups=["hit1"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="groundatk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193496, -0.00621897, 0 )
+shape = SubResource( 37 )
+
+[node name="airatk" type="Area" parent="." groups=["airhit"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="airatk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00536436, 0, 0 )
+shape = SubResource( 38 )
+
+[node name="dashatkvoice" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+volume_db = 12.727
+bus = "Voices"
+
+[node name="Voices" type="Node2D" parent="."]
+visible = false
+
+[node name="dodgeVoices" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 8 )
+volume_db = 4.931
+bus = "Voices"
+
+[node name="AP1" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 9 )
+volume_db = 9.623
+bus = "Voices"
+
+[node name="AP2" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 4 )
+volume_db = 4.359
+bus = "Voices"
+
+[node name="AP3" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 7 )
+volume_db = 6.613
+bus = "Voices"
+
+[node name="AP4" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 5 )
+volume_db = 5.54
+bus = "Voices"
+
+[node name="DAM1" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 6 )
+volume_db = 9.512
+bus = "Voices"
+
+[node name="DAM2" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 2 )
+volume_db = 7.259
+bus = "Voices"
+
+[node name="DAM3" type="AudioStreamPlayer" parent="Voices"]
+stream = ExtResource( 10 )
+volume_db = 6.818
+bus = "Voices"
+
+[node name="snapoff" type="Timer" parent="."]
+wait_time = 0.041
+one_shot = true
+
+[node name="attack3hit" type="Area" parent="." groups=["hit3"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="attack3hit"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.136092, 0.16158, 0 )
+shape = SubResource( 39 )
+
+[node name="groundatk2" type="Area" parent="." groups=["hit2"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="groundatk2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.225026, 0, 0 )
+shape = SubResource( 40 )
+
+[node name="atkwait2" type="Timer" parent="."]
+wait_time = 0.062
+one_shot = true
+
+[node name="killhitbox2" type="Timer" parent="."]
+wait_time = 0.085
+one_shot = true
+
+[node name="Hurtbox" type="Area" parent="." groups=["hurtbox"]]
+visible = false
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape" parent="Hurtbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0690017, 0 )
+shape = SubResource( 41 )
+
+[node name="safe_frames" type="Timer" parent="Hurtbox"]
+process_mode = 0
+wait_time = 0.687
+one_shot = true
+
+[node name="dodge_window" type="Timer" parent="Hurtbox"]
+process_mode = 0
+wait_time = 0.061
+one_shot = true
+
+[node name="dsound" type="AudioStreamPlayer" parent="."]
+volume_db = -6.46
+bus = "SFX"
+script = SubResource( 13 )
+
+[node name="dashtimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.785
+one_shot = true
+
+[node name="damagepause" type="Timer" parent="."]
+wait_time = 0.246
+one_shot = true
+
+[node name="collect" type="AudioStreamPlayer2D" parent="."]
+position = Vector2( 8.264, -0.571728 )
+stream = ExtResource( 3 )
+volume_db = 0.031
+bus = "SFX"
+script = SubResource( 14 )
+
+[node name="Deathwait" type="Timer" parent="."]
+process_mode = 0
+wait_time = 1.96
+one_shot = true
+
+[node name="Chain" parent="." instance=ExtResource( 1 )]
+visible = false
+position = Vector2( 0, -276.623 )
+
+[node name="zoomtime" type="Timer" parent="."]
+one_shot = true
+
+[node name="Zoombox" type="Area" parent="." groups=["BIGDAMAGE"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="Zoombox"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0282953, 0 )
+shape = SubResource( 42 )
+
+[node name="otvoice" type="AudioStreamPlayer" parent="."]
+volume_db = -7.347
+bus = "Overlappingvoices"
+script = SubResource( 15 )
+
+[node name="dodge" type="AudioStreamPlayer" parent="."]
+bus = "SFX"
+
+[node name="Collect" type="Area" parent="." groups=["collect"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="Collect"]
+shape = SubResource( 43 )
+
+[node name="scarfpart2" parent="." instance=ExtResource( 11 )]
+visible = false
+
+[node name="scarfpart" parent="." instance=ExtResource( 12 )]
+visible = false
+
+[node name="Graze" type="Area" parent="." groups=["Graze"]]
+script = ExtResource( 15 )
+
+[node name="CollisionShape2D" type="CollisionShape" parent="Graze"]
+shape = SubResource( 44 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Meter" type="TextureProgress" parent="CanvasLayer"]
+margin_left = 163.0
+margin_top = 177.0
+margin_right = 227.0
+margin_bottom = 201.0
+max_value = 60.0
+texture_under = ExtResource( 17 )
+texture_over = ExtResource( 16 )
+texture_progress = ExtResource( 18 )
+tint_under = Color( 0, 0.12549, 1, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+
+[node name="FULLREADY" type="AnimatedSprite" parent="CanvasLayer/Meter"]
+position = Vector2( 59, 9.83606 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 31 )
+playing = true
+
+[node name="SPARKS" type="AnimatedSprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.127906 )
+visible = false
+frames = SubResource( 26 )
+frame = 5
+playing = true
+
+[node name="SPARKS2" type="AnimatedSprite3D" parent="SPARKS"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.353252 )
+frames = SubResource( 26 )
+frame = 4
+playing = true
+
+[node name="SPARKS3" type="AnimatedSprite3D" parent="SPARKS"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.148776, 0, -0.219833 )
+frames = SubResource( 26 )
+frame = 4
+playing = true
+
+[node name="SPARKS4" type="AnimatedSprite3D" parent="SPARKS"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.149, 0, -0.180503 )
+frames = SubResource( 26 )
+frame = 4
+playing = true
+
+[node name="Odachi" type="Area" parent="." groups=["Odachi", "enemproject"]]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape" parent="Odachi"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.361618, -0.163628, 0 )
+shape = SubResource( 45 )
+
+[node name="CollisionShape2D2" type="CollisionShape" parent="Odachi"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0480811, 0.741095, 0 )
+shape = SubResource( 46 )
+
+[node name="AboveDetect" type="Area2D" parent="."]
+scale = Vector2( 1, -1 )
+collision_layer = 7
+collision_mask = 7
+
+[node name="BelowDetect" type="Area" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape" parent="BelowDetect"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.470899, 0 )
+shape = SubResource( 47 )
+
+[connection signal="animation_finished" from="Rspr" to="." method="_on_Rspr_animation_finished"]
+[connection signal="timeout" from="atkwait" to="." method="_on_atkwait_timeout"]
+[connection signal="timeout" from="atktimer" to="." method="_on_atktimer_timeout"]
+[connection signal="timeout" from="gtimer" to="." method="_on_gtimer_timeout"]
+[connection signal="finished" from="dashatkvoice" to="." method="_on_dashatkvoice_finished"]
+[connection signal="timeout" from="atkwait2" to="." method="_on_atkwait2_timeout"]
+[connection signal="timeout" from="killhitbox2" to="." method="_on_killhitbox2_timeout"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="timeout" from="Hurtbox/safe_frames" to="." method="_on_safe_frames_timeout"]
+[connection signal="timeout" from="damagepause" to="." method="_on_damagepause_timeout"]
+[connection signal="timeout" from="Deathwait" to="." method="_on_Deathwait_timeout"]
+[connection signal="timeout" from="zoomtime" to="." method="_on_zoomtime_timeout"]
+[connection signal="area_entered" from="Collect" to="." method="_on_Collect_area_entered"]
+[connection signal="area_entered" from="Graze" to="Graze" method="_on_Graze_area_entered"]
+[connection signal="animation_finished" from="CanvasLayer/Meter/FULLREADY" to="." method="_on_FULLREADY_animation_finished"]
+[connection signal="area_entered" from="AboveDetect" to="." method="_on_AboveDetect_area_entered"]
+[connection signal="area_exited" from="AboveDetect" to="." method="_on_AboveDetect_area_exited"]
+[connection signal="area_entered" from="BelowDetect" to="." method="_on_BelowDetect_area_entered"]
+[connection signal="area_exited" from="BelowDetect" to="." method="_on_BelowDetect_area_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Subrooms/Scarf.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Audio/Voices/damage 2.wav" type="AudioStream" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://Sprites/VFX/Hit(fx)_7.png" type="Texture" id=20]
 [ext_resource path="res://Sprites/VFX/Hit(fx)_1.png" type="Texture" id=21]
 [ext_resource path="res://Sprites/VFX/Hit(fx)_6-2.png" type="Texture" id=22]
+[ext_resource path="res://Audio/SE/jump.ogg" type="AudioStream" id=23]
+[ext_resource path="res://Audio/SE/Waveboost.wav" type="AudioStream" id=24]
 
 [sub_resource type="Shader" id=32]
 code = "shader_type canvas_item;
@@ -188,34 +190,42 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=18]
+flags = 16
 atlas = ExtResource( 20 )
 region = Rect2( 0, 0, 53, 50 )
 
 [sub_resource type="AtlasTexture" id=19]
+flags = 16
 atlas = ExtResource( 20 )
 region = Rect2( 159, 0, 53, 50 )
 
 [sub_resource type="AtlasTexture" id=20]
+flags = 16
 atlas = ExtResource( 20 )
 region = Rect2( 106, 0, 53, 50 )
 
 [sub_resource type="AtlasTexture" id=21]
+flags = 16
 atlas = ExtResource( 20 )
 region = Rect2( 53, 0, 53, 50 )
 
 [sub_resource type="AtlasTexture" id=22]
+flags = 16
 atlas = ExtResource( 21 )
 region = Rect2( 0, 0, 40, 40 )
 
 [sub_resource type="AtlasTexture" id=23]
+flags = 16
 atlas = ExtResource( 21 )
 region = Rect2( 40, 0, 40, 40 )
 
 [sub_resource type="AtlasTexture" id=24]
+flags = 16
 atlas = ExtResource( 21 )
 region = Rect2( 80, 0, 40, 40 )
 
 [sub_resource type="AtlasTexture" id=25]
+flags = 16
 atlas = ExtResource( 21 )
 region = Rect2( 120, 0, 40, 40 )
 
@@ -226,6 +236,9 @@ animations = [ {
 "name": "default",
 "speed": 32.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=36]
+extents = Vector2( 3.5, 51 )
 
 [node name="Rian" type="KinematicBody2D"]
 script = ExtResource( 13 )
@@ -375,7 +388,7 @@ wait_time = 0.061
 one_shot = true
 
 [node name="dsound" type="AudioStreamPlayer" parent="."]
-volume_db = -6.46
+volume_db = 11.143
 bus = "SFX"
 script = SubResource( 13 )
 
@@ -421,6 +434,9 @@ script = SubResource( 15 )
 
 [node name="dodge" type="AudioStreamPlayer" parent="."]
 bus = "SFX"
+
+[node name="Blast" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
 
 [node name="Collect" type="Area2D" parent="." groups=["collect"]]
 visible = false
@@ -469,13 +485,32 @@ visible = false
 scale = Vector2( 1.5, 1.5 )
 z_index = 6
 frames = SubResource( 26 )
-frame = 5
+frame = 3
 playing = true
 
 [node name="Odachi" type="Area2D" parent="." groups=["Odachi", "enemproject"]]
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Odachi"]
 polygon = PoolVector2Array( -76, -78, -15, -17, 5, -16, 17, -8, 21, 16, 10, 40, -2, 54, 31, 75, 67, 95, 80, 91, 97, 54, 101, 13, 88, -35, 44, -78, 2, -87, -35, -87 )
+
+[node name="AboveDetect" type="Area2D" parent="."]
+scale = Vector2( 1, -1 )
+collision_layer = 7
+collision_mask = 7
+
+[node name="BelowDetect" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BelowDetect"]
+position = Vector2( -2.5, 57 )
+shape = SubResource( 36 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+volume_db = 13.612
+pitch_scale = 1.57
+bus = "SFX"
 
 [connection signal="animation_finished" from="Rspr" to="." method="_on_Rspr_animation_finished"]
 [connection signal="timeout" from="atkwait" to="." method="_on_atkwait_timeout"]
@@ -492,3 +527,7 @@ polygon = PoolVector2Array( -76, -78, -15, -17, 5, -16, 17, -8, 21, 16, 10, 40, 
 [connection signal="area_entered" from="Collect" to="." method="_on_Collect_area_entered"]
 [connection signal="area_entered" from="Graze" to="Graze" method="_on_Graze_area_entered"]
 [connection signal="animation_finished" from="Meter/FULLREADY" to="." method="_on_FULLREADY_animation_finished"]
+[connection signal="area_entered" from="AboveDetect" to="." method="_on_AboveDetect_area_entered"]
+[connection signal="area_exited" from="AboveDetect" to="." method="_on_AboveDetect_area_exited"]
+[connection signal="area_entered" from="BelowDetect" to="." method="_on_BelowDetect_area_entered"]
+[connection signal="area_exited" from="BelowDetect" to="." method="_on_BelowDetect_area_exited"]

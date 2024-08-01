@@ -37,12 +37,15 @@ func _ready():
 func inputget():
 	
 	if Input.is_action_pressed("ui_right"):
+		$ANIM.play("run")
 		MSPEED = WALKSPEED
 		$ANIM.flip_h = false
 	elif Input.is_action_pressed("ui_left"):
+		$ANIM.play("run")
 		MSPEED = -WALKSPEED
 		$ANIM.flip_h = true
 	else:
+		$ANIM.play("idle")
 		MSPEED = 0
 	if Input.is_action_just_pressed("dash"):
 		dashtimer = 20

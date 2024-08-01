@@ -1,0 +1,261 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://src/Scene.gd" type="Script" id=1]
+[ext_resource path="res://Audio/BGM/CPS2 Originals - Felicia III.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/Stage/SCity/MCIRCLE.png" type="Texture" id=3]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprites/Bosses/Plane/ProtoPlane.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Stage/SCity/TP3/1.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Stage/SCity/TP3/2.PNG" type="Texture" id=8]
+[ext_resource path="res://Sprites/Stage/SCity/TP3/3.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Stage/SCity/TP3/4.png" type="Texture" id=10]
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends Sprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	rotation_degrees += .5
+	
+#	pass
+"
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/speed = 3.0
+shader_param/waves = 350.0
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+shader_param/speed = 6.0
+shader_param/waves = 180.0
+
+[sub_resource type="GDScript" id=12]
+script/source = "extends Sprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var tx = $Viewport.get_texture()
+	texture = tx
+#	pass
+"
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends KinematicBody
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	rotate_y(-delta)
+	
+	rotation_degrees.y -= .5
+#	pass
+"
+
+[sub_resource type="PlaneMesh" id=9]
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_transparent = true
+flags_unshaded = true
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 251, 13.5 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+musplay = ExtResource( 2 )
+
+[node name="Rian" parent="." instance=ExtResource( 4 )]
+position = Vector2( 446, 277 )
+
+[node name="ProtoPlane" type="Sprite" parent="."]
+position = Vector2( 982, 338 )
+texture = ExtResource( 6 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 5 )]
+position = Vector2( 3, -6 )
+limit_right = 1157
+limit_bottom = 451
+target = NodePath("../Rian")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.08 )
+motion_mirroring = Vector2( 792, 0 )
+
+[node name="1" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+position = Vector2( 197, 108 )
+texture = ExtResource( 7 )
+
+[node name="2" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+position = Vector2( 592, 110 )
+texture = ExtResource( 7 )
+
+[node name="Mcircle" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+modulate = Color( 0.54902, 1, 0.580392, 1 )
+position = Vector2( 143, 77 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+script = SubResource( 15 )
+
+[node name="Mcircle2" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+modulate = Color( 1, 0.976471, 0.623529, 1 )
+position = Vector2( 377, 76 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+script = SubResource( 15 )
+
+[node name="Mcircle3" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+modulate = Color( 1, 0.654902, 0.968627, 1 )
+position = Vector2( 624, 78 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+script = SubResource( 15 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.2, 0.1 )
+motion_mirroring = Vector2( 792, 0 )
+
+[node name="1" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 196, 110 )
+texture = ExtResource( 8 )
+
+[node name="2" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 592, 110 )
+texture = ExtResource( 8 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.3, 0.4 )
+motion_mirroring = Vector2( 792, 0 )
+
+[node name="1" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
+material = SubResource( 6 )
+position = Vector2( 196, 110 )
+texture = ExtResource( 9 )
+
+[node name="2" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
+material = SubResource( 6 )
+position = Vector2( 592, 110 )
+texture = ExtResource( 9 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.65, 0.4 )
+motion_mirroring = Vector2( 792, 0 )
+
+[node name="1" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer4"]
+material = SubResource( 8 )
+position = Vector2( 196, 110 )
+texture = ExtResource( 10 )
+
+[node name="2" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer4"]
+material = SubResource( 8 )
+position = Vector2( 592, 110 )
+texture = ExtResource( 10 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 446, 369 )
+z_index = -1
+script = SubResource( 12 )
+
+[node name="Viewport" type="Viewport" parent="Sprite"]
+size = Vector2( 1024, 597 )
+transparent_bg = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Spatial" type="Spatial" parent="Sprite/Viewport"]
+
+[node name="Camera" type="Camera" parent="Sprite/Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 0.993863, 0.110619, 0, -0.110619, 0.993863, 0, 0.728023, 3.40523 )
+
+[node name="KinematicBody" type="KinematicBody" parent="Sprite/Viewport/Spatial"]
+script = SubResource( 14 )
+
+[node name="CSGMesh" type="CSGMesh" parent="Sprite/Viewport/Spatial/KinematicBody"]
+transform = Transform( 3.05018, 0, 0, 0, 1, 0, 0, 0, 3.20876, 0, 0, 0 )
+mesh = SubResource( 9 )
+material = SubResource( 10 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="Sprite"]
+position = Vector2( 0, 11 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/KinematicBody2D"]
+position = Vector2( 6, 42 )
+shape = SubResource( 13 )
+one_way_collision = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Subrooms/HudBanner2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Subrooms/HudBanner1.tscn" type="PackedScene" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://Objects/Linktimer.gd" type="Script" id=22]
 [ext_resource path="res://Objects/Chaintimer.gd" type="Script" id=23]
 [ext_resource path="res://Sprites/gui/HudCircle.png" type="Texture" id=24]
+[ext_resource path="res://timer.tres" type="BitmapFont" id=25]
+[ext_resource path="res://Sprites/gui/inputprompt.png" type="Texture" id=26]
+[ext_resource path="res://Objects/Controls.gd" type="Script" id=27]
 
 [sub_resource type="Shader" id=124]
 code = "shader_type canvas_item;
@@ -116,6 +119,9 @@ func _ready():
 [sub_resource type="Theme" id=117]
 script = SubResource( 111 )
 
+[sub_resource type="Theme" id=128]
+default_font = ExtResource( 25 )
+
 [sub_resource type="AtlasTexture" id=113]
 atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 32, 32 )
@@ -153,18 +159,29 @@ default_font = SubResource( 122 )
 [node name="GUIStuff" type="CanvasLayer"]
 layer = 30
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
 
 [node name="ColorRect2" type="ColorRect" parent="."]
 material = SubResource( 125 )
 margin_right = 768.0
 margin_bottom = 432.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ColorRect3" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0.0823529 )
 material = SubResource( 127 )
-margin_right = 768.0
-margin_bottom = 431.0
+margin_left = -54.0
+margin_top = -38.0
+margin_right = 714.0
+margin_bottom = 393.0
 color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -200,16 +217,16 @@ autowrap = true
 script = ExtResource( 7 )
 
 [node name="timer" type="Label" parent="."]
-anchor_left = 0.062
+anchor_left = -0.292167
 anchor_top = 0.05
-anchor_right = 0.287
-anchor_bottom = 0.096
-margin_left = 119.24
-margin_top = -8.0
-margin_right = 165.24
-margin_bottom = 8.00006
+anchor_right = 0.572417
+anchor_bottom = 0.0946426
+margin_left = 89.192
+margin_top = -10.2
+margin_right = 135.192
+margin_bottom = 5.80006
 rect_scale = Vector2( 1.00818, 1.20287 )
-theme = ExtResource( 6 )
+theme = SubResource( 128 )
 text = "af12rf"
 align = 1
 autowrap = true
@@ -227,17 +244,16 @@ position = Vector2( -11.3799, 13.9825 )
 texture = ExtResource( 12 )
 
 [node name="hpico" type="Sprite" parent="GUI"]
-position = Vector2( 416.62, 33.9825 )
+position = Vector2( 261.12, 28.4825 )
 z_index = 4
 texture = ExtResource( 13 )
 script = ExtResource( 8 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="GUI"]
-position = Vector2( -3.3799, 339.982 )
+position = Vector2( -6.3799, 208.982 )
 z_index = 3
 frames = SubResource( 118 )
 animation = "main"
-frame = 3
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="GUI"]
@@ -248,16 +264,19 @@ z_index = 3
 texture = ExtResource( 10 )
 
 [node name="Hudban1" parent="GUI" instance=ExtResource( 2 )]
-position = Vector2( 424.62, 14.9825 )
+position = Vector2( 181.62, 10.9825 )
+scale = Vector2( 0.5, 0.5 )
 z_index = -1
 
 [node name="Hudban2" parent="GUI" instance=ExtResource( 1 )]
-position = Vector2( 409.62, 342.983 )
+position = Vector2( 153.62, 211.982 )
+scale = Vector2( 0.5, 0.5 )
 z_index = -1
 
 [node name="ChainCnt" type="Sprite" parent="GUI"]
 modulate = Color( 1, 1, 1, 0.592157 )
-position = Vector2( 429.62, 129.982 )
+position = Vector2( 278.62, 119.982 )
+scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 14 )
 
 [node name="CounterChain" type="Label" parent="GUI/ChainCnt"]
@@ -313,18 +332,168 @@ tint_progress = Color( 0, 1, 0.0196078, 1 )
 script = ExtResource( 22 )
 
 [node name="HudCircle" type="Sprite" parent="GUI"]
-position = Vector2( 414.62, 34.9825 )
+position = Vector2( 261.12, 29.4825 )
 texture = ExtResource( 24 )
+
+[node name="Controls" type="Node2D" parent="GUI"]
+script = ExtResource( 27 )
+
+[node name="inputprompt" type="Sprite" parent="GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 126.982 )
+texture = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="GUI/Controls/inputprompt"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Summon"
+align = 1
+
+[node name="Label2" type="Label" parent="GUI/Controls/inputprompt"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = -75.0
+margin_top = -5.0
+margin_right = -3.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Y"
+align = 1
+
+[node name="inputprompt5" type="Sprite" parent="GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 110.982 )
+texture = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="GUI/Controls/inputprompt5"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Strafe"
+align = 1
+
+[node name="Label2" type="Label" parent="GUI/Controls/inputprompt5"]
+modulate = Color( 0.945098, 0, 1, 1 )
+margin_left = -74.0
+margin_top = -5.0
+margin_right = -2.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "RB"
+align = 1
+
+[node name="inputprompt2" type="Sprite" parent="GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 142.982 )
+texture = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="GUI/Controls/inputprompt2"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Dash"
+align = 1
+
+[node name="Label2" type="Label" parent="GUI/Controls/inputprompt2"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -74.0
+margin_top = -5.0
+margin_right = -2.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "B"
+align = 1
+
+[node name="inputprompt3" type="Sprite" parent="GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( -108, 118.982 )
+texture = ExtResource( 26 )
+offset = Vector2( 137, 40 )
+
+[node name="Label" type="Label" parent="GUI/Controls/inputprompt3"]
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -6.18401
+margin_top = 50.496
+margin_right = 65.816
+margin_bottom = 60.496
+theme = ExtResource( 6 )
+text = "Attack"
+align = 1
+
+[node name="Label2" type="Label" parent="GUI/Controls/inputprompt3"]
+modulate = Color( 0, 0.0392157, 1, 1 )
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -50.184
+margin_top = 50.496
+margin_right = 21.816
+margin_bottom = 60.496
+theme = ExtResource( 6 )
+text = "X"
+align = 1
+
+[node name="inputprompt4" type="Sprite" parent="GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( -42, 188.983 )
+texture = ExtResource( 26 )
+offset = Vector2( 71, -14 )
+
+[node name="Label" type="Label" parent="GUI/Controls/inputprompt4"]
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -72.184
+margin_top = -3.504
+margin_right = -0.184006
+margin_bottom = 6.496
+theme = ExtResource( 6 )
+text = "Jump"
+align = 1
+
+[node name="Label2" type="Label" parent="GUI/Controls/inputprompt4"]
+modulate = Color( 0.0784314, 1, 0, 1 )
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -116.184
+margin_top = -3.504
+margin_right = -44.184
+margin_bottom = 6.496
+theme = ExtResource( 6 )
+text = "A"
+align = 1
+
+[node name="Label" type="Label" parent="GUI"]
+modulate = Color( 0.266667, 1, 0, 0.380392 )
+margin_left = -16.3799
+margin_top = 186.982
+margin_right = 167.62
+margin_bottom = 200.982
+theme = ExtResource( 6 )
+text = "Select: Controls on/off"
 
 [node name="livescnt" type="Label" parent="."]
 anchor_left = 0.221188
 anchor_top = -1.12212
 anchor_right = 0.446379
 anchor_bottom = -1.07506
-margin_left = -74.1702
-margin_top = 743.963
-margin_right = -73.1702
-margin_bottom = 759.963
+margin_left = -43.9362
+margin_top = 459.355
+margin_right = -42.9362
+margin_bottom = 475.355
 rect_scale = Vector2( 1.00818, 1.20287 )
 theme = ExtResource( 6 )
 text = "af12rf"
@@ -340,10 +509,10 @@ anchor_left = 1.2047
 anchor_top = -1.03634
 anchor_right = 2.09011
 anchor_bottom = -0.90902
-margin_left = -569.256
-margin_top = 712.082
-margin_right = -568.256
-margin_bottom = 726.691
+margin_left = -358.605
+margin_top = 441.14
+margin_right = -357.605
+margin_bottom = 455.749
 theme = ExtResource( 6 )
 text = "af12rf"
 align = 1
@@ -359,10 +528,10 @@ anchor_left = 0.252699
 anchor_top = -0.00256056
 anchor_right = 0.477699
 anchor_bottom = 0.0434395
-margin_left = -102.296
-margin_top = 11.9218
-margin_right = -101.296
-margin_bottom = 27.9218
+margin_left = -61.0364
+margin_top = 11.5736
+margin_right = -60.0364
+margin_bottom = 27.5736
 rect_scale = Vector2( 1.00818, 1.20287 )
 theme = ExtResource( 6 )
 text = "af12rf"

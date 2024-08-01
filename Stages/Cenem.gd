@@ -25,7 +25,7 @@ func frameFreeze(timeScale, duration):
 func _physics_process(delta):
 	
 	
-	if position.x < Globals.camera.limit_left || position.x > Globals.camera.limit_right || position.y < Globals.camera.limit_top || position.y > Globals.camera.limit_bottom:
+	if $Chaser.active && (position.x < Globals.camera.limit_left || position.x > Globals.camera.limit_right || position.y < Globals.camera.limit_top || position.y > Globals.camera.limit_bottom):
 		queue_free()
 	
 	if $Chaser.dead == 1:

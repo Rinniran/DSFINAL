@@ -1080,7 +1080,6 @@ position = Vector2( 168, 1328 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 255 )
-frame = 1
 playing = true
 
 [node name="Label2" type="Label" parent="Objects/Monitors"]
@@ -1099,7 +1098,6 @@ position = Vector2( 672, 1328 )
 scale = Vector2( 2, 2 )
 z_index = -29
 frames = SubResource( 255 )
-frame = 1
 playing = true
 
 [node name="Label" type="Label" parent="Objects/Monitors"]

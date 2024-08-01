@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Street Fighter III_ New Generation (D1T14) GET ON A TRAIN Stage Siberian Railway.mp3-223dddf567b8043a76734f44fc71a584.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/Street Fighter III_ New Generation (D1T14) GET ON A TRAIN Stage Siberian Railway.mp3"
+dest_files=[ "res://.import/Street Fighter III_ New Generation (D1T14) GET ON A TRAIN Stage Siberian Railway.mp3-223dddf567b8043a76734f44fc71a584.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

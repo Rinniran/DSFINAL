@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Characterselect.ogg-7ba632c753c450109c9fc37b18f1ff60.oggstr"
+
+[deps]
+
+source_file="res://Audio/BGM/Characterselect.ogg"
+dest_files=[ "res://.import/Characterselect.ogg-7ba632c753c450109c9fc37b18f1ff60.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

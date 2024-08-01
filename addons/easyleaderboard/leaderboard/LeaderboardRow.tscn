@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/easyleaderboard/leaderboard/trophies.png" type="Texture" id=1]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_bottom = 3
+border_color = Color( 0.278431, 0.278431, 0.278431, 1 )
+border_blend = true
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Panel
+
+export var result_number : int
+export var score_name : String
+export var score_value : float
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$RowContainer/RowNumberContainer/Label.text = \"#\" + str(result_number)
+	$RowContainer/RowNumberContainer/Label/Trophies.visible = false
+	match result_number:
+		1,2,3:
+			$RowContainer/RowNumberContainer/Label/Trophies.visible = true
+			$RowContainer/RowNumberContainer/Label/Trophies.frame = result_number-1
+			$RowContainer/RowNumberContainer/Label.text = \"\" # nothing so it's hidden
+			
+	$RowContainer/ScoreName/Label.text = score_name
+	$RowContainer/ScoreValue/Label.text = str(score_value)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Panel" type="Panel"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 4 )
+script = SubResource( 3 )
+
+[node name="RowContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RowNumberContainer" type="CenterContainer" parent="RowContainer"]
+margin_right = 8.0
+margin_bottom = 14.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="RowContainer/RowNumberContainer"]
+margin_right = 8.0
+margin_bottom = 14.0
+text = "2"
+
+[node name="Trophies" type="Sprite" parent="RowContainer/RowNumberContainer/Label"]
+texture = ExtResource( 1 )
+centered = false
+hframes = 3
+
+[node name="ScoreName" type="CenterContainer" parent="RowContainer"]
+margin_left = 12.0
+margin_right = 20.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="RowContainer/ScoreName"]
+margin_right = 8.0
+margin_bottom = 14.0
+text = "2"
+
+[node name="ScoreValue" type="CenterContainer" parent="RowContainer"]
+margin_left = 24.0
+margin_right = 72.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="RowContainer/ScoreValue"]
+margin_right = 48.0
+margin_bottom = 14.0
+text = "123456"

@@ -37,8 +37,8 @@ var score = 0
 var stagescore = 0
 var gatereq = 0
 var stylebonus = 0
-var mili = 00
-var sec = 00
+var mili = 60
+var sec = 60
 var minute = 00
 
 var hinttext = 0
@@ -56,12 +56,41 @@ var camera = null
 
 var paused = 0
 
+var grooveWorth = 10
+var grooveScore = 0
+var grooveList = [null, null, null, null, null]
+var groovePoints = 0
+
+var stuntList = []
+
+var grooveTimer = 0
+
+var grooveTimerMax = 60 * 3
+
+var niceone = preload("res://Subrooms/niceone.tscn")
+
+
+var windowmode = 1
+enum ranks {D, C, B, A, S, X}
+
+var grooveRank = ranks
+
+var grooveRankText = "D"
+
+var stageRank = ranks
+
+var stageRankText = "D"
+
 var dietime = 120
 var sound_to_play
 var soundtype #0 = sound 1 = voice 2 = music 3 = BGS
 
+var bossover = 0
+
 var lang = 0
  #0 = english 1 = japanese 2 = spanish 3 = portugese 4 = french
+
+var type = "Advanced"
 
 var superdashget = 0
 
@@ -73,6 +102,7 @@ var player
 
 var playerspriteflip = false
 
+var stuntTimer = 60 * 1.5
 
 var diff = 2
 
@@ -81,6 +111,8 @@ var cur_scene = null
 var stage_start = null
 
 var inputmode = "kb"
+
+var zoomallowed = true
 
 #Boss Triggers================================================
 var yokaiball = 0
@@ -113,7 +145,7 @@ func _init():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	print(combotimer)
+	#print(combotimer)
 	
 	
 	if Engine.time_scale < 1.0:
@@ -146,6 +178,79 @@ func _physics_process(delta):
 	
 	
 	
+	if windowmode == 1:
+		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
+		if Input.is_action_just_pressed("winmode"):
+			windowmode = 0
+	elif windowmode == 0:
+		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(320,224),1)
+		if Input.is_action_just_pressed("winmode"):
+			windowmode = 1
+	
+	
+	
+	
+	if grooveTimer > 0:
+		grooveTimer -= 1
+	
+	if grooveTimer <= 0:
+		groovePoints = 0
+	
+	
+	if stuntTimer > 0:
+		stuntTimer -= 1
+		
+	
+	if stuntTimer <= 0:
+		stuntList = []
+	
+	
+	
+	match(grooveRank):
+		0:
+			grooveRankText = "D"
+			grooveWorth = 10
+		1:
+			grooveRankText = "C"
+			grooveWorth = 50
+		2:
+			grooveRankText = "B"
+			grooveWorth = 100
+		3:
+			grooveRankText = "A"
+			grooveWorth = 150
+		4:
+			grooveRankText = "S"
+			grooveWorth = 200
+		5:
+			grooveRankText = "X"
+			grooveWorth = 300
+	
+	
+	if groovePoints < 100:
+		grooveRank = 0
+	elif groovePoints < 1000:
+		grooveRank = 1
+	elif groovePoints < 8000:
+		grooveRank = 2
+	elif groovePoints < 50000:
+		grooveRank = 3
+	elif groovePoints < 100000:
+		grooveRank = 4
+	elif groovePoints >= 100000:
+		grooveRank = 5
+	
+	
+	if sec > 0:
+		mili -= 1
+		#print_debug(mili)
+	
+	if mili <= 0:
+		sec -= 1
+		mili = 60 
+		
+		#print_debug(sec)
+		
 	
 	
 	if ded && lives == 0:
@@ -158,9 +263,6 @@ func _physics_process(delta):
 			pieces = 0
 			lives = 3
 			ded = 0
-			mili = 00
-			sec = 00
-			minute = 00
 			score = 0
 			dietime = 120
 	
@@ -203,6 +305,104 @@ func _physics_process(delta):
 			score += 1000000
 			combo = 0
 		
+	
+	
+	match(stuntList):
+		["frontFlip","OverBullet","AerialKill"]: #You can't use vector air or else this won't count.
+			addStunt("Ripper!")
+			
+			
+		["backFlip","OverBullet","AerialKill"]:
+			addStunt("Ripper!")
+			
+			
+		["frontFlip","OverBullet","GroundedKill"]:
+			addStunt("Ripper!")
+			
+			
+		["backFlip","OverBullet","GroundedKill"]:
+			addStunt("Ripper!")
+			
+			
+		["frontFlip","OverBullet","FriendlyKill"]:
+			addStunt("Ripper!")
+			
+			
+		["backFlip","OverBullet","FriendlyKill","FriendlyKill"]:
+			addStunt("Ripper!")
+		
+		
+		["frontFlip","OverBullet","FriendlyKill","FriendlyKill"]:
+			addStunt("Ripper!")
+			
+			
+		["backFlip","OverBullet","FriendlyKill"]:
+			addStunt("Ripper!")
+		
+		["backFlip", "backFlip", "backFlip", "OverBullet", "AerialKill"]:
+			addStunt("Streaker!")
+		
+		["frontFlip", "frontFlip", "frontFlip", "OverBullet", "AerialKill"]:
+			addStunt("Streaker!")
+		
+		["frontFlip", "frontFlip", "backFlip", "OverBullet", "AerialKill"]:
+			addStunt("Streaker X!")
+		
+		["frontFlip", "backFlip", "frontFlip", "AerialKill"]:
+			addStunt("Streaker Lite X!")
+		
+		["backFlip", "backFlip", "backFlip", "OverBullet", "AerialKill"]:
+			addStunt("Streaker X!")
+		
+		["frontFlip", "frontFlip", "frontFlip", "AerialKill"]:
+			addStunt("Streaker Lite!")
+		
+		["frontFlip", "frontFlip", "backFlip", "AerialKill"]:
+			addStunt("Streaker Lite X!")
+			
+		["frontFlip", "backFlip", "frontFlip", "AerialKill"]:
+			addStunt("Streaker Lite X!")
+		
+		["frontFlip", "backFlip", "GroundedKill"]:
+			addStunt("Mindgames Lite!")
+		
+		["backFlip", "frontFlip", "GroundedKill"]:
+			addStunt("Mindgames Lite!")
+		
+		["diveKill"]:
+			addStunt("Anvil!")
+			
+			
+		["burstLoop", "shotgunRotary", "Shoot", "Shoot", "Shoot", "Shoot"]:
+			addStunt("Speeding Gunner!")
+			
+			
+		["backDodgeBehind"]: #triggers after dodging behind a stickhusk's bullet, and the stickhusk in one backdash, placing yourself behind it
+			addStunt("Nothing Personal!")
+			
+			
+		["airTaunt", "AerialKill", "AerialKill", "AerialKill"]:
+			addStunt("Reaper!")
+			
+			
+		["groundTaunt", "dodge", "GroundedKill"]:
+			addStunt("Swiftly!")
+			
+			
+		["frontFlip","OverBullet","groundTaunt","GroundedKill"]:
+			addStunt("Rub it in!") #Give an achievement for this one!
+		
+		
+		["backFlip","OverBullet","groundTaunt","GroundedKill"]:
+			addStunt("Rub it in!") #Give an achievement for this one!
+			#If the player does a bullet dodging stunt, have time
+			#stop for the taunt.
+			
+			
+		["parry", "groundTaunt","GroundedKill"]:
+			addStunt("Disrespect!")
+	
+	
 	
 	if linktimer > 0:
 		linktimer -= 1
@@ -322,6 +522,16 @@ func _physics_process(delta):
 
 func register_player(in_player):
 	player = in_player
+
+
+func addStunt(var string = ""):
+	grooveList.append(string)
+	grooveList.pop_front()
+	groovePoints += groovePoints * 4
+	stuntList = []
+	var niceinst = niceone.instance()
+	get_parent().add_child(niceinst)
+
 
 func play_audio(soundtype, sound_to_play):
 	

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/CPS2 Originals - Felicia III.mp3-a3bdf358572cbc814ae4c1474c1d5d32.mp3str"
+
+[deps]
+
+source_file="res://Audio/BGM/CPS2 Originals - Felicia III.mp3"
+dest_files=[ "res://.import/CPS2 Originals - Felicia III.mp3-a3bdf358572cbc814ae4c1474c1d5d32.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

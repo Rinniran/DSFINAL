@@ -61,8 +61,8 @@ func _on_VideoPlayer_finished():
 script = SubResource( 2 )
 
 [node name="VideoPlayer" type="VideoPlayer" parent="."]
-margin_right = 768.0
-margin_bottom = 432.0
+margin_right = 384.0
+margin_bottom = 223.0
 audio_track = 1
 stream = ExtResource( 1 )
 volume_db = 3.76

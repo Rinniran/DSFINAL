@@ -39,3 +39,4 @@ playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -65, -24, 65, -23, 48, -8, -49, -8 )
+one_way_collision = true

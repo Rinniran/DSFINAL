@@ -1,0 +1,703 @@
+[gd_scene load_steps=49 format=2]
+
+[ext_resource path="res://Subrooms/HudBanner2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Subrooms/HudBanner1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/hudJ.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/timertext.gd" type="Script" id=5]
+[ext_resource path="res://TextMain.tres" type="Theme" id=6]
+[ext_resource path="res://Stages/tex.gd" type="Script" id=7]
+[ext_resource path="res://Stages/hp.gd" type="Script" id=8]
+[ext_resource path="res://Sprites/gui/TEXTBOX.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/gui/guicon3.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/gui/Rian Map.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/gui/guicon1.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/gui/Healthicon1.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/gui/chaincnt.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/gui/linkcnt.png" type="Texture" id=15]
+[ext_resource path="res://Fonts/BrokenGlass.otf" type="DynamicFontData" id=16]
+[ext_resource path="res://Objects/CounterChain.gd" type="Script" id=17]
+[ext_resource path="res://Objects/CounterLink.gd" type="Script" id=18]
+[ext_resource path="res://Sprites/gui/enemyhpover.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/gui/enemyhpprog.png" type="Texture" id=20]
+[ext_resource path="res://Sprites/gui/enemyhpback.png" type="Texture" id=21]
+[ext_resource path="res://Objects/Linktimer.gd" type="Script" id=22]
+[ext_resource path="res://Objects/Chaintimer.gd" type="Script" id=23]
+[ext_resource path="res://Sprites/gui/HudCircle.png" type="Texture" id=24]
+[ext_resource path="res://timer.tres" type="BitmapFont" id=25]
+[ext_resource path="res://Sprites/gui/inputprompt.png" type="Texture" id=26]
+[ext_resource path="res://Objects/Controls.gd" type="Script" id=27]
+
+[sub_resource type="Shader" id=132]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=133]
+shader = SubResource( 132 )
+shader_param/speed = 7.0
+shader_param/waves = 150.0
+
+[sub_resource type="GDScript" id=131]
+script/source = "extends CanvasLayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var mili = 00
+var sec = 00
+var minute = 00
+
+var req
+
+# Called when the node enters the scene tree for the first time.
+# _ready():
+	
+
+func _physics_process(delta):
+	var deb1 = Input.is_action_just_pressed(\"hpdown\")
+	
+	match(Settings.SHADER):
+		\"HIGH\":
+			$ColorRect2.visible = true
+			$ColorRect3.visible = true
+		\"MED\":
+			$ColorRect2.visible = false
+			$ColorRect3.visible = true
+		\"LOW\":
+			$ColorRect2.visible = false
+			$ColorRect3.visible = false
+	
+	
+	if Globals.dodged == true && Settings.FLASHYVIS == \"ON\":
+		$ColorRect.visible = true
+	else:
+		$ColorRect.visible = false
+	
+	if Globals.gatereq == 0:
+		req = \"?\"
+	else:
+		req = str(Globals.gatereq)
+	
+	
+	if deb1:
+		$textbox.visible = !$textbox.visible
+	
+	if $textbox.visible == true:
+		Globals.moveenabled = 0
+		$GUI/timer.visible = false
+	else:
+		Globals.moveenabled = 1
+		$GUI/timer.visible = true
+		
+	
+	$GUI/HudCircle.rotation_degrees += 0.2
+	
+	#if $timer.visible == true && Globals.ded == 0 && Globals.incutscene == 0:
+		#Globals.mili += 2
+#		if Globals.mili > 99:
+#			Globals.mili = 00
+#			Globals.sec += 1
+#
+#		if Globals.sec > 59:
+#			Globals.sec = 0
+#			Globals.minute += 1
+#		if Globals.minute > 99:
+#			Globals.minute = 99
+	$GUI/timer.text = str(Globals.sec)
+	#$fpscnt.text = \"POWER: \" + \"%.2f\" % [Globals.atkmult]
+	$GUI/Piececnt.text = \"%02d\" % [Globals.pieces]
+	$GUI/scorecnt.text = \"%010d\" % [Globals.score]
+	$GUI/livescnt.text = \"%02d\" % [Globals.lives]
+	$GUI/boltcnt.text = str(Globals.cards) + \"/\" + str(req)
+	if $textbox.visible:
+		$GUI/timer.visible = false
+		$textbox/tex.text = Globals.txt
+		
+		if $textbox/tex.text == null:
+			Globals.text = 1
+			
+	#else:
+		#$timer.visible = true
+	
+	if Globals.incutscene == 1:
+		$GUI/timer.visible = false
+	#else:
+		#$timer.visible = true
+	
+	
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="Shader" id=124]
+code = "shader_type canvas_item;
+
+uniform int levels = 3;
+uniform float spread = 0.01;
+
+vec3 chromatic_slice(float t){
+	vec3 res = vec3(1.0-t, 1.0 - abs(t - 1.0), t - 1.0);
+	return max(res, 0.0);
+}
+
+void fragment(){
+	vec3 sum;
+	COLOR.rgb = vec3(0);
+	vec2 offset = (UV - vec2(0.5))*vec2(1,-1);
+	for(int i = 0; i < levels; i++){
+		float t = 2.0*float(i)/float(levels-1); // range 0.0->2.0
+		vec3 slice = vec3(1.0-t, 1.0 - abs(t - 1.0), t - 1.0);
+		slice = max(slice, 0.0);
+		sum += slice;
+		vec2 slice_offset = (t-1.0)*spread*offset;
+		COLOR.rgb += slice * texture(SCREEN_TEXTURE, SCREEN_UV + slice_offset).rgb;
+	}
+	COLOR.rgb /= sum;
+}"
+
+[sub_resource type="ShaderMaterial" id=125]
+shader = SubResource( 124 )
+shader_param/levels = 3
+shader_param/spread = 0.005
+
+[sub_resource type="Shader" id=126]
+code = "shader_type canvas_item;
+
+render_mode blend_mul;
+
+uniform float u_amount = 0.1;
+
+float get_noise(vec2 uv) {
+    return fract(sin(dot(uv ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment() {
+    float n = 2.0 * get_noise(UV + vec2(TIME, 0.0)) - 1.0;
+    COLOR = texture(TEXTURE, UV) + n * u_amount;
+}"
+
+[sub_resource type="ShaderMaterial" id=127]
+shader = SubResource( 126 )
+shader_param/u_amount = 0.043
+
+[sub_resource type="Shader" id=119]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+void fragment() {
+	vec4 c = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgba;
+	c.r = 1.0 - c.r;
+	c.g = 1.0 - c.g;
+	c.b = 1.0 - c.b;
+	COLOR.rgba = c;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=120]
+render_priority = 20
+shader = SubResource( 119 )
+
+[sub_resource type="GDScript" id=121]
+script/source = "extends ColorRect
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+	
+"
+
+[sub_resource type="GDScript" id=111]
+
+[sub_resource type="Theme" id=117]
+script = SubResource( 111 )
+
+[sub_resource type="Shader" id=129]
+code = "// Converted/modified from ShaderToy: https://www.shadertoy.com/view/ldBXDD
+// Attach this shader to a ColorRect
+
+shader_type canvas_item;
+
+uniform float wave_count : hint_range(1.0, 20.0, 1.0) = 20.0;
+uniform float speed : hint_range(0.0, 10.0, 0.1) = 3.0;
+uniform float height : hint_range(0.0, 0.1, 0.001) = 0.003;
+
+void fragment() {
+	vec2 cPos = -1.0 + 2.0 * UV / (1.0 / TEXTURE_PIXEL_SIZE);
+	float cLength = length(cPos);
+	vec2 uv = FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy + (cPos/cLength) * cos(cLength * wave_count - TIME * speed) * height;
+    vec3 col = texture(SCREEN_TEXTURE,uv).xyz;
+	COLOR = vec4(col,1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=130]
+shader = SubResource( 129 )
+shader_param/wave_count = 20.0
+shader_param/speed = 3.0
+shader_param/height = 0.003
+
+[sub_resource type="AtlasTexture" id=113]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=114]
+atlas = ExtResource( 11 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=115]
+atlas = ExtResource( 11 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=116]
+atlas = ExtResource( 11 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=118]
+animations = [ {
+"frames": [ SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ) ],
+"loop": true,
+"name": "main",
+"speed": 10.0
+} ]
+
+[sub_resource type="DynamicFont" id=122]
+size = 45
+outline_size = 2
+outline_color = Color( 0.0784314, 0, 1, 1 )
+use_mipmaps = true
+font_data = ExtResource( 16 )
+
+[sub_resource type="Theme" id=123]
+default_font = SubResource( 122 )
+
+[sub_resource type="Theme" id=128]
+default_font = ExtResource( 25 )
+
+[node name="ViewportContainer" type="ViewportContainer"]
+material = SubResource( 133 )
+margin_right = 384.0
+margin_bottom = 224.0
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 384, 224 )
+handle_input_locally = false
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="GUIStuffInverse" type="CanvasLayer" parent="Viewport"]
+layer = 30
+script = SubResource( 131 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Viewport/GUIStuffInverse"]
+material = SubResource( 125 )
+margin_left = -192.0
+margin_top = -286.0
+margin_right = 576.0
+margin_bottom = 146.0
+
+[node name="ColorRect3" type="ColorRect" parent="Viewport/GUIStuffInverse"]
+modulate = Color( 1, 1, 1, 0.0823529 )
+material = SubResource( 127 )
+margin_left = -156.0
+margin_top = -286.0
+margin_right = 612.0
+margin_bottom = 145.0
+color = Color( 0, 0, 0, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="Viewport/GUIStuffInverse"]
+visible = false
+material = SubResource( 120 )
+margin_right = 765.0
+margin_bottom = 432.0
+color = Color( 0.74902, 0.882353, 0.772549, 0.937255 )
+script = SubResource( 121 )
+
+[node name="Bosshud" type="Node2D" parent="Viewport/GUIStuffInverse"]
+position = Vector2( -320, -464 )
+
+[node name="textbox" type="Node2D" parent="Viewport/GUIStuffInverse"]
+visible = false
+position = Vector2( -316.183, -189.638 )
+
+[node name="Sprite" type="Sprite" parent="Viewport/GUIStuffInverse/textbox"]
+position = Vector2( 698.652, 531.702 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+
+[node name="tex" type="Label" parent="Viewport/GUIStuffInverse/textbox"]
+margin_left = 512.0
+margin_top = 499.272
+margin_right = 963.0
+margin_bottom = 602.272
+theme = SubResource( 117 )
+custom_fonts/font = ExtResource( 3 )
+text = "何が起こっていますか？
+しばらく前まではすべて順調でした！
+Hey idiot!!! watch where you're steppin'!"
+autowrap = true
+script = ExtResource( 7 )
+
+[node name="GUI" type="Node2D" parent="Viewport/GUIStuffInverse"]
+material = SubResource( 130 )
+position = Vector2( 19.3799, -221.982 )
+
+[node name="Piececnt2" type="Sprite" parent="Viewport/GUIStuffInverse/GUI"]
+position = Vector2( -8.96851, 230.432 )
+texture = ExtResource( 12 )
+
+[node name="hpico" type="Sprite" parent="Viewport/GUIStuffInverse/GUI"]
+position = Vector2( 330.531, 244.932 )
+z_index = 4
+texture = ExtResource( 13 )
+script = ExtResource( 8 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Viewport/GUIStuffInverse/GUI"]
+position = Vector2( -3.96851, 425.432 )
+z_index = 3
+frames = SubResource( 118 )
+animation = "main"
+frame = 1
+playing = true
+
+[node name="Sprite2" type="Sprite" parent="Viewport/GUIStuffInverse/GUI"]
+visible = false
+position = Vector2( 828.061, 539.136 )
+scale = Vector2( 2, 2 )
+z_index = 3
+texture = ExtResource( 10 )
+
+[node name="Hudban1" parent="Viewport/GUIStuffInverse/GUI" instance=ExtResource( 2 )]
+position = Vector2( 184.031, 227.432 )
+scale = Vector2( 0.5, 0.5 )
+z_index = -1
+
+[node name="Hudban2" parent="Viewport/GUIStuffInverse/GUI" instance=ExtResource( 1 )]
+position = Vector2( 156.031, 428.432 )
+scale = Vector2( 0.5, 0.5 )
+z_index = -1
+
+[node name="ChainCnt" type="Sprite" parent="Viewport/GUIStuffInverse/GUI"]
+modulate = Color( 1, 1, 1, 0.592157 )
+position = Vector2( 337.031, 336.432 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 14 )
+
+[node name="CounterChain" type="Label" parent="Viewport/GUIStuffInverse/GUI/ChainCnt"]
+modulate = Color( 1, 0.568627, 0, 1 )
+margin_left = -45.0
+margin_top = -38.0
+margin_right = 36.0
+margin_bottom = 4.0
+theme = SubResource( 123 )
+text = "1234"
+align = 1
+valign = 1
+script = ExtResource( 17 )
+
+[node name="Chaintimer" type="TextureProgress" parent="Viewport/GUIStuffInverse/GUI/ChainCnt"]
+margin_left = -34.0
+margin_top = 8.00001
+margin_right = 30.0
+margin_bottom = 32.0
+texture_under = ExtResource( 21 )
+texture_over = ExtResource( 19 )
+texture_progress = ExtResource( 20 )
+tint_under = Color( 1, 0, 0, 1 )
+tint_progress = Color( 0, 1, 0.0196078, 1 )
+script = ExtResource( 23 )
+
+[node name="LinkCnt" type="Sprite" parent="Viewport/GUIStuffInverse/GUI"]
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 430.031, 429.433 )
+texture = ExtResource( 15 )
+
+[node name="CounterLink" type="Label" parent="Viewport/GUIStuffInverse/GUI/LinkCnt"]
+margin_left = -43.5
+margin_top = -40.5
+margin_right = 37.5
+margin_bottom = 5.49998
+theme = SubResource( 123 )
+text = "1234"
+align = 1
+valign = 1
+script = ExtResource( 18 )
+
+[node name="Linktimer" type="TextureProgress" parent="Viewport/GUIStuffInverse/GUI/LinkCnt"]
+margin_left = -30.5
+margin_top = 10.5
+margin_right = 33.5
+margin_bottom = 34.5
+texture_under = ExtResource( 21 )
+texture_over = ExtResource( 19 )
+texture_progress = ExtResource( 20 )
+tint_under = Color( 0.00784314, 0, 1, 1 )
+tint_progress = Color( 0, 1, 0.0196078, 1 )
+script = ExtResource( 22 )
+
+[node name="HudCircle" type="Sprite" parent="Viewport/GUIStuffInverse/GUI"]
+position = Vector2( 328.531, 245.932 )
+texture = ExtResource( 24 )
+
+[node name="Controls" type="Node2D" parent="Viewport/GUIStuffInverse/GUI"]
+position = Vector2( 2.41138, 216.45 )
+script = ExtResource( 27 )
+
+[node name="inputprompt" type="Sprite" parent="Viewport/GUIStuffInverse/GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 126.982 )
+texture = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Summon"
+align = 1
+
+[node name="Label2" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = -75.0
+margin_top = -5.0
+margin_right = -3.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Y"
+align = 1
+
+[node name="inputprompt5" type="Sprite" parent="Viewport/GUIStuffInverse/GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 110.982 )
+texture = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt5"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Strafe"
+align = 1
+
+[node name="Label2" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt5"]
+modulate = Color( 0.945098, 0, 1, 1 )
+margin_left = -74.0
+margin_top = -5.0
+margin_right = -2.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "RB"
+align = 1
+
+[node name="inputprompt2" type="Sprite" parent="Viewport/GUIStuffInverse/GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 142.982 )
+texture = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt2"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Dash"
+align = 1
+
+[node name="Label2" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt2"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -74.0
+margin_top = -5.0
+margin_right = -2.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "B"
+align = 1
+
+[node name="inputprompt3" type="Sprite" parent="Viewport/GUIStuffInverse/GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( -108, 118.982 )
+texture = ExtResource( 26 )
+offset = Vector2( 137, 40 )
+
+[node name="Label" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt3"]
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -6.18401
+margin_top = 50.496
+margin_right = 65.816
+margin_bottom = 60.496
+theme = ExtResource( 6 )
+text = "Attack"
+align = 1
+
+[node name="Label2" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt3"]
+modulate = Color( 0, 0.0392157, 1, 1 )
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -50.184
+margin_top = 50.496
+margin_right = 21.816
+margin_bottom = 60.496
+theme = ExtResource( 6 )
+text = "X"
+align = 1
+
+[node name="inputprompt4" type="Sprite" parent="Viewport/GUIStuffInverse/GUI/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( -42, 188.983 )
+texture = ExtResource( 26 )
+offset = Vector2( 71, -14 )
+
+[node name="Label" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt4"]
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -72.184
+margin_top = -3.504
+margin_right = -0.184006
+margin_bottom = 6.496
+theme = ExtResource( 6 )
+text = "Jump"
+align = 1
+
+[node name="Label2" type="Label" parent="Viewport/GUIStuffInverse/GUI/Controls/inputprompt4"]
+modulate = Color( 0.0784314, 1, 0, 1 )
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -116.184
+margin_top = -3.504
+margin_right = -44.184
+margin_bottom = 6.496
+theme = ExtResource( 6 )
+text = "A"
+align = 1
+
+[node name="Label" type="Label" parent="Viewport/GUIStuffInverse/GUI"]
+modulate = Color( 0.266667, 1, 0, 0.380392 )
+margin_left = -13.9685
+margin_top = 403.432
+margin_right = 170.031
+margin_bottom = 417.432
+theme = ExtResource( 6 )
+text = "Select: Controls on/off"
+
+[node name="livescnt" type="Label" parent="Viewport/GUIStuffInverse/GUI"]
+anchor_left = 0.221188
+anchor_top = -1.12212
+anchor_right = 0.446379
+anchor_bottom = -1.07506
+margin_left = -188.153
+margin_top = 1240.46
+margin_right = -187.153
+margin_bottom = 1256.46
+rect_scale = Vector2( 1.00818, 1.20287 )
+theme = ExtResource( 6 )
+text = "af12rf"
+autowrap = true
+max_lines_visible = 1
+script = ExtResource( 5 )
+
+[node name="scorecnt" type="Label" parent="Viewport/GUIStuffInverse/GUI"]
+anchor_left = 1.2047
+anchor_top = -1.03634
+anchor_right = 2.09011
+anchor_bottom = -0.90902
+margin_left = -1072.38
+margin_top = 1178.92
+margin_right = -1071.38
+margin_bottom = 1193.53
+theme = ExtResource( 6 )
+text = "af12rf"
+align = 1
+autowrap = true
+max_lines_visible = 1
+script = ExtResource( 5 )
+
+[node name="Piececnt" type="Label" parent="Viewport/GUIStuffInverse/GUI"]
+anchor_left = 0.252699
+anchor_top = -0.00256056
+anchor_right = 0.477699
+anchor_bottom = 0.0434395
+margin_left = -224.387
+margin_top = 227.299
+margin_right = -223.387
+margin_bottom = 243.299
+rect_scale = Vector2( 1.00818, 1.20287 )
+theme = ExtResource( 6 )
+text = "af12rf"
+autowrap = true
+max_lines_visible = 1
+script = ExtResource( 5 )
+
+[node name="boltcnt" type="Label" parent="Viewport/GUIStuffInverse/GUI"]
+visible = false
+anchor_left = 1.11128
+anchor_top = 1.74275
+anchor_right = 1.33628
+anchor_bottom = 1.78875
+margin_left = -668.769
+margin_top = -890.701
+margin_right = -667.769
+margin_bottom = -874.701
+rect_scale = Vector2( 1.00818, 1.20287 )
+text = "af12rf"
+autowrap = true
+max_lines_visible = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="timer" type="Label" parent="Viewport/GUIStuffInverse/GUI"]
+anchor_left = -0.292167
+anchor_top = 0.05
+anchor_right = 0.572417
+anchor_bottom = 0.0946426
+margin_left = 146.62
+margin_top = 222.982
+margin_right = 192.62
+margin_bottom = 238.982
+rect_scale = Vector2( 1.00818, 1.20287 )
+theme = SubResource( 128 )
+text = "af12rf"
+align = 1
+autowrap = true
+max_lines_visible = 1
+script = ExtResource( 5 )

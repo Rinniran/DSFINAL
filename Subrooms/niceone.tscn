@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Audio/SE/niceone.wav" type="AudioStream" id=1]
 [ext_resource path="res://Sprites/gui/NiceOne.png" type="Texture" id=2]
@@ -22,7 +22,7 @@ tracks/0/keys = {
 "values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CanvasLayer/Rianicon:scale")
+tracks/1/path = NodePath("CanvasLayer/Rianicon:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -31,10 +31,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1e-05, 1e-05 ) ]
+"values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("CanvasLayer/Rianicon:visible")
+tracks/2/path = NodePath("CanvasLayer/secret:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -46,7 +46,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("CanvasLayer/secret:visible")
+tracks/3/path = NodePath("CanvasLayer/Rianicon:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -55,10 +55,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ Vector2( 1144.86, 431.403 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("CanvasLayer/Rianicon:position")
+tracks/4/path = NodePath("CanvasLayer/Rianicon:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -67,10 +67,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1144.86, 431.403 ) ]
+"values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("CanvasLayer/Rianicon:playing")
+tracks/5/path = NodePath("CanvasLayer/Rianicon:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -79,10 +79,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ 0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("CanvasLayer/Rianicon:frame")
+tracks/6/path = NodePath("CanvasLayer/secret:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -91,10 +91,10 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0 ]
+"values": [ Vector2( 1218.38, 163.672 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("CanvasLayer/secret:position")
+tracks/7/path = NodePath("CanvasLayer/secret:scale")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -103,7 +103,19 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1218.38, 163.672 ) ]
+"values": [ Vector2( 0.8, 0.8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CanvasLayer/Rianicon:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -131,7 +143,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1000, 100 ), Vector2( 100, 100 ) ]
+"values": [ Vector2( 824, 45 ), Vector2( 48, 45 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("CanvasLayer/secret:visible")
@@ -167,7 +179,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1000, 332 ), Vector2( 640, 332 ) ]
+"values": [ Vector2( 557, 179 ), Vector2( 344, 179 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("CanvasLayer/Rianicon:playing")
@@ -192,6 +204,30 @@ tracks/6/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CanvasLayer/secret:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.8, 0.8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CanvasLayer/Rianicon:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ) ]
 }
 
 [sub_resource type="AtlasTexture" id=4]
@@ -222,10 +258,8 @@ animations = [ {
 "speed": 12.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 70.7151, 26.2797 )
-
 [node name="niceone" type="Area2D"]
+scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -243,20 +277,15 @@ layer = 10
 [node name="Rianicon" type="AnimatedSprite" parent="CanvasLayer"]
 visible = false
 position = Vector2( 1144.86, 431.403 )
-scale = Vector2( 1e-05, 1e-05 )
+scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 9 )
 script = ExtResource( 6 )
 
 [node name="secret" type="Sprite" parent="CanvasLayer"]
 visible = false
 position = Vector2( 1218.38, 163.672 )
-scale = Vector2( 2, 2 )
+scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 2 )
 script = ExtResource( 4 )
 
-[node name="c" type="CollisionShape2D" parent="."]
-position = Vector2( 0.302429, 16.2797 )
-scale = Vector2( 0.32, 1 )
-shape = SubResource( 3 )
-
-[connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

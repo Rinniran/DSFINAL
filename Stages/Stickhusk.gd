@@ -41,7 +41,7 @@ func _process(delta):
 	hpbar.max_value = 1.8
 	hpbar.min_value = 0
 	
-	if position.x < Globals.camera.limit_left || position.x > Globals.camera.limit_right || position.y < Globals.camera.limit_top || position.y > Globals.camera.limit_bottom:
+	if active && (position.x < Globals.camera.limit_left || position.x > Globals.camera.limit_right || position.y < Globals.camera.limit_top || position.y > Globals.camera.limit_bottom):
 		queue_free()
 	#$hptween.interpolate_property(hpbar,"hp",hpbar.value, hp,0.4,Tween.TRANS_SINE,Tween.EASE_IN_OUT)
 		
@@ -144,6 +144,12 @@ func frameFreeze(timeScale, duration):
 		$Stickhusk/Sounds.stream = diesound
 		$Stickhusk/Sounds.play()
 		$Stickhusk.play("die")
+		Globals.stuntTimer = 30
+		if !Globals.stuntList.empty():
+			if Globals.player.is_on_floor():
+				Globals.stuntList.append("GroundedKill")
+			else:
+				Globals.stuntList.append("AerialKill")
 	
 	
 	
@@ -245,6 +251,10 @@ func _on_Area2D_area_entered(area):
 				frameFreeze(0.05, 0.1)
 				
 		if area.is_in_group("enemproject"):
+			Globals.groovePoints += Globals.grooveWorth * 2
+			Globals.grooveTimer = Globals.grooveTimerMax
+			Globals.grooveList.append("FriendlyFire")
+			Globals.grooveList.pop_front()
 			hp -= 2 
 			Globals.combotimer = 60 * 10
 			Globals.combo += 4

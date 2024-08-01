@@ -11,7 +11,7 @@ script = ExtResource( 2 )
 [node name="ANIM" type="AnimatedSprite3D" parent="."]
 frames = ExtResource( 1 )
 animation = "idle"
-frame = 7
+frame = 5
 playing = true
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

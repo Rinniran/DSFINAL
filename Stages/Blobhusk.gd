@@ -122,10 +122,17 @@ func frameFreeze(timeScale, duration):
 	var diesound = preload("res://Audio/SE/Enemdie.wav")
 	#Globals.atkmult += (.3)
 	if hp <= 0:
+		Globals.stuntTimer = 30
+		if !Globals.stuntList.empty():
+			if Globals.player.is_on_floor():
+				Globals.stuntList.append("GroundedKill")
+			else:
+				Globals.stuntList.append("AerialKill")
 		Globals.score += 40
 		$Blobhusk/Sounds.stream = diesound
 		$Blobhusk/Sounds.play()
 		$Blobhusk.play("die")
+		
 	
 	
 	

@@ -1,0 +1,280 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://src/Scene.gd" type="Script" id=1]
+[ext_resource path="res://Objects/HUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Stages/StickCity/CRT.tres" type="Material" id=3]
+[ext_resource path="res://TextMain.tres" type="Theme" id=4]
+[ext_resource path="res://Objects/Rian3D.tscn" type="PackedScene" id=5]
+[ext_resource path="res://meshes/STAGE/CS/CS3imp.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Camera3D.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Audio/BGM/Riptide.mp3" type="AudioStream" id=8]
+
+[sub_resource type="CapsuleShape" id=19]
+
+[sub_resource type="Shader" id=18]
+code = "shader_type canvas_item;
+
+void vertex() {
+    // This function is necessary even if empty
+}
+
+void fragment() {
+    // Get the original color using SCREEN_TEXTURE instead of TEXTURE
+    vec4 original_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+
+    // Scale the RGB values to fit within the 5-bit range
+    vec3 scaled_color = floor(original_color.rgb * 31.0) / 31.0;
+
+    // Create the final color
+    vec4 final_color = vec4(scaled_color, original_color.a);
+
+    // Output the final color
+    COLOR = final_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=20]
+shader = SubResource( 18 )
+
+[sub_resource type="GDScript" id=21]
+resource_name = "Glist"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.stuntList) + str(\"\\n\") + str (Globals.groovePoints) + str(\"\\n\") + str (Globals.grooveRankText)
+"
+
+[sub_resource type="Environment" id=22]
+background_mode = 1
+background_color = Color( 0.564706, 0.505882, 0.682353, 1 )
+background_energy = 0.0
+ambient_light_color = Color( 0.741176, 0.741176, 0.741176, 1 )
+fog_color = Color( 0.635294, 0.352941, 0.619608, 1 )
+fog_sun_color = Color( 0.439216, 0.419608, 0.835294, 1 )
+fog_sun_amount = 0.24
+fog_depth_begin = 124.3
+fog_depth_end = 900.0
+tonemap_exposure = 0.54
+auto_exposure_scale = 1.31
+auto_exposure_min_luma = 0.0
+auto_exposure_max_luma = 4.57
+ssao_enabled = true
+ssao_radius = 13.79
+ssao_bias = 1.496
+ssao_blur = 0
+ssao_edge_sharpness = 8.94
+glow_enabled = true
+glow_intensity = 4.57
+glow_strength = 0.94
+glow_hdr_threshold = 0.71
+glow_hdr_luminance_cap = 31.05
+glow_hdr_scale = 0.41
+glow_bicubic_upscale = true
+glow_high_quality = true
+
+[sub_resource type="ParticlesMaterial" id=23]
+lifetime_randomness = 0.14
+trail_divisor = 3
+emission_shape = 2
+emission_box_extents = Vector3( 80, 20, 20 )
+flag_align_y = true
+spread = 25.91
+gravity = Vector3( -4, -4, 0 )
+scale = 0.1
+color = Color( 1, 0.984314, 0.984314, 1 )
+
+[sub_resource type="SpatialMaterial" id=24]
+flags_unshaded = true
+albedo_color = Color( 0.996078, 0.92549, 1, 1 )
+
+[sub_resource type="SphereMesh" id=25]
+material = SubResource( 24 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 1 )
+musplay = ExtResource( 8 )
+
+[node name="CS3" parent="." instance=ExtResource( 6 )]
+transform = Transform( -8.74228e-08, 0, -2, 0, 2, 0, 2, 0, -8.74228e-08, 0, 0, 0 )
+
+[node name="Rian" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.144531, 0 )
+
+[node name="Camera" parent="Rian" instance=ExtResource( 7 )]
+transform = Transform( 1, -5.95695e-08, -2.04483e-09, 5.96046e-08, 0.999411, 0.0343065, 0, -0.0343065, 0.999411, 0, 0.24534, 1.69952 )
+current = true
+far = 1129.5
+script = null
+
+[node name="SpringArm" type="SpringArm" parent="Rian/Camera"]
+shape = SubResource( 19 )
+
+[node name="GUIStuff" parent="." instance=ExtResource( 2 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 20 )
+margin_right = 496.0
+margin_bottom = 224.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource( 3 )
+margin_right = 384.0
+margin_bottom = 225.0
+rect_pivot_offset = Vector2( 173, 289 )
+color = Color( 1, 1, 1, 0.498039 )
+
+[node name="groovelist" type="Label" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 14.0
+theme = ExtResource( 4 )
+text = "These are my extras."
+script = SubResource( 21 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 22 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.0365914, 0.99933, 0, -0.99933, 0.0365914, 0, 16.2227, 0 )
+light_color = Color( 0.717647, 0.890196, 0.964706, 1 )
+light_energy = 1.649
+light_indirect_energy = 0.0
+spot_range = 36.194
+spot_angle = 30.41
+
+[node name="SpotLight2" type="SpotLight" parent="."]
+transform = Transform( 0.966084, 0, 0.258229, 0, 1, 0, -0.258229, 0, 0.966084, -0.238992, 4.14286, 1.01271 )
+light_color = Color( 0.803922, 0.560784, 1, 1 )
+light_energy = 3.378
+light_indirect_energy = 7.486
+light_specular = 6.338
+spot_range = 7.005
+
+[node name="SpotLight3" type="SpotLight" parent="."]
+transform = Transform( 0.106893, -0.054373, 0.992783, 0.993351, 0.0487734, -0.104283, -0.0427512, 0.997329, 0.059225, 13.177, 11.7943, 0.157417 )
+light_color = Color( 1, 0.470588, 0.843137, 1 )
+light_energy = 2.514
+light_indirect_energy = 9.649
+spot_range = 42.312
+spot_angle = 32.89
+
+[node name="OmniLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67063, 0.278296, 0 )
+light_color = Color( 1, 0.258824, 0.258824, 1 )
+light_energy = 6.012
+light_indirect_energy = 11.617
+light_specular = 3.167
+light_bake_mode = 2
+shadow_enabled = true
+shadow_bias = 0.42
+omni_range = 3.189
+omni_attenuation = 1.07177
+
+[node name="SpotLight" type="SpotLight" parent="OmniLight"]
+transform = Transform( 0.561387, 0.584466, -0.585871, -0.774808, 0.619917, -0.123997, 0.290719, 0.523547, 0.800862, -1.50981, -0.0448637, 1.75388 )
+light_color = Color( 1, 0.376471, 0.376471, 1 )
+light_energy = 8.567
+light_indirect_energy = 5.973
+shadow_enabled = true
+spot_range = 6.79508
+spot_angle = 52.0313
+
+[node name="SpotLight2" type="SpotLight" parent="OmniLight"]
+transform = Transform( 0.470587, 0.696514, 0.54168, -0.774808, 0.619917, -0.123997, -0.422162, -0.361346, 0.831389, -2.37885, 0, 1.856 )
+light_color = Color( 1, 0.376471, 0.376471, 1 )
+light_energy = 8.567
+light_indirect_energy = 5.973
+shadow_enabled = true
+spot_range = 6.95848
+spot_angle = 47.9779
+
+[node name="OmniLight2" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.63924, 0.278296, 0 )
+light_color = Color( 1, 0.258824, 0.258824, 1 )
+light_energy = 6.012
+light_indirect_energy = 11.617
+light_specular = 3.167
+light_bake_mode = 2
+shadow_enabled = true
+shadow_bias = 0.42
+omni_range = 3.189
+omni_attenuation = 1.07177
+
+[node name="Particles" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 88.5121, 42.3774, 0.0538559 )
+amount = 403
+lifetime = 2.43
+randomness = 0.23
+visibility_aabb = AABB( -74.7489, -32.6821, -14.0341, 149.498, 65.3642, 28.0682 )
+process_material = SubResource( 23 )
+draw_pass_1 = SubResource( 25 )
+
+[node name="SpotLight4" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7575, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight5" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41.1435, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight6" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 58.0584, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight7" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 76.6121, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight8" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 97.201, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight9" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 111.858, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight10" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 126.787, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337
+
+[node name="SpotLight11" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 140.784, 11.8336, 13.509 )
+light_color = Color( 0.937255, 0.65098, 0.945098, 1 )
+light_energy = 7.797
+light_indirect_energy = 7.919
+spot_range = 21.5337

@@ -50,7 +50,7 @@ animations = [ {
 [node name="dust" type="AnimatedSprite"]
 scale = Vector2( 2, 2 )
 frames = SubResource( 11 )
-frame = 3
+frame = 1
 playing = true
 offset = Vector2( -33, -5.396 )
 script = ExtResource( 2 )

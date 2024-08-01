@@ -10,14 +10,14 @@ export  var jump_strength: = 1.0
 const Up = Vector2.UP
 var gravity: = 1100.0
 const SNAPDIR = Vector2.DOWN
-var SNAPLEN = 24.0
+var SNAPLEN = 16.0
 const MAXFALLSPEED = 200 / 2
 const MAXSPEED = 200
 var SUPERSPEED = 400
 var WAVESPEED = 600 / 2
 const ATKMSPEED = 150 / 2
 const ZOOMSPEED = 800
-var MSPEED
+var MSPEED = 0
 const floormax = deg2rad(64)
 const JUMPf = 425
 var yspeed = 0
@@ -56,6 +56,11 @@ var dashmeter = 0
 
 var maxpow = 1
 
+var nomoreflipcheck = false
+
+var belowdetect = false
+var abovedetect = false
+
 onready var MPAura = preload("res://Maxpow.tres")
 onready var Uhoh = preload("res://Damaged.tres")
 
@@ -78,7 +83,7 @@ var spvoice = preload("res://Audio/Voices/speedup.wav")
 var whee = preload("res://Audio/Voices/full power.wav")
 
 var blast = preload("res://Audio/SE/Waveboost.wav")
-var Dsounder = preload("res://Audio/SE/dash.wav")
+var Dsounder = preload("res://Audio/SE/dash.ogg")
 
 var wav1 = preload("res://Audio/Voices/Wdash1.wav")
 var wav2 = preload("res://Audio/Voices/Wdash2.wav")
@@ -138,7 +143,7 @@ var movright = false
 #============================================================================================================================
 
 func _ready():
-	
+	MSPEED = MAXSPEED
 	character = get_node(".")
 	$"/root/Globals".register_player(self)
 	Globals.checkpX = position.x
@@ -146,7 +151,7 @@ func _ready():
 	Globals.playerspriteflip = $Rspr.flip_h
 
 func _physics_process(delta)->void :
-	
+	print_debug(MSPEED)
 	var Kleft = Input.is_action_pressed("ui_left") or Input.get_action_strength("stickleft")
 	var Kleftpr = Input.is_action_just_pressed("ui_left") or Input.get_action_strength("stickleft")
 	var Kright = Input.is_action_pressed("ui_right") or Input.get_action_strength("stickright")
@@ -222,6 +227,7 @@ func _physics_process(delta)->void :
 					leaving = 1
 		
 					motion.x = 0
+					
 					motion.x = MSPEED
 			
 					$snapoff.start()
@@ -258,6 +264,7 @@ func _physics_process(delta)->void :
 	Globals.camera.rotation_degrees = $Rspr.rotation_degrees
 	
 	if $Rspr.animation == "Fjump" and !is_hit:
+		
 		if $Rspr.flip_h == true:
 			$Rspr.rotation_degrees -= 8
 		if $Rspr.flip_h == false:
@@ -273,7 +280,7 @@ func _physics_process(delta)->void :
 	
 	
 	SUPERSPEED = 400
-	WAVESPEED = 1250 / 2
+	WAVESPEED = 550
 	
 	
 	if $Rspr.flip_h == false:
@@ -358,20 +365,30 @@ func _physics_process(delta)->void :
 				
 				
 			if dashing == 1:
+				
 				if wavedashing and is_on_floor():
 					
 					MSPEED = WAVESPEED
 				else :
-					MSPEED = SUPERSPEED
+					if MSPEED <= SUPERSPEED:
+						MSPEED = SUPERSPEED
+					elif MSPEED > SUPERSPEED && MSPEED < WAVESPEED:
+						MSPEED = WAVESPEED
+					else:
+						 MSPEED = MSPEED
 				if $Rspr.animation == "airdash" or $Rspr.animation == "BDash2":
 					motion.y = 0
 					
 				
 				if superdash:
+					grooveAppend("SuperDash")
 					$Zoombox / CollisionShape2D.disabled = false
 				
 				if Kgrab:
 					OdachiFlash()
+				
+				if atkg:
+					grooveAppend("dashCancel")
 				
 				if atkg or superdash:
 					var dashfx = preload("res://Stages/dashfx.tscn").instance()
@@ -387,13 +404,14 @@ func _physics_process(delta)->void :
 					if not atkdashv:
 						
 						
-						$dsound.set_stream(blast)
-						$dsound.play()
+						
+						$Blast.play()
 						atkdashv = 1
 						
 				
-				if is_on_floor() and $Rspr.animation != "attackair":
+				if is_on_floor() and $Rspr.animation != "attackair" and Globals.moveenabled == 1:
 					if facedir == 1:
+						
 						motion.x = MSPEED
 						
 					if facedir == - 1:
@@ -405,11 +423,11 @@ func _physics_process(delta)->void :
 					motion.x = - MSPEED
 					if !nodown:
 						motion.y = MSPEED
-					if is_on_floor():
+					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 				elif Kleft || movleft:
 					motion.x = - MSPEED
-					if is_on_floor():
+					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 				elif Kright and Kup and not jumpdash and Globals.moveenabled == 1 || (movright && movup):
 					motion.x = MSPEED
@@ -418,18 +436,18 @@ func _physics_process(delta)->void :
 					motion.x = MSPEED
 					if !nodown:
 						motion.y = MSPEED
-					if is_on_floor():
+					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 				elif Kright and not jumpdash and Globals.moveenabled == 1 || (movright):
 					motion.x = MSPEED
-					if is_on_floor():
+					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 				elif Kup and Globals.moveenabled == 1 || (movup):
 					motion.y = - MSPEED
 				elif Kdown and Globals.moveenabled == 1 || (movdown):
 					if !nodown:
 						motion.y = MSPEED
-					if is_on_floor():
+					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 						
 						
@@ -437,29 +455,37 @@ func _physics_process(delta)->void :
 			else :
 				wavedashing = 0
 				atkdashv = 0
-				MSPEED = MAXSPEED
+#				if Krightrel || Kleftrel:
+#					MSPEED = MAXSPEED
 				motion.y += gravity * delta
 				if Kjumprel and motion.y < - 400 and stopit == 0:
 					motion.y = - 400.0
 					stopit = 1
 					
-			if jumpdash:
+			if jumpdash || dashing:
 				var gospeed = abs(motion.x)
 				
 				if motion.x > WAVESPEED * 2 || motion.x < -WAVESPEED * 2:
-					MSPEED = gospeed
+					#MSPEED = gospeed
+					pass
 				else:
-					MSPEED = SUPERSPEED
-#					if Globals.camera.zoom.x < 1.3:
-#						Globals.camera.zoom.x += 0.02
-#						Globals.camera.zoom.y += 0.02
-#						comebacktimer = 60
-#			else:
-#				if comebacktimer <= 0:
-#					if Globals.camera.zoom.x > 1:
-#						Globals.camera.zoom.x -= 0.02
-#						Globals.camera.zoom.y -= 0.02
-#				else: comebacktimer -= 1
+					if MSPEED <= SUPERSPEED:
+						MSPEED = SUPERSPEED
+					elif MSPEED > SUPERSPEED && MSPEED <= WAVESPEED:
+						MSPEED = WAVESPEED
+					if Globals.camera.zoom.x < 1.3 && Globals.zoomallowed:
+						Globals.camera.zoom.x += 0.02
+						Globals.camera.zoom.y += 0.02
+						comebacktimer = 60
+			else:
+				if comebacktimer <= 0:
+					if Globals.camera.zoom.x > 1 && Globals.zoomallowed:
+						Globals.camera.zoom.x -= 0.02
+						Globals.camera.zoom.y -= 0.02
+				else: comebacktimer -= 1
+				
+			
+			
 	
 	
 	
@@ -481,15 +507,14 @@ func _physics_process(delta)->void :
 					$Rspr.play("waveburst")
 				if zoomdir == 1:
 					leaving = 1
-					motion.y = - ZOOMSPEED
+					motion.y = -ZOOMSPEED
 					motion.x = 0
 					$Rspr.play("Fjump")
 			
 			
 			
-			
-			
-			motion.x = clamp(motion.x, - MSPEED, MSPEED)
+			if MSPEED > 0:
+				motion.x = clamp(motion.x, - MSPEED, MSPEED)
 			
 			grounded = is_on_floor()
 			
@@ -517,6 +542,7 @@ func _physics_process(delta)->void :
 			
 			if Kright and !is_hit and Globals.moveenabled == 1 || (movright):
 				if is_on_floor() and not atkg and not dashing:
+					MSPEED = MAXSPEED
 					if Kstrafe and $Rspr.flip_h == false:
 						$Rspr.play("StrafeF")
 					elif Kstrafe and $Rspr.flip_h == true:
@@ -530,15 +556,18 @@ func _physics_process(delta)->void :
 				get_node("groundatk2").set_scale(Vector2(1, 1))
 				get_node("attack3hit").set_scale(Vector2(1, 1))
 				if not atkg or dashing or jumpdash:
-					
+					print_debug(acc)
 					motion.x += acc
+					pass
 				else :
 						
 						motion.x = 0
 				facedir = 1
 				
 			elif Kleft and  !is_hit and Globals.moveenabled == 1 || (movleft):
+				
 				if is_on_floor() and not atkg and not dashing:
+					MSPEED = MAXSPEED
 					if Kstrafe and $Rspr.flip_h == false:
 						$Rspr.play("StrafeB")
 					elif Kstrafe and $Rspr.flip_h == true:
@@ -591,6 +620,7 @@ func _physics_process(delta)->void :
 			if Kjump and Globals.moveenabled == 1 || (jump):
 				jumpoff()
 				if is_on_floor():
+					$Jump.play(0.0)
 					$Rspr.scale.x = 0.2
 					$Rspr.scale.y = 2
 					atkg = 0
@@ -598,6 +628,7 @@ func _physics_process(delta)->void :
 					jumping = true
 					if dashing:
 						nodown = 1
+						grooveAppend("VecAir")
 						jumpdash = 1
 						
 					motion.y /= 4
@@ -627,10 +658,14 @@ func _physics_process(delta)->void :
 						if Kstrafe:
 							if motion.x < 0 and $Rspr.flip_h == false or motion.x > 0 and $Rspr.flip_h == true:
 								$Rspr.play("BDash2")
+								grooveAppend("BackDashAir")
+								print_debug(Globals.grooveList)
 							else :
 								$Rspr.play("airdash")
 						else :
 							$Rspr.play("airdash")
+							grooveAppend("AirDash")
+							print_debug(Globals.grooveList)
 						if Engine.time_scale == 1.0:
 							dashes -= 1
 					else :
@@ -644,6 +679,9 @@ func _physics_process(delta)->void :
 							dustinst.offset.x = 33
 						
 						$dsound.set_stream(Dsounder)
+						var pitch_scale = [0.8, 0.9, 1, 1.1, 1.2]
+						randomize()
+						$dsound.pitch_scale = pitch_scale[randi() % pitch_scale.size()]
 						$dsound.play()
 			
 			
@@ -652,8 +690,11 @@ func _physics_process(delta)->void :
 			if is_on_floor():
 				if not dashing:
 					jumpdash = 0
+					MSPEED = MAXSPEED
 				if not leaving:
 					jumping = false
+					
+				nomoreflipcheck = false
 				dashes = 2
 				slashallowed = 1
 				rotallowed = 1
@@ -664,11 +705,11 @@ func _physics_process(delta)->void :
 				randomize()
 				var play = stream_array[randi() % stream_array.size()]
 				
-				if $Rspr.animation == "airdash":
+				if $Rspr.animation == "airdash" && Globals.type == "Advanced":
 					$Voices / dodgeVoices.set_stream(play)
 					$Voices / dodgeVoices.play()
-					$dsound.set_stream(wb)
-					$dsound.play()
+					$Blast.play()
+					dashtimer = 800
 					wavedashing = 1
 					
 				
@@ -703,6 +744,8 @@ func _physics_process(delta)->void :
 					
 					
 					$Rspr.animation != "run"
+					grooveAppend("GAtk1")
+					print_debug(Globals.grooveList)
 					$Rspr.play("attackg_a")
 					
 					var atkfxinst = atkfx.instance()
@@ -730,6 +773,8 @@ func _physics_process(delta)->void :
 					atka = 0
 					MSPEED = ATKMSPEED
 					$Rspr.animation != "run"
+					grooveAppend("GAtk2")
+					
 					$Rspr.play("attackg_b")
 					dashing = 0
 				
@@ -751,6 +796,7 @@ func _physics_process(delta)->void :
 					
 					$Voices / dodgeVoices.set_stream(clip_to_play)
 					$Voices / dodgeVoices.play()
+					grooveAppend("GAtk3")
 					
 					$Rspr.play("attackg_c")
 					atkpts -= 1
@@ -758,6 +804,7 @@ func _physics_process(delta)->void :
 					if $Rspr.animation != "attackair":
 						atka = 0
 						if wavedashing:
+							grooveAppend("Waveburst")
 							$Rspr.play("waveburst")
 							if Globals.atkmult >= 3:
 								$Camera2D / CanvasLayer2 / spline.visible = true
@@ -765,10 +812,13 @@ func _physics_process(delta)->void :
 							if Kstrafe:
 								if motion.x < 0 and $Rspr.flip_h == false or motion.x > 0 and $Rspr.flip_h == true:
 									$Rspr.play("BDash")
+									grooveAppend("BackDash")
 								else :
 									$Rspr.play("dash")
+									grooveAppend("Dash")
 							else :
 								$Rspr.play("dash")
+								grooveAppend("Dash")
 							if Globals.atkmult >= 3:
 								$Camera2D / CanvasLayer2 / spline.visible = true
 						
@@ -778,6 +828,7 @@ func _physics_process(delta)->void :
 						
 						if (Kgrab and rotallowed == 1 and atka == 1):
 								print_debug("FUCK")
+								grooveAppend("SGRot")
 								get_parent().add_child(sgr.instance())
 								rotallowed = 0
 						
@@ -786,10 +837,13 @@ func _physics_process(delta)->void :
 							atkg = 0
 							if slashallowed == 1 and atka == 1:
 								get_parent().add_child(slash.instance())
+								grooveAppend("DoubleSlice")
 								slashallowed = 0
+								
 								
 							
 							atka = 1
+							
 							$airatk / CollisionShape2D.disabled = false
 							$atktimer.start()
 							
@@ -807,7 +861,7 @@ func _physics_process(delta)->void :
 							if $Rspr.animation != "attackair":
 								$Voices / dodgeVoices.set_stream(clip_to_play)
 								$Voices / dodgeVoices.play()
-								
+								grooveAppend("NeonSpinner")
 								$Rspr.play("attackair")
 			
 			
@@ -826,6 +880,8 @@ func _physics_process(delta)->void :
 					atkg = 0
 					superdash = 0
 					dashing = 0
+					if !wavedashing:
+						MSPEED = MAXSPEED
 					
 					
 					
@@ -836,23 +892,45 @@ func _physics_process(delta)->void :
 				
 				if motion.y > 0 and not dashing and $Rspr.animation != "attackair" && $Rspr.animation != "OdachiFlash":
 					if ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == false && motion.x < 1 || ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == true && motion.x > 1 && $damagepause.is_stopped():
-						$Rspr.play("BJump")
+						if $Rspr.animation != "BJump":
+							grooveAppend("Backflip")
+							$Rspr.play("BJump")
 					elif ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == true && motion.x < 1 || ((Input.is_action_pressed("ui_strafe")) || jumpdash) && $Rspr.flip_h == false && motion.x > 1 && $damagepause.is_stopped():
+						if $Rspr.animation != "Fjump":
+							grooveAppend("Frontflip")
 							$Rspr.play("Fjump")
 					else:
-						$Rspr.play("fall")
+						if $Rspr.animation != "fall":
+							$Rspr.play("fall")
 				elif motion.y < 0 and not dashing and  $Rspr.animation != "attackair" && $Rspr.animation != "OdachiFlash":
 					if ((Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == false && motion.x < 1 || (Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == true && motion.x > 1) && $damagepause.is_stopped():
-						$Rspr.play("BJump")
+						if $Rspr.animation != "BJump":
+							grooveAppend("Backflip")
+							if nomoreflipcheck == false:
+								Globals.stuntTimer = 60 * 1.5
+								Globals.stuntList.append("backFlip")
+								nomoreflipcheck = true
+							$Rspr.play("BJump")
 					elif ((Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == true && motion.x < 1 || (Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == false && motion.x > 1) && $damagepause.is_stopped():
-						$Rspr.play("Fjump")
+						if $Rspr.animation != "Fjump":
+							grooveAppend("Frontflip")
+							if nomoreflipcheck == false:
+								Globals.stuntTimer = 60 * 1.5
+								Globals.stuntList.append("frontFlip")
+								nomoreflipcheck = true
+							$Rspr.play("Fjump")
 					elif $Rspr.animation != "Fjump" && $Rspr.animation != "Bjump" && $Rspr.animation != "OdachiFlash" && $damagepause.is_stopped() == true:
-						$Rspr.play("jump")
+						if $Rspr.animation != "jump":
+							grooveAppend("JumpReg")
+							$Rspr.play("jump")
 			
 			
 			
 			
 			if Globals.hpcount == 0:
+				Globals.groovePoints = 0
+				Globals.groovePoints = 0
+				Globals.grooveList = [null, null, null, null, null]
 				Globals.ded = 1
 				$Deathwait.start()
 			
@@ -867,6 +945,8 @@ func _physics_process(delta)->void :
 		
 	if not is_on_floor() and jumping == false and dashing:
 		jumpdash = 1
+		
+		
 	
 	if is_hit && parrytime > 0:
 		motion.x = 0
@@ -876,13 +956,17 @@ func _physics_process(delta)->void :
 	
 	if is_hit && parrytime > 0 && dashmeter >= 15:
 		if Input.is_action_just_pressed("dash"):
+			grooveAppend("Parry")
 			$Rspr/Shaders.play("Parry flash")
 			$dodge.set_stream(dodges)
 			$dodge.play()
+			$Hurtbox/safe_frames.start()
 			dashmeter -= 15
 			is_hit = false
 			$Rspr.playing = true
 	elif is_hit && parrytime <= 0:
+		Globals.groovePoints -= Globals.groovePoints / 2
+		#Globals.grooveTimer = 0
 		damagehandle(hittype)
 		is_hit = false
 		$Rspr.playing = true
@@ -930,6 +1014,8 @@ func movrightoff():
 
 
 func OdachiFlash():
+	grooveAppend("OdFlash")
+	print_debug(Globals.grooveList)
 	$Rspr.frame = 0
 	
 	if dashing && !is_on_floor():
@@ -944,7 +1030,6 @@ func _on_Rspr_animation_finished():
 	elif $Rspr.animation == "WaitA":
 		$Rspr.frame = 0
 		$Rspr.play("WaitB")
-	
 	
 	if $Rspr.animation == "OdachiFlash":
 		$Rspr.animation = "fall"
@@ -1264,6 +1349,9 @@ func damagehandle(var type):
 		jumpdash = 0
 		motion.x = 0
 		motion.y = 0
+		Globals.groovePoints = 0
+		Globals.groovePoints = 0
+		Globals.grooveList = [null, null, null, null, null]
 		Globals.ded = 1
 		$otvoice.volume_db = - 14
 		$otvoice.play()
@@ -1281,6 +1369,17 @@ func damagehandle(var type):
 
 
 
+
+
+func grooveAppend(var string):
+	var instancecount = Globals.grooveList.count(string)
+	
+	match(instancecount):
+		0:
+			Globals.groovePoints += Globals.grooveWorth
+			Globals.grooveTimer = Globals.grooveTimerMax
+			Globals.grooveList.append(string)
+			Globals.grooveList.pop_front()
 
 
 
@@ -1327,3 +1426,37 @@ func _on_safe_frames_timeout():
 func _on_FULLREADY_animation_finished():
 	$Meter/FULLREADY.visible = false
 	pass # Replace with function body.
+
+
+func _on_AboveDetect_area_entered(area):
+	if area.is_in_group("enemproject"):
+		abovedetect = true
+	pass # Replace with function body.
+
+
+func _on_AboveDetect_area_exited(area):
+	if !area.is_in_group("enemproject"):
+		abovedetect = false
+		
+	pass # Replace with function body.
+
+
+func _on_BelowDetect_area_entered(area):
+	if area.is_in_group("enemproject"):
+		print_debug("HELLO?! FAGGOT?!")
+		belowdetect = true
+		Globals.stuntTimer = 60 * 1.5
+		var bulletcheck = Globals.stuntList.count("OverBullet")
+		if bulletcheck == 0 && !jumpdash && !area.is_in_group("Odachi"):
+			Globals.stuntList.append("OverBullet")
+
+
+
+func _on_BelowDetect_area_exited(area):
+	if !area.is_in_group("enemproject"):
+		belowdetect = false
+
+
+
+func snapoffexternal():
+	$snapoff.start()

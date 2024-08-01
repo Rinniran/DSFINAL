@@ -1,21 +1,2513 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://Stages/StickCity/Convention.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stages/StickCity/Exterior.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Scene.gd" type="Script" id=5]
-[ext_resource path="res://Audio/BGM/Stick City A.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Audio/BGM/Stick City Part A.ogg" type="AudioStream" id=6]
 [ext_resource path="res://src/SongSwitch.gd" type="Script" id=7]
 [ext_resource path="res://Stages/StickCity/Subway.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Audio/BGM/Stick City B-1.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Sprites/Stage/SCity/512x512/Cloudy Sky/Cloudy_Sky-Night_03-512x512.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Stage/SCity/BACKMAIN.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/Wave.tres" type="Material" id=12]
+[ext_resource path="res://Sprites/Textures/BACK004.png" type="Texture" id=13]
+[ext_resource path="res://Audio/SE/490253__anomaex__sci-fi_explosion.wav" type="AudioStream" id=14]
+[ext_resource path="res://src/BossTrigger.gd" type="Script" id=15]
+[ext_resource path="res://Audio/SE/Explosion+5.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sprites/Stage/SCity/jet.png" type="Texture" id=17]
+[ext_resource path="res://Sprites/Stage/SCity/Husklaser.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Stage/SCity/BGHusk.png" type="Texture" id=19]
+[ext_resource path="res://Audio/SE/Waveboost.wav" type="AudioStream" id=20]
+[ext_resource path="res://Audio/SE/HuskScream.wav" type="AudioStream" id=21]
+[ext_resource path="res://Sprites/Stage/SCity/HusklaserStart.png" type="Texture" id=22]
+[ext_resource path="res://Audio/BGM/Vessel Battle.mp3" type="AudioStream" id=23]
+[ext_resource path="res://Sprites/Stage/SCity/midmain.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Stage/SCity/FGMAIN.png" type="Texture" id=25]
+[ext_resource path="res://Stages/Stickhusk.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Stages/Chaser.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Stages/StickCity/3D Stuff.gd" type="Script" id=28]
+[ext_resource path="res://Sprites/DreamWorldTakeoverSky.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Stage/SCity/Dreamworld Buildings.png" type="Texture" id=30]
+[ext_resource path="res://Objects/STG/Bouncer.tscn" type="PackedScene" id=31]
+[ext_resource path="res://Objects/Bosses/ForeSight.tscn" type="PackedScene" id=32]
+[ext_resource path="res://Stages/StickCity/BossTrigger4.gd" type="Script" id=33]
+[ext_resource path="res://Sprites/gui/enemyhpover.png" type="Texture" id=34]
+[ext_resource path="res://Sprites/gui/GO!.png" type="Texture" id=35]
 
 [sub_resource type="RayShape2D" id=1]
 length = 597.0
 
+[sub_resource type="Shader" id=238]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=239]
+shader = SubResource( 238 )
+shader_param/speed = 1.8
+shader_param/waves = 20.0
+
+[sub_resource type="Shader" id=240]
+code = "shader_type canvas_item;
+
+uniform float speed = 3.0;
+uniform float waves = 50.0;
+
+float Remap01(float value, float from, float to) {
+	return (value - from) / (to - from);
+}
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x += Remap01(sin(uv.y * waves - (TIME * speed)), -waves, waves) - 0.53;
+
+	vec4 color = texture(TEXTURE, uv);
+
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=241]
+shader = SubResource( 240 )
+shader_param/speed = 1.0
+shader_param/waves = 90.0
+
+[sub_resource type="AtlasTexture" id=242]
+atlas = ExtResource( 24 )
+region = Rect2( 0, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=243]
+atlas = ExtResource( 24 )
+region = Rect2( 256, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=244]
+atlas = ExtResource( 24 )
+region = Rect2( 512, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=245]
+atlas = ExtResource( 24 )
+region = Rect2( 768, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=246]
+atlas = ExtResource( 24 )
+region = Rect2( 1024, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=247]
+atlas = ExtResource( 24 )
+region = Rect2( 1280, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=248]
+atlas = ExtResource( 24 )
+region = Rect2( 1536, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=249]
+atlas = ExtResource( 24 )
+region = Rect2( 1792, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=250]
+atlas = ExtResource( 24 )
+region = Rect2( 2048, 0, 256, 272 )
+
+[sub_resource type="AtlasTexture" id=251]
+atlas = ExtResource( 24 )
+region = Rect2( 2304, 0, 256, 272 )
+
+[sub_resource type="SpriteFrames" id=252]
+animations = [ {
+"frames": [ SubResource( 242 ), SubResource( 243 ), SubResource( 244 ), SubResource( 245 ), SubResource( 246 ), SubResource( 247 ), SubResource( 248 ), SubResource( 249 ), SubResource( 250 ), SubResource( 251 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[sub_resource type="Shader" id=11]
+code = "// Fire shader
+
+shader_type canvas_item;
+render_mode blend_add;
+
+uniform vec2 fireMovement = vec2(-0.01, -0.5);
+uniform vec2 distortionMovement = vec2(-0.01, -0.3);
+uniform float normalStrength = 40.0;
+uniform float distortionStrength=0.1;
+
+
+/** NOISE **/
+float rand(vec2 co) {
+  return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+vec2 hash( vec2 p ) {
+	p = vec2( dot(p,vec2(127.1,311.7)),
+			  dot(p,vec2(269.5,183.3)) );
+
+	return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+}
+
+float noise( in vec2 p ) {
+   float K1 = 0.366025404; // (sqrt(3)-1)/2;
+   float K2 = 0.211324865; // (3-sqrt(3))/6;
+
+	vec2 i = floor( p + (p.x+p.y)*K1 );
+	
+    vec2 a = p - i + (i.x+i.y)*K2;
+    vec2 o = step(a.yx,a.xy);    
+    vec2 b = a - o + K2;
+	vec2 c = a - 1.0 + 2.0*K2;
+
+    vec3 h = max( 0.5-vec3(dot(a,a), dot(b,b), dot(c,c) ), 0.0 );
+
+	vec3 n = h*h*h*h*vec3( dot(a,hash(i+0.0)), dot(b,hash(i+o)), dot(c,hash(i+1.0)));
+
+    return dot( n, vec3(70.0) );
+}
+
+float fbm ( in vec2 p ) {
+    float f = 0.0;
+    mat2 m = mat2(vec2(1.6,  1.2), vec2(-1.2,  1.6 ));
+    f  = 0.5000*noise(p); p = m*p;
+    f += 0.2500*noise(p); p = m*p;
+    f += 0.1250*noise(p); p = m*p;
+    f += 0.0625*noise(p); p = m*p;
+    f = 0.5 + 0.5 * f;
+    return f;
+}
+
+/** DISTORTION **/
+vec3 bumpMap(vec2 uv) { 
+	vec2 iResolution = vec2(1024,600);
+    vec2 s = 1. / iResolution.xy;
+    float p =  fbm(uv);
+    float h1 = fbm(uv + s * vec2(1., 0));
+    float v1 = fbm(uv + s * vec2(0, 1.));
+       
+   	vec2 xy = (p - vec2(h1, v1)) * normalStrength;
+    return vec3(xy + .5, 1.);
+}
+
+/** MAIN **/
+void fragment() {
+	float timeScale = TIME * 1.0;
+	vec2 iResolution = vec2(1024,600);
+    vec2 uv = FRAGCOORD.xy/iResolution.xy;
+
+    vec3 normal = bumpMap(uv * vec2(1.0, 0.3) + distortionMovement * timeScale);
+    
+    vec2 displacement = clamp((normal.xy - .5) * distortionStrength, -1., 1.);
+    uv += displacement; 
+    
+    vec2 uvT = (uv * vec2(1.0, 0.5)) + timeScale * fireMovement;
+    float n = pow(fbm(8.0 * uvT), 1.0);    
+    
+    float gradient = pow(1.0 - uv.y, 2.0) * 5.;
+    float finalNoise = n * gradient;
+    
+    vec3 color = finalNoise * vec3(2.*n, 2.*n*n*n, n*n*n*n);
+    COLOR = vec4(color, 1.);
+}"
+
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
+shader_param/fireMovement = Vector2( 0.038, -0.448 )
+shader_param/distortionMovement = Vector2( -0.283, -0.56 )
+shader_param/normalStrength = 9.359
+shader_param/distortionStrength = 0.001
+
+[sub_resource type="CapsuleMesh" id=237]
+
+[sub_resource type="RayShape2D" id=13]
+length = 1631.0
+
+[sub_resource type="Animation" id=14]
+resource_name = "BossIntro"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("Cutscene/Position2D") ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "movrightoff"
+}, {
+"args": [  ],
+"method": "dash"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exterior:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rian:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9576, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_right")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9962 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:limit_left")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9477 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ), ExtResource( 16 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=15]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Cutscene/Position2D") ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exterior:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rian:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 730 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:limit_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20733 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/Sounds:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "BossIntro"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("Cutscene/Position2D") ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "movrightoff"
+}, {
+"args": [  ],
+"method": "dash"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exterior:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rian:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9576, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_right")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9962 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:limit_left")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9477 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ), ExtResource( 16 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "Jets"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ), Vector2( -100, 194 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ), Vector2( -49.9999, 98 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.25, 1.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ), Vector2( -41, 168 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Cutscene/Position2D") ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exterior:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rian:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 730 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:limit_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20733 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/Sounds:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "BossIntro"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("Cutscene/Position2D") ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "movrightoff"
+}, {
+"args": [  ],
+"method": "dash"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exterior:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rian:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9576, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_right")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9962 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:limit_left")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9477 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ), ExtResource( 16 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "Husks"
+length = 8.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 7.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 7.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55, 7.6, 7.65, 7.7, 7.75, 7.8, 7.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 6, 5, 4, 3, 3, 2, 1, 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/Husklaser:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 4, 7.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55, 7.6, 7.65, 7.7, 7.75, 7.8, 7.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 6, 5, 4, 3, 3, 2, 1, 0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 4, 7.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 4, 3, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 3.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.35 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/HuskAttack:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 4.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 5.35, 5.65, 5.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("CanvasLayer/ParallaxBackground/ParallaxLayer4:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 5.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "Jets"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ), Vector2( -100, 194 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ), Vector2( -49.9999, 98 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.25, 1.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ), Vector2( -41, 168 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Cutscene/Position2D") ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exterior:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rian:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 730 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:limit_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20733 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/Sounds:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:frame")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/Husklaser:frame")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6 ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:frame")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:frame")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6 ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:visible")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:frame")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("Cutscene/HuskAttack:playing")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/27/type = "value"
+tracks/27/path = NodePath("CanvasLayer/ParallaxBackground/ParallaxLayer4:visible")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="RectangleShape2D" id=253]
+extents = Vector2( 110, 238 )
+
+[sub_resource type="Animation" id=254]
+resource_name = "BossIntro"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("Cutscene/Position2D") ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "movrightoff"
+}, {
+"args": [  ],
+"method": "dash"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exterior:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rian:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9576, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_right")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9962 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:limit_left")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9477 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ), ExtResource( 16 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=255]
+resource_name = "Husks"
+length = 8.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 7.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 7.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55, 7.6, 7.65, 7.7, 7.75, 7.8, 7.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 6, 5, 4, 3, 3, 2, 1, 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/Husklaser:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 4, 7.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55, 7.6, 7.65, 7.7, 7.75, 7.8, 7.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 6, 5, 4, 3, 3, 2, 1, 0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 4, 7.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 4, 3, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 3.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.35 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/HuskAttack:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 4.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 5.35, 5.65, 5.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("CanvasLayer/ParallaxBackground/ParallaxLayer4:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 5.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=256]
+resource_name = "Jets"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ), Vector2( -100, 194 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ), Vector2( -49.9999, 98 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.25, 1.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ), Vector2( -41, 168 ) ]
+}
+
+[sub_resource type="Animation" id=257]
+resource_name = "Motiveboss beat"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:limit_right")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9962, 20666 ]
+}
+
+[sub_resource type="Animation" id=258]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Cutscene/Position2D") ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exterior:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rian:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 730 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:limit_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20733 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/Sounds:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:frame")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/Husklaser:frame")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6 ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:frame")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:frame")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6 ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:visible")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:frame")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("Cutscene/HuskAttack:playing")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/27/type = "value"
+tracks/27/path = NodePath("CanvasLayer/ParallaxBackground/ParallaxLayer4:visible")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="AtlasTexture" id=259]
+atlas = ExtResource( 35 )
+region = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=260]
+atlas = ExtResource( 34 )
+region = Rect2( 16, 18, 16, 6 )
+
+[sub_resource type="SpriteFrames" id=261]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "no",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 259 ), SubResource( 260 ) ],
+"loop": true,
+"name": "yes",
+"speed": 5.0
+} ]
+
+[sub_resource type="GDScript" id=262]
+script/source = "extends AnimatedSprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Switches.foresightdefeated == 1:
+		visible = true
+	else:
+		visible = false
+#	pass
+"
+
+[sub_resource type="Environment" id=263]
+background_mode = 4
+background_canvas_max_layer = 200
+adjustment_enabled = true
+adjustment_brightness = 1.31
+adjustment_saturation = 1.64
+
 [node name="MAIN STAGE" type="Node2D"]
 script = ExtResource( 5 )
 musplay = ExtResource( 6 )
+initialTime = 24
+vidmode = 1
 reset_location = "res://Stages/StickCity/SC COMPILED.tscn"
 
 [node name="Exterior" parent="." instance=ExtResource( 2 )]
@@ -24,10 +2516,11 @@ reset_location = "res://Stages/StickCity/SC COMPILED.tscn"
 position = Vector2( 10192, -576 )
 
 [node name="Subway" parent="." instance=ExtResource( 8 )]
+visible = false
 position = Vector2( 20736, -17 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
-position = Vector2( -6, 727 )
+position = Vector2( -34, 730 )
 limit_top = -858
 limit_right = 20733
 limit_bottom = 1209
@@ -44,4 +2537,457 @@ shape = SubResource( 1 )
 [node name="Rian" parent="." instance=ExtResource( 4 )]
 position = Vector2( 123, 844 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -4
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+motion_scale = Vector2( 0.02, 0.2 )
+motion_mirroring = Vector2( 1024, 512 )
+
+[node name="CloudySky-Night03-512X512" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+modulate = Color( 0.733333, 0, 1, 1 )
+position = Vector2( 170, 259 )
+texture = ExtResource( 10 )
+
+[node name="CloudySky-Night03-512X513" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer"]
+modulate = Color( 0.733333, 0, 1, 1 )
+position = Vector2( 682, 259 )
+texture = ExtResource( 10 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2( 87, 2 )
+motion_scale = Vector2( 0.2, 0.2 )
+motion_mirroring = Vector2( 640, 0 )
+
+[node name="Architecture-18686671280" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( -59, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671281" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( -3, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671282" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 53, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671283" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 109, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671284" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 165, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671285" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 221, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671286" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 277, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671287" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 333, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671288" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 389, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671289" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 445, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671290" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 501, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="Architecture-18686671291" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 557, 346 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 11 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+visible = false
+position = Vector2( 1063, 2078 )
+motion_scale = Vector2( 0, 0 )
+
+[node name="DreamWorldTakeoverSky" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer4"]
+material = SubResource( 239 )
+position = Vector2( -831.188, -1973 )
+scale = Vector2( 1.07871, 0.844792 )
+z_index = -12
+texture = ExtResource( 29 )
+
+[node name="DreamworldBuildings" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer4"]
+material = SubResource( 241 )
+position = Vector2( -835, -1869 )
+scale = Vector2( 0.814865, 0.458784 )
+texture = ExtResource( 30 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2( 87, 2 )
+motion_scale = Vector2( 0.3, 0.3 )
+motion_mirroring = Vector2( 640, 0 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 44, 415 )
+frames = SubResource( 252 )
+frame = 6
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 300, 415 )
+frames = SubResource( 252 )
+frame = 5
+playing = true
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 556, 415 )
+frames = SubResource( 252 )
+frame = 4
+playing = true
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2( 87, 2 )
+motion_scale = Vector2( 0.4, 0.4 )
+motion_mirroring = Vector2( 688, 0 )
+
+[node name="Fgmain" type="Sprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer5"]
+position = Vector2( 256, 458 )
+texture = ExtResource( 25 )
+
+[node name="EXPLOSION1" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+visible = false
+position = Vector2( 87, 2 )
+z_index = 200
+motion_scale = Vector2( 0, 0 )
+
+[node name="CloudySky-Night03-512X512" type="Sprite" parent="CanvasLayer/ParallaxBackground/EXPLOSION1"]
+modulate = Color( 1, 1, 1, 0.498039 )
+material = ExtResource( 12 )
+position = Vector2( 129, 179 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 13 )
+
+[node name="EXPLOSION2" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
+visible = false
+position = Vector2( 87, 2 )
+z_index = 200
+motion_scale = Vector2( 0, 0 )
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ParallaxBackground/EXPLOSION2"]
+material = SubResource( 12 )
+margin_left = -1047.0
+margin_top = -1178.0
+margin_right = 12936.0
+margin_bottom = 743.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 30.0
+margin_bottom = 30.0
+rect_scale = Vector2( 10.2338, 6.08112 )
+
+[node name="3D Stuff" type="Sprite" parent="CanvasLayer"]
+visible = false
+centered = false
+script = ExtResource( 28 )
+camdist = 40
+zoomoffset = 5
+
+[node name="Viewport" type="Viewport" parent="CanvasLayer/3D Stuff"]
+size = Vector2( 384, 224 )
+transparent_bg = true
+
+[node name="Spatial" type="Spatial" parent="CanvasLayer/3D Stuff/Viewport"]
+
+[node name="Camera" type="Camera" parent="CanvasLayer/3D Stuff/Viewport/Spatial"]
+
+[node name="CSGMesh" type="CSGMesh" parent="CanvasLayer/3D Stuff/Viewport/Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.32288, 0, -5.04297 )
+mesh = SubResource( 237 )
+
+[node name="Cutscene" type="Node2D" parent="."]
+position = Vector2( -960, -1176 )
+
+[node name="Sounds" type="AudioStreamPlayer" parent="Cutscene"]
+stream = ExtResource( 14 )
+volume_db = 7.429
+
+[node name="Position2D" type="Position2D" parent="Cutscene"]
+position = Vector2( 10732, 1437 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Cutscene"]
+layer = -1
+
+[node name="Jet" type="Sprite" parent="Cutscene/CanvasLayer2"]
+position = Vector2( 516, 54.5 )
+texture = ExtResource( 17 )
+
+[node name="Jet2" type="Sprite" parent="Cutscene/CanvasLayer2"]
+modulate = Color( 0.537255, 0.537255, 0.537255, 1 )
+position = Vector2( 600, 117.5 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 17 )
+
+[node name="Jet4" type="Sprite" parent="Cutscene/CanvasLayer2/Jet2"]
+modulate = Color( 0.537255, 0.537255, 0.537255, 1 )
+position = Vector2( 12.9166, -42.8125 )
+texture = ExtResource( 17 )
+
+[node name="Jet5" type="Sprite" parent="Cutscene/CanvasLayer2/Jet2"]
+modulate = Color( 0.537255, 0.537255, 0.537255, 1 )
+position = Vector2( 12.9166, -42.8125 )
+texture = ExtResource( 17 )
+
+[node name="Jet3" type="Sprite" parent="Cutscene/CanvasLayer2"]
+modulate = Color( 0.2, 0.2, 0.2, 1 )
+position = Vector2( 459, 99.5 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 17 )
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="Cutscene"]
+layer = -1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Cutscene/CanvasLayer3"]
+layer = -86
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Cutscene/CanvasLayer3/ParallaxBackground"]
+motion_scale = Vector2( 0, 0.2 )
+motion_mirroring = Vector2( 0, 512 )
+
+[node name="Huskback" type="Sprite" parent="Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 307, 174 )
+texture = ExtResource( 19 )
+hframes = 19
+
+[node name="Husklaser" type="Sprite" parent="Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback"]
+position = Vector2( -203, 155 )
+rotation = 0.918353
+texture = ExtResource( 18 )
+flip_v = true
+hframes = 7
+frame = 6
+region_enabled = true
+region_rect = Rect2( 0.00801086, 0, 111.992, 496 )
+region_filter_clip = true
+
+[node name="HusklaserStart" type="Sprite" parent="Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback"]
+visible = false
+position = Vector2( -10, 8 )
+rotation = 4.0592
+texture = ExtResource( 22 )
+hframes = 2
+
+[node name="HuskFront" type="Sprite" parent="Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer"]
+visible = false
+position = Vector2( 65, 182 )
+rotation = 3.14159
+scale = Vector2( 2, -2 )
+texture = ExtResource( 19 )
+hframes = 19
+
+[node name="Husklaser" type="Sprite" parent="Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront"]
+visible = false
+position = Vector2( -203, 155 )
+rotation = 0.918353
+texture = ExtResource( 18 )
+flip_v = true
+hframes = 7
+frame = 6
+region_enabled = true
+region_rect = Rect2( 0.00801086, 0, 111.992, 496 )
+region_filter_clip = true
+
+[node name="HusklaserStart" type="Sprite" parent="Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront"]
+visible = false
+position = Vector2( -10, 8.00002 )
+rotation = -2.22398
+texture = ExtResource( 22 )
+hframes = 2
+
+[node name="HuskAttack" type="AudioStreamPlayer" parent="Cutscene"]
+stream = ExtResource( 20 )
+volume_db = 3.059
+pitch_scale = 0.24
+
+[node name="BossTrigger" type="Area2D" parent="."]
+script = ExtResource( 15 )
+Anim = "BossIntro"
+musplay = ExtResource( 23 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger"]
+position = Vector2( 9405, -496 )
+shape = SubResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger"]
+root_node = NodePath("../..")
+anims/BossIntro = SubResource( 14 )
+anims/RESET = SubResource( 15 )
+
+[node name="BossTrigger2" type="Area2D" parent="."]
+position = Vector2( -8415, 365 )
+script = ExtResource( 15 )
+Anim = "Jets"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger2"]
+position = Vector2( 9380, -185 )
+shape = SubResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger2"]
+root_node = NodePath("../..")
+anims/BossIntro = SubResource( 16 )
+anims/Jets = SubResource( 17 )
+anims/RESET = SubResource( 18 )
+
+[node name="BossTrigger3" type="Area2D" parent="."]
+position = Vector2( -3599, -7 )
+script = ExtResource( 15 )
+Anim = "Husks"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger3"]
+position = Vector2( 9389, -678 )
+shape = SubResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger3"]
+root_node = NodePath("../..")
+anims/BossIntro = SubResource( 19 )
+anims/Husks = SubResource( 22 )
+anims/Jets = SubResource( 20 )
+anims/RESET = SubResource( 21 )
+
+[node name="BossTrigger4" type="Area2D" parent="."]
+position = Vector2( -2420, -982 )
+script = ExtResource( 33 )
+Anim = "Motiveboss beat"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger4"]
+position = Vector2( 12408, 1180 )
+shape = SubResource( 253 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger4"]
+root_node = NodePath("../..")
+anims/BossIntro = SubResource( 254 )
+anims/Husks = SubResource( 255 )
+anims/Jets = SubResource( 256 )
+"anims/Motiveboss beat" = SubResource( 257 )
+anims/RESET = SubResource( 258 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Cenem" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 944, 676 )
+
+[node name="Cenem2" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 2660, 587 )
+
+[node name="Cenem3" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 2863, 517 )
+
+[node name="Cenem4" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 3764, 445 )
+
+[node name="Cenem5" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 4334, 202 )
+
+[node name="Cenem6" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 4797, 755 )
+
+[node name="Cenem7" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 5611, 831 )
+
+[node name="Cenem8" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 6344, 168 )
+
+[node name="Cenem9" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 8084, 358 )
+
+[node name="Cenem10" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 8588, 414 )
+
+[node name="Shusk" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 2698, 926 )
+
+[node name="Shusk2" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 3304, 849 )
+
+[node name="Shusk3" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 4088, 859 )
+
+[node name="Shusk4" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 5000, 207 )
+
+[node name="Shusk5" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 7068, 700 )
+
+[node name="Shusk6" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 7768, 479 )
+
+[node name="Shusk7" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 8942, 432 )
+
+[node name="ForeSight" parent="Enemies" instance=ExtResource( 32 )]
+position = Vector2( 9855, 321 )
+
+[node name="Objects" type="Node2D" parent="."]
+position = Vector2( 15, -1 )
+
+[node name="Bouncer" parent="Objects" instance=ExtResource( 31 )]
+position = Vector2( 810, 877 )
+speed = 650
+
+[node name="Bouncer6" parent="Objects" instance=ExtResource( 31 )]
+position = Vector2( 3187, 589 )
+rotation = 7.30962
+dir = 1
+speed = 500
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Objects"]
+position = Vector2( 9798, 293 )
+frames = SubResource( 261 )
+animation = "yes"
+frame = 1
+playing = true
+script = SubResource( 262 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 263 )
+
 [connection signal="area_entered" from="SongSwitch" to="SongSwitch" method="_on_SongSwitch_area_entered"]
+[connection signal="area_entered" from="BossTrigger" to="BossTrigger" method="_on_BossTrigger_area_entered"]
+[connection signal="area_entered" from="BossTrigger2" to="BossTrigger2" method="_on_BossTrigger_area_entered"]
+[connection signal="area_entered" from="BossTrigger3" to="BossTrigger3" method="_on_BossTrigger_area_entered"]
+[connection signal="animation_finished" from="BossTrigger3/AnimationPlayer" to="BossTrigger3" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="BossTrigger4" to="BossTrigger4" method="_on_BossTrigger_area_entered"]
+[connection signal="animation_finished" from="BossTrigger4/AnimationPlayer" to="BossTrigger4" method="_on_AnimationPlayer_animation_finished"]

@@ -8,6 +8,7 @@ export var next = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
 	$AnimationPlayer.play("Main")
 	pass # Replace with function body.
 

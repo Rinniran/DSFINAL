@@ -60,6 +60,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="Node2D" type="Node2D"]
+scale = Vector2( 0.5, 0.5 )
 script = SubResource( 3 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
