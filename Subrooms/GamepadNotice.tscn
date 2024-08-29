@@ -52,6 +52,7 @@ anims/Main = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 material = ExtResource( 3 )
 margin_right = 384.0
 margin_bottom = 225.0

@@ -17,6 +17,7 @@ func _ready():
 
 
 func _on_SongSwitch_area_entered(area):
-	if Globals.music.stream != musplay:
-		Globals.music.set_stream(musplay)
-		Globals.music.play()
+	if area.is_in_group("hurtbox"):
+		if Globals.music.stream != musplay:
+			Globals.music.set_stream(musplay)
+			Globals.music.play()

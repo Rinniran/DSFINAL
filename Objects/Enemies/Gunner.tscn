@@ -746,6 +746,11 @@ one_shot = true
 [node name="multihurtrepeat" type="Timer" parent="."]
 wait_time = 0.133
 
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = 4.0
+bus = "SFX"
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="Sight" to="." method="_on_Sight_area_entered"]
 [connection signal="area_entered" from="Hurt" to="." method="_on_Hurt_area_entered"]

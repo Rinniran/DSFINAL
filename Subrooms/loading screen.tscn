@@ -88,10 +88,11 @@ layer = 11
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource( 2 )
-margin_right = 767.0
-margin_bottom = 437.0
+margin_right = 384.0
+margin_bottom = 224.0
 
 [node name="Sprite" type="Sprite" parent="ColorRect"]
+scale = Vector2( 0.5, 0.518519 )
 z_index = 1
 texture = ExtResource( 1 )
 centered = false
@@ -102,10 +103,11 @@ script = SubResource( 5 )
 
 [node name="Label" type="Label" parent="ColorRect/CanvasLayer"]
 modulate = Color( 0.545098, 0.647059, 1, 1 )
-margin_left = 475.0
-margin_top = 332.0
-margin_right = 766.0
-margin_bottom = 431.0
+margin_left = 230.0
+margin_top = 170.0
+margin_right = 471.0
+margin_bottom = 256.0
+rect_scale = Vector2( 0.6, 0.6 )
 theme = ExtResource( 2 )
 text = "Hinty hint!!!! you can win the game by
 JUST FUCKING WINNING IT! YOU CAN DO IT!

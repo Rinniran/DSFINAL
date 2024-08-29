@@ -8,6 +8,7 @@ onready var loading_scene = preload("res://Subrooms/loading screen.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func load_scene(current_scene, next_scene):
+	current_scene.queue_free()
 	var loading_scene_instance = loading_scene.instance()
 	get_tree().get_root().call_deferred("add_child",loading_scene_instance)
 	
@@ -18,7 +19,8 @@ func load_scene(current_scene, next_scene):
 		print("An error occured!\nScene Missing")
 		return
 	
-	current_scene.queue_free()
+	
+	
 	
 	yield(get_tree().create_timer(0.5),"timeout")
 	

@@ -5,6 +5,7 @@ extends Area2D
 # var a = 2
 # var b = "text"
 var activated = 0
+export var timeincrease = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,7 +31,9 @@ func _process(delta):
 
 
 func _on_Area2D_area_entered(area):
-	if area.is_in_group("hurtbox"):
+	if area.is_in_group("hurtbox") && activated == 0:
+		if !Globals.failedrank:
+			Globals.sec += timeincrease
 		Globals.checkpX = position.x 
 		Globals.checkpY = position.y
 	pass # Replace with function body.

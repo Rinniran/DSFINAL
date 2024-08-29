@@ -222,16 +222,17 @@ position = Vector2( 20, 584 )
 
 [node name="Rspr" parent="Rian" index="0"]
 animation = "idle"
+frame = 1
 
 [node name="Shaders" parent="Rian/Rspr" index="1"]
 "anims/Parry flash" = SubResource( 1 )
 anims/RESET = SubResource( 2 )
 
 [node name="FULLREADY" parent="Rian/Meter" index="0"]
-frame = 1
-
-[node name="SPARKS" parent="Rian" index="30"]
 frame = 0
+
+[node name="SPARKS" parent="Rian" index="31"]
+frame = 2
 
 [node name="Camera2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( -167, 454 )

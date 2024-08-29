@@ -120,7 +120,7 @@ script = ExtResource( 1 )
 position = Vector2( -2.97301, -4.43238 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Sounds" type="AudioStreamPlayer2D" parent="Stickhusk"]
@@ -133,7 +133,7 @@ shape = SubResource( 2 )
 
 [node name="hurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-volume_db = -5.746
+volume_db = 4.0
 bus = "SFX"
 
 [node name="multihurt" type="Timer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=101 format=2]
 
 [ext_resource path="res://Stages/StickCity/Convention.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stages/StickCity/Exterior.tscn" type="PackedScene" id=2]
@@ -7,12 +7,12 @@
 [ext_resource path="res://src/Scene.gd" type="Script" id=5]
 [ext_resource path="res://Audio/BGM/Stick City Part A.ogg" type="AudioStream" id=6]
 [ext_resource path="res://src/SongSwitch.gd" type="Script" id=7]
-[ext_resource path="res://Stages/StickCity/Subway.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Objects/Hazards/Lightning.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Audio/BGM/Stick City B-1.ogg" type="AudioStream" id=9]
 [ext_resource path="res://Sprites/Stage/SCity/512x512/Cloudy Sky/Cloudy_Sky-Night_03-512x512.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/Stage/SCity/BACKMAIN.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/Wave.tres" type="Material" id=12]
-[ext_resource path="res://Sprites/Textures/BACK004.png" type="Texture" id=13]
+[ext_resource path="res://meshes/STAGE/CS/Textures/BACK004.png" type="Texture" id=13]
 [ext_resource path="res://Audio/SE/490253__anomaex__sci-fi_explosion.wav" type="AudioStream" id=14]
 [ext_resource path="res://src/BossTrigger.gd" type="Script" id=15]
 [ext_resource path="res://Audio/SE/Explosion+5.wav" type="AudioStream" id=16]
@@ -35,9 +35,21 @@
 [ext_resource path="res://Stages/StickCity/BossTrigger4.gd" type="Script" id=33]
 [ext_resource path="res://Sprites/gui/enemyhpover.png" type="Texture" id=34]
 [ext_resource path="res://Sprites/gui/GO!.png" type="Texture" id=35]
+[ext_resource path="res://Objects/Enemies/Gunner.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Subrooms/Burstloop.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Subrooms/Piece.tscn" type="PackedScene" id=38]
+[ext_resource path="res://Subrooms/Deathball.tscn" type="PackedScene" id=39]
+[ext_resource path="res://Subrooms/CheckpObj.tscn" type="PackedScene" id=40]
+[ext_resource path="res://Objects/Launcher.tscn" type="PackedScene" id=41]
+[ext_resource path="res://Subrooms/Driver3.tscn" type="PackedScene" id=42]
+[ext_resource path="res://Subrooms/1up.tscn" type="PackedScene" id=43]
+[ext_resource path="res://Subrooms/Driver2.tscn" type="PackedScene" id=44]
+[ext_resource path="res://Subrooms/secretfound.tscn" type="PackedScene" id=45]
+[ext_resource path="res://Fonts/jackeyfont.ttf" type="DynamicFontData" id=46]
+[ext_resource path="res://Audio/Voices/Dialogue/Stick City/1.wav" type="AudioStream" id=47]
 
-[sub_resource type="RayShape2D" id=1]
-length = 597.0
+[sub_resource type="RectangleShape2D" id=271]
+extents = Vector2( 12, 302 )
 
 [sub_resource type="Shader" id=238]
 code = "shader_type canvas_item;
@@ -230,8 +242,8 @@ shader_param/distortionStrength = 0.001
 
 [sub_resource type="CapsuleMesh" id=237]
 
-[sub_resource type="RayShape2D" id=13]
-length = 1631.0
+[sub_resource type="RectangleShape2D" id=270]
+extents = Vector2( 29.5, 498.5 )
 
 [sub_resource type="Animation" id=14]
 resource_name = "BossIntro"
@@ -401,6 +413,18 @@ tracks/12/keys = {
 "update": 1,
 "values": [ true, true ]
 }
+tracks/13/type = "value"
+tracks/13/path = NodePath("Enemies/ForeSight:detected")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=15]
 length = 0.001
@@ -548,6 +572,21 @@ tracks/11/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Enemies/ForeSight:detected")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="RayShape2D" id=13]
+length = 1631.0
 
 [sub_resource type="Animation" id=16]
 resource_name = "BossIntro"
@@ -941,6 +980,485 @@ tracks/14/keys = {
 "update": 0,
 "values": [ Vector2( 459, 99.5 ) ]
 }
+
+[sub_resource type="Animation" id=272]
+resource_name = "BossIntro"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("Cutscene/Position2D") ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "movrightoff"
+}, {
+"args": [  ],
+"method": "dash"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exterior:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rian:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9576, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_right")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9962 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:limit_left")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9477 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ), ExtResource( 16 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=273]
+resource_name = "Dialogue 1"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BossTrigger6/AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BossTrigger6/CanvasLayer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BossTrigger6/CanvasLayer/Label:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.2, 6.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ "Okay, What's this all about?!", "First this weird clone shows up, 
+and suddenly I'M the bad guy!", "I gotta figure out what's going on here..." ]
+}
+
+[sub_resource type="Animation" id=274]
+resource_name = "Jets"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ), Vector2( -100, 194 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ), Vector2( -49.9999, 98 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.25, 1.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ), Vector2( -41, 168 ) ]
+}
+
+[sub_resource type="Animation" id=275]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Cutscene/Position2D") ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exterior:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rian:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 730 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:limit_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20733 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/Sounds:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("BossTrigger6/AudioStreamPlayer:playing")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("BossTrigger6/CanvasLayer:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("BossTrigger6/CanvasLayer/Label:text")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "Alright, What's this all about?!" ]
+}
+
+[sub_resource type="DynamicFont" id=276]
+size = 11
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 46 )
+
+[sub_resource type="Theme" id=277]
+default_font = SubResource( 276 )
 
 [sub_resource type="Animation" id=19]
 resource_name = "BossIntro"
@@ -1689,7 +2207,7 @@ tracks/27/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=253]
-extents = Vector2( 110, 238 )
+extents = Vector2( 92.5, 256.5 )
 
 [sub_resource type="Animation" id=254]
 resource_name = "BossIntro"
@@ -2452,6 +2970,784 @@ tracks/27/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=264]
+resource_name = "BossIntro"
+length = 5.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ NodePath("Cutscene/Position2D") ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Rian")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "movright"
+}, {
+"args": [  ],
+"method": "movrightoff"
+}, {
+"args": [  ],
+"method": "dash"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Exterior:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rian:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.6, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 1.2, 1.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = false
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 9576, 156 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_right")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9962 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Camera2D:limit_left")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 9477 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ), ExtResource( 16 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
+
+[sub_resource type="Animation" id=265]
+resource_name = "GotoSubway"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "loadnext"
+} ]
+}
+
+[sub_resource type="Animation" id=266]
+resource_name = "Husks"
+length = 8.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 7.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 7.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55, 7.6, 7.65, 7.7, 7.75, 7.8, 7.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 6, 5, 4, 3, 3, 2, 1, 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/Husklaser:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 4, 7.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55, 7.6, 7.65, 7.7, 7.75, 7.8, 7.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 4, 5, 6, 7, 8, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 13, 14, 15, 16, 17, 18, 6, 5, 4, 3, 3, 2, 1, 0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 4, 7.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 3.8, 3.85, 3.9, 3.95, 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25, 7.3, 7.35, 7.4, 7.45, 7.5, 7.55 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 4, 3, 2, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 6 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 3.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 4, 4.05, 4.1, 4.15, 4.2, 4.25, 4.3, 4.35, 4.4, 4.45, 4.5, 4.55, 4.6, 4.65, 4.7, 4.75, 4.8, 4.85, 4.9, 4.95, 5, 5.05, 5.1, 5.15, 5.2, 5.25, 5.3, 5.35, 5.4, 5.45, 5.5, 5.55, 5.6, 5.65, 5.7, 5.75, 5.8, 5.85, 5.9, 5.95, 6, 6.05, 6.1, 6.15, 6.2, 6.25, 6.3, 6.35, 6.4, 6.45, 6.5, 6.55, 6.6, 6.65, 6.7, 6.75, 6.8, 6.85, 6.9, 6.95, 7, 7.05, 7.1, 7.15, 7.2, 7.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:stream")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 21 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/Sounds:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.35 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/HuskAttack:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 4.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 5.35, 5.65, 5.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("CanvasLayer/ParallaxBackground/ParallaxLayer4:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 5.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=267]
+resource_name = "Jets"
+length = 3.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ), Vector2( -100, 194 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.6, 1.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ), Vector2( -49.9999, 98 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.25, 1.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ), Vector2( -41, 168 ) ]
+}
+
+[sub_resource type="Animation" id=268]
+resource_name = "Motiveboss beat"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:limit_right")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 9962, 20666 ]
+}
+
+[sub_resource type="Animation" id=269]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:target")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Cutscene/Position2D") ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Exterior:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rian:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = false
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/ParallaxBackground/EXPLOSION2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 730 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:limit_right")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20733 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Camera2D:limit_left")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Cutscene/Sounds:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Cutscene/Sounds:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Cutscene/CanvasLayer2/Jet:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 516, 54.5 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Cutscene/CanvasLayer2/Jet2:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 600, 117.5 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Cutscene/CanvasLayer2/Jet3:position")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 459, 99.5 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback:frame")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/Husklaser:frame")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6 ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/Huskback/HusklaserStart:frame")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront:frame")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:visible")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:frame")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6 ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/Husklaser:visible")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("Cutscene/CanvasLayer3/ParallaxBackground/ParallaxLayer/HuskFront/HusklaserStart:frame")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("Cutscene/HuskAttack:playing")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/27/type = "value"
+tracks/27/path = NodePath("CanvasLayer/ParallaxBackground/ParallaxLayer4:visible")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
 [sub_resource type="AtlasTexture" id=259]
 atlas = ExtResource( 35 )
 region = Rect2( 0, 0, 100, 100 )
@@ -2499,14 +3795,14 @@ func _process(delta):
 [sub_resource type="Environment" id=263]
 background_mode = 4
 background_canvas_max_layer = 200
-adjustment_enabled = true
 adjustment_brightness = 1.31
 adjustment_saturation = 1.64
 
 [node name="MAIN STAGE" type="Node2D"]
 script = ExtResource( 5 )
+next = "res://Stages/StickCity/SubwayIntro.tscn"
 musplay = ExtResource( 6 )
-initialTime = 24
+initialTime = 99
 vidmode = 1
 reset_location = "res://Stages/StickCity/SC COMPILED.tscn"
 
@@ -2514,10 +3810,6 @@ reset_location = "res://Stages/StickCity/SC COMPILED.tscn"
 
 [node name="Convention" parent="." instance=ExtResource( 1 )]
 position = Vector2( 10192, -576 )
-
-[node name="Subway" parent="." instance=ExtResource( 8 )]
-visible = false
-position = Vector2( 20736, -17 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
 position = Vector2( -34, 730 )
@@ -2531,8 +3823,8 @@ script = ExtResource( 7 )
 musplay = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SongSwitch"]
-position = Vector2( 10198, -69 )
-shape = SubResource( 1 )
+position = Vector2( 10258, 205 )
+shape = SubResource( 271 )
 
 [node name="Rian" parent="." instance=ExtResource( 4 )]
 position = Vector2( 123, 844 )
@@ -2659,19 +3951,19 @@ motion_mirroring = Vector2( 640, 0 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 44, 415 )
 frames = SubResource( 252 )
-frame = 6
+frame = 7
 playing = true
 
 [node name="AnimatedSprite2" type="AnimatedSprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 300, 415 )
 frames = SubResource( 252 )
-frame = 5
+frame = 6
 playing = true
 
 [node name="AnimatedSprite3" type="AnimatedSprite" parent="CanvasLayer/ParallaxBackground/ParallaxLayer3"]
 position = Vector2( 556, 415 )
 frames = SubResource( 252 )
-frame = 4
+frame = 5
 playing = true
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
@@ -2711,10 +4003,10 @@ margin_bottom = 743.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 30.0
-margin_bottom = 30.0
+margin_left = -20.0
+margin_top = -18.0
+margin_right = 20.0
+margin_bottom = 22.0
 rect_scale = Vector2( 10.2338, 6.08112 )
 
 [node name="3D Stuff" type="Sprite" parent="CanvasLayer"]
@@ -2848,8 +4140,8 @@ Anim = "BossIntro"
 musplay = ExtResource( 23 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger"]
-position = Vector2( 9405, -496 )
-shape = SubResource( 13 )
+position = Vector2( 9417.5, -7.5 )
+shape = SubResource( 270 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger"]
 root_node = NodePath("../..")
@@ -2870,6 +4162,41 @@ root_node = NodePath("../..")
 anims/BossIntro = SubResource( 16 )
 anims/Jets = SubResource( 17 )
 anims/RESET = SubResource( 18 )
+
+[node name="BossTrigger6" type="Area2D" parent="."]
+position = Vector2( -9056, 37 )
+script = ExtResource( 15 )
+Anim = "Dialogue 1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger6"]
+position = Vector2( 9380, -185 )
+shape = SubResource( 13 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger6"]
+root_node = NodePath("../..")
+anims/BossIntro = SubResource( 272 )
+"anims/Dialogue 1" = SubResource( 273 )
+anims/Jets = SubResource( 274 )
+anims/RESET = SubResource( 275 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BossTrigger6"]
+stream = ExtResource( 47 )
+volume_db = 24.0
+bus = "Voices"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="BossTrigger6"]
+layer = 128
+visible = false
+
+[node name="Label" type="Label" parent="BossTrigger6/CanvasLayer"]
+margin_left = 1.0
+margin_top = 175.0
+margin_right = 383.0
+margin_bottom = 191.0
+theme = SubResource( 277 )
+text = "Alright, What's this all about?!"
+align = 1
+valign = 1
 
 [node name="BossTrigger3" type="Area2D" parent="."]
 position = Vector2( -3599, -7 )
@@ -2893,7 +4220,7 @@ script = ExtResource( 33 )
 Anim = "Motiveboss beat"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger4"]
-position = Vector2( 12408, 1180 )
+position = Vector2( 12479.5, 1151.5 )
 shape = SubResource( 253 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger4"]
@@ -2903,6 +4230,24 @@ anims/Husks = SubResource( 255 )
 anims/Jets = SubResource( 256 )
 "anims/Motiveboss beat" = SubResource( 257 )
 anims/RESET = SubResource( 258 )
+
+[node name="BossTrigger5" type="Area2D" parent="."]
+position = Vector2( 8216, -1184 )
+script = ExtResource( 33 )
+Anim = "GotoSubway"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BossTrigger5"]
+position = Vector2( 12408, 1180 )
+shape = SubResource( 253 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossTrigger5"]
+root_node = NodePath("../..")
+anims/BossIntro = SubResource( 264 )
+anims/GotoSubway = SubResource( 265 )
+anims/Husks = SubResource( 266 )
+anims/Jets = SubResource( 267 )
+"anims/Motiveboss beat" = SubResource( 268 )
+anims/RESET = SubResource( 269 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
@@ -2936,6 +4281,39 @@ position = Vector2( 8084, 358 )
 [node name="Cenem10" parent="Enemies" instance=ExtResource( 27 )]
 position = Vector2( 8588, 414 )
 
+[node name="Cenem11" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 11444, -74 )
+
+[node name="Cenem12" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 12412, -443 )
+
+[node name="Cenem13" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 13556, 128 )
+
+[node name="Cenem14" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 14467, -5 )
+
+[node name="Cenem15" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 14848, 52 )
+
+[node name="Cenem16" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 15269, -29 )
+
+[node name="Cenem17" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 16566, -279 )
+
+[node name="Cenem18" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 18320, -551 )
+
+[node name="Cenem19" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 18365, 100 )
+
+[node name="Cenem20" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 19716, -373 )
+
+[node name="Cenem21" parent="Enemies" instance=ExtResource( 27 )]
+position = Vector2( 20218, -191 )
+
 [node name="Shusk" parent="Enemies" instance=ExtResource( 26 )]
 position = Vector2( 2698, 926 )
 
@@ -2956,6 +4334,24 @@ position = Vector2( 7768, 479 )
 
 [node name="Shusk7" parent="Enemies" instance=ExtResource( 26 )]
 position = Vector2( 8942, 432 )
+
+[node name="Shusk8" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 8942, 432 )
+
+[node name="Shusk9" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 10871, 315 )
+
+[node name="Shusk10" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 10591, -103 )
+
+[node name="Shusk11" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 13205, -86 )
+
+[node name="Shusk12" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 13739, -86 )
+
+[node name="Shusk13" parent="Enemies" instance=ExtResource( 26 )]
+position = Vector2( 13966, 219 )
 
 [node name="ForeSight" parent="Enemies" instance=ExtResource( 32 )]
 position = Vector2( 9855, 321 )
@@ -2981,13 +4377,1592 @@ frame = 1
 playing = true
 script = SubResource( 262 )
 
+[node name="Lightning" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 2440, 1030 )
+
+[node name="Lightning2" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 2801, 966 )
+
+[node name="Lightning3" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 4414, 705 )
+
+[node name="Lightning4" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 8559, 340 )
+
+[node name="Lightning5" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 8559, -148 )
+
+[node name="Lightning6" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 10813, 93 )
+
+[node name="Lightning20" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 11168, -270 )
+rotation = -0.678933
+
+[node name="Lightning7" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 12867, -4 )
+
+[node name="Lightning8" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 14255, 44.0005 )
+rotation = -0.678933
+
+[node name="Lightning9" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 14869, 38.999 )
+rotation = 0.678933
+
+[node name="Lightning10" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 15699, 113 )
+rotation = 0.678933
+
+[node name="Lightning11" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 14602, -1 )
+
+[node name="Lightning12" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17315, 24 )
+
+[node name="Lightning21" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17280, 1153 )
+
+[node name="Lightning22" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17446, 1186 )
+rotation = -0.682279
+
+[node name="Lightning23" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17614, 1137 )
+rotation = 0.706564
+
+[node name="Lightning24" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17531, 1050 )
+rotation = -0.755835
+
+[node name="Lightning25" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17612, 903 )
+rotation = -0.755835
+
+[node name="Lightning26" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17520, 802 )
+rotation = -0.755835
+
+[node name="Lightning27" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17536, 801 )
+rotation = 0.84649
+
+[node name="Lightning28" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 17466, 503 )
+rotation = 0.495636
+
+[node name="Lightning13" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 18589, 185 )
+
+[node name="Lightning19" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 20241, -197 )
+
+[node name="Lightning14" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 18627, -415.001 )
+rotation = 0.509636
+
+[node name="Lightning15" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 19144, -322 )
+rotation = 0.509636
+
+[node name="Lightning16" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 19600, -324 )
+rotation = 0.698132
+
+[node name="Lightning17" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 20117, -224 )
+rotation = 0.698132
+
+[node name="Lightning18" parent="Objects" instance=ExtResource( 8 )]
+position = Vector2( 20424, -114.999 )
+rotation = 0.698132
+
+[node name="deathBall" parent="Objects" instance=ExtResource( 39 )]
+position = Vector2( 17389, 951 )
+
+[node name="deathBall2" parent="Objects" instance=ExtResource( 39 )]
+position = Vector2( 17517, 950 )
+
+[node name="deathBall3" parent="Objects" instance=ExtResource( 39 )]
+position = Vector2( 17677, 822 )
+
+[node name="deathBall4" parent="Objects" instance=ExtResource( 39 )]
+position = Vector2( 17614, 753 )
+
+[node name="deathBall5" parent="Objects" instance=ExtResource( 39 )]
+position = Vector2( 17542, 686 )
+
+[node name="deathBall6" parent="Objects" instance=ExtResource( 39 )]
+position = Vector2( 17396, 583 )
+
+[node name="Launcher" parent="Objects" instance=ExtResource( 41 )]
+position = Vector2( 6275, 1065 )
+scale = Vector2( -1, 1 )
+
+[node name="threedriver" parent="Objects" instance=ExtResource( 42 )]
+position = Vector2( 9539, 333 )
+
+[node name="threedriver2" parent="Objects" instance=ExtResource( 42 )]
+position = Vector2( 12534, 391 )
+
+[node name="twodriver" parent="Objects" instance=ExtResource( 44 )]
+position = Vector2( 16196, 400 )
+
+[node name="1up" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 7816, 1112 )
+scale = Vector2( 4, 4 )
+
+[node name="1up2" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 17625, 371 )
+
+[node name="1up3" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 17673, 371 )
+
+[node name="1up6" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 18793, 37 )
+
+[node name="1up7" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 18793, 101 )
+
+[node name="1up8" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 18761, 69 )
+
+[node name="1up9" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 18825, 69 )
+
+[node name="1up4" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 17721, 371 )
+
+[node name="1up5" parent="Objects" instance=ExtResource( 43 )]
+position = Vector2( 18359, 1167 )
+
+[node name="secrettrigger" parent="Objects" instance=ExtResource( 45 )]
+position = Vector2( 7665, 962 )
+
+[node name="secrettrigger2" parent="Objects" instance=ExtResource( 45 )]
+position = Vector2( 17462, 258 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 263 )
+
+[node name="Enemies2" type="Node2D" parent="."]
+
+[node name="Gunner" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 12471, 152 )
+
+[node name="Gunner2" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 12746, 152 )
+
+[node name="Gunner3" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 13521, -88 )
+
+[node name="Gunner4" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 13170, 247 )
+
+[node name="Gunner5" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 16309, 152 )
+
+[node name="Gunner6" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 16963, -8 )
+
+[node name="Gunner7" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 17495, -327 )
+
+[node name="Gunner8" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 17231, -360 )
+
+[node name="Gunner9" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 17908, -456 )
+
+[node name="Gunner10" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 17726, -87 )
+
+[node name="Gunner11" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 18122, -39 )
+
+[node name="Gunner12" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 18933, 200 )
+
+[node name="Gunner13" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 18464, -309 )
+
+[node name="Gunner14" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 18918, -281 )
+
+[node name="Gunner15" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 19291, -298 )
+
+[node name="Gunner16" parent="Enemies2" instance=ExtResource( 36 )]
+position = Vector2( 19950, -201 )
+
+[node name="Burstloop" parent="." instance=ExtResource( 37 )]
+position = Vector2( 11303, -374 )
+
+[node name="pieces" type="Node2D" parent="."]
+
+[node name="Pieceob" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1078, 762 )
+
+[node name="Pieceob2" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1104, 787 )
+
+[node name="Pieceob3" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1130, 817 )
+
+[node name="Pieceob4" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1146, 840 )
+
+[node name="Pieceob5" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1180, 809 )
+
+[node name="Pieceob6" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1212, 789 )
+
+[node name="Pieceob7" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1246, 802 )
+
+[node name="Pieceob8" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1275, 837 )
+
+[node name="Pieceob9" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1363, 838 )
+
+[node name="Pieceob10" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1389, 805 )
+
+[node name="Pieceob11" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1422, 777 )
+
+[node name="Pieceob12" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1459, 801 )
+
+[node name="Pieceob13" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1487, 834 )
+
+[node name="Pieceob14" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1702, 786 )
+
+[node name="Pieceob15" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1703, 744 )
+
+[node name="Pieceob16" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 1702, 703 )
+
+[node name="Pieceob17" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2332, 571 )
+
+[node name="Pieceob18" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2364, 571 )
+
+[node name="Pieceob19" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2395, 571 )
+
+[node name="Pieceob20" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2427, 571 )
+
+[node name="Pieceob21" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2459, 571 )
+
+[node name="Pieceob22" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2491, 571 )
+
+[node name="Pieceob23" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2475, 539 )
+
+[node name="Pieceob24" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2443, 539 )
+
+[node name="Pieceob25" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2411, 539 )
+
+[node name="Pieceob26" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2379, 539 )
+
+[node name="Pieceob27" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2347, 539 )
+
+[node name="Pieceob28" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2397, 864 )
+
+[node name="Pieceob29" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2429, 864 )
+
+[node name="Pieceob30" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2461, 864 )
+
+[node name="Pieceob31" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2777, 864 )
+
+[node name="Pieceob32" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2819, 825 )
+
+[node name="Pieceob33" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2862, 787 )
+
+[node name="Pieceob34" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3243, 567 )
+
+[node name="Pieceob35" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3278, 533 )
+
+[node name="Pieceob36" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3315, 521 )
+
+[node name="Pieceob37" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3829, 735 )
+
+[node name="Pieceob38" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3865, 735 )
+
+[node name="Pieceob39" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3900, 735 )
+
+[node name="Pieceob40" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3937, 735 )
+
+[node name="Pieceob41" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4166, 654 )
+
+[node name="Pieceob42" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4198, 654 )
+
+[node name="Pieceob43" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4230, 654 )
+
+[node name="Pieceob44" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4134, 654 )
+
+[node name="Pieceob45" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4150, 694 )
+
+[node name="Pieceob46" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4183, 694 )
+
+[node name="Pieceob47" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4215, 694 )
+
+[node name="Pieceob48" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4183, 726 )
+
+[node name="Pieceob49" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4183, 614 )
+
+[node name="Pieceob50" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4215, 614 )
+
+[node name="Pieceob51" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4151, 614 )
+
+[node name="Pieceob52" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4183, 582 )
+
+[node name="Pieceob53" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4555, 654 )
+
+[node name="Pieceob54" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4587, 620 )
+
+[node name="Pieceob55" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4624, 588 )
+
+[node name="Pieceob56" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4667, 569 )
+
+[node name="Pieceob57" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4711, 570 )
+
+[node name="Pieceob58" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4751, 599 )
+
+[node name="Pieceob59" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4782, 626 )
+
+[node name="Pieceob60" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4814, 657 )
+
+[node name="Pieceob61" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4847, 693 )
+
+[node name="Pieceob62" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4877, 733 )
+
+[node name="Pieceob63" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4873, 882 )
+
+[node name="Pieceob64" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4841, 881 )
+
+[node name="Pieceob65" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4812, 881 )
+
+[node name="Pieceob66" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 4781, 881 )
+
+[node name="Pieceob67" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 5957, 801 )
+
+[node name="Pieceob68" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 5989, 801 )
+
+[node name="Pieceob69" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6021, 801 )
+
+[node name="Pieceob70" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6053, 801 )
+
+[node name="Pieceob71" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6085, 801 )
+
+[node name="Pieceob72" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6117, 801 )
+
+[node name="Pieceob73" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6149, 801 )
+
+[node name="Pieceob74" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6181, 801 )
+
+[node name="Pieceob75" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6205, 777 )
+
+[node name="Pieceob76" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6229, 753 )
+
+[node name="Pieceob77" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6253, 729 )
+
+[node name="Pieceob78" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6253, 729 )
+
+[node name="Pieceob79" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6323, 656 )
+
+[node name="Pieceob80" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6357, 623 )
+
+[node name="Pieceob81" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6398, 589 )
+
+[node name="Pieceob82" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6442, 572 )
+
+[node name="Pieceob83" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6486, 551 )
+
+[node name="Pieceob84" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6527, 550 )
+
+[node name="Pieceob85" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6568, 570 )
+
+[node name="Pieceob86" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6600, 583 )
+
+[node name="Pieceob87" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6641, 608 )
+
+[node name="Pieceob88" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6674, 625 )
+
+[node name="Pieceob89" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6707, 650 )
+
+[node name="Pieceob90" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6733, 678 )
+
+[node name="Pieceob91" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 7346, 640 )
+
+[node name="Pieceob92" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 7378, 640 )
+
+[node name="Pieceob93" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 7410, 640 )
+
+[node name="Pieceob94" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 7442, 640 )
+
+[node name="Pieceob95" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8547, 564 )
+
+[node name="Pieceob96" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8578, 563 )
+
+[node name="Pieceob97" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8599, 545 )
+
+[node name="Pieceob98" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8620, 526 )
+
+[node name="Pieceob99" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8640, 512 )
+
+[node name="Pieceob100" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8668, 500 )
+
+[node name="Pieceob101" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8701, 499 )
+
+[node name="Pieceob102" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 8734, 499 )
+
+[node name="Pieceob103" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10425, 387 )
+
+[node name="Pieceob104" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10453, 387 )
+
+[node name="Pieceob105" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10481, 387 )
+
+[node name="Pieceob106" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10508, 387 )
+
+[node name="Pieceob107" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10378, 48 )
+
+[node name="Pieceob108" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10346, 48 )
+
+[node name="Pieceob109" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10314, 48 )
+
+[node name="Pieceob110" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10282, 48 )
+
+[node name="Pieceob111" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10298, 16 )
+
+[node name="Pieceob112" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10330, 16 )
+
+[node name="Pieceob113" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10362, 16 )
+
+[node name="Pieceob114" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10346, -16 )
+
+[node name="Pieceob115" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10314, -16 )
+
+[node name="Pieceob116" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10330, -48 )
+
+[node name="Pieceob117" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10767, -222 )
+
+[node name="Pieceob118" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10799, -254 )
+
+[node name="Pieceob119" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10831, -222 )
+
+[node name="Pieceob120" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10863, -254 )
+
+[node name="Pieceob121" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10895, -222 )
+
+[node name="Pieceob122" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10927, -254 )
+
+[node name="Pieceob123" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 10959, -222 )
+
+[node name="Pieceob124" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11364, -371 )
+
+[node name="Pieceob125" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11388, -371 )
+
+[node name="Pieceob126" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11412, -371 )
+
+[node name="Pieceob127" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11436, -371 )
+
+[node name="Pieceob128" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11460, -371 )
+
+[node name="Pieceob129" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11484, -371 )
+
+[node name="Pieceob130" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11508, -371 )
+
+[node name="Pieceob131" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11532, -371 )
+
+[node name="Pieceob132" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11556, -371 )
+
+[node name="Pieceob133" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11580, -371 )
+
+[node name="Pieceob134" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11820, -371 )
+
+[node name="Pieceob135" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11844, -371 )
+
+[node name="Pieceob136" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11868, -371 )
+
+[node name="Pieceob137" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11892, -371 )
+
+[node name="Pieceob138" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11916, -371 )
+
+[node name="Pieceob139" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11940, -371 )
+
+[node name="Pieceob140" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11964, -371 )
+
+[node name="Pieceob141" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12200, 361 )
+
+[node name="Pieceob142" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12224, 361 )
+
+[node name="Pieceob143" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12248, 361 )
+
+[node name="Pieceob144" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12248, 389 )
+
+[node name="Pieceob145" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12224, 389 )
+
+[node name="Pieceob146" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12200, 389 )
+
+[node name="Pieceob159" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12507, 62 )
+
+[node name="Pieceob160" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12531, 62 )
+
+[node name="Pieceob161" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12555, 62 )
+
+[node name="Pieceob162" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12555, 90 )
+
+[node name="Pieceob163" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12531, 90 )
+
+[node name="Pieceob164" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12507, 90 )
+
+[node name="Pieceob165" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12579, 62 )
+
+[node name="Pieceob166" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12603, 62 )
+
+[node name="Pieceob167" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12627, 62 )
+
+[node name="Pieceob168" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12627, 90 )
+
+[node name="Pieceob169" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12603, 90 )
+
+[node name="Pieceob170" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12579, 90 )
+
+[node name="Pieceob171" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12651, 62 )
+
+[node name="Pieceob172" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12675, 62 )
+
+[node name="Pieceob173" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12699, 62 )
+
+[node name="Pieceob174" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12699, 90 )
+
+[node name="Pieceob177" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13335, 433 )
+
+[node name="Pieceob178" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13359, 433 )
+
+[node name="Pieceob179" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13383, 433 )
+
+[node name="Pieceob180" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13407, 433 )
+
+[node name="Pieceob181" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13431, 433 )
+
+[node name="Pieceob182" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13431, 405 )
+
+[node name="Pieceob183" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13407, 405 )
+
+[node name="Pieceob184" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13383, 405 )
+
+[node name="Pieceob185" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13359, 405 )
+
+[node name="Pieceob186" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13335, 405 )
+
+[node name="Pieceob187" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13687, 415 )
+
+[node name="Pieceob188" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13711, 415 )
+
+[node name="Pieceob189" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13735, 415 )
+
+[node name="Pieceob190" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13759, 415 )
+
+[node name="Pieceob191" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13783, 415 )
+
+[node name="Pieceob197" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14266, 115 )
+
+[node name="Pieceob198" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14294, 87 )
+
+[node name="Pieceob199" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14321, 59 )
+
+[node name="Pieceob200" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14347, 34 )
+
+[node name="Pieceob201" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14372, 8 )
+
+[node name="Pieceob202" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14576, 66 )
+
+[node name="Pieceob203" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14601, 66 )
+
+[node name="Pieceob204" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14630, 66 )
+
+[node name="Pieceob205" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14659, 65 )
+
+[node name="Pieceob206" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14970, 65 )
+
+[node name="Pieceob207" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 14998, 89 )
+
+[node name="Pieceob208" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15025, 64 )
+
+[node name="Pieceob209" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15053, 89 )
+
+[node name="Pieceob210" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15079, 64 )
+
+[node name="Pieceob211" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15106, 89 )
+
+[node name="Pieceob212" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15134, 64 )
+
+[node name="Pieceob213" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16194, -257 )
+
+[node name="Pieceob214" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16222, -286 )
+
+[node name="Pieceob215" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16255, -318 )
+
+[node name="Pieceob216" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16284, -352 )
+
+[node name="Pieceob217" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16318, -353 )
+
+[node name="Pieceob218" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16350, -353 )
+
+[node name="Pieceob219" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16382, -353 )
+
+[node name="Pieceob220" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16414, -353 )
+
+[node name="Pieceob221" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16446, -353 )
+
+[node name="Pieceob222" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18126, -128 )
+
+[node name="Pieceob223" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18126, -168 )
+
+[node name="Pieceob224" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18126, -208 )
+
+[node name="Pieceob225" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18126, -248 )
+
+[node name="Pieceob226" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18126, -288 )
+
+[node name="Pieceob227" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18126, -288 )
+
+[node name="Pieceob228" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 2502, 877 )
+
+[node name="Pieceob229" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3362, 487 )
+
+[node name="Pieceob230" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3338, 487 )
+
+[node name="Pieceob231" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3314, 487 )
+
+[node name="Pieceob232" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3290, 487 )
+
+[node name="Pieceob233" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 3266, 487 )
+
+[node name="Pieceob234" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6416, 1075 )
+
+[node name="Pieceob235" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6390, 1075 )
+
+[node name="Pieceob236" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6364, 1075 )
+
+[node name="Pieceob237" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6338, 1075 )
+
+[node name="Pieceob238" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 6313, 1075 )
+
+[node name="Pieceob239" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11850, 128 )
+
+[node name="Pieceob240" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11890, 128 )
+
+[node name="Pieceob241" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11930, 128 )
+
+[node name="Pieceob242" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 11970, 128 )
+
+[node name="Pieceob243" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12974, -29 )
+
+[node name="Pieceob244" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13001, -29 )
+
+[node name="Pieceob245" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13028, -29 )
+
+[node name="Pieceob246" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13057, -53 )
+
+[node name="Pieceob247" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13085, -74 )
+
+[node name="Pieceob248" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13114, -75 )
+
+[node name="Pieceob249" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13143, -75 )
+
+[node name="Pieceob250" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18687, 212 )
+
+[node name="Pieceob251" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18719, 212 )
+
+[node name="Pieceob252" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18751, 212 )
+
+[node name="Pieceob253" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18783, 212 )
+
+[node name="Pieceob254" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18815, 212 )
+
+[node name="Pieceob255" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18847, 212 )
+
+[node name="Pieceob256" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18509, -415 )
+
+[node name="Pieceob257" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18509, -447 )
+
+[node name="Pieceob258" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18509, -479 )
+
+[node name="Pieceob259" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18509, -511 )
+
+[node name="Pieceob260" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18509, -543 )
+
+[node name="Pieceob261" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18541, -511 )
+
+[node name="Pieceob262" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18541, -479 )
+
+[node name="Pieceob263" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18541, -447 )
+
+[node name="Pieceob264" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18573, -463 )
+
+[node name="Pieceob265" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18573, -495 )
+
+[node name="Pieceob266" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18477, -511 )
+
+[node name="Pieceob267" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18477, -479 )
+
+[node name="Pieceob268" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18477, -447 )
+
+[node name="Pieceob269" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18445, -463 )
+
+[node name="Pieceob271" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18477, -415 )
+
+[node name="Pieceob272" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18541, -415 )
+
+[node name="Pieceob273" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18541, -543 )
+
+[node name="Pieceob274" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18573, -527 )
+
+[node name="Pieceob275" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18573, -431 )
+
+[node name="Pieceob276" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18477, -543 )
+
+[node name="Pieceob277" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18445, -527 )
+
+[node name="Pieceob278" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18445, -431 )
+
+[node name="Pieceob279" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18833, -400 )
+
+[node name="Pieceob280" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18865, -400 )
+
+[node name="Pieceob281" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18897, -400 )
+
+[node name="Pieceob282" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18929, -400 )
+
+[node name="Pieceob283" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18961, -400 )
+
+[node name="Pieceob284" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18993, -400 )
+
+[node name="Pieceob285" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19025, -400 )
+
+[node name="Pieceob286" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19057, -400 )
+
+[node name="Pieceob287" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19033, -432 )
+
+[node name="Pieceob288" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19001, -464 )
+
+[node name="Pieceob289" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19000, -344 )
+
+[node name="Pieceob290" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19032, -368 )
+
+[node name="Pieceob291" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19489, -284 )
+
+[node name="Pieceob292" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19518, -315 )
+
+[node name="Pieceob293" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19545, -343 )
+
+[node name="Pieceob294" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19576, -373 )
+
+[node name="Pieceob295" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 19607, -402 )
+
+[node name="Pieceob296" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 20403, -146 )
+
+[node name="Pieceob297" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 20404, -104 )
+
+[node name="Pieceob298" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 20404, -65 )
+
+[node name="Pieceob299" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 20404, -27 )
+
+[node name="Pieceob300" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 20403, 8 )
+
+[node name="Pieceob301" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 20433, 42 )
+
+[node name="Pieceob270" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 18445, -495 )
+
+[node name="Pieceob192" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13783, 387 )
+
+[node name="Pieceob193" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13759, 387 )
+
+[node name="Pieceob194" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13735, 387 )
+
+[node name="Pieceob195" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13711, 387 )
+
+[node name="Pieceob196" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 13687, 387 )
+
+[node name="Pieceob175" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12675, 90 )
+
+[node name="Pieceob176" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12651, 90 )
+
+[node name="Pieceob147" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12200, 417 )
+
+[node name="Pieceob148" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12224, 417 )
+
+[node name="Pieceob149" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12248, 417 )
+
+[node name="Pieceob150" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12200, 445 )
+
+[node name="Pieceob151" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12224, 445 )
+
+[node name="Pieceob152" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12248, 445 )
+
+[node name="Pieceob153" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12248, 473 )
+
+[node name="Pieceob154" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12224, 473 )
+
+[node name="Pieceob155" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12200, 473 )
+
+[node name="Pieceob156" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12200, 501 )
+
+[node name="Pieceob157" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12224, 501 )
+
+[node name="Pieceob158" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 12248, 501 )
+
+[node name="Pieceob302" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15534, -427 )
+
+[node name="Pieceob303" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15558, -427 )
+
+[node name="Pieceob304" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15582, -427 )
+
+[node name="Pieceob305" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15582, -399 )
+
+[node name="Pieceob306" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15558, -399 )
+
+[node name="Pieceob307" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15534, -399 )
+
+[node name="Pieceob308" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15534, -371 )
+
+[node name="Pieceob309" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15558, -371 )
+
+[node name="Pieceob310" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15582, -371 )
+
+[node name="Pieceob311" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15534, -343 )
+
+[node name="Pieceob312" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15558, -343 )
+
+[node name="Pieceob313" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15582, -343 )
+
+[node name="Pieceob314" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15582, -315 )
+
+[node name="Pieceob315" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15558, -315 )
+
+[node name="Pieceob316" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15534, -315 )
+
+[node name="Pieceob317" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15534, -287 )
+
+[node name="Pieceob318" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15558, -287 )
+
+[node name="Pieceob319" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15582, -287 )
+
+[node name="Pieceob320" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15606, -427 )
+
+[node name="Pieceob321" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15630, -427 )
+
+[node name="Pieceob322" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15654, -427 )
+
+[node name="Pieceob323" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15654, -399 )
+
+[node name="Pieceob324" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15630, -399 )
+
+[node name="Pieceob325" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15606, -399 )
+
+[node name="Pieceob326" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15606, -371 )
+
+[node name="Pieceob327" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15630, -371 )
+
+[node name="Pieceob328" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15654, -371 )
+
+[node name="Pieceob329" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15606, -343 )
+
+[node name="Pieceob330" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15630, -343 )
+
+[node name="Pieceob331" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15654, -343 )
+
+[node name="Pieceob332" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15654, -315 )
+
+[node name="Pieceob333" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15630, -315 )
+
+[node name="Pieceob334" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15606, -315 )
+
+[node name="Pieceob335" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15606, -287 )
+
+[node name="Pieceob336" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15630, -287 )
+
+[node name="Pieceob337" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15654, -287 )
+
+[node name="Pieceob338" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15678, -427 )
+
+[node name="Pieceob339" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15702, -427 )
+
+[node name="Pieceob340" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15726, -427 )
+
+[node name="Pieceob341" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15726, -399 )
+
+[node name="Pieceob342" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15702, -399 )
+
+[node name="Pieceob343" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15678, -399 )
+
+[node name="Pieceob344" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15678, -371 )
+
+[node name="Pieceob345" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15702, -371 )
+
+[node name="Pieceob346" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15726, -371 )
+
+[node name="Pieceob347" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15678, -343 )
+
+[node name="Pieceob348" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15702, -343 )
+
+[node name="Pieceob349" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15726, -343 )
+
+[node name="Pieceob350" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15726, -315 )
+
+[node name="Pieceob351" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15702, -315 )
+
+[node name="Pieceob352" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15678, -315 )
+
+[node name="Pieceob353" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15678, -287 )
+
+[node name="Pieceob354" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15702, -287 )
+
+[node name="Pieceob355" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 15726, -287 )
+
+[node name="Pieceob356" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16797, 343 )
+
+[node name="Pieceob357" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16821, 343 )
+
+[node name="Pieceob358" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16845, 343 )
+
+[node name="Pieceob359" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16845, 371 )
+
+[node name="Pieceob360" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16821, 371 )
+
+[node name="Pieceob361" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16797, 371 )
+
+[node name="Pieceob362" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16797, 399 )
+
+[node name="Pieceob363" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16821, 399 )
+
+[node name="Pieceob364" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16845, 399 )
+
+[node name="Pieceob365" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16797, 427 )
+
+[node name="Pieceob366" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16821, 427 )
+
+[node name="Pieceob367" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16845, 427 )
+
+[node name="Pieceob368" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16845, 455 )
+
+[node name="Pieceob369" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16821, 455 )
+
+[node name="Pieceob370" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16797, 455 )
+
+[node name="Pieceob371" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16797, 483 )
+
+[node name="Pieceob372" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16821, 483 )
+
+[node name="Pieceob373" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16845, 483 )
+
+[node name="Pieceob374" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16871, 343 )
+
+[node name="Pieceob375" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16895, 343 )
+
+[node name="Pieceob376" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16919, 343 )
+
+[node name="Pieceob377" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16919, 371 )
+
+[node name="Pieceob378" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16895, 371 )
+
+[node name="Pieceob379" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16871, 371 )
+
+[node name="Pieceob380" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16871, 399 )
+
+[node name="Pieceob381" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16895, 399 )
+
+[node name="Pieceob382" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16919, 399 )
+
+[node name="Pieceob383" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16871, 427 )
+
+[node name="Pieceob384" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16895, 427 )
+
+[node name="Pieceob385" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16919, 427 )
+
+[node name="Pieceob386" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16919, 455 )
+
+[node name="Pieceob387" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16895, 455 )
+
+[node name="Pieceob388" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16871, 455 )
+
+[node name="Pieceob389" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16871, 483 )
+
+[node name="Pieceob390" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16895, 483 )
+
+[node name="Pieceob391" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16919, 483 )
+
+[node name="Pieceob392" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16945, 343 )
+
+[node name="Pieceob393" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16969, 343 )
+
+[node name="Pieceob394" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16993, 343 )
+
+[node name="Pieceob395" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16993, 371 )
+
+[node name="Pieceob396" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16969, 371 )
+
+[node name="Pieceob397" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16945, 371 )
+
+[node name="Pieceob398" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16945, 399 )
+
+[node name="Pieceob399" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16969, 399 )
+
+[node name="Pieceob400" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16993, 399 )
+
+[node name="Pieceob401" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16945, 427 )
+
+[node name="Pieceob402" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16969, 427 )
+
+[node name="Pieceob403" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16993, 427 )
+
+[node name="Pieceob404" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16993, 455 )
+
+[node name="Pieceob405" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16969, 455 )
+
+[node name="Pieceob406" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16945, 455 )
+
+[node name="Pieceob407" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16945, 483 )
+
+[node name="Pieceob408" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16969, 483 )
+
+[node name="Pieceob409" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 16993, 483 )
+
+[node name="Pieceob410" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17017, 343 )
+
+[node name="Pieceob411" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17041, 343 )
+
+[node name="Pieceob412" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17065, 343 )
+
+[node name="Pieceob413" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17065, 371 )
+
+[node name="Pieceob414" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17041, 371 )
+
+[node name="Pieceob415" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17017, 371 )
+
+[node name="Pieceob416" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17017, 399 )
+
+[node name="Pieceob417" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17041, 399 )
+
+[node name="Pieceob418" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17065, 399 )
+
+[node name="Pieceob419" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17017, 427 )
+
+[node name="Pieceob420" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17041, 427 )
+
+[node name="Pieceob421" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17065, 427 )
+
+[node name="Pieceob422" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17065, 455 )
+
+[node name="Pieceob423" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17041, 455 )
+
+[node name="Pieceob424" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17017, 455 )
+
+[node name="Pieceob425" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17017, 483 )
+
+[node name="Pieceob426" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17041, 483 )
+
+[node name="Pieceob427" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17065, 483 )
+
+[node name="Pieceob428" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17396, 1163 )
+
+[node name="Pieceob429" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17483, 1130 )
+
+[node name="Pieceob430" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17669, 998 )
+
+[node name="Pieceob431" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17637, 901 )
+
+[node name="Pieceob432" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17576, 850 )
+
+[node name="Pieceob433" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17445, 791 )
+
+[node name="Pieceob434" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17501, 679 )
+
+[node name="Pieceob435" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17569, 603 )
+
+[node name="Pieceob436" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17417, 508 )
+
+[node name="Pieceob437" parent="pieces" instance=ExtResource( 38 )]
+position = Vector2( 17608, 603 )
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="SCrys" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 2392, 857 )
+
+[node name="SCrys2" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 3551, 768 )
+
+[node name="SCrys3" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 4971, 870 )
+
+[node name="SCrys4" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 5836, 836 )
+
+[node name="SCrys5" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 8421, 567 )
+
+[node name="SCrys6" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 9626, 383 )
+timeincrease = 20
+
+[node name="SCrys7" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 10413, 376 )
+
+[node name="SCrys8" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 11136, 249 )
+
+[node name="SCrys9" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 14204, 135 )
+
+[node name="SCrys10" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 15082, 107 )
+
+[node name="SCrys11" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 16584, 107 )
+
+[node name="SCrys12" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 17852, -115 )
+
+[node name="SCrys13" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 18692, -269 )
+
+[node name="SCrys14" parent="Checkpoints" instance=ExtResource( 40 )]
+position = Vector2( 19770, -223 )
 
 [connection signal="area_entered" from="SongSwitch" to="SongSwitch" method="_on_SongSwitch_area_entered"]
 [connection signal="area_entered" from="BossTrigger" to="BossTrigger" method="_on_BossTrigger_area_entered"]
 [connection signal="area_entered" from="BossTrigger2" to="BossTrigger2" method="_on_BossTrigger_area_entered"]
+[connection signal="area_entered" from="BossTrigger6" to="BossTrigger6" method="_on_BossTrigger_area_entered"]
 [connection signal="area_entered" from="BossTrigger3" to="BossTrigger3" method="_on_BossTrigger_area_entered"]
 [connection signal="animation_finished" from="BossTrigger3/AnimationPlayer" to="BossTrigger3" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="area_entered" from="BossTrigger4" to="BossTrigger4" method="_on_BossTrigger_area_entered"]
 [connection signal="animation_finished" from="BossTrigger4/AnimationPlayer" to="BossTrigger4" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="BossTrigger5" to="BossTrigger5" method="_on_BossTrigger_area_entered"]
+[connection signal="animation_finished" from="BossTrigger5/AnimationPlayer" to="BossTrigger5" method="_on_AnimationPlayer_animation_finished"]

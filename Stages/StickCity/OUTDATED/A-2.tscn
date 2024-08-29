@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Sprites/Stage/SCity/SC_A-2Map.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Stage/SCity/SC_A-2MapBG.png" type="Texture" id=2]
@@ -20,111 +20,8 @@
 [ext_resource path="res://Sprites/Stage/SCity/A-2 floor.png" type="Texture" id=18]
 [ext_resource path="res://Sprites/STGOBJ/Monitor.png" type="Texture" id=19]
 [ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=20]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-var done = 0
-export var next = \"Scene Path\"
-var bossdefeated = 0
-
-# Called when the node enters the scene tree for the first time.
-
-
-
-
-
-func _ready():
-#	Globals.incutscene = 1
-#	$Rian/cameracutscene.play(\"intropan\")
-#
-#	Globals.ded = 0
-#	Globals.hpcount = 5
-#	Globals.lives = 3
-#	Globals.pieces = 0
-	Globals.moveenabled = 1
-	Globals.incutscene = 0
-	
-	Globals.cur_scene = self
-	
-	#Globals.music.set_stream(preload(\"res://Audio/BGM/Stick City A - 1 + 2.ogg\"))
-	#Globals.music.play()
-
-func _physics_process(delta):
-	#print_debug(Globals.atkmult)
-#	if bossdefeated == 1:
-#			$Rian/StageMusic.play()
-#			$bossmus/bossmusic.stop()
-			
-			
-			
-	if Globals.ded == 1:
-		
-		
-		if Globals.didakill == 1:
-			bossdefeated = 1
-		
-		
-		
-			
-		
-		if done == 0:
-			#if Globals.lives == 0:
-			#	$Rian/StageMusic/musichandler.play(\"fadeout\")
-			#$Rian/Camera2D/CanvasLayer3/screenspr/Blackscreen.play(\"Fadeout\")
-			
-			done = 1
-			
-		
-	else:
-		if done == 1:
-			if Globals.ded == 0:
-				done = 0
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_Blackscreen_animation_finished(anim_name):
-	done = 1
-
-
-func _on_cameracutscene_animation_finished(anim_name):
-	Globals.incutscene = 0
-	
-	if anim_name == \"intropan\":
-		pass
-		
-	if anim_name == \"Trainjump\":
-		get_tree().change_scene(\"res://Stages/SC_C.tscn\")
-
-
-func _on_Camsetter_area_entered(area):
-	pass # Replace with function body.
-
-
-func _on_BossAnimator_animation_finished(anim_name):
-	if anim_name == \"start\":
-		Globals.yokaiball = 0
-		print_debug(\"HELLOOOOOO!!!\")
-	
-	if anim_name == \"victory\":
-		Globals.balldestroy = 0
-		Engine.time_scale = 1.0
-		$Terrain.queue_free()
-		#$ParallaxBackground.queue_free()
-		$Objects.queue_free()
-		$Triggers.queue_free()
-		$Boss.queue_free()
-		Sys.load_scene(self,next)
-		print_debug(\"HELLOOOOOO!!!\")
-	pass # Replace with function body.
-
-"
+[ext_resource path="res://src/ContinueSTG.tres.gd" type="Script" id=21]
+[ext_resource path="res://Audio/BGM/YaibaChase.ogg" type="AudioStream" id=22]
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 27, 201.5 )
@@ -749,8 +646,9 @@ adjustment_enabled = true
 [node name="Node2D" type="Node2D"]
 pause_mode = 1
 position = Vector2( 24, 112 )
-script = SubResource( 1 )
+script = ExtResource( 21 )
 next = "res://Stages/StickCity/OUTDATED/A-3.tscn"
+musplay = ExtResource( 22 )
 
 [node name="GUIStuff" parent="." groups=["STGDATA"] instance=ExtResource( 5 )]
 

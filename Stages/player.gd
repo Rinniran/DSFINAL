@@ -48,6 +48,8 @@ var parttimer = 2
 var speedup = 1
 var jumping = false
 
+var flying = false
+
 var superdash = false
 
 var comebacktimer = 0
@@ -127,7 +129,7 @@ var nodown = 0
 var is_hit = false
 
 #======================Command Variables cause I'll be fucking damned if I lose everything AGAIN===========================
-
+var Odachi = false
 
 var jump = false
 var dash = false
@@ -151,7 +153,7 @@ func _ready():
 	Globals.playerspriteflip = $Rspr.flip_h
 
 func _physics_process(delta)->void :
-	print_debug(MSPEED)
+	#print_debug(MSPEED)
 	var Kleft = Input.is_action_pressed("ui_left") or Input.get_action_strength("stickleft")
 	var Kleftpr = Input.is_action_just_pressed("ui_left") or Input.get_action_strength("stickleft")
 	var Kright = Input.is_action_pressed("ui_right") or Input.get_action_strength("stickright")
@@ -189,7 +191,7 @@ func _physics_process(delta)->void :
 	$Meter.value = dashmeter
 	
 	
-	if Kpause and Globals.paused == 0:
+	if Kpause and Globals.paused == 0 and !Globals.demoscene:
 		
 		get_parent().add_child(thing.instance())
 	
@@ -199,7 +201,7 @@ func _physics_process(delta)->void :
 		#print_debug(waittimer)
 	
 	
-	if dashmeter != (60):
+	if dashmeter != (60) && !flying:
 		dashmeter += 1
 		
 	if dashmeter < 15:
@@ -249,6 +251,17 @@ func _physics_process(delta)->void :
 	
 	if !is_on_floor() && !jumping && $Rspr.animation == "dash":
 		motion.y = 0
+	
+	
+	if !is_on_floor()  && dashmeter > 0 && Kjump:
+		flying = !flying
+	if dashmeter <= 0 || is_on_floor() || Globals.ded:
+		flying = false
+	
+	#print_debug(flying)
+	if flying:
+		jumpdash = 0
+		flying()
 	
 	
 	position.x = clamp(position.x, Globals.camera.limit_left + 20, Globals.camera.limit_right)
@@ -352,7 +365,7 @@ func _physics_process(delta)->void :
 			if atka == 0 or $Rspr.animation == "idle" or $Rspr.animation == "Stance" or $Rspr.animation == "run" or $Rspr.animation == "dash" or $Rspr.animation == "BDash":
 				$airatk / CollisionShape2D.disabled = true
 			
-			if $Rspr.frame > 1 && $Rspr.animation == "OdachiFlash":
+			if  $Rspr.animation == "OdachiFlash":
 				$Odachi/CollisionShape2D.disabled = false
 			else:
 				$Odachi/CollisionShape2D.disabled = true
@@ -385,6 +398,7 @@ func _physics_process(delta)->void :
 					$Zoombox / CollisionShape2D.disabled = false
 				
 				if Kgrab:
+					Odachi = true
 					OdachiFlash()
 				
 				if atkg:
@@ -419,34 +433,53 @@ func _physics_process(delta)->void :
 				elif (Kleft and Kup and Globals.moveenabled == 1) || (movleft && movup):
 					motion.x = - MSPEED
 					motion.y = - MSPEED
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADUpDiag")
 				elif Kleft and Kdown and Globals.moveenabled == 1 || (movleft && movdown):
 					motion.x = - MSPEED
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADDownDiag")
 					if !nodown:
 						motion.y = MSPEED
 					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 				elif Kleft || movleft:
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADSide")
 					motion.x = - MSPEED
 					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
-				elif Kright and Kup and not jumpdash and Globals.moveenabled == 1 || (movright && movup):
+				elif Kright and  Kup and Globals.moveenabled == 1 || (movright && movup): 
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADUpDiag")
 					motion.x = MSPEED
 					motion.y = - MSPEED
+					
 				elif Kright and Kdown and Globals.moveenabled == 1 || (movright && movdown):
 					motion.x = MSPEED
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADDownDiag")
 					if !nodown:
 						motion.y = MSPEED
 					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
-				elif Kright and not jumpdash and Globals.moveenabled == 1 || (movright):
-					motion.x = MSPEED
+				elif Kright and Globals.moveenabled == 1 || (movright):
+					if not jumpdash:
+						motion.x = MSPEED
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADSide")
 					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 				elif Kup and Globals.moveenabled == 1 || (movup):
 					motion.y = - MSPEED
+					if $Rspr.animation != "OdachiFlash":
+						$Rspr.play("ADUp")
 				elif Kdown and Globals.moveenabled == 1 || (movdown):
+					
 					if !nodown:
 						motion.y = MSPEED
+						if $Rspr.animation != "OdachiFlash":
+							$Rspr.play("ADDown")
 					if is_on_floor() && Globals.type == "Advanced":
 						wavedashing = 1
 						
@@ -457,7 +490,8 @@ func _physics_process(delta)->void :
 				atkdashv = 0
 #				if Krightrel || Kleftrel:
 #					MSPEED = MAXSPEED
-				motion.y += gravity * delta
+				if !flying:
+					motion.y += gravity * delta
 				if Kjumprel and motion.y < - 400 and stopit == 0:
 					motion.y = - 400.0
 					stopit = 1
@@ -556,7 +590,7 @@ func _physics_process(delta)->void :
 				get_node("groundatk2").set_scale(Vector2(1, 1))
 				get_node("attack3hit").set_scale(Vector2(1, 1))
 				if not atkg or dashing or jumpdash:
-					print_debug(acc)
+					#print_debug(acc)
 					motion.x += acc
 					pass
 				else :
@@ -590,7 +624,7 @@ func _physics_process(delta)->void :
 			
 			else :
 				if is_on_floor():
-					if $Rspr.animation == "run" or $Rspr.animation == "fall" or $Rspr.animation == "BJump" or $Rspr.animation == "Fjump" or $Rspr.animation == "StrafeB" or $Rspr.animation == "StrafeF":
+					if $Rspr.animation == "run" or $Rspr.animation == "fall" or $Rspr.animation == "BJump" or $Rspr.animation == "Fjump" or $Rspr.animation == "StrafeB" or $Rspr.animation == "StrafeF" or $Rspr.animation == "Fly":
 						atkg = 0
 						if Input.is_action_pressed("ui_strafe"):
 							$Rspr.play("Stance")
@@ -644,7 +678,7 @@ func _physics_process(delta)->void :
 			if (Kdash and  dashmeter >= 15 and !is_hit and Globals.moveenabled == 1) || (dash):
 				
 				dashoff()
-				if dashes > 0:
+				if dashes > 0 || flying:
 					dashing = 1
 					nodown = 0
 					$SPARKS.frame = 0
@@ -652,7 +686,8 @@ func _physics_process(delta)->void :
 					
 					$Hurtbox / dodge_window.start()
 					dashtimer = 800
-					dashmeter = 0
+					if !flying:
+						dashmeter = 0
 					if not is_on_floor():
 						atka = 0
 						if Kstrafe:
@@ -705,7 +740,7 @@ func _physics_process(delta)->void :
 				randomize()
 				var play = stream_array[randi() % stream_array.size()]
 				
-				if $Rspr.animation == "airdash" && Globals.type == "Advanced":
+				if ($Rspr.animation == "airdash" || $Rspr.animation == "ADDown" || $Rspr.animation == "ADDownDiag") && Globals.type == "Advanced":
 					$Voices / dodgeVoices.set_stream(play)
 					$Voices / dodgeVoices.play()
 					$Blast.play()
@@ -824,7 +859,7 @@ func _physics_process(delta)->void :
 						
 			else :
 					
-					if not is_on_floor():
+					if not is_on_floor() || flying:
 						
 						if (Kgrab and rotallowed == 1 and atka == 1):
 								print_debug("FUCK")
@@ -900,7 +935,7 @@ func _physics_process(delta)->void :
 							grooveAppend("Frontflip")
 							$Rspr.play("Fjump")
 					else:
-						if $Rspr.animation != "fall":
+						if $Rspr.animation != "fall" && !flying:
 							$Rspr.play("fall")
 				elif motion.y < 0 and not dashing and  $Rspr.animation != "attackair" && $Rspr.animation != "OdachiFlash":
 					if ((Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == false && motion.x < 1 || (Input.is_action_pressed("ui_strafe")) && $Rspr.flip_h == true && motion.x > 1) && $damagepause.is_stopped():
@@ -920,7 +955,7 @@ func _physics_process(delta)->void :
 								nomoreflipcheck = true
 							$Rspr.play("Fjump")
 					elif $Rspr.animation != "Fjump" && $Rspr.animation != "Bjump" && $Rspr.animation != "OdachiFlash" && $damagepause.is_stopped() == true:
-						if $Rspr.animation != "jump":
+						if $Rspr.animation != "jump" && !flying:
 							grooveAppend("JumpReg")
 							$Rspr.play("jump")
 			
@@ -967,6 +1002,7 @@ func _physics_process(delta)->void :
 	elif is_hit && parrytime <= 0:
 		Globals.groovePoints -= Globals.groovePoints / 2
 		#Globals.grooveTimer = 0
+		flying = false
 		damagehandle(hittype)
 		is_hit = false
 		$Rspr.playing = true
@@ -1012,6 +1048,76 @@ func movrightoff():
 	movright = false
 	
 
+func flying():
+	
+	var Kleft = Input.is_action_pressed("ui_left") or Input.get_action_strength("stickleft")
+	var Kleftpr = Input.is_action_just_pressed("ui_left") or Input.get_action_strength("stickleft")
+	var Kright = Input.is_action_pressed("ui_right") or Input.get_action_strength("stickright")
+	var Kleftrel = Input.is_action_just_released("ui_left")
+	var Krightrel = Input.is_action_just_released("ui_right")
+	var Kup = Input.is_action_pressed("ui_up") or Input.get_action_strength("stickup")
+	var Kuppr = Input.is_action_just_pressed("ui_up") or Input.get_action_strength("stickup")
+	var Kuprel = Input.is_action_just_released("ui_up") or Input.get_action_strength("stickup")
+	var Kdown = Input.is_action_pressed("ui_down") or Input.get_action_strength("stickdown")
+	var Kdownpr = Input.is_action_just_pressed("ui_down") or Input.get_action_strength("stickdown")
+	var Kdownrel = Input.is_action_just_released("ui_down") or Input.get_action_strength("stickdown")
+	var Kjump = Input.is_action_just_pressed("jump")
+	var Kjumphold = Input.is_action_pressed("jump")
+	var Kjumprel = Input.is_action_just_released("jump")
+	var Kattack = Input.is_action_just_pressed("attack")
+	var Kdash = Input.is_action_just_pressed("dash")
+	var KtargR = Input.is_action_pressed("targR")
+	var KtargL = Input.is_action_pressed("targL")
+	var Kinteract = Input.is_action_pressed("interact")
+	var Kaggro = Input.is_action_pressed("aggro")
+	var Kpause = Input.is_action_pressed("pause")
+	var deb1 = Input.is_action_just_pressed("hpdown")
+	var deb2 = Input.is_action_just_pressed("hpup")
+	var alt = Input.is_action_just_pressed("but_alt")
+	var Kstrafepr = Input.is_action_just_pressed("ui_strafe")
+	var Kstraferel = Input.is_action_just_released("ui_strafe")
+	var Kstrafe = Input.is_action_pressed("ui_strafe")
+	var Kgrab = Input.is_action_just_pressed("grab")
+	var go = Input.is_action_pressed("jump")
+	
+	if $Rspr.animation != "attackair":
+		$Rspr.play("Fly")
+	
+	
+	dashmeter -= 0.5
+	
+	if !dashing:
+		MSPEED = MAXSPEED
+	if (Kleft and Kup and Globals.moveenabled == 1) || (movleft && movup):
+		motion.x = - MSPEED
+		motion.y = - MSPEED
+	elif Kleft and Kdown and Globals.moveenabled == 1 || (movleft && movdown):
+		motion.x = - MSPEED
+		motion.y = MSPEED
+
+	elif Kleft || movleft:
+
+		motion.x = - MSPEED
+		motion.y = 0
+
+	elif Kright and  Kup and Globals.moveenabled == 1 || (movright && movup): 
+		motion.x = MSPEED
+		motion.y = - MSPEED
+		
+	elif Kright and Kdown and Globals.moveenabled == 1 || (movright && movdown):
+		motion.x = MSPEED
+		motion.y = MSPEED
+	elif Kright and Globals.moveenabled == 1 || (movright):
+			motion.x = MSPEED
+			motion.y = 0
+	elif Kup and Globals.moveenabled == 1 || (movup):
+		motion.y = - MSPEED
+	elif Kdown and Globals.moveenabled == 1 || (movdown):
+		motion.y = MSPEED
+	
+	else:
+		motion.x = 0
+		motion.y = 0
 
 func OdachiFlash():
 	grooveAppend("OdFlash")
@@ -1032,6 +1138,7 @@ func _on_Rspr_animation_finished():
 		$Rspr.play("WaitB")
 	
 	if $Rspr.animation == "OdachiFlash":
+		Odachi = false
 		$Rspr.animation = "fall"
 	
 	if $Rspr.animation == "attackg_a" or $Rspr.animation == "dash" and dashing == 0 or $Rspr.animation == "BDash" and dashing == 0 or $Rspr.animation == "waveburst" and zooming == 0:
@@ -1233,7 +1340,7 @@ func _on_Hurtbox_area_entered(area):
 					
 					
 		
-		if dashing && !area.is_in_group("undodgeable"):
+		if (dashing || Odachi) && !area.is_in_group("undodgeable"):
 			if $Hurtbox / dodge_window.is_stopped() == false:
 				
 			
@@ -1296,12 +1403,16 @@ func _on_nowFade_timeout():
 
 func _on_GOAnimate_animation_finished(anim_name):
 	if anim_name == "Gameoverend":
-		get_tree().change_scene("res://Stages/Titlescreen.tscn")
+		Globals.music.stop()
+		Sys.load_scene(Globals.cur_scene,"res://Stages/Titlescreen.tscn")
+		Globals.cur_scene.queue_free()
+		get_tree().paused = false
 	
 
 
 
 func damagehandle(var type):
+	
 	match(type):
 		"bighit":
 			var hs = preload("res://Subrooms/hurtspark.tscn")
@@ -1344,6 +1455,7 @@ func damagehandle(var type):
 		$Rspr.play("die")
 		$Graze.nvm = true
 		$otvoice.set_stream(die)
+		flying = 0
 		dashing = 0
 		zooming = 0
 		jumpdash = 0
@@ -1353,7 +1465,7 @@ func damagehandle(var type):
 		Globals.groovePoints = 0
 		Globals.grooveList = [null, null, null, null, null]
 		Globals.ded = 1
-		$otvoice.volume_db = - 14
+		$otvoice.volume_db = 3
 		$otvoice.play()
 		$Deathwait.start()
 	else :
@@ -1415,6 +1527,10 @@ func _on_Collect_area_entered(area):
 			
 			$collect.set_stream(wunup)
 			$collect.play()
+	
+	if area.is_in_group("lifeobject"):
+		$collect.set_stream(wunup)
+		$collect.play()
 	pass
 
 

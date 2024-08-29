@@ -44,6 +44,26 @@ func _physics_process(delta):
 		$boltcnt.rect_position = Vector2(87, 208)
 		$timer.rect_position = Vector2(1, 1.2)
 	
+	
+	#============UI TYPE=============
+	if Globals.uitype == 1:
+		$GUI.visible = true
+		$GUIMIN.visible = false
+		$GUIMIN/Controls.shutup = true
+		$timer.visible = true
+	
+	if Globals.uitype == 2:
+		$GUI.visible = false
+		$GUI/Controls.shutup = true
+		$GUIMIN.visible = true
+		$timer.visible = false
+	
+	
+	
+	
+	
+	
+	
 	var deb1 = Input.is_action_just_pressed("hpdown")
 	
 	match(Settings.SHADER):
@@ -76,7 +96,7 @@ func _physics_process(delta):
 		Globals.moveenabled = 0
 		$timer.visible = false
 	else:
-		Globals.moveenabled = 1
+		#Globals.moveenabled = 1
 		$timer.visible = true
 		
 	

@@ -1,0 +1,2491 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://TextMain.tres" type="Theme" id=1]
+
+[node name="dick" type="Control"]
+pause_mode = 1
+physics_interpolation_mode = 2
+process_priority = -3
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Notes" type="Control" parent="."]
+physics_interpolation_mode = 1
+
+[node name="N01" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 2454.0
+margin_top = 186.0
+margin_right = 2542.0
+margin_bottom = 202.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "DW Location"
+
+[node name="N02" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1408.0
+margin_top = 1324.0
+margin_right = 1456.0
+margin_bottom = 1334.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 3.63999 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX"
+
+[node name="N08" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1858.0
+margin_top = 1404.0
+margin_right = 1906.0
+margin_bottom = 1434.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N09" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1899.0
+margin_top = 1361.0
+margin_right = 1947.0
+margin_bottom = 1391.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N10" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1960.0
+margin_top = 1356.0
+margin_right = 2008.0
+margin_bottom = 1386.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N11" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1881.0
+margin_top = 1382.0
+margin_right = 1929.0
+margin_bottom = 1412.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N20" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3423.0
+margin_top = 1092.0
+margin_right = 3471.0
+margin_bottom = 1122.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N21" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3471.0
+margin_top = 1086.0
+margin_right = 3519.0
+margin_bottom = 1116.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N22" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3458.0
+margin_top = 1052.0
+margin_right = 3506.0
+margin_bottom = 1082.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N23" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3456.0
+margin_top = 1015.0
+margin_right = 3504.0
+margin_bottom = 1045.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N24" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3513.0
+margin_top = 1013.0
+margin_right = 3561.0
+margin_bottom = 1043.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N25" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3508.0
+margin_top = 979.0
+margin_right = 3556.0
+margin_bottom = 1009.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N26" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3564.0
+margin_top = 959.0
+margin_right = 3612.0
+margin_bottom = 989.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N27" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3610.0
+margin_top = 960.0
+margin_right = 3658.0
+margin_bottom = 990.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N28" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3571.0
+margin_top = 1011.0
+margin_right = 3619.0
+margin_bottom = 1041.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N29" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3544.0
+margin_top = 1054.0
+margin_right = 3592.0
+margin_bottom = 1084.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N30" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3511.0
+margin_top = 1066.0
+margin_right = 3559.0
+margin_bottom = 1096.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N31" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3810.0
+margin_top = 859.0
+margin_right = 3858.0
+margin_bottom = 889.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N32" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3865.0
+margin_top = 874.0
+margin_right = 3913.0
+margin_bottom = 904.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N33" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3922.0
+margin_top = 851.0
+margin_right = 3970.0
+margin_bottom = 881.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N34" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3855.0
+margin_top = 836.0
+margin_right = 3903.0
+margin_bottom = 866.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N35" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3913.0
+margin_top = 891.0
+margin_right = 3961.0
+margin_bottom = 921.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N36" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3961.0
+margin_top = 912.0
+margin_right = 4009.0
+margin_bottom = 942.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N37" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3971.0
+margin_top = 859.0
+margin_right = 4019.0
+margin_bottom = 889.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N38" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 3999.0
+margin_top = 921.0
+margin_right = 4047.0
+margin_bottom = 951.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N39" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4944.0
+margin_top = 1065.0
+margin_right = 4992.0
+margin_bottom = 1095.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N40" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4998.0
+margin_top = 1052.0
+margin_right = 5046.0
+margin_bottom = 1082.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N41" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 5056.0
+margin_top = 1068.0
+margin_right = 5104.0
+margin_bottom = 1098.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N42" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4896.0
+margin_top = 1225.0
+margin_right = 4944.0
+margin_bottom = 1255.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N43" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4944.0
+margin_top = 1217.0
+margin_right = 4992.0
+margin_bottom = 1247.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N44" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4984.0
+margin_top = 1240.0
+margin_right = 5032.0
+margin_bottom = 1270.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N45" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4996.0
+margin_top = 1195.0
+margin_right = 5044.0
+margin_bottom = 1225.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N46" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4927.0
+margin_top = 1272.0
+margin_right = 4975.0
+margin_bottom = 1302.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N47" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4981.0
+margin_top = 1294.0
+margin_right = 5029.0
+margin_bottom = 1324.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N48" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4940.0
+margin_top = 1323.0
+margin_right = 4988.0
+margin_bottom = 1353.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N49" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 4916.0
+margin_top = 1254.0
+margin_right = 4964.0
+margin_bottom = 1284.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N50" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 5535.0
+margin_top = 1863.0
+margin_right = 5583.0
+margin_bottom = 1893.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N51" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 5574.0
+margin_top = 1854.0
+margin_right = 5622.0
+margin_bottom = 1884.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N52" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 5594.0
+margin_top = 1829.0
+margin_right = 5642.0
+margin_bottom = 1859.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N53" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 5560.0
+margin_top = 1793.0
+margin_right = 5608.0
+margin_bottom = 1823.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N54" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6517.0
+margin_top = 2059.0
+margin_right = 6565.0
+margin_bottom = 2089.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N55" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6567.0
+margin_top = 2075.0
+margin_right = 6615.0
+margin_bottom = 2105.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N56" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6627.0
+margin_top = 2053.0
+margin_right = 6675.0
+margin_bottom = 2083.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N57" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6690.0
+margin_top = 2076.0
+margin_right = 6738.0
+margin_bottom = 2106.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N58" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6753.0
+margin_top = 2051.0
+margin_right = 6801.0
+margin_bottom = 2081.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N59" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6506.0
+margin_top = 2196.0
+margin_right = 6554.0
+margin_bottom = 2226.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N60" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6562.0
+margin_top = 2218.0
+margin_right = 6610.0
+margin_bottom = 2248.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N61" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6616.0
+margin_top = 2228.0
+margin_right = 6664.0
+margin_bottom = 2258.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N62" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6662.0
+margin_top = 2198.0
+margin_right = 6710.0
+margin_bottom = 2228.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N63" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6670.0
+margin_top = 2246.0
+margin_right = 6718.0
+margin_bottom = 2276.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N64" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6720.0
+margin_top = 2243.0
+margin_right = 6768.0
+margin_bottom = 2273.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N65" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6698.0
+margin_top = 2213.0
+margin_right = 6746.0
+margin_bottom = 2243.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N66" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6770.0
+margin_top = 2257.0
+margin_right = 6818.0
+margin_bottom = 2287.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N67" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 7206.0
+margin_top = 2088.0
+margin_right = 7254.0
+margin_bottom = 2118.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N68" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 7203.0
+margin_top = 2132.0
+margin_right = 7251.0
+margin_bottom = 2162.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N69" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 7027.0
+margin_top = 2058.0
+margin_right = 7075.0
+margin_bottom = 2088.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N70" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 7080.0
+margin_top = 2034.0
+margin_right = 7128.0
+margin_bottom = 2064.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N71" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 7050.0
+margin_top = 1975.0
+margin_right = 7098.0
+margin_bottom = 2005.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N72" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 7048.0
+margin_top = 2020.0
+margin_right = 7096.0
+margin_bottom = 2050.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX
+XXXXXX
+XXXXXX"
+
+[node name="N73" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9338.0
+margin_top = 2029.0
+margin_right = 9530.0
+margin_bottom = 2081.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N74" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9503.0
+margin_top = 2070.0
+margin_right = 9695.0
+margin_bottom = 2122.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N75" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9240.0
+margin_top = 2269.0
+margin_right = 9432.0
+margin_bottom = 2321.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N76" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9343.0
+margin_top = 2344.0
+margin_right = 9535.0
+margin_bottom = 2396.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N77" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9634.0
+margin_top = 2119.0
+margin_right = 9826.0
+margin_bottom = 2171.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N78" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9471.0
+margin_top = 2398.0
+margin_right = 9663.0
+margin_bottom = 2450.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N79" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9651.0
+margin_top = 2406.0
+margin_right = 9843.0
+margin_bottom = 2458.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N80" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9569.0
+margin_top = 2477.0
+margin_right = 9761.0
+margin_bottom = 2529.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N81" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9797.0
+margin_top = 2355.0
+margin_right = 9989.0
+margin_bottom = 2407.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N82" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 9776.0
+margin_top = 2082.0
+margin_right = 9968.0
+margin_bottom = 2134.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N83" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10539.0
+margin_top = 2371.0
+margin_right = 10731.0
+margin_bottom = 2423.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N84" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10690.0
+margin_top = 2341.0
+margin_right = 10882.0
+margin_bottom = 2393.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N85" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10835.0
+margin_top = 2303.0
+margin_right = 11027.0
+margin_bottom = 2355.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N86" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10331.0
+margin_top = 2003.0
+margin_right = 10523.0
+margin_bottom = 2055.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N87" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10448.0
+margin_top = 1961.0
+margin_right = 10640.0
+margin_bottom = 2013.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N88" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10261.0
+margin_top = 2089.0
+margin_right = 10453.0
+margin_bottom = 2141.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N89" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10410.0
+margin_top = 2064.0
+margin_right = 10602.0
+margin_bottom = 2116.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N90" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10552.0
+margin_top = 2017.0
+margin_right = 10744.0
+margin_bottom = 2069.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N91" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10524.0
+margin_top = 2108.0
+margin_right = 10716.0
+margin_bottom = 2160.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N92" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10369.0
+margin_top = 2155.0
+margin_right = 10561.0
+margin_bottom = 2207.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N93" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 10643.0
+margin_top = 2053.0
+margin_right = 10835.0
+margin_bottom = 2105.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N94" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 11415.0
+margin_top = 1875.0
+margin_right = 11607.0
+margin_bottom = 1927.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N95" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 11211.0
+margin_top = 1850.0
+margin_right = 11403.0
+margin_bottom = 1902.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N96" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 11559.0
+margin_top = 2481.0
+margin_right = 11751.0
+margin_bottom = 2533.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N97" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 11782.0
+margin_top = 2481.0
+margin_right = 11974.0
+margin_bottom = 2533.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N98" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 11915.0
+margin_top = 2458.0
+margin_right = 12107.0
+margin_bottom = 2510.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N99" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14295.0
+margin_top = 2206.0
+margin_right = 14487.0
+margin_bottom = 2258.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N100" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14124.0
+margin_top = 2257.0
+margin_right = 14316.0
+margin_bottom = 2309.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N101" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14010.0
+margin_top = 2323.0
+margin_right = 14202.0
+margin_bottom = 2375.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N102" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 13976.0
+margin_top = 2380.0
+margin_right = 14168.0
+margin_bottom = 2432.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N103" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14072.0
+margin_top = 2445.0
+margin_right = 14264.0
+margin_bottom = 2497.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N104" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 13899.0
+margin_top = 2448.0
+margin_right = 14091.0
+margin_bottom = 2500.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N105" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 13981.0
+margin_top = 2516.0
+margin_right = 14173.0
+margin_bottom = 2568.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N106" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 13922.0
+margin_top = 2590.0
+margin_right = 14114.0
+margin_bottom = 2642.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N107" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 13764.0
+margin_top = 2533.0
+margin_right = 13956.0
+margin_bottom = 2585.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N108" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14038.0
+margin_top = 2638.0
+margin_right = 14230.0
+margin_bottom = 2690.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N109" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14572.0
+margin_top = 2408.0
+margin_right = 14764.0
+margin_bottom = 2460.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N110" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14652.0
+margin_top = 2469.0
+margin_right = 14844.0
+margin_bottom = 2521.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N111" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 14802.0
+margin_top = 2506.0
+margin_right = 14994.0
+margin_bottom = 2558.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N112" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17503.0
+margin_top = 2026.0
+margin_right = 17695.0
+margin_bottom = 2078.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N113" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17677.0
+margin_top = 2081.0
+margin_right = 17869.0
+margin_bottom = 2133.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N114" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17515.0
+margin_top = 2328.0
+margin_right = 17707.0
+margin_bottom = 2380.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N115" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17679.0
+margin_top = 2283.0
+margin_right = 17871.0
+margin_bottom = 2335.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N116" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17892.0
+margin_top = 2279.0
+margin_right = 18084.0
+margin_bottom = 2331.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N117" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18096.0
+margin_top = 2270.0
+margin_right = 18288.0
+margin_bottom = 2322.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N118" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18209.0
+margin_top = 2342.0
+margin_right = 18401.0
+margin_bottom = 2394.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N119" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17728.0
+margin_top = 1995.0
+margin_right = 17920.0
+margin_bottom = 2047.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N120" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 17904.0
+margin_top = 2054.0
+margin_right = 18096.0
+margin_bottom = 2106.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N121" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18083.0
+margin_top = 2003.0
+margin_right = 18275.0
+margin_bottom = 2055.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N122" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18308.0
+margin_top = 2037.0
+margin_right = 18500.0
+margin_bottom = 2089.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N123" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18427.0
+margin_top = 2115.0
+margin_right = 18619.0
+margin_bottom = 2167.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N124" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18072.0
+margin_top = 3074.0
+margin_right = 18328.0
+margin_bottom = 3148.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N125" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18263.0
+margin_top = 3164.0
+margin_right = 18519.0
+margin_bottom = 3238.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N126" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18241.0
+margin_top = 3052.0
+margin_right = 18497.0
+margin_bottom = 3126.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N127" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18668.0
+margin_top = 2908.0
+margin_right = 18924.0
+margin_bottom = 2982.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N128" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18484.0
+margin_top = 3168.0
+margin_right = 18740.0
+margin_bottom = 3242.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N129" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18695.0
+margin_top = 3146.0
+margin_right = 18951.0
+margin_bottom = 3220.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N130" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18902.0
+margin_top = 3092.0
+margin_right = 19158.0
+margin_bottom = 3166.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N131" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 19041.0
+margin_top = 3016.0
+margin_right = 19297.0
+margin_bottom = 3090.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N132" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18983.0
+margin_top = 2508.0
+margin_right = 19239.0
+margin_bottom = 2582.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N133" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 19165.0
+margin_top = 2436.0
+margin_right = 19421.0
+margin_bottom = 2510.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N134" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 19354.0
+margin_top = 2396.0
+margin_right = 19610.0
+margin_bottom = 2470.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N135" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 19125.0
+margin_top = 2212.0
+margin_right = 19381.0
+margin_bottom = 2286.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N136" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 18925.0
+margin_top = 2246.0
+margin_right = 19181.0
+margin_bottom = 2320.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N137" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20058.0
+margin_top = 3054.0
+margin_right = 20314.0
+margin_bottom = 3128.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N138" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20312.0
+margin_top = 3111.0
+margin_right = 20568.0
+margin_bottom = 3185.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N139" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20480.0
+margin_top = 3020.0
+margin_right = 20736.0
+margin_bottom = 3094.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N140" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20271.0
+margin_top = 3003.0
+margin_right = 20527.0
+margin_bottom = 3077.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N141" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20702.0
+margin_top = 2749.0
+margin_right = 20958.0
+margin_bottom = 2823.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N142" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20892.0
+margin_top = 2667.0
+margin_right = 21148.0
+margin_bottom = 2741.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N143" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 21862.0
+margin_top = 2449.0
+margin_right = 22118.0
+margin_bottom = 2523.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N144" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22054.0
+margin_top = 2370.0
+margin_right = 22310.0
+margin_bottom = 2444.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N145" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22648.0
+margin_top = 2415.0
+margin_right = 22904.0
+margin_bottom = 2489.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N146" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22784.0
+margin_top = 2554.0
+margin_right = 23040.0
+margin_bottom = 2628.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N147" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22908.0
+margin_top = 2435.0
+margin_right = 23164.0
+margin_bottom = 2509.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N148" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22730.0
+margin_top = 2972.0
+margin_right = 22986.0
+margin_bottom = 3046.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N149" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22456.0
+margin_top = 3043.0
+margin_right = 22712.0
+margin_bottom = 3117.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N150" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22637.0
+margin_top = 3001.0
+margin_right = 22893.0
+margin_bottom = 3075.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N151" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22207.0
+margin_top = 3086.0
+margin_right = 22463.0
+margin_bottom = 3160.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N152" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22009.0
+margin_top = 3024.0
+margin_right = 22265.0
+margin_bottom = 3098.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N153" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 21916.0
+margin_top = 2942.0
+margin_right = 22172.0
+margin_bottom = 3016.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 1.67578 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXX"
+align = 1
+valign = 1
+
+[node name="N03" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1466.0
+margin_top = 1324.0
+margin_right = 1514.0
+margin_bottom = 1334.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 3.63999 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX"
+
+[node name="N04" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1524.0
+margin_top = 1323.0
+margin_right = 1572.0
+margin_bottom = 1333.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 3.63999 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX"
+
+[node name="N05" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 1581.0
+margin_top = 1323.0
+margin_right = 1629.0
+margin_bottom = 1333.0
+rect_rotation = -0.512348
+rect_scale = Vector2( 1.2, 3.63999 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXX"
+
+[node name="N07" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 2011.0
+margin_top = 1360.0
+margin_right = 2059.0
+margin_bottom = 1370.0
+rect_rotation = -179.876
+rect_scale = Vector2( 1.2, 3.63999 )
+rect_pivot_offset = Vector2( 82, 0 )
+theme = ExtResource( 1 )
+text = "XXXXXX"
+
+[node name="N12" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 2861.0
+margin_top = 1152.0
+margin_right = 2941.0
+margin_bottom = 1215.0
+theme = ExtResource( 1 )
+text = "XXXXXXXXXX
+XXBlocksXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX"
+
+[node name="N13" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 2861.0
+margin_top = 1216.0
+margin_right = 2941.0
+margin_bottom = 1279.0
+theme = ExtResource( 1 )
+text = "XXXXXXXXXX
+XXBlocksXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX
+XXXXXXXXXX"
+
+[node name="N15" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 6270.0
+margin_top = 1814.0
+margin_right = 6462.0
+margin_bottom = 1877.0
+theme = ExtResource( 1 )
+text = "Introduce the player to 
+dolphin riding
+"
+
+[node name="N16" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 8417.0
+margin_top = 1903.0
+margin_right = 8609.0
+margin_bottom = 1966.0
+theme = ExtResource( 1 )
+text = "Dolphin ride section
+"
+
+[node name="N17" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 15161.0
+margin_top = 1861.0
+margin_right = 15353.0
+margin_bottom = 1924.0
+theme = ExtResource( 1 )
+text = "Dolphin ride section
+"
+
+[node name="N18" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 20641.0
+margin_top = 2890.0
+margin_right = 20897.0
+margin_bottom = 2953.0
+theme = ExtResource( 1 )
+text = "Block this area off with blocks 
+only a dolphin can break
+"
+
+[node name="N19" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+margin_left = 22390.0
+margin_top = 2655.0
+margin_right = 22646.0
+margin_bottom = 2718.0
+theme = ExtResource( 1 )
+text = "Vs Marine Unusual
+"
+
+[node name="N14" type="Label" parent="Notes"]
+physics_interpolation_mode = 1
+visible = false
+margin_left = -53.0
+margin_top = 1857.0
+margin_right = 27.0
+margin_bottom = 1920.0
+theme = ExtResource( 1 )
+text = "WATER LINE:
+WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"

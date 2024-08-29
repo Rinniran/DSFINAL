@@ -11,6 +11,10 @@ var Shootsound = preload("res://Audio/SE/SHuskShoot.wav")
 var activate = preload("res://Audio/SE/Detected.wav")
 var projallowed = 1
 
+var organichurt = preload("res://Audio/SE/OrganicHurt.wav")
+var organicNL = preload("res://Audio/SE/OrganicNL.mp3")
+var crit = preload("res://Audio/SE/CRIT.wav")
+
 var dielol = 0
 onready var hpbar = $EnemHealth
 # Called when the node enters the scene tree for the first time.
@@ -175,6 +179,7 @@ func _on_Area2D_area_entered(area):
 			get_parent().add_child(damobj)
 			
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
+			$hurt.stream = organichurt
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()
@@ -194,6 +199,7 @@ func _on_Area2D_area_entered(area):
 			damobj.value = str(0.5 + Globals.atkmult)
 			get_parent().add_child(damobj)
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
+			$hurt.stream = organichurt
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()
@@ -216,6 +222,7 @@ func _on_Area2D_area_entered(area):
 			get_parent().add_child(damobj)
 			
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
+			$hurt.stream = organicNL
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()
@@ -242,6 +249,7 @@ func _on_Area2D_area_entered(area):
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
 			$multihurt.start()
 			$multihurtrepeat.start()
+			$hurt.stream = organichurt
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()
@@ -266,6 +274,7 @@ func _on_Area2D_area_entered(area):
 			get_parent().add_child(damobj)
 			
 			
+			$hurt.stream = crit
 			$hurt.play()
 			Globals.score += 100
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -292,6 +301,7 @@ func _on_Area2D_area_entered(area):
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
 			$multihurt.start()
 			$multihurtrepeat.start()
+			$hurt.stream = organichurt
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()
@@ -313,6 +323,7 @@ func _on_Area2D_area_entered(area):
 			get_parent().add_child(damobj)
 			
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
+			$hurt.stream = crit
 			$hurt.play()
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()

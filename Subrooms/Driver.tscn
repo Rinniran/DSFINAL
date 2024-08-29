@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://meshes/Driver.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://Sprites/Textures/oneDriver.png" type="Texture" id=2]
+[ext_resource path="res://meshes/STAGE/CS/Textures/oneDriver.png" type="Texture" id=2]
 [ext_resource path="res://Stages/modelrot.gd" type="Script" id=3]
 [ext_resource path="res://Stages/screen.gd" type="Script" id=4]
 [ext_resource path="res://Subrooms/Driverone.gd" type="Script" id=5]

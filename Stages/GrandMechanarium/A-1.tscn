@@ -865,7 +865,7 @@ position = Vector2( 448, 2162 )
 
 [node name="Rspr" parent="Objects/Rian" index="0"]
 animation = "idle"
-frame = 5
+frame = 8
 
 [node name="SPARKS" parent="Objects/Rian" index="31"]
 frame = 6

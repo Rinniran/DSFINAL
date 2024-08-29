@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/Misc/DWCR01.png" type="Texture" id=1]
+[ext_resource path="res://Audio/SE/ForesightExp1.ogg" type="AudioStream" id=2]
+
+[sub_resource type="GDScript" id=1]
+resource_name = "Crosshair"
+script/source = "extends Sprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+var lightningsspawned = 0
+var gonuts = false
+
+
+var rotrand = RandomNumberGenerator.new()
+
+var spawntimer = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$Spawnwait.start()
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if is_instance_valid(Globals.player):
+		global_position = Globals.player.global_position
+	else: 
+		queue_free()
+	rotation_degrees += 3
+	
+	if gonuts == true:
+		if spawntimer <= 0 && lightningsspawned < 6:
+			spawnlightning()
+			lightningsspawned += 1
+			spawntimer = 5
+		
+		
+		
+		spawntimer -= 1
+		
+		
+		
+	
+	if lightningsspawned >= 5:
+		queue_free()
+	
+#	pass
+
+
+func spawnlightning():
+	$Spawn.stop()
+	$Spawn.play(0.0)
+	Globals.camera.shake(800,1,100)
+	var lightning = preload(\"res://Objects/Hazards/AttackLightning.tscn\").instance()
+	
+	
+	rotrand.randomize()
+	var gorandbs = rotrand.randf_range(0,170)
+	
+	lightning.global_position = global_position
+	lightning.rotation_degrees = gorandbs
+	
+	get_parent().add_child(lightning)
+
+
+func _on_Spawnwait_timeout():
+	gonuts = true
+	pass # Replace with function body.
+"
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "weee"
+length = 1.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.992157, 1, 0, 1 ), Color( 0.00784314, 0.996078, 0, 1 ), Color( 0, 1, 0.976471, 1 ), Color( 0, 0.0862745, 1, 1 ), Color( 0.968627, 0, 1, 1 ), Color( 1, 0, 0, 1 ) ]
+}
+
+[node name="Dwcr01" type="Sprite"]
+modulate = Color( 1, 0, 0, 1 )
+texture = ExtResource( 1 )
+script = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "weee"
+anims/RESET = SubResource( 2 )
+anims/weee = SubResource( 3 )
+
+[node name="Spawnwait" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="Spawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 13.333
+
+[connection signal="timeout" from="Spawnwait" to="." method="_on_Spawnwait_timeout"]

@@ -1,15 +1,18 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/gui/Pause.png" type="Texture" id=1]
 [ext_resource path="res://TextMain.tres" type="Theme" id=2]
 [ext_resource path="res://Objects/UI/Cursor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Audio/SE/air attack.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/BGM/Tutorial.ogg" type="AudioStream" id=5]
 
 [sub_resource type="GDScript" id=7]
 resource_name = "Pause"
 script/source = "extends Control
 
 var option = 2
+
+var manualpage = 1
 # Declare member variables here. Examples:
 # var a = 2
 # var b = \"text\"
@@ -27,45 +30,104 @@ func _physics_process(delta):
 	
 	$CanvasLayer2/optioncounter.text = str(\"Option = \") + str(option)
 	
-	if Input.is_action_just_pressed(\"ui_up\"):
-		if option != 2:
+	if Input.is_action_just_pressed(\"ui_up\") || Input.is_action_just_pressed(\"stickup\"):
+		if option != 3:
 			option += 1
 	
-	if Input.is_action_just_pressed(\"ui_down\"):
+	if Input.is_action_just_pressed(\"ui_down\") || Input.is_action_just_pressed(\"stickdown\"):
 		if option != 0:
 			option -= 1
 	
-	match(option):
-		2:
-			$CanvasLayer2/Cursor.position.x = 187
-			$CanvasLayer2/Cursor.position.y = 70
-		1:
-			$CanvasLayer2/Cursor.position.x = 187
-			$CanvasLayer2/Cursor.position.y = 109
-		0:
-			$CanvasLayer2/Cursor.position.x = 187
-			$CanvasLayer2/Cursor.position.y = 147
-	
-	if Input.is_action_pressed(\"jump\") && !$AnimationPlayer.is_playing():
+	if $CanvasLayer2.visible == true:
 		match(option):
+			3:
+				$CanvasLayer2/Cursor.position.x = 187
+				$CanvasLayer2/Cursor.position.y = 70
 			2:
-				$AnimationPlayer.play(\"Close\")
-				
+				$CanvasLayer2/Cursor.position.x = 187
+				$CanvasLayer2/Cursor.position.y = 95
 			1:
-				
-				
-				Globals.music.stop()
-				Sys.load_scene(Globals.cur_scene,Globals.stage_start)
-				get_tree().paused = false
-				
-				
+				$CanvasLayer2/Cursor.position.x = 187
+				$CanvasLayer2/Cursor.position.y = 122
 			0:
-				Globals.music.stop()
-				Sys.load_scene(Globals.cur_scene,\"res://Stages/Titlescreen.tscn\")
-				get_tree().paused = false
-				
-				
+				$CanvasLayer2/Cursor.position.x = 187
+				$CanvasLayer2/Cursor.position.y = 147
 		
+		if Input.is_action_pressed(\"jump\") && !$AnimationPlayer.is_playing():
+			match(option):
+				3:
+					$AnimationPlayer.play(\"Close\")
+					
+				2:
+					
+					
+					Globals.music.stop()
+					Sys.load_scene(Globals.cur_scene,Globals.stage_start)
+					get_tree().paused = false
+					
+				1:
+					$CanvasLayer2.visible = false
+					$MANUAL.visible = true
+					manualpage = 1
+				0:
+					Globals.music.stop()
+					Sys.load_scene(Globals.cur_scene,\"res://Stages/Titlescreen.tscn\")
+					get_tree().paused = false
+					
+					
+	
+	
+	if $MANUAL.visible == true:
+		match(manualpage):
+			1:
+				$MANUAL/TITLE.text = \"WHAT'S THE GOAL HERE?\"
+				
+				$MANUAL/BODY.text = str(\"The goal of DreamShock is to make \\nit to the end of the stage as\\nstylishly as possible! \\nCollect pieces, keep up your GROOVE \\nscore, and stay alive until the end \\nof the stage to get the elusive \\n'X' rank to unlock 'X Story';\\nA final gauntlet where you must \\nfight or die in a marathon of \\nmadness!\")
+				
+				$MANUAL/NUM.text = \"1/5\"
+			
+			2:
+				$MANUAL/TITLE.text = \"WHAT DO THE PIECES DO?\"
+				
+				$MANUAL/BODY.text = str(\"Pieces increase your GROOVE score\\nand keep your combo going without\\nthe need to fight or do tricks / do\\nstunts. As you may have guessed,\\nevery 100 pieces gives you an extra\\nlife! You can also lose a few of them\\nby taking damage.\")
+				
+				$MANUAL/NUM.text = \"2/5\"
+			
+			3:
+				$MANUAL/TITLE.text = \"GROOVE SCORE?\"
+				
+				$MANUAL/BODY.text = str(\"GROOVE score is the heart of your\\nscore. Without it, you won't be \\ngetting much more than an A rank.\\n\\nTo build up your GROOVE score,\\nmake sure to:\\n- Utilize your whole moveset and\\nswitch it up a bit\\n- Perform stunt kills to double \\nyour score\\n- Don't die\")
+				
+				$MANUAL/NUM.text = \"3/5\"
+			
+			4:
+				$MANUAL/TITLE.text = \"STUNT KILLS?\"
+				
+				$MANUAL/BODY.text = str(\"Stunt kills are performed by\\ndoing tricks that end in \\ndestroying enemies. The reward\\nDOUBLES your GROOVE score, and\\non top of that, gives you a small\\nbase score bonus.\\nhold the 'stunt' button and do jumps,\\nand you'll see your actions get\\nadded to the list. This keeps track\\nof the sequence of moves you've \\nperformed, and refreshes after a\\n               couple seconds.\")
+				
+				$MANUAL/NUM.text = \"4/5\"
+			
+			5:
+				$MANUAL/TITLE.text = \"WHAT DOES 'CHAIN' DO?\"
+				
+				$MANUAL/BODY.text = str(\"Chaining is DreamShock's combo \\nsystem. You build it up by hitting \\nenemies. What's more, you can get \\na higher chain faster if you can \\nget enemies to hit each other, \\nmaking impacts 4 chains per hit! \\nReaching at least a 48 chain will \\nreward you with infinite meter, \\nallowing you to blast away with no \\ncooldown AND infinite flight! Just \\ntry not to get hit, or it's back to \\n              square one for you.\")
+				
+				$MANUAL/NUM.text = \"5/5\"
+		
+		
+		if Input.is_action_just_pressed(\"ui_right\") || Input.is_action_just_pressed(\"stickright\"):
+			if manualpage != 5:
+				manualpage += 1
+	
+		if Input.is_action_just_pressed(\"ui_left\") || Input.is_action_just_pressed(\"stickleft\"):
+			if manualpage != 1:
+				manualpage -= 1
+		
+		
+		if Input.is_action_just_pressed(\"dash\") || Input.is_action_just_pressed(\"attack\"):
+			$MANUAL.visible = false
+			$CanvasLayer2.visible = true
+			option = 0
 #	pass
 
 
@@ -176,11 +238,21 @@ valign = 1
 
 [node name="RestartText" type="Label" parent="CanvasLayer2"]
 margin_left = 43.0
-margin_top = 89.0
+margin_top = 75.0
 margin_right = 331.0
-margin_bottom = 129.0
+margin_bottom = 115.0
 theme = ExtResource( 2 )
 text = "RESTART"
+align = 1
+valign = 1
+
+[node name="ManualText" type="Label" parent="CanvasLayer2"]
+margin_left = 43.0
+margin_top = 101.0
+margin_right = 331.0
+margin_bottom = 141.0
+theme = ExtResource( 2 )
+text = "MANUAL"
 align = 1
 valign = 1
 
@@ -202,8 +274,50 @@ rect_scale = Vector2( 0.5, 0.5 )
 theme = ExtResource( 2 )
 
 [node name="Cursor" parent="CanvasLayer2" instance=ExtResource( 3 )]
-position = Vector2( 187, 147 )
+position = Vector2( 187, 95 )
 scale = Vector2( 0.4, 0.2 )
+
+[node name="MANUAL" type="CanvasLayer" parent="."]
+layer = 128
+visible = false
+
+[node name="TITLE" type="Label" parent="MANUAL"]
+modulate = Color( 1, 0.964706, 0, 1 )
+margin_left = 83.0
+margin_top = 48.0
+margin_right = 123.0
+margin_bottom = 62.0
+theme = ExtResource( 2 )
+text = "WHAT DOES 'CHAIN' DO?"
+
+[node name="BODY" type="Label" parent="MANUAL"]
+margin_left = 83.0
+margin_top = 63.0
+margin_right = 123.0
+margin_bottom = 77.0
+rect_scale = Vector2( 0.8, 0.8 )
+theme = ExtResource( 2 )
+text = "Chaining is DreamShock's combo \\n 
+system. you build it up by hitting \\n
+enemies. What's more, you can get \\n
+a higher chain faster if you can \\n
+get enemies to hit each other, \\n
+making impacts 4 chains per hit! \\n
+Reaching at least a 48 chain will \\n
+reward you with infinite meter, \\n
+allowing you to blast away with no \\n
+cooldown AND infinite flight! Just \\n
+try not to get hit, or it's back to \\n
+              square one for you."
+
+[node name="NUM" type="Label" parent="MANUAL"]
+margin_left = 274.0
+margin_top = 175.0
+margin_right = 314.0
+margin_bottom = 189.0
+rect_scale = Vector2( 0.8, 0.8 )
+theme = ExtResource( 2 )
+text = "1/5"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
@@ -217,5 +331,11 @@ volume_db = 9.454
 pitch_scale = 2.09
 autoplay = true
 bus = "SFX"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 6.667
+autoplay = true
+bus = "BGM"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

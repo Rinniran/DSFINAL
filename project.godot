@@ -209,11 +209,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
 }, {
-"base": "ParallaxBackground",
-"class": "PreviewingParallaxBackground",
-"language": "GDScript",
-"path": "res://addons/godot-previewing-parallax-background-3ba3f2a873f70f4bc01e140aa95e0cd8288108e1/addons/nklbdev.previewing_parallax_background/PreviewingParallaxBackground.gd"
-}, {
 "base": "EditorPlugin",
 "class": "SheetToSpritePlugin",
 "language": "GDScript",
@@ -223,81 +218,6 @@ _global_script_classes=[ {
 "class": "State",
 "language": "GDScript",
 "path": "res://addons/fsm-node/nodes/state.gd"
-}, {
-"base": "",
-"class": "SteamAPI",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_api.gdns"
-}, {
-"base": "",
-"class": "SteamApps",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_apps.gdns"
-}, {
-"base": "",
-"class": "SteamCallback",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_callback.gdns"
-}, {
-"base": "",
-"class": "SteamFriends",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_friends.gdns"
-}, {
-"base": "Node",
-"class": "SteamI",
-"language": "GDScript",
-"path": "res://addons/steam_api/steam_i.gd"
-}, {
-"base": "",
-"class": "SteamId",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_id.gdns"
-}, {
-"base": "",
-"class": "SteamLeaderboard",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_leaderboard.gdns"
-}, {
-"base": "",
-"class": "SteamLeaderboardEntries",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_leaderboard_entries.gdns"
-}, {
-"base": "",
-"class": "SteamLeaderboardEntry",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_leaderboard_entry.gdns"
-}, {
-"base": "",
-"class": "SteamLeaderboardFindResult",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_find_leaderboard_result.gdns"
-}, {
-"base": "",
-"class": "SteamLeaderboardScoreUploaded",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_leaderboard_uploaded.gdns"
-}, {
-"base": "",
-"class": "SteamLeaderboardScoresDownloaded",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_leaderboard_scores_downloaded.gdns"
-}, {
-"base": "",
-"class": "SteamUser",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_user.gdns"
-}, {
-"base": "",
-"class": "SteamUserStats",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_user_stats.gdns"
-}, {
-"base": "",
-"class": "SteamUtils",
-"language": "NativeScript",
-"path": "res://addons/steam_api/steam_utils.gdns"
 }, {
 "base": "Node",
 "class": "SubtitleData",
@@ -365,24 +285,8 @@ _global_script_class_icons={
 "FSM_Component": "",
 "GameState": "",
 "Member": "",
-"PreviewingParallaxBackground": "",
 "SheetToSpritePlugin": "",
 "State": "res://addons/fsm-node/nodes/icons/state.svg",
-"SteamAPI": "",
-"SteamApps": "",
-"SteamCallback": "",
-"SteamFriends": "",
-"SteamI": "",
-"SteamId": "",
-"SteamLeaderboard": "",
-"SteamLeaderboardEntries": "",
-"SteamLeaderboardEntry": "",
-"SteamLeaderboardFindResult": "",
-"SteamLeaderboardScoreUploaded": "",
-"SteamLeaderboardScoresDownloaded": "",
-"SteamUser": "",
-"SteamUserStats": "",
-"SteamUtils": "",
 "SubtitleData": "",
 "SubtitlesLayer2D": "",
 "SubtitlesLayer3D": "",
@@ -394,7 +298,7 @@ _global_script_class_icons={
 
 config/name="DreamShock"
 config/description="A blast through space, time, and dreams!"
-run/main_scene="res://Subrooms/Logo.tscn"
+run/main_scene="res://Subrooms/SAGE.tscn"
 run/low_processor_mode=true
 boot_splash/image="res://Yaiba mini boss Illustration + logo.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
@@ -408,13 +312,12 @@ output_latency.web=100
 
 [autoload]
 
-Globals="*res://src/globals.gd"
-Settings="*res://src/Settings.gd"
-Sys="*res://src/Sys.gd"
-Discord="*res://addons/discord_game_sdk/discord.gd"
 InputHelper="*res://addons/input_helper/input_helper.gd"
 Switches="*res://src/settings/switches.gd"
-Steam="*res://addons/steam_api/steam.gd"
+Globals="*res://src/globals.gd"
+Sys="*res://src/Sys.gd"
+Settings="*res://src/Settings.gd"
+Discord="*res://addons/discord_game_sdk/discord.gd"
 
 [debug]
 
@@ -426,6 +329,8 @@ window/size/width=384
 window/size/height=224
 window/size/test_width=768
 window/size/test_height=640
+window/vsync/use_vsync=false
+window/tablet_driver=""
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -435,7 +340,7 @@ main_run_args="--verbose"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/CustomRunner/plugin.cfg", "res://addons/EXP-System-Dialog/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/discord_game_sdk/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ridiculous_coding/plugin.cfg", "res://addons/sheet_to_sprite/plugin.cfg", "res://addons/smoothing/plugin.cfg", "res://addons/steam_api/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/CustomRunner/plugin.cfg", "res://addons/EXP-System-Dialog/plugin.cfg", "res://addons/behavior_tree/plugin.cfg", "res://addons/discord_game_sdk/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/ridiculous_coding/plugin.cfg", "res://addons/sheet_to_sprite/plugin.cfg", "res://addons/smoothing/plugin.cfg" )
 
 [global]
 
@@ -635,6 +540,17 @@ winmode={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777248,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+ClearGroove={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777240,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":4,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+dashalt={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadMotion,"resource_local_to_scene":false,"resource_name":"","device":0,"axis":7,"axis_value":1.0,"script":null)
+ ]
+}
 
 [physics]
 
@@ -643,6 +559,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+2d/snapping/use_gpu_pixel_snap=true
 threads/thread_model=2
 threads/thread_safe_bvh=true
 vram_compression/import_etc=true

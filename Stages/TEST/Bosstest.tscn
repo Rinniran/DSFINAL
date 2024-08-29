@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/Scene.gd" type="Script" id=1]
+[ext_resource path="res://Blockout.tres" type="TileSet" id=2]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Audio/BGM/Yaiba.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Objects/Bosses/Yaiba.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+background_canvas_max_layer = 200
+adjustment_brightness = 1.31
+adjustment_saturation = 1.64
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+musplay = ExtResource( 5 )
+vidmode = 1
+
+[node name="Camera2D" parent="." instance=ExtResource( 4 )]
+target = NodePath("../Rian")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+collision_layer = 3
+collision_mask = 3
+format = 1
+tile_data = PoolIntArray( -196584, 0, 0, -131048, 0, 0, -1, 0, 0, -65512, 0, 0, 65535, 0, 0, 24, 0, 0, 131071, 0, 0, 65560, 0, 0, 196607, 0, 0, 131096, 0, 0, 262143, 0, 0, 196632, 0, 0, 327679, 0, 0, 262168, 0, 0, 393215, 0, 0, 327704, 0, 0, 458751, 0, 0, 393240, 0, 0, 524287, 0, 0, 458776, 0, 0, 589823, 0, 0, 524312, 0, 0, 655359, 0, 0, 589848, 0, 0, 720895, 0, 0, 655384, 0, 0, 786431, 0, 0, 720920, 0, 0, 851967, 0, 0, 786456, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851980, 0, 0, 851981, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0 )
+
+[node name="Rian" parent="." instance=ExtResource( 3 )]
+position = Vector2( 35, 186 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="Yaiba" parent="." instance=ExtResource( 6 )]
+position = Vector2( 331, 176 )

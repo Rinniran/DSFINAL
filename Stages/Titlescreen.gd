@@ -92,7 +92,7 @@ func _process(delta):
 					$labels/startgame/alpha.play("alph")
 					$labels/Training.modulate = Color(1, 1, 1, 0.8)
 					$labels/options.modulate = Color(1, 1, 1, 0.8)
-					$labels/extras.modulate = Color(1, 1, 1, 0.8)
+					$labels/extras.modulate = Color(1, 1, 1, 0.2)
 					$labels/xstory.modulate = Color(1, 1, 1, 0.2)
 					if Input.is_action_just_pressed("pause") || Input.is_action_just_pressed("jump"):
 						$Accept.play()
@@ -104,7 +104,7 @@ func _process(delta):
 					$labels/Training/alpha.play("alph")
 					$labels/startgame.modulate = Color(1, 1, 1, 0.8)
 					$labels/options.modulate = Color(1, 1, 1, 0.8)
-					$labels/extras.modulate = Color(1, 1, 1, 0.8)
+					$labels/extras.modulate = Color(1, 1, 1, 0.2)
 					$labels/xstory.modulate = Color(1, 1, 1, 0.2)
 					if Input.is_action_just_pressed("pause") || Input.is_action_just_pressed("jump"):
 						$Accept.play()
@@ -116,7 +116,7 @@ func _process(delta):
 					$labels/xstory/alpha.play("alph")
 					$labels/Training.modulate = Color(1, 1, 1, 0.8)
 					$labels/options.modulate = Color(1, 1, 1, 0.8)
-					$labels/extras.modulate = Color(1, 1, 1, 0.8)
+					$labels/extras.modulate = Color(1, 1, 1, 0.2)
 					$labels/startgame.modulate = Color(1, 1, 1, 0.8)
 				
 				3:
@@ -130,7 +130,7 @@ func _process(delta):
 					$labels/options/alpha.play("alph")
 					$labels/Training.modulate = Color(1, 1, 1, 0.8)
 					$labels/startgame.modulate = Color(1, 1, 1, 0.8)
-					$labels/extras.modulate = Color(1, 1, 1, 0.8)
+					$labels/extras.modulate = Color(1, 1, 1, 0.2)
 					$labels/xstory.modulate = Color(1, 1, 1, 0.2)
 					if Input.is_action_just_pressed("pause") || Input.is_action_just_pressed("jump"):
 						$Accept.play()
@@ -144,16 +144,22 @@ func _process(delta):
 				
 			#	$ColorRect/transition.play("changescreen")
 			#nomore = 1
-		if Input.is_action_just_pressed("ui_up"):
+		if Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("stickup"):
 			opt -= 1
 			if opt < 0:
 				opt = 4
-
-
-		if Input.is_action_just_pressed("ui_down"):
+	
+	
+		if Input.is_action_just_pressed("ui_down") || Input.is_action_just_pressed("stickdown"):
 			opt += 1
 			if opt > 4:
 				opt = 0
+	
+	
+	
+	
+	Switches.YaibaDefeated = 0
+	Switches.foresightdefeated = 0
 #
 #	pass
 

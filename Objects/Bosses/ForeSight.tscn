@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=2]
+[gd_scene load_steps=97 format=2]
 
 [ext_resource path="res://Sprites/Bosses/Foresight/Head.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Bosses/Foresight/connector.png" type="Texture" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://Objects/Bosses/ForeSight.gd" type="Script" id=8]
 [ext_resource path="res://Objects/Bosses/explosions.gd" type="Script" id=9]
 [ext_resource path="res://Audio/SE/hit.wav" type="AudioStream" id=10]
+[ext_resource path="res://Audio/SE/SHuskShoot.wav" type="AudioStream" id=11]
+[ext_resource path="res://Sprites/gui/BossBarprogress.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/gui/BossBarback.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 21.9978, 12.4987 )
@@ -759,22 +762,20 @@ tracks/54/keys = {
 "update": 1,
 "values": [ 0, -8 ]
 }
-tracks/55/type = "method"
-tracks/55/path = NodePath(".")
+tracks/55/type = "value"
+tracks/55/path = NodePath("LegBack/Legback2/Footback/Hitbox/CollisionShape2D:disabled")
 tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/imported = false
 tracks/55/enabled = true
 tracks/55/keys = {
-"times": PoolRealArray( 5.5 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "queue_free"
-} ]
+"update": 1,
+"values": [ true ]
 }
 tracks/56/type = "value"
-tracks/56/path = NodePath("LegBack/Legback2/Footback/Hitbox/CollisionShape2D:disabled")
+tracks/56/path = NodePath("LegBack/Legback2/Hitbox/CollisionShape2D:disabled")
 tracks/56/interp = 1
 tracks/56/loop_wrap = true
 tracks/56/imported = false
@@ -786,7 +787,7 @@ tracks/56/keys = {
 "values": [ true ]
 }
 tracks/57/type = "value"
-tracks/57/path = NodePath("LegBack/Legback2/Hitbox/CollisionShape2D:disabled")
+tracks/57/path = NodePath("Head/Hurtbox/CollisionShape2D:disabled")
 tracks/57/interp = 1
 tracks/57/loop_wrap = true
 tracks/57/imported = false
@@ -797,30 +798,21 @@ tracks/57/keys = {
 "update": 1,
 "values": [ true ]
 }
-tracks/58/type = "value"
-tracks/58/path = NodePath("Head/Hurtbox/CollisionShape2D:disabled")
+tracks/58/type = "method"
+tracks/58/path = NodePath("..")
 tracks/58/interp = 1
 tracks/58/loop_wrap = true
 tracks/58/imported = false
 tracks/58/enabled = true
 tracks/58/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/59/type = "method"
-tracks/59/path = NodePath(".")
-tracks/59/interp = 1
-tracks/59/loop_wrap = true
-tracks/59/imported = false
-tracks/59/enabled = true
-tracks/59/keys = {
-"times": PoolRealArray( 4.4 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 4.4, 5.5 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "gonow"
+}, {
+"args": [  ],
+"method": "queue_free"
 } ]
 }
 
@@ -1220,7 +1212,7 @@ tracks/32/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/33/type = "value"
 tracks/33/path = NodePath("explosions/exp3:playing")
@@ -1463,7 +1455,7 @@ tracks/52/keys = {
 "values": [ 1.0 ]
 }
 tracks/53/type = "value"
-tracks/53/path = NodePath("explosions/exp:scale")
+tracks/53/path = NodePath("explosions/exp:speed_scale")
 tracks/53/interp = 1
 tracks/53/loop_wrap = true
 tracks/53/imported = false
@@ -1472,10 +1464,10 @@ tracks/53/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ 1.0 ]
 }
 tracks/54/type = "value"
-tracks/54/path = NodePath("explosions/exp:speed_scale")
+tracks/54/path = NodePath("explosions/exp:z_index")
 tracks/54/interp = 1
 tracks/54/loop_wrap = true
 tracks/54/imported = false
@@ -1484,10 +1476,10 @@ tracks/54/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1.0 ]
+"values": [ 0 ]
 }
 tracks/55/type = "value"
-tracks/55/path = NodePath("explosions/exp:z_index")
+tracks/55/path = NodePath("LegBack/Legback2/Footback/Hitbox/CollisionShape2D:disabled")
 tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/imported = false
@@ -1496,10 +1488,10 @@ tracks/55/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0 ]
+"values": [ false ]
 }
 tracks/56/type = "value"
-tracks/56/path = NodePath("LegBack/Legback2/Footback/Hitbox/CollisionShape2D:disabled")
+tracks/56/path = NodePath("LegBack/Legback2/Hitbox/CollisionShape2D:disabled")
 tracks/56/interp = 1
 tracks/56/loop_wrap = true
 tracks/56/imported = false
@@ -1511,7 +1503,7 @@ tracks/56/keys = {
 "values": [ false ]
 }
 tracks/57/type = "value"
-tracks/57/path = NodePath("LegBack/Legback2/Hitbox/CollisionShape2D:disabled")
+tracks/57/path = NodePath("Head/Hurtbox/CollisionShape2D:disabled")
 tracks/57/interp = 1
 tracks/57/loop_wrap = true
 tracks/57/imported = false
@@ -1523,7 +1515,7 @@ tracks/57/keys = {
 "values": [ false ]
 }
 tracks/58/type = "value"
-tracks/58/path = NodePath("Head/Hurtbox/CollisionShape2D:disabled")
+tracks/58/path = NodePath("Legfront:z_index")
 tracks/58/interp = 1
 tracks/58/loop_wrap = true
 tracks/58/imported = false
@@ -1532,27 +1524,15 @@ tracks/58/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ -2 ]
 }
 tracks/59/type = "value"
-tracks/59/path = NodePath("Legfront:z_index")
+tracks/59/path = NodePath("Legfront/LegpieceFront/Footfront:frame")
 tracks/59/interp = 1
 tracks/59/loop_wrap = true
 tracks/59/imported = false
 tracks/59/enabled = true
 tracks/59/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -2 ]
-}
-tracks/60/type = "value"
-tracks/60/path = NodePath("Legfront/LegpieceFront/Footfront:frame")
-tracks/60/interp = 1
-tracks/60/loop_wrap = true
-tracks/60/imported = false
-tracks/60/enabled = true
-tracks/60/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -1885,6 +1865,20 @@ tracks/26/keys = {
 "update": 1,
 "values": [ "1", "2" ]
 }
+tracks/27/type = "method"
+tracks/27/path = NodePath("..")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
 
 [sub_resource type="Animation" id=12]
 resource_name = "Stomp"
@@ -2211,6 +2205,20 @@ tracks/26/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ "1", "2" ]
+}
+tracks/27/type = "method"
+tracks/27/path = NodePath("..")
+tracks/27/interp = 1
+tracks/27/loop_wrap = true
+tracks/27/imported = false
+tracks/27/enabled = true
+tracks/27/keys = {
+"times": PoolRealArray( 0.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "camshake"
+} ]
 }
 
 [sub_resource type="Animation" id=83]
@@ -3330,9 +3338,6 @@ tracks/30/keys = {
 "values": [ -2, -1, -1, -2 ]
 }
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 43, 1.5 )
-
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 100, 100 )
@@ -3606,11 +3611,16 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="ForeSight" type="KinematicBody2D"]
-z_index = 1
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 43, 1.5 )
+
+[node name="mainguy" type="KinematicBody2D"]
 script = ExtResource( 8 )
 
-[node name="LegBack" type="Sprite" parent="."]
+[node name="ForeSight" type="Node2D" parent="."]
+z_index = 1
+
+[node name="LegBack" type="Sprite" parent="ForeSight"]
 modulate = Color( 0.411765, 0.486275, 0.635294, 1 )
 position = Vector2( -1, 8 )
 rotation = 0.486296
@@ -3618,13 +3628,13 @@ z_index = -3
 texture = ExtResource( 3 )
 offset = Vector2( 0, 20.189 )
 
-[node name="Legback2" type="Sprite" parent="LegBack"]
+[node name="Legback2" type="Sprite" parent="ForeSight/LegBack"]
 position = Vector2( -0.544138, 32.9955 )
 rotation = -0.574974
 texture = ExtResource( 5 )
 offset = Vector2( 0, 11.837 )
 
-[node name="Footback" type="Sprite" parent="LegBack/Legback2"]
+[node name="Footback" type="Sprite" parent="ForeSight/LegBack/Legback2"]
 position = Vector2( 10.0401, 16.2545 )
 rotation = 0.0744201
 texture = ExtResource( 4 )
@@ -3632,98 +3642,102 @@ offset = Vector2( -19.794, 11.837 )
 hframes = 2
 frame = 1
 
-[node name="Hitbox" type="Area2D" parent="LegBack/Legback2/Footback" groups=["TouchHurt", "Undodgeable"]]
+[node name="Hitbox" type="Area2D" parent="ForeSight/LegBack/Legback2/Footback" groups=["TouchHurt", "Undodgeable"]]
 position = Vector2( -2.60703, 16.9196 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LegBack/Legback2/Footback/Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForeSight/LegBack/Legback2/Footback/Hitbox"]
 modulate = Color( 0.196078, 0, 1, 1 )
 position = Vector2( -19.14, -2.95983 )
 shape = SubResource( 1 )
 
-[node name="Hitbox" type="Area2D" parent="LegBack/Legback2" groups=["TouchHurt", "Undodgeable"]]
+[node name="Hitbox" type="Area2D" parent="ForeSight/LegBack/Legback2" groups=["TouchHurt", "Undodgeable"]]
 position = Vector2( -2.60703, 16.9196 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LegBack/Legback2/Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForeSight/LegBack/Legback2/Hitbox"]
 modulate = Color( 0.196078, 0, 1, 1 )
 position = Vector2( 1.90358, 1.17319 )
 rotation = -1.49139
 shape = SubResource( 1 )
 
-[node name="Legfront" type="Sprite" parent="."]
+[node name="Legfront" type="Sprite" parent="ForeSight"]
 position = Vector2( 6, 4 )
 rotation = -0.204455
 z_index = -2
 texture = ExtResource( 3 )
 offset = Vector2( 0, 20.189 )
 
-[node name="LegpieceFront" type="Sprite" parent="Legfront"]
+[node name="LegpieceFront" type="Sprite" parent="ForeSight/Legfront"]
 position = Vector2( -0.544138, 32.9955 )
 rotation = 0.0198104
 texture = ExtResource( 5 )
 offset = Vector2( 0, 11.837 )
 
-[node name="Footfront" type="Sprite" parent="Legfront/LegpieceFront"]
+[node name="Footfront" type="Sprite" parent="ForeSight/Legfront/LegpieceFront"]
 position = Vector2( 0.724154, 17.0032 )
 rotation = 0.178306
 texture = ExtResource( 4 )
 offset = Vector2( 0, 11.837 )
 hframes = 2
 
-[node name="Head" type="AnimatedSprite" parent="."]
+[node name="Head" type="AnimatedSprite" parent="ForeSight"]
 z_index = -2
 frames = SubResource( 6 )
 animation = "1"
 playing = true
 
-[node name="Shoulderfront" type="Sprite" parent="Head"]
+[node name="Shoulderfront" type="Sprite" parent="ForeSight/Head"]
 position = Vector2( 16, -4 )
 z_index = 1
 z_as_relative = false
 texture = ExtResource( 2 )
 
-[node name="ArmFront" type="Sprite" parent="Head/Shoulderfront"]
+[node name="ArmFront" type="Sprite" parent="ForeSight/Head/Shoulderfront"]
 position = Vector2( -1.90735e-06, 0 )
 rotation = -1.58729
 texture = ExtResource( 3 )
 offset = Vector2( 0, 20.189 )
 
-[node name="ArmpieceFront" type="Sprite" parent="Head/Shoulderfront/ArmFront"]
+[node name="ArmpieceFront" type="Sprite" parent="ForeSight/Head/Shoulderfront/ArmFront"]
 position = Vector2( -0.544138, 32.9955 )
 rotation = 0.0198104
 texture = ExtResource( 5 )
 offset = Vector2( 0, 11.837 )
 
-[node name="Shoulderback" type="Sprite" parent="Head"]
+[node name="Position2D" type="Position2D" parent="ForeSight/Head/Shoulderfront/ArmFront/ArmpieceFront"]
+position = Vector2( 0.377167, 34.5448 )
+rotation = -0.0464293
+
+[node name="Shoulderback" type="Sprite" parent="ForeSight/Head"]
 modulate = Color( 0.411765, 0.486275, 0.635294, 1 )
 position = Vector2( -20, 3 )
 z_index = -2
 texture = ExtResource( 2 )
 
-[node name="armback" type="Sprite" parent="Head/Shoulderback"]
+[node name="armback" type="Sprite" parent="ForeSight/Head/Shoulderback"]
 position = Vector2( 0, 1 )
 rotation = 1.5708
 texture = ExtResource( 3 )
 offset = Vector2( 0, 20.189 )
 
-[node name="Armpieceback" type="Sprite" parent="Head/Shoulderback/armback"]
+[node name="Armpieceback" type="Sprite" parent="ForeSight/Head/Shoulderback/armback"]
 position = Vector2( -0.544138, 32.9955 )
 rotation = 0.0198104
 texture = ExtResource( 5 )
 offset = Vector2( 0, 11.837 )
 
-[node name="Conditionplayer" type="AnimationPlayer" parent="Head"]
+[node name="Conditionplayer" type="AnimationPlayer" parent="ForeSight/Head"]
 autoplay = "normal"
 anims/RESET = SubResource( 7 )
 anims/damage = SubResource( 8 )
 anims/normal = SubResource( 9 )
 
-[node name="Hurtbox" type="Area2D" parent="Head"]
+[node name="Hurtbox" type="Area2D" parent="ForeSight/Head"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Head/Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ForeSight/Head/Hurtbox"]
 position = Vector2( -1.5, -0.82491 )
 shape = SubResource( 1 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ForeSight"]
 autoplay = "idle"
 anims/Die = SubResource( 15 )
 anims/RESET = SubResource( 10 )
@@ -3733,78 +3747,99 @@ anims/Walk = SubResource( 83 )
 anims/idle = SubResource( 13 )
 anims/slide = SubResource( 82 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -7, 78 )
-shape = SubResource( 14 )
-
-[node name="explosions" type="Node2D" parent="."]
+[node name="explosions" type="Node2D" parent="ForeSight"]
 script = ExtResource( 9 )
 
-[node name="exp" type="AnimatedSprite" parent="explosions"]
+[node name="exp" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( 31, 39 )
+scale = Vector2( 8, 8 )
 frames = SubResource( 81 )
 animation = "no"
 playing = true
 
-[node name="exp2" type="AnimatedSprite" parent="explosions"]
+[node name="exp2" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( -17, 19 )
 frames = SubResource( 81 )
 animation = "no"
 playing = true
 
-[node name="exp3" type="AnimatedSprite" parent="explosions"]
+[node name="exp3" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( 14, -19 )
 frames = SubResource( 81 )
 animation = "no"
 playing = true
 
-[node name="exp4" type="AnimatedSprite" parent="explosions"]
+[node name="exp4" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( 19, 12 )
 frames = SubResource( 81 )
 animation = "no"
 
-[node name="exp5" type="AnimatedSprite" parent="explosions"]
+[node name="exp5" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( 30, 65 )
 frames = SubResource( 81 )
 animation = "no"
 playing = true
 
-[node name="exp6" type="AnimatedSprite" parent="explosions"]
+[node name="exp6" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( -28, 53 )
 frames = SubResource( 81 )
 animation = "go"
 playing = true
 
-[node name="exp7" type="AnimatedSprite" parent="explosions"]
+[node name="exp7" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( -33, 32 )
 frames = SubResource( 81 )
 animation = "no"
 playing = true
 
-[node name="exp8" type="AnimatedSprite" parent="explosions"]
+[node name="exp8" type="AnimatedSprite" parent="ForeSight/explosions"]
 position = Vector2( 7, 17 )
 frames = SubResource( 81 )
 animation = "no"
 playing = true
 
-[node name="fuck u" type="AudioStreamPlayer" parent="explosions"]
+[node name="fuck u" type="AudioStreamPlayer" parent="ForeSight/explosions"]
 stream = ExtResource( 7 )
 volume_db = 14.857
 bus = "SFX"
 
-[node name="hurt" type="AudioStreamPlayer" parent="."]
+[node name="hurt" type="AudioStreamPlayer" parent="ForeSight"]
 stream = ExtResource( 10 )
 volume_db = -3.059
 bus = "Overlappingvoices"
 
-[node name="multihurt" type="Timer" parent="."]
+[node name="multihurt" type="Timer" parent="ForeSight"]
 wait_time = 1.301
 one_shot = true
 
-[node name="multihurtrepeat" type="Timer" parent="."]
+[node name="multihurtrepeat" type="Timer" parent="ForeSight"]
 wait_time = 0.133
 
-[connection signal="animation_finished" from="Head/Conditionplayer" to="." method="_on_Conditionplayer_animation_finished"]
-[connection signal="area_entered" from="Head/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
-[connection signal="timeout" from="multihurt" to="." method="_on_multihurt_timeout"]
-[connection signal="timeout" from="multihurtrepeat" to="." method="_on_multihurtrepeat_timeout"]
+[node name="Spawn" type="AudioStreamPlayer" parent="ForeSight"]
+stream = ExtResource( 11 )
+volume_db = 9.333
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -7, 78 )
+shape = SubResource( 14 )
+
+[node name="Health" type="CanvasLayer" parent="."]
+layer = 20
+visible = false
+
+[node name="ProgressBar" type="TextureProgress" parent="Health"]
+margin_left = 28.0
+margin_top = 172.0
+margin_right = 413.0
+margin_bottom = 243.0
+texture_under = ExtResource( 13 )
+texture_progress = ExtResource( 12 )
+
+[connection signal="animation_finished" from="ForeSight/Head/Conditionplayer" to="." method="_on_Conditionplayer_animation_finished"]
+[connection signal="animation_finished" from="ForeSight/Head/Conditionplayer" to="ForeSight" method="_on_Conditionplayer_animation_finished"]
+[connection signal="area_entered" from="ForeSight/Head/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="area_entered" from="ForeSight/Head/Hurtbox" to="ForeSight" method="_on_Hurtbox_area_entered"]
+[connection signal="animation_finished" from="ForeSight/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="ForeSight/multihurt" to="." method="_on_multihurt_timeout"]
+[connection signal="timeout" from="ForeSight/multihurtrepeat" to="." method="_on_multihurtrepeat_timeout"]
+[connection signal="timeout" from="ForeSight/multihurtrepeat" to="ForeSight" method="_on_multihurtrepeat_timeout"]

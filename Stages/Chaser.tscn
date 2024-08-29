@@ -26,6 +26,12 @@ onready var hpbar = $EnemHealth
 var dead = 0
 var dielol = 0
 var grazecnt = 0
+
+
+
+var organichurt = preload(\"res://Audio/SE/OrganicHurt.wav\")
+var organicNL = preload(\"res://Audio/SE/OrganicNL.mp3\")
+var crit = preload(\"res://Audio/SE/CRIT.wav\")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -104,7 +110,8 @@ func _on_Area2D_area_entered(area):
 		damobj.value = str(1 + Globals.atkmult)
 		get_parent().add_child(damobj)
 		
-		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		Input.start_joy_vibration(0, 1, 1, 0.2)
+		$hurt.stream = organichurt 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
@@ -130,6 +137,7 @@ func _on_Area2D_area_entered(area):
 		
 		
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.stream = organichurt 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
@@ -156,6 +164,7 @@ func _on_Area2D_area_entered(area):
 		
 		
 		Input.start_joy_vibration(0, 1, 1, 0.3) 
+		$hurt.stream = organicNL
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
@@ -186,6 +195,7 @@ func _on_Area2D_area_entered(area):
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$multihurt.start()
 		$multihurtrepeat.start()
+		$hurt.stream = organichurt 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
@@ -207,6 +217,7 @@ func _on_Area2D_area_entered(area):
 		Globals.combotimer = 60 * 10
 		hp -= 2 
 		Globals.combo += 4
+		$hurt.stream = crit
 		$hurt.play()
 		Globals.score += 100
 		
@@ -242,6 +253,7 @@ func _on_Area2D_area_entered(area):
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
 		$multihurt.start()
 		$multihurtrepeat.start()
+		$hurt.stream = organichurt 
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
@@ -265,6 +277,7 @@ func _on_Area2D_area_entered(area):
 		
 		Globals.combo += 1
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.stream = crit
 		$hurt.play()
 		var jj = preload(\"res://Subrooms/hitspark.tscn\")
 		var ba = jj.instance()
@@ -289,6 +302,7 @@ func _on_multihurtrepeat_timeout():
 	if !$multihurt.is_stopped():
 		$multihurtrepeat.start()
 		Input.start_joy_vibration(0, 1, 1, 0.2) 
+		$hurt.stream = organichurt 
 		$hurt.play()
 		Globals.combotimer = 60 * 10
 		hp -= 0.3 + Globals.atkmult
@@ -446,7 +460,7 @@ shape = SubResource( 2 )
 
 [node name="hurt" type="AudioStreamPlayer" parent="Chaser"]
 stream = ExtResource( 3 )
-volume_db = -3.51
+volume_db = 4.0
 bus = "SFX"
 
 [node name="multihurt" type="Timer" parent="Chaser"]

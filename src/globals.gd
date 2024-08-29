@@ -25,6 +25,7 @@ var continues = 3
 var hasdied = 0
 var hascompleted = 0
 var combo = 0
+var comboscore = 0
 var maxcombo = 999
 var atkmult
 var atkmultmax
@@ -40,8 +41,16 @@ var stylebonus = 0
 var mili = 60
 var sec = 60
 var minute = 00
-
+var finalscore = 0
 var hinttext = 0
+
+var uitype = 1
+
+var failedrank = false
+
+var controlsoverlay = true
+
+var curstage = 1
 
 var playerpos
 
@@ -138,6 +147,7 @@ func _init():
 	music.volume_db = 1
 	music.pitch_scale = 1
 	music.play()
+	music.bus = "BGM"
 	add_child(music)
 	
 	combotimer = 0
@@ -167,7 +177,7 @@ func _physics_process(delta):
 		Settings.Fscreen = !Settings.Fscreen
 		
 	
-	
+	finalscore = (groovePoints + comboscore + score)
 	
 	#========= HIDE MOUSE ==========
 	
@@ -178,19 +188,19 @@ func _physics_process(delta):
 	
 	
 	
-	if windowmode == 1:
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
-		if Input.is_action_just_pressed("winmode"):
-			windowmode = 0
-	elif windowmode == 0:
-		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(320,224),1)
-		if Input.is_action_just_pressed("winmode"):
-			windowmode = 1
+#	if windowmode == 1:
+#		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(384,224),1)
+#		if Input.is_action_just_pressed("winmode"):
+#			windowmode = 0
+#	elif windowmode == 0:
+#		get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D,SceneTree.STRETCH_ASPECT_KEEP,Vector2(320,224),1)
+#		if Input.is_action_just_pressed("winmode"):
+#			windowmode = 1
 	
 	
 	
 	
-	if grooveTimer > 0:
+	if grooveTimer > 0 && moveenabled && is_instance_valid(player):
 		grooveTimer -= 1
 	
 	if grooveTimer <= 0:
@@ -229,23 +239,25 @@ func _physics_process(delta):
 	
 	if groovePoints < 100:
 		grooveRank = 0
-	elif groovePoints < 1000:
+	elif groovePoints < 500000:
 		grooveRank = 1
-	elif groovePoints < 8000:
+	elif groovePoints < 1000000:
 		grooveRank = 2
-	elif groovePoints < 50000:
+	elif groovePoints < 2000000:
 		grooveRank = 3
-	elif groovePoints < 100000:
+	elif groovePoints < 3500000:
 		grooveRank = 4
-	elif groovePoints >= 100000:
+	elif groovePoints >= 5000000:
 		grooveRank = 5
 	
 	
 	if sec > 0:
 		mili -= 1
 		#print_debug(mili)
+	if sec <=0:
+		failedrank = true
 	
-	if mili <= 0:
+	if mili <= 0 && is_instance_valid(player):
 		sec -= 1
 		mili = 60 
 		
@@ -258,7 +270,9 @@ func _physics_process(delta):
 		if dietime > 0:
 			dietime -= 1
 		if dietime <= 0:
-			get_tree().change_scene("res://Stages/Titlescreen.tscn")
+			Sys.load_scene(Globals.cur_scene,"res://Stages/Titlescreen.tscn")
+			Globals.cur_scene.queue_free()
+			get_tree().paused = false
 			hpcount = 5
 			pieces = 0
 			lives = 3
@@ -281,28 +295,40 @@ func _physics_process(delta):
 		atkmult = atkmultmax
 	
 	if combotimer > 0:
-		combotimer -= 1
+		if is_instance_valid(player):
+			if moveenabled:
+				if player.flying:
+					combotimer -= 2
+				else:
+					combotimer -= 1
 	else:
 		if combo < 9 && combo != 0:
 			score += 100
+			comboscore += 50
 			combo = 0
 		if combo < 29 && combo != 0:
 			score += 1000
+			combo += 100
 			combo = 0
 		if combo < 49 && combo != 0:
 			score += 11800
+			score += 400
 			combo = 0
 		if combo < 79 && combo != 0:
-			score += 95000
+			score += 65000
+			comboscore += 2000
 			combo = 0
 		if combo < 99 && combo != 0:
-			score += 150000
+			score += 80000
+			comboscore += 100000
 			combo = 0
-		if combo < 149 && combo != 0:
-			score += 1600000
+		if combo < 200 && combo != 0:
+			score += 120000
+			comboscore += 150000
 			combo = 0
-		if combo >= 150 && combo != 0:
+		if combo >= 300 && combo != 0:
 			score += 1000000
+			comboscore += 1000000
 			combo = 0
 		
 	
@@ -325,19 +351,19 @@ func _physics_process(delta):
 			
 			
 		["frontFlip","OverBullet","FriendlyKill"]:
-			addStunt("Ripper!")
+			addStunt("Ripper X!")
 			
 			
 		["backFlip","OverBullet","FriendlyKill","FriendlyKill"]:
-			addStunt("Ripper!")
+			addStunt("Ripper X!")
 		
 		
 		["frontFlip","OverBullet","FriendlyKill","FriendlyKill"]:
-			addStunt("Ripper!")
+			addStunt("Ripper X!")
 			
 			
 		["backFlip","OverBullet","FriendlyKill"]:
-			addStunt("Ripper!")
+			addStunt("Ripper X!")
 		
 		["backFlip", "backFlip", "backFlip", "OverBullet", "AerialKill"]:
 			addStunt("Streaker!")

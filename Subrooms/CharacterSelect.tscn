@@ -401,7 +401,7 @@ modulate = Color( 1, 0.937255, 0, 1 )
 position = Vector2( 116, 160 )
 scale = Vector2( 6, 3 )
 frames = SubResource( 14 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Label" type="Label" parent="TYPESELECT"]
@@ -425,20 +425,29 @@ margin_bottom = 215.0
 color = Color( 0, 0, 0, 0.713726 )
 
 [node name="Label2" type="Label" parent="TYPESELECT"]
-margin_left = 244.0
+margin_left = 228.0
 margin_top = 18.0
-margin_right = 353.0
+margin_right = 366.0
 margin_bottom = 195.0
 theme = SubResource( 6 )
 text = "SIMPLE:
 
-This type simplifies your character's moveset to be easier to control. This type is for new players.
+This type simplifies 
+your character's
+moveset to be easier 
+to control. This type 
+is for new players.
 
 
 ADVANCED:
 
-This type gives you all of your character's tools. For players with legacy skill who don't mind learning new tricks as they go."
-autowrap = true
+This type gives you 
+all of your 
+character's tools. 
+For players with 
+legacy skill who don't 
+mind learning new 
+tricks as they go."
 
 [node name="Type2" type="Sprite" parent="TYPESELECT"]
 position = Vector2( 114, 163 )
@@ -448,7 +457,6 @@ texture = ExtResource( 3 )
 position = Vector2( 60, 177 )
 frames = ExtResource( 6 )
 animation = "WaitB"
-frame = 7
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -462,6 +470,7 @@ margin_right = 384.0
 margin_bottom = 223.0
 
 [node name="ColorRect2" type="ColorRect" parent="."]
+visible = false
 material = ExtResource( 11 )
 margin_right = 384.0
 margin_bottom = 225.0

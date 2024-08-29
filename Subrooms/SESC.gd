@@ -14,12 +14,12 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if scroll == 0:
-		scale.x -= 0.02
+		scale.x -= 0.8 * delta
 	if scroll == 1:
-		scale.x += 0.02
+		scale.x += 0.8 * delta
 		
-	if scale.x >= 1:
+	if scale.x >= .5:
 		scroll = 0
-	if scale.x <= -1:
+	if scale.x <= -.5:
 		scroll = 1
 #	pass

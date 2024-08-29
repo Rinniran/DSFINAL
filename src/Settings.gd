@@ -12,7 +12,7 @@ var MASTERVOL = 2
 
 var BGMVOL = 8
 
-var SFXVOL = 8
+var SFXVOL = 6
 
 var VOICEVOL = 8
 

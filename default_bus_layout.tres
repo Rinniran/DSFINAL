@@ -1,4 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=5 format=2]
+[gd_resource type="AudioBusLayout" load_steps=6 format=2]
 
 [sub_resource type="AudioEffectPitchShift" id=2]
 resource_name = "PitchShift"
@@ -16,6 +16,12 @@ resource_name = "Reverb"
 room_size = 0.89
 hipass = 0.3
 dry = 0.9
+
+[sub_resource type="AudioEffectEQ" id=6]
+resource_name = "EQ"
+band_db/32_hz = -44.1
+band_db/100_hz = -29.4
+band_db/320_hz = -9.4
 
 [resource]
 bus/0/volume_db = -3.92549
@@ -45,6 +51,8 @@ bus/3/effect/0/effect = SubResource( 1 )
 bus/3/effect/0/enabled = true
 bus/3/effect/1/effect = SubResource( 5 )
 bus/3/effect/1/enabled = false
+bus/3/effect/2/effect = SubResource( 6 )
+bus/3/effect/2/enabled = true
 bus/4/name = "BGS"
 bus/4/solo = false
 bus/4/mute = false

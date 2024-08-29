@@ -14,6 +14,10 @@ export var vidmode = 0
 
 export var zoomallowed = true
 
+export var current_stage = 1
+
+export var skippable = 0
+
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -32,6 +36,9 @@ func _ready():
 #	Globals.incutscene = 1
 #	$Rian/cameracutscene.play("intropan")
 	#$AnimationPlayer.play("AutoplayTest")
+	
+	
+	Globals.curstage = current_stage
 	
 	Globals.grooveList = [null, null, null, null, null]
 	Globals.stuntList =[]
@@ -61,6 +68,7 @@ func _ready():
 	Globals.combotimer = 0
 	Globals.link = 0
 	Globals.linktimer = 0
+	Globals.failedrank = false
 	
 	Globals.cur_scene = self
 	print_debug("self set current scene!")
@@ -68,9 +76,15 @@ func _ready():
 	Globals.stage_start = reset_location
 	print_debug("self set stage start!")
 	
-	if musplay != null:
-		Globals.music.set_stream(musplay)
-		Globals.music.play()
+	playmusic()
+	
+	match(current_stage):
+		1:
+			Switches.stg1complete = false
+			Switches.YaibaDefeated = 0
+			Switches.foresightdefeated = 0
+	
+	
 	
 
 func _physics_process(delta):
@@ -79,8 +93,13 @@ func _physics_process(delta):
 #			$Rian/StageMusic.play()
 #			$bossmus/bossmusic.stop()
 	
+	if skippable:
+		if Input.is_action_just_pressed("pause"):
+			loadnext()
+	
 	Globals.zoomallowed = zoomallowed
 	
+	print_debug(Globals.moveenabled)
 	
 	if Globals.ded == 1:
 		
@@ -119,17 +138,15 @@ func _on_NextArea_area_entered(area):
 
 func loadnext():
 	Engine.time_scale = 1.0
-	if $Terrain:
-		$Terrain.queue_free()
-	if $ParallaxBackground:
-		$ParallaxBackground.queue_free()
-	if $Objects:
-		$Objects.queue_free()
 	Sys.load_scene(self,next)
 
 func _on_Area2D_area_entered(area):
 	pass # Replace with function body.
 
+
+func playmusic():
+		Globals.music.set_stream(musplay)
+		Globals.music.play()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	

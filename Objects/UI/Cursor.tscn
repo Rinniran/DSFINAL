@@ -20,10 +20,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if alphatoggle == 0:
-		modulate.a -= 0.05
+		modulate.a -= 0.9 * delta
 	
 	if alphatoggle == 1:
-		modulate.a += 0.05
+		modulate.a += 0.9 * delta
 	
 	if modulate.a >= 1:
 		alphatoggle = 0

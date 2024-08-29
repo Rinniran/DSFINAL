@@ -1,0 +1,523 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Audio/SE/Shoot.wav" type="AudioStream" id=1]
+[ext_resource path="res://TextMain.tres" type="Theme" id=2]
+[ext_resource path="res://Sprites/RANK/RANK.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=8]
+resource_name = "stgcomplete"
+script/source = "extends CanvasLayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+export var stg1 = false
+export var stg2 = false
+export var stg3 = false
+export var stg4 = false
+export var stg5 = false
+export var stg6 = false
+export var stg7 = false
+export var stgx = false
+
+export var stagetocomplete = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	Globals.combotimer = 0
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if stg1:
+		stagetocomplete = 1
+	elif stg2:
+		stagetocomplete = 2
+	elif stg3:
+		stagetocomplete = 3
+	elif stg4:
+		stagetocomplete = 4
+	elif stg5:
+		stagetocomplete = 5
+	elif stg6:
+		stagetocomplete = 6
+	elif stg7:
+		stagetocomplete = 7
+	elif stgx:
+		stagetocomplete = 8
+	
+	
+	
+
+
+
+func completestg():
+	match(stagetocomplete):
+		1:
+			Switches.stg1complete = stg1
+		2: 
+			Switches.stg2complete = stg2 
+		3:
+			Switches.stg3complete = stg3 
+		4:
+			Switches.stg4complete = stg4 
+		5:
+			Switches.stg5complete = stg5 
+		6:
+			Switches.stg6complete = stg6 
+		7:
+			Switches.stg7complete = stg7 
+		8:
+			Switches.stgxcomplete = stgx 
+
+"
+
+[sub_resource type="GDScript" id=1]
+resource_name = "SCORENUM1"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.score)
+#	pass
+"
+
+[sub_resource type="GDScript" id=2]
+resource_name = "SCORENUM2"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.comboscore)
+#	pass
+"
+
+[sub_resource type="GDScript" id=3]
+resource_name = "SCORENUM3"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.groovePoints)
+#	pass
+"
+
+[sub_resource type="GDScript" id=4]
+resource_name = "SCORENUM4"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.finalscore)
+#	pass
+"
+
+[sub_resource type="GDScript" id=9]
+resource_name = "didyoupass"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Globals.failedrank == true:
+		$Rank.visible = false
+		$TRYAGAIN.visible = true
+	elif Globals.failedrank == false:
+		$Rank.visible = true
+		$TRYAGAIN.visible = false
+#	pass
+"
+
+[sub_resource type="GDScript" id=5]
+resource_name = "ranksprite"
+script/source = "extends Sprite
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	print_debug(Globals.finalscore)
+	if Globals.finalscore < 1000:
+		frame = 0
+		modulate = Color(1, 1, 1)
+	elif Globals.finalscore < 10000:
+		frame = 1
+		modulate = Color(0.12549, 0, 1)
+	elif Globals.finalscore < 100000:
+		frame = 2
+		modulate = Color(0, 1, 0.133333)
+	elif Globals.finalscore < 1000000:
+		frame = 3
+		modulate = Color(1, 0, 0.9375)
+	elif Globals.finalscore < 3000000:
+		frame = 4
+		modulate = Color(0.992188, 1, 0)
+	elif Globals.finalscore > 3000000:
+		frame = 5
+		modulate = Color(0, 1, 0.953125)
+	
+	
+
+#	pass
+"
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BASESCORE:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("COMBOBONUS:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GROOVESCORE:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FINALSCORE:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RANK:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AudioStreamPlayer:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Results"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BASESCORE:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("COMBOBONUS:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("GROOVESCORE:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FINALSCORE:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RANK:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 4.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("AudioStreamPlayer:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1, 1.6, 2.2, 2.8, 4.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true, true, true ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 6.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "completestg"
+} ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath(".")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = SubResource( 8 )
+
+[node name="RESULTS" type="Label" parent="."]
+margin_left = 158.0
+margin_top = 2.0
+margin_right = 214.0
+margin_bottom = 16.0
+theme = ExtResource( 2 )
+text = "RESULTS"
+
+[node name="BASESCORE" type="Label" parent="."]
+visible = false
+margin_left = 22.0
+margin_top = 16.0
+margin_right = 62.0
+margin_bottom = 30.0
+theme = ExtResource( 2 )
+text = "BASE SCORE:"
+
+[node name="SCORENUMBERS" type="Label" parent="BASESCORE"]
+margin_left = 15.0
+margin_top = 13.0
+margin_right = 111.0
+margin_bottom = 27.0
+theme = ExtResource( 2 )
+text = "000000000000"
+script = SubResource( 1 )
+
+[node name="COMBOBONUS" type="Label" parent="."]
+visible = false
+margin_left = 22.0
+margin_top = 62.0
+margin_right = 70.0
+margin_bottom = 76.0
+theme = ExtResource( 2 )
+text = "COMBO BONUS:"
+
+[node name="SCORENUMBERS" type="Label" parent="COMBOBONUS"]
+margin_left = 15.0
+margin_top = 13.0
+margin_right = 111.0
+margin_bottom = 27.0
+theme = ExtResource( 2 )
+text = "000000000000"
+script = SubResource( 2 )
+
+[node name="GROOVESCORE" type="Label" parent="."]
+visible = false
+margin_left = 22.0
+margin_top = 115.0
+margin_right = 70.0
+margin_bottom = 129.0
+theme = ExtResource( 2 )
+text = "GROOVE SCORE:"
+
+[node name="SCORENUMBERS" type="Label" parent="GROOVESCORE"]
+margin_left = 15.0
+margin_top = 13.0
+margin_right = 111.0
+margin_bottom = 27.0
+theme = ExtResource( 2 )
+text = "000000000000"
+script = SubResource( 3 )
+
+[node name="FINALSCORE" type="Label" parent="."]
+visible = false
+margin_left = 126.0
+margin_top = 190.0
+margin_right = 174.0
+margin_bottom = 204.0
+theme = ExtResource( 2 )
+text = "FINAL SCORE:"
+
+[node name="SCORENUMBERS" type="Label" parent="FINALSCORE"]
+margin_left = 15.0
+margin_top = 13.0
+margin_right = 111.0
+margin_bottom = 27.0
+theme = ExtResource( 2 )
+text = "000000000000"
+script = SubResource( 4 )
+
+[node name="RANK" type="Label" parent="."]
+visible = false
+margin_left = 252.0
+margin_top = 92.0
+margin_right = 300.0
+margin_bottom = 106.0
+theme = ExtResource( 2 )
+text = "RANK:"
+script = SubResource( 9 )
+
+[node name="Rank" type="Sprite" parent="RANK"]
+position = Vector2( 91, 4 )
+texture = ExtResource( 3 )
+hframes = 6
+script = SubResource( 5 )
+
+[node name="TRYAGAIN" type="Label" parent="RANK"]
+visible = false
+margin_left = 48.0
+margin_right = 120.0
+margin_bottom = 14.0
+theme = ExtResource( 2 )
+text = "TRY AGAIN"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+bus = "BGM"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Results"
+anims/RESET = SubResource( 6 )
+anims/Results = SubResource( 7 )

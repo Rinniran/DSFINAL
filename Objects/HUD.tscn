@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Subrooms/HudBanner2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Subrooms/HudBanner1.tscn" type="PackedScene" id=2]
@@ -24,9 +24,10 @@
 [ext_resource path="res://Objects/Linktimer.gd" type="Script" id=22]
 [ext_resource path="res://Objects/Chaintimer.gd" type="Script" id=23]
 [ext_resource path="res://Sprites/gui/HudCircle.png" type="Texture" id=24]
-[ext_resource path="res://timer.tres" type="BitmapFont" id=25]
+[ext_resource path="res://LabelStyles/Maintext.tres" type="Theme" id=25]
 [ext_resource path="res://Sprites/gui/inputprompt.png" type="Texture" id=26]
 [ext_resource path="res://Objects/Controls.gd" type="Script" id=27]
+[ext_resource path="res://Objects/TimerTheme.tres" type="Theme" id=28]
 
 [sub_resource type="Shader" id=124]
 code = "shader_type canvas_item;
@@ -119,8 +120,30 @@ func _ready():
 [sub_resource type="Theme" id=117]
 script = SubResource( 111 )
 
-[sub_resource type="Theme" id=128]
-default_font = ExtResource( 25 )
+[sub_resource type="GDScript" id=136]
+resource_name = "Changetoggle"
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	match (Globals.inputmode):
+		\"kb\":
+			$Label.text = \"Alt: Controls on/off\"
+		\"joy\":
+			$Label.text = \"Select: Controls on/off\"
+#	pass
+"
 
 [sub_resource type="AtlasTexture" id=113]
 atlas = ExtResource( 11 )
@@ -155,6 +178,97 @@ font_data = ExtResource( 16 )
 
 [sub_resource type="Theme" id=123]
 default_font = SubResource( 122 )
+
+[sub_resource type="GDScript" id=129]
+resource_name = "Glist"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(Globals.stuntList) + str(\"\\n\") + str (Globals.groovePoints) + str(\"\\n\") + str (Globals.grooveRankText)
+"
+
+[sub_resource type="GDScript" id=137]
+resource_name = "Changetoggle2"
+script/source = "extends Node2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	match (Globals.inputmode):
+		\"kb\":
+			$Label.text = \"Alt: Controls on/off\"
+		\"joy\":
+			$Label.text = \"Select: Controls on/off\"
+#	pass
+"
+
+[sub_resource type="GDScript" id=135]
+resource_name = "A Button"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	match (Globals.inputmode):
+		\"kb\":
+			text = \"Z\"
+		\"joy\":
+			text = \"A\"
+#	pass
+"
+
+[sub_resource type="GDScript" id=130]
+resource_name = "Health"
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	text = str(\"HP: \") + str(Globals.hpcount)
+#	pass
+"
 
 [node name="GUIStuff" type="CanvasLayer"]
 layer = 30
@@ -221,12 +335,12 @@ anchor_left = -0.292167
 anchor_top = 0.05
 anchor_right = 0.572417
 anchor_bottom = 0.0946426
-margin_left = 89.192
-margin_top = -10.2
-margin_right = 135.192
-margin_bottom = 5.80006
+margin_left = 112.192
+margin_top = -12.2
+margin_right = 158.192
+margin_bottom = 3.80006
 rect_scale = Vector2( 1.00818, 1.20287 )
-theme = SubResource( 128 )
+theme = ExtResource( 28 )
 text = "af12rf"
 align = 1
 autowrap = true
@@ -237,7 +351,9 @@ __meta__ = {
 }
 
 [node name="GUI" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.831373 )
 position = Vector2( 19.3799, 2.0175 )
+script = SubResource( 136 )
 
 [node name="Piececnt2" type="Sprite" parent="GUI"]
 position = Vector2( -11.3799, 13.9825 )
@@ -254,6 +370,7 @@ position = Vector2( -6.3799, 208.982 )
 z_index = 3
 frames = SubResource( 118 )
 animation = "main"
+frame = 2
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="GUI"]
@@ -354,9 +471,9 @@ align = 1
 
 [node name="Label2" type="Label" parent="GUI/Controls/inputprompt"]
 modulate = Color( 1, 0.960784, 0, 1 )
-margin_left = -75.0
+margin_left = -69.0
 margin_top = -5.0
-margin_right = -3.0
+margin_right = 3.0
 margin_bottom = 5.0
 theme = ExtResource( 6 )
 text = "Y"
@@ -378,9 +495,9 @@ align = 1
 
 [node name="Label2" type="Label" parent="GUI/Controls/inputprompt5"]
 modulate = Color( 0.945098, 0, 1, 1 )
-margin_left = -74.0
+margin_left = -68.0
 margin_top = -5.0
-margin_right = -2.0
+margin_right = 4.0
 margin_bottom = 5.0
 theme = ExtResource( 6 )
 text = "RB"
@@ -402,9 +519,9 @@ align = 1
 
 [node name="Label2" type="Label" parent="GUI/Controls/inputprompt2"]
 modulate = Color( 1, 0, 0, 1 )
-margin_left = -74.0
+margin_left = -68.0
 margin_top = -5.0
-margin_right = -2.0
+margin_right = 4.0
 margin_bottom = 5.0
 theme = ExtResource( 6 )
 text = "B"
@@ -435,9 +552,9 @@ anchor_left = 1.179
 anchor_top = -0.906
 anchor_right = 1.179
 anchor_bottom = -0.906
-margin_left = -50.184
+margin_left = -43.184
 margin_top = 50.496
-margin_right = 21.816
+margin_right = 28.816
 margin_bottom = 60.496
 theme = ExtResource( 6 )
 text = "X"
@@ -468,9 +585,9 @@ anchor_left = 1.179
 anchor_top = -0.906
 anchor_right = 1.179
 anchor_bottom = -0.906
-margin_left = -116.184
+margin_left = -110.184
 margin_top = -3.504
-margin_right = -44.184
+margin_right = -38.184
 margin_bottom = 6.496
 theme = ExtResource( 6 )
 text = "A"
@@ -484,6 +601,273 @@ margin_right = 167.62
 margin_bottom = 200.982
 theme = ExtResource( 6 )
 text = "Select: Controls on/off"
+
+[node name="groovelist" type="Label" parent="GUI"]
+modulate = Color( 1, 0.917647, 0, 1 )
+margin_left = -19.3799
+margin_top = 21.9825
+margin_right = 140.62
+margin_bottom = 35.9825
+theme = ExtResource( 6 )
+text = "These are my extras."
+script = SubResource( 129 )
+
+[node name="GUIMIN" type="Node2D" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.831373 )
+position = Vector2( 19.3799, 2.0175 )
+script = SubResource( 137 )
+
+[node name="Piececnt2" type="Sprite" parent="GUIMIN"]
+position = Vector2( -11.3799, 13.9825 )
+texture = ExtResource( 12 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="GUIMIN"]
+position = Vector2( -6.3799, 208.982 )
+z_index = 3
+frames = SubResource( 118 )
+animation = "main"
+frame = 2
+playing = true
+
+[node name="Sprite2" type="Sprite" parent="GUIMIN"]
+visible = false
+position = Vector2( 828.061, 539.136 )
+scale = Vector2( 2, 2 )
+z_index = 3
+texture = ExtResource( 10 )
+
+[node name="ChainCnt" type="Sprite" parent="GUIMIN"]
+modulate = Color( 1, 1, 1, 0.592157 )
+position = Vector2( 330.62, 30.9825 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 14 )
+
+[node name="CounterChain" type="Label" parent="GUIMIN/ChainCnt"]
+modulate = Color( 1, 0.568627, 0, 1 )
+margin_left = -45.0
+margin_top = -38.0
+margin_right = 36.0
+margin_bottom = 4.0
+theme = SubResource( 123 )
+text = "1234"
+align = 1
+valign = 1
+script = ExtResource( 17 )
+
+[node name="Chaintimer" type="TextureProgress" parent="GUIMIN/ChainCnt"]
+margin_left = -34.0
+margin_top = 8.00001
+margin_right = 30.0
+margin_bottom = 32.0
+texture_under = ExtResource( 21 )
+texture_over = ExtResource( 19 )
+texture_progress = ExtResource( 20 )
+tint_under = Color( 1, 0, 0, 1 )
+tint_progress = Color( 0, 1, 0.0196078, 1 )
+script = ExtResource( 23 )
+
+[node name="LinkCnt" type="Sprite" parent="GUIMIN"]
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 427.62, 212.983 )
+texture = ExtResource( 15 )
+
+[node name="CounterLink" type="Label" parent="GUIMIN/LinkCnt"]
+margin_left = -43.5
+margin_top = -40.5
+margin_right = 37.5
+margin_bottom = 5.49998
+theme = SubResource( 123 )
+text = "1234"
+align = 1
+valign = 1
+script = ExtResource( 18 )
+
+[node name="Linktimer" type="TextureProgress" parent="GUIMIN/LinkCnt"]
+margin_left = -30.5
+margin_top = 10.5
+margin_right = 33.5
+margin_bottom = 34.5
+texture_under = ExtResource( 21 )
+texture_over = ExtResource( 19 )
+texture_progress = ExtResource( 20 )
+tint_under = Color( 0.00784314, 0, 1, 1 )
+tint_progress = Color( 0, 1, 0.0196078, 1 )
+script = ExtResource( 22 )
+
+[node name="Controls" type="Node2D" parent="GUIMIN"]
+script = ExtResource( 27 )
+
+[node name="inputprompt" type="Node2D" parent="GUIMIN/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 126.982 )
+
+[node name="Label" type="Label" parent="GUIMIN/Controls/inputprompt"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Summon"
+align = 1
+
+[node name="Label2" type="Label" parent="GUIMIN/Controls/inputprompt"]
+modulate = Color( 1, 0.960784, 0, 1 )
+margin_left = -68.0
+margin_top = -5.0
+margin_right = 4.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Y"
+align = 1
+
+[node name="inputprompt5" type="Node2D" parent="GUIMIN/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 110.982 )
+
+[node name="Label" type="Label" parent="GUIMIN/Controls/inputprompt5"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Stunt"
+align = 1
+
+[node name="Label2" type="Label" parent="GUIMIN/Controls/inputprompt5"]
+modulate = Color( 0.945098, 0, 1, 1 )
+margin_left = -68.0
+margin_top = -5.0
+margin_right = 4.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "RB"
+align = 1
+
+[node name="inputprompt2" type="Node2D" parent="GUIMIN/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 29, 142.982 )
+
+[node name="Label" type="Label" parent="GUIMIN/Controls/inputprompt2"]
+margin_left = -30.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "Dash"
+align = 1
+
+[node name="Label2" type="Label" parent="GUIMIN/Controls/inputprompt2"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -67.0
+margin_top = -5.0
+margin_right = 5.0
+margin_bottom = 5.0
+theme = ExtResource( 6 )
+text = "B"
+align = 1
+
+[node name="inputprompt3" type="Node2D" parent="GUIMIN/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 4, 102.982 )
+
+[node name="Label" type="Label" parent="GUIMIN/Controls/inputprompt3"]
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -6.18401
+margin_top = 50.496
+margin_right = 65.816
+margin_bottom = 60.496
+theme = ExtResource( 6 )
+text = "Attack"
+align = 1
+
+[node name="Label2" type="Label" parent="GUIMIN/Controls/inputprompt3"]
+modulate = Color( 0, 0.0392157, 1, 1 )
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -42.3799
+margin_top = 50.0005
+margin_right = 29.6201
+margin_bottom = 60.0005
+theme = ExtResource( 6 )
+text = "X"
+align = 1
+
+[node name="inputprompt4" type="Node2D" parent="GUIMIN/Controls"]
+modulate = Color( 1, 1, 1, 0.65098 )
+position = Vector2( 70, 172.983 )
+
+[node name="Label" type="Label" parent="GUIMIN/Controls/inputprompt4"]
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -72.184
+margin_top = -3.504
+margin_right = -0.184006
+margin_bottom = 6.496
+theme = ExtResource( 6 )
+text = "Jump"
+align = 1
+
+[node name="Label2" type="Label" parent="GUIMIN/Controls/inputprompt4"]
+modulate = Color( 0.0784314, 1, 0, 1 )
+anchor_left = 1.179
+anchor_top = -0.906
+anchor_right = 1.179
+anchor_bottom = -0.906
+margin_left = -108.184
+margin_top = -3.504
+margin_right = -36.184
+margin_bottom = 6.496
+theme = ExtResource( 6 )
+text = "A"
+align = 1
+script = SubResource( 135 )
+
+[node name="Label" type="Label" parent="GUIMIN"]
+modulate = Color( 0.266667, 1, 0, 0.380392 )
+margin_left = -16.3799
+margin_top = 186.982
+margin_right = 167.62
+margin_bottom = 200.982
+theme = ExtResource( 6 )
+text = "Select: Controls on/off"
+
+[node name="groovelist" type="Label" parent="GUIMIN"]
+modulate = Color( 1, 0.917647, 0, 1 )
+margin_left = -19.3799
+margin_top = 21.9825
+margin_right = 140.62
+margin_bottom = 35.9825
+theme = ExtResource( 6 )
+text = "These are my extras."
+script = SubResource( 129 )
+
+[node name="timer" type="Label" parent="GUIMIN"]
+anchor_left = -0.292167
+anchor_top = 0.05
+anchor_right = 0.572417
+anchor_bottom = 0.0946426
+margin_left = 307.62
+margin_top = 200.982
+margin_right = 353.62
+margin_bottom = 216.983
+rect_scale = Vector2( 1.00818, 1.20287 )
+theme = ExtResource( 25 )
+text = "af12rf"
+align = 1
+autowrap = true
+max_lines_visible = 1
+script = SubResource( 130 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="livescnt" type="Label" parent="."]
 anchor_left = 0.221188
@@ -509,12 +893,34 @@ anchor_left = 1.2047
 anchor_top = -1.03634
 anchor_right = 2.09011
 anchor_bottom = -0.90902
-margin_left = -358.605
+margin_left = -430.605
 margin_top = 441.14
-margin_right = -357.605
+margin_right = -429.605
 margin_bottom = 455.749
+rect_pivot_offset = Vector2( 128, -166 )
 theme = ExtResource( 6 )
 text = "af12rf"
+align = 1
+autowrap = true
+max_lines_visible = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="scorecnt2" type="Label" parent="."]
+anchor_left = 1.2047
+anchor_top = -1.03634
+anchor_right = 2.09011
+anchor_bottom = -0.90902
+margin_left = -420.605
+margin_top = 362.14
+margin_right = -419.605
+margin_bottom = 376.749
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 128, -166 )
+theme = ExtResource( 6 )
+text = "Until RANK FAILURE"
 align = 1
 autowrap = true
 max_lines_visible = 1

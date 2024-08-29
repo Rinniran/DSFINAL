@@ -1,0 +1,850 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Sprites/Players/Rian/RianFrames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/ContinueSTG.tres.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Bosses/Yaiba/YMain.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Misc/Talkbubble.png" type="Texture" id=4]
+[ext_resource path="res://Audio/BGM/Stick City A - 4.ogg" type="AudioStream" id=5]
+[ext_resource path="res://Sprites/Stage/SCity/SubwayBack.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Stage/SCity/SubwayFront.png" type="Texture" id=7]
+[ext_resource path="res://addons/fsm-node/main_screen/graph_nodes/TransitionTheme.tres" type="Theme" id=8]
+[ext_resource path="res://Sprites/VFX/Lightning.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Stage/SCity/Train.png" type="Texture" id=10]
+[ext_resource path="res://Audio/BGS/Train BGS.mp3" type="AudioStream" id=12]
+[ext_resource path="res://Audio/Voices/Dialogue/Stick City/Intro.wav" type="AudioStream" id=13]
+[ext_resource path="res://Audio/SE/Waveboost.wav" type="AudioStream" id=14]
+[ext_resource path="res://Audio/SE/dash.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Audio/BGM/Danya Vodovoz - Miles Ahead.ogg" type="AudioStream" id=16]
+
+[sub_resource type="Shader" id=301]
+code = "shader_type canvas_item;
+
+uniform vec2 direction = vec2(0.2, 0);
+uniform float speed_scale = -20
+;
+
+void fragment(){
+	vec2 move = direction * TIME * speed_scale;
+	COLOR = texture(TEXTURE, UV + move);
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=300]
+shader = SubResource( 301 )
+shader_param/direction = Vector2( 0.2, 0 )
+shader_param/speed_scale = -20.0
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rian:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34, 165 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Rian:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "run" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Talkbubble/Label:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/Talkbubble:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/Talkbubble/Label:percent_visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/Talkbubble:flip_h")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/Talkbubble:flip_v")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CanvasLayer/Talkbubble/Label:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -106, -57 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Rian:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Rian:flip_h")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("AnimatedSprite:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("AnimatedSprite2:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("AnimatedSprite3:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("AnimatedSprite4:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("AnimatedSprite5:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("YMain:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("YMain:frame")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 41 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath(".:musplay")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 16 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("YMain:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 298, 152 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("CanvasLayer/Talkbubble:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Rian:z_index")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Train:rect_position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -2011, 77 ) ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Camera2D:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 192, 112 ) ]
+}
+tracks/23/type = "value"
+tracks/23/path = NodePath("SE1:playing")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("SE2:playing")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("VOICE:playing")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "SubwayCutscene"
+length = 86.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Rian:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 10.6, 11, 11.4, 11.7, 11.8, 12, 12.15, 12.35, 12.45, 12.55, 12.6, 12.85, 80.8, 81, 81.7, 81.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -34, 165 ), Vector2( 113, 153 ), Vector2( 113, 153 ), Vector2( 113, 41 ), Vector2( 103, 105 ), Vector2( 103, 105 ), Vector2( 306, 105 ), Vector2( 306, 105 ), Vector2( 266, 73 ), Vector2( 201, 153 ), Vector2( 201, 153 ), Vector2( 106, 153 ), Vector2( 103.333, 157.833 ), Vector2( 90, 158 ), Vector2( 90, 158 ), Vector2( 123, -8 ), Vector2( 155, -1 ), Vector2( 177, 154 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Rian:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9, 1.2, 4.1, 8.4, 9.2, 10.6, 11.4, 11.7, 11.85, 12, 12.35, 12.45, 12.6, 12.85, 19, 61.05, 67, 69.5, 70.55, 80.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "run", "stop", "idle", "lookback", "WaitA", "WaitB", "BJump", "airdash", "dash", "airdash", "BJump", "SCIntro", "BDash2", "skid", "Stance", "Meh", "SCIntro", "Meh", "lookback", "Meh", "Fling" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Talkbubble/Label:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 2, 4, 4.1, 7.8, 8.8, 13.7, 13.85, 19.3, 21.5, 21.55, 24.85, 25, 29.5, 29.55, 31.5327, 31.9, 34.1, 36, 41.5, 41.7, 47.2155, 47.25, 51, 51.0345, 55, 55.3, 59, 59.65, 63.5, 72.85, 75.7, 75.9, 79.85, 79.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "That was pretty easy!
+", "", "Scratch the, uhhh... Giant robot. That was a curveball and a half.", "", "Oi, runt!", "Oi, runt!", "I don't suppose you just get off jerkin' around with your mates, eh?", "So... what's your deal?", "", "Are the critters outside yours?", "", "Any other stick would be deathly afraid. You're rather different, ain't ya, runt?", "", "What's your name, son?", "", "Rian.", "", "Hmmmmhmhmmm! The animal loving hobo, ain't that right?", "", "Listen, son... I've been keeping tabs on you, yeah? Quite the strong fighter you are, believe you me.", "", "So then, I've got a proposition for ya.", "", "How 'bout you come work with us? make yourself useful, eh?", "", "Sorry, but I'm gonna have to pass. I've got bigger fish to fry.", "", "Well, aint that a crying shame? Looks like I'm gonna have to kill ya, then!", "", "So, uh.... You gonna hit me, or...", "", "Yeh hold on a minute, bruv. Me train's about to arrive, yeah?", "", "I... Excuse me, w-what?" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/Talkbubble:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.7, 2, 8, 8.4, 8.8, 10.2, 10.6, 13.85, 13.95, 18, 18.25, 19.3, 19.7, 24.2824, 24.5324, 25, 25.4, 31.55, 31.9, 32.25, 34.1322, 34.45, 36, 36.35, 54.681, 54.9988, 55.3, 59, 59.3145, 59.6157, 63.5, 63.8, 72.5497, 72.85, 75.4821, 75.7, 75.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/Talkbubble/Label:percent_visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2, 2.3, 4, 4.1, 4.8, 7.8, 8.4, 8.8, 9.1, 12.35, 13.85, 13.95, 15.55, 19.15, 19.3, 20, 21.5, 21.55, 22.35, 24.85, 25, 26.5, 29.5, 29.55, 30.25, 31.5327, 31.9, 32.25, 32.5, 34.1, 34.2, 36.35, 37.55, 41.5, 41.7, 44, 47.2155, 47.25, 49, 51, 51.0345, 52.5, 55, 55.3, 57, 59, 59.65, 61.65, 72.45, 72.55, 72.85, 73.6, 75.5, 75.7, 75.9, 76.5, 79.9, 79.95, 80.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/Talkbubble:flip_h")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.7, 8, 8.4, 13.85, 19.3, 25, 31.9, 36, 55, 59.3145, 72.55, 75.7, 79.95 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true, true, false, true, false, true, false, true, false, true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("CanvasLayer/Talkbubble:flip_v")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 8, 8.4, 13.85 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CanvasLayer/Talkbubble/Label:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 8.4, 8.8, 13.7, 13.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -107, -59 ), Vector2( -108, -24 ), Vector2( -108, -24 ), Vector2( -107, -59 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Rian:scale")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 11.7, 11.75, 11.8, 11.85, 12.45, 12.5, 12.55, 12.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 3, 0.3 ), Vector2( 3, 0.3 ), Vector2( 1, 1 ), Vector2( 1, 1 ), Vector2( 3, 0.3 ), Vector2( 3, 0.3 ), Vector2( 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Rian:flip_h")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 11.7, 11.85, 12 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("AnimatedSprite:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 10.65, 10.95 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("AnimatedSprite2:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 11.75, 11.85 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("AnimatedSprite3:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 12.25, 12.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("AnimatedSprite4:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 12.5, 12.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("AnimatedSprite5:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 13.35, 13.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("YMain:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 13.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("YMain:frame")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 24.5, 25.25, 25.35, 26.3, 26.4, 60.6, 60.7, 63.5, 63.6, 80.5, 80.65, 80.8, 80.9, 83.7994 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 40, 40, 41, 42, 41, 40, 41, 42, 41, 40, 20, 44, 45, 46, 12 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath(".:musplay")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 59.55, 80.75 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 16 ), null, ExtResource( 5 ) ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("YMain:position")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 80.5, 80.65, 83.7994, 84.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 298, 152 ), Vector2( 298, 152 ), Vector2( 119, 152 ), Vector2( 119, 152 ), Vector2( 119, -392 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("CanvasLayer/Talkbubble:visible")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0, 80.8, 80.85 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/20/type = "value"
+tracks/20/path = NodePath("Rian:z_index")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/keys = {
+"times": PoolRealArray( 0, 80.35, 81.05 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, -4 ]
+}
+tracks/21/type = "value"
+tracks/21/path = NodePath("Train:rect_position")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/keys = {
+"times": PoolRealArray( 0, 80.35, 80.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -2011, 77 ), Vector2( -2011, 77 ), Vector2( -1603, 77 ) ]
+}
+tracks/22/type = "value"
+tracks/22/path = NodePath("Camera2D:position")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/keys = {
+"times": PoolRealArray( 80.8, 81.05, 81.7, 82.5, 83.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 192, 112 ), Vector2( 192, -8 ), Vector2( 192, -8 ), Vector2( 192, -8 ), Vector2( 192, 112 ) ]
+}
+tracks/23/type = "method"
+tracks/23/path = NodePath(".")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 59.6, 80.8, 86.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "playmusic"
+}, {
+"args": [  ],
+"method": "playmusic"
+}, {
+"args": [  ],
+"method": "loadnext"
+} ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("SE1:playing")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 10.6, 10.65, 11.65, 11.7, 11.95, 12, 12.45, 14.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, true, false ]
+}
+tracks/25/type = "value"
+tracks/25/path = NodePath("SE2:playing")
+tracks/25/interp = 1
+tracks/25/loop_wrap = true
+tracks/25/imported = false
+tracks/25/enabled = true
+tracks/25/keys = {
+"times": PoolRealArray( 10.65, 11.65, 11.75, 12.2, 12.25, 13.35, 14.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, true, false ]
+}
+tracks/26/type = "value"
+tracks/26/path = NodePath("VOICE:playing")
+tracks/26/interp = 1
+tracks/26/loop_wrap = true
+tracks/26/imported = false
+tracks/26/enabled = true
+tracks/26/keys = {
+"times": PoolRealArray( 0, 12.35, 14.35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 108, 636 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 9 )
+region = Rect2( 108, 0, 108, 636 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 9 )
+region = Rect2( 216, 0, 108, 636 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 9 )
+region = Rect2( 324, 0, 108, 636 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 9 )
+region = Rect2( 432, 0, 108, 636 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 9 )
+region = Rect2( 540, 0, 108, 636 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 20.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+next = "res://Stages/StickCity/Subway.tscn"
+musplay = ExtResource( 16 )
+initialTime = 500
+canmove = 0
+vidmode = 1
+skippable = 1
+
+[node name="SubwayBack" type="Sprite" parent="."]
+position = Vector2( 192, 96 )
+z_index = -26
+texture = ExtResource( 6 )
+
+[node name="Train" type="TextureRect" parent="."]
+material = SubResource( 300 )
+margin_left = -2011.0
+margin_top = 77.0
+margin_right = -11.0
+margin_bottom = 177.0
+grow_horizontal = 2
+texture = ExtResource( 10 )
+stretch_mode = 2
+
+[node name="SubwayFront" type="Sprite" parent="."]
+position = Vector2( 192, 96 )
+texture = ExtResource( 7 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 192, 112 )
+current = true
+limit_top = -361
+editor_draw_limits = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Talkbubble" type="Sprite" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 195, 65 )
+texture = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Talkbubble"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -106.0
+margin_top = -57.0
+margin_right = 113.0
+margin_bottom = 23.0
+theme = ExtResource( 8 )
+autowrap = true
+percent_visible = 0.0
+
+[node name="YMain" type="Sprite" parent="."]
+position = Vector2( 298, 152 )
+texture = ExtResource( 3 )
+hframes = 4
+vframes = 12
+frame = 41
+
+[node name="Rian" type="AnimatedSprite" parent="."]
+position = Vector2( -34, 165 )
+frames = ExtResource( 1 )
+animation = "run"
+playing = true
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "SubwayCutscene"
+anims/RESET = SubResource( 1 )
+anims/SubwayCutscene = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 177, 177 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.8 )
+frames = SubResource( 9 )
+frame = 3
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 156, 48 )
+rotation = 0.698132
+scale = Vector2( 0.5, 0.8 )
+frames = SubResource( 9 )
+frame = 2
+playing = true
+
+[node name="AnimatedSprite3" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 223, 40 )
+rotation = -0.698132
+scale = Vector2( 0.5, 0.8 )
+frames = SubResource( 9 )
+frame = 2
+playing = true
+
+[node name="AnimatedSprite4" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 196, 40 )
+scale = Vector2( 0.5, 0.8 )
+frames = SubResource( 9 )
+frame = 1
+playing = true
+
+[node name="AnimatedSprite5" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 274, 68 )
+scale = Vector2( 3, 0.5 )
+frames = SubResource( 9 )
+frame = 1
+playing = true
+
+[node name="BGS" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -13.333
+pitch_scale = 1.31
+autoplay = true
+
+[node name="VOICE" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = 6.71
+
+[node name="SE2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="SE1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = 6.71

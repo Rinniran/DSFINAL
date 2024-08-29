@@ -5,7 +5,7 @@
 [ext_resource path="res://Sprites/HOWTOPLAY/Buttons.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/HOWTOPLAY/Ba1_01.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/HOWTOPLAY/Ba2_01.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Textures/LOADING.png" type="Texture" id=6]
+[ext_resource path="res://meshes/STAGE/CS/Textures/LOADING.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Stage/SCity.tres" type="TileSet" id=7]
 [ext_resource path="res://Sprites/Stage/SCity/SCity.png" type="Texture" id=8]
 [ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=9]
@@ -426,7 +426,6 @@ default_font = SubResource( 14 )
 [sub_resource type="Environment" id=16]
 background_mode = 4
 background_canvas_max_layer = 200
-adjustment_enabled = true
 adjustment_brightness = 1.31
 adjustment_saturation = 1.64
 
@@ -438,6 +437,7 @@ canmove = 0
 demo = 1
 vidmode = 1
 zoomallowed = false
+skippable = 1
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource( 14 )

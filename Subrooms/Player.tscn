@@ -1012,7 +1012,6 @@ scale = Vector2( 2, 2 )
 z_index = 3
 frames = SubResource( 272 )
 animation = "main"
-frame = 1
 playing = true
 
 [node name="Sprite2" type="Sprite" parent="GUIStuff/timer/GUI"]
@@ -1218,7 +1217,7 @@ position = Vector2( 8.264, 2.806 )
 scale = Vector2( 2, 2 )
 frames = ExtResource( 31 )
 animation = "idle"
-frame = 9
+frame = 5
 playing = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Rspr"]

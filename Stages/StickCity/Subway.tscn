@@ -1,31 +1,3007 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=126 format=2]
 
-[ext_resource path="res://Blockout.tres" type="TileSet" id=1]
+[ext_resource path="res://Sprites/Stage/SCity/Train.png" type="Texture" id=1]
+[ext_resource path="res://Objects/CAMERA.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Rian.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ContinueSTG.tres.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/Stage/Subway/Ro1_01.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Stage/Subway/Ro2_01.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Stage/Subway/Ba2_01.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Stage/Subway/Ro3_01.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Stage/Subway/Ba1_01.png" type="Texture" id=10]
+[ext_resource path="res://Audio/BGS/Train BGS.mp3" type="AudioStream" id=11]
+[ext_resource path="res://Sprites/VFX/explosion1.png" type="Texture" id=12]
+[ext_resource path="res://Audio/SE/ForesightExp1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Stages/StickCity/explosionchase.gd" type="Script" id=14]
+[ext_resource path="res://Objects/Hazards/Katana.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Objects/Hazards/shuriken.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Objects/Hazards/Lightning.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/BossTrigger.gd" type="Script" id=18]
+[ext_resource path="res://Objects/Bosses/Yaiba.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Audio/SE/OUCH.ogg" type="AudioStream" id=20]
+[ext_resource path="res://Audio/BGM/Results.ogg" type="AudioStream" id=21]
+[ext_resource path="res://Audio/BGM/Yaiba.ogg" type="AudioStream" id=22]
+[ext_resource path="res://Sprites/Stage/Boss 1/Moon.png" type="Texture" id=23]
+[ext_resource path="res://Sprites/Stage/Boss 1/landscape.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Stage/Boss 1/Mountain.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Stage/Boss 1/Grass Middle.png" type="Texture" id=26]
+[ext_resource path="res://Sprites/Stage/Boss 1/Trees 1.png" type="Texture" id=27]
+[ext_resource path="res://Sprites/Stage/Boss 1/Trees 2.png" type="Texture" id=28]
+[ext_resource path="res://Sprites/Stage/Boss 1/Grass Back.png" type="Texture" id=29]
+[ext_resource path="res://Sprites/Stage/Boss 1/Trees 3.png" type="Texture" id=30]
+[ext_resource path="res://Sprites/Stage/Boss 1/sky.png" type="Texture" id=31]
+[ext_resource path="res://Sprites/Stage/Boss 1/Grass Front.png" type="Texture" id=32]
+[ext_resource path="res://Sprites/Stage/Boss 1/clouds 1.png" type="Texture" id=33]
+[ext_resource path="res://Sprites/Players/Rian/RianFrames.tres" type="SpriteFrames" id=34]
+[ext_resource path="res://Subrooms/CheckpObj.tscn" type="PackedScene" id=35]
+[ext_resource path="res://Subrooms/Piece.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Subrooms/Driver3.tscn" type="PackedScene" id=37]
+[ext_resource path="res://Audio/BGM/Stick City A - 4.ogg" type="AudioStream" id=38]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform vec2 direction = vec2(0.2, 0);
+uniform float speed_scale = -20
+;
+
+void fragment(){
+	vec2 move = direction * TIME * speed_scale;
+	COLOR = texture(TEXTURE, UV + move);
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( 0.2, 0 )
+shader_param/speed_scale = 40.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( 0.2, 0 )
+shader_param/speed_scale = 30.0
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( 0.2, 0 )
+shader_param/speed_scale = 25.0
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( 0.2, 0 )
+shader_param/speed_scale = 20.0
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( 0.2, 0.2 )
+shader_param/speed_scale = 4.0
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( -0.2, -0.2 )
+shader_param/speed_scale = 4.0
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 3 )
+shader_param/direction = Vector2( 0.2, 0 )
+shader_param/speed_scale = 15.0
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10393, 63 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 4
+background_canvas_max_layer = 200
+adjustment_brightness = 1.31
+adjustment_saturation = 1.64
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 12 )
+region = Rect2( 500, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 12 )
+region = Rect2( 600, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 12 )
+region = Rect2( 700, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 12 )
+region = Rect2( 800, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 12 )
+region = Rect2( 900, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 12 )
+region = Rect2( 500, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 12 )
+region = Rect2( 600, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 12 )
+region = Rect2( 700, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 12 )
+region = Rect2( 800, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 12 )
+region = Rect2( 900, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 12 )
+region = Rect2( 500, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 12 )
+region = Rect2( 600, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 12 )
+region = Rect2( 700, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 12 )
+region = Rect2( 800, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 12 )
+region = Rect2( 900, 200, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 12 )
+region = Rect2( 500, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 12 )
+region = Rect2( 600, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 12 )
+region = Rect2( 700, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 12 )
+region = Rect2( 800, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 12 )
+region = Rect2( 900, 300, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 12 )
+region = Rect2( 500, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 12 )
+region = Rect2( 600, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 12 )
+region = Rect2( 700, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 12 )
+region = Rect2( 800, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 12 )
+region = Rect2( 900, 400, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=69]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=70]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 12 )
+region = Rect2( 500, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=72]
+atlas = ExtResource( 12 )
+region = Rect2( 600, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=73]
+atlas = ExtResource( 12 )
+region = Rect2( 700, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=74]
+atlas = ExtResource( 12 )
+region = Rect2( 800, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=75]
+atlas = ExtResource( 12 )
+region = Rect2( 900, 500, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 600, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=77]
+atlas = ExtResource( 12 )
+region = Rect2( 100, 600, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 12 )
+region = Rect2( 200, 600, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 12 )
+region = Rect2( 300, 600, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 12 )
+region = Rect2( 400, 600, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=81]
+animations = [ {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ) ],
+"loop": false,
+"name": "go",
+"speed": 100.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "no",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=82]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("exp:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("exp:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("exp2:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("exp2:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("exp3:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("exp3:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("exp4:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("exp4:animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("exp5:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("exp5:animation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("exp6:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("exp6:animation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("exp7:frame")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("exp7:animation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("exp8:frame")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("exp8:animation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "no" ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("fuck u:playing")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=83]
+resource_name = "explode"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("exp:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5, 2.4, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("exp:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8, 1.5, 2.4, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "go", "go", "go", "go", "go" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("exp2:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.9, 1.6, 2.5, 3.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("exp2:animation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.9, 1.6, 2.5, 3.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "no", "go", "go", "go", "go", "go" ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("exp3:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 1, 1.7, 2.6, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0, 0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("exp3:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2, 1, 1.7, 2.6, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "no", "go", "go", "go", "go", "go" ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("exp4:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.3, 1.1, 1.8, 2.7, 3.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0, 0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("exp4:animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.3, 1.1, 1.8, 2.7, 3.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "no", "go", "go", "go", "go", "go" ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("exp5:frame")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.4, 1.2, 1.9, 2.8, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0, 0 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("exp5:animation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.4, 1.2, 1.9, 2.8, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "no", "go", "go", "go", "go", "go" ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("exp6:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.5, 1.3, 2, 2.9, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0, 0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("exp6:animation")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.5, 1.3, 2, 2.9, 3.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "no", "go", "go", "go", "go", "go" ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("exp7:frame")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("exp7:animation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "no" ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("exp8:frame")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 0.6, 1.4, 2.1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 0, 0, 0, 0 ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("exp8:animation")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.6, 1.4, 2.1, 3, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "no", "go", "go", "go", "go", "go" ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("fuck u:playing")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5, 0.9, 1, 1.4, 1.5, 1.9, 2, 2.4, 2.5, 2.9, 3, 3.4, 3.5, 3.8, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true ]
+}
+
+[sub_resource type="RectangleShape2D" id=84]
+extents = Vector2( 126.75, 182.5 )
+
+[sub_resource type="Shader" id=95]
+code = "shader_type canvas_item;
+
+//uniform vec3 color_replace = vec3(1.0,1.0,0.0);
+uniform int OCTAVE = 12;
+uniform float timescale = 5.0;
+uniform vec4 CLOUD1_COL: hint_color = vec4(0.41,0.64,0.78,0.4);
+uniform vec4 CLOUD2_COL: hint_color = vec4(0.99,0.79,0.46,0.2);
+uniform vec4 CLOUD3_COL: hint_color = vec4(0.81,0.31,0.59,1.0);
+uniform vec4 CLOUD4_COL: hint_color = vec4(0.27,0.15,0.33,1.0);
+uniform vec4 SPACE: hint_color = vec4(0.09,0.06,0.28,0.3);
+uniform float zoomScale = 6.0;
+uniform float size = 10.0;
+uniform float starscale = 20.0;
+uniform float prob: hint_range(0.0,1.0) = 0.98;
+
+float rand(vec2 input){
+	return fract(sin(dot(input,vec2(23.53,44.0)))*42350.45);
+}
+
+float perlin(vec2 input){
+	vec2 i = floor(input);
+	vec2 j = fract(input);
+	vec2 coord = smoothstep(0.,1.,j);
+	
+	float a = rand(i);
+	float b = rand(i+vec2(1.0,0.0));
+	float c = rand(i+vec2(0.0,1.0));
+	float d = rand(i+vec2(1.0,1.0));
+
+	return mix(mix(a,b,coord.x),mix(c,d,coord.x),coord.y);
+}
+
+float fbm(vec2 input){
+	float value = 0.0;
+	float scale = 0.5;
+	
+	for(int i = 0; i < OCTAVE; i++){
+		value += perlin(input)*scale;
+		input*=2.0;
+		scale*=0.5;
+	}
+	return value;
+}
+
+float fbmCloud(vec2 input, float minimum){
+	float value = 0.0;
+	float scale = 0.5;
+	
+	for(int i = 0; i < OCTAVE; i++){
+		value += perlin(input)*scale;
+		input*=2.0;
+		scale*=0.5;
+	}
+	return smoothstep(0.,1.,(smoothstep(minimum,1.,value)-minimum)/(1.0-minimum));
+}
+
+float fbmCloud2(vec2 input, float minimum){
+	float value = 0.0;
+	float scale = 0.5;
+	
+	for(int i = 0; i < OCTAVE; i++){
+		value += perlin(input)*scale;
+		input*=2.0;
+		scale*=0.5;
+	}
+	return (smoothstep(minimum,1.,value)-minimum)/(1.0-minimum);
+}
+
+void fragment(){
+	vec4 originalColor = texture(TEXTURE, UV);
+	float timescaled = TIME * timescale;
+	//vec2 zoomUV = vec2(zoomScale * UV.x + UV.x*0.04*TIME*sin(0.07*TIME), zoomScale * UV.y + UV.y*0.05*TIME*cos(0.06*TIME));
+	vec2 zoomUV2 = vec2(zoomScale * UV.x + 0.03*timescaled*sin(0.07*timescaled), zoomScale * UV.y + 0.03*timescaled*cos(0.06*timescaled));
+	vec2 zoomUV3 = vec2(zoomScale * UV.x + 0.027*timescaled*sin(0.07*timescaled), zoomScale * UV.y + 0.025*timescaled*cos(0.06*timescaled));
+	vec2 zoomUV4 = vec2(zoomScale * UV.x + 0.021*timescaled*sin(0.07*timescaled), zoomScale * UV.y + 0.021*timescaled*cos(0.07*timescaled));
+	float tide = 0.05*sin(TIME);
+	float tide2 = 0.06*cos(0.3*TIME);
+	//if(color_replace == originalColor.rgb){
+		vec4 nebulaTexture = vec4(SPACE.rgb, 0.5+0.2*sin(0.23*TIME +UV.x-UV.y));
+		nebulaTexture += fbmCloud2(zoomUV3, 0.24 + tide)*CLOUD1_COL;
+		nebulaTexture += fbmCloud(zoomUV2*0.9, 0.33 - tide)*CLOUD2_COL;
+		nebulaTexture = mix(nebulaTexture,CLOUD3_COL,fbmCloud(vec2(0.9*zoomUV4.x,0.9*zoomUV4.y), 0.25+tide2));
+		nebulaTexture = mix(nebulaTexture,CLOUD4_COL,fbmCloud(zoomUV3*0.7+2.0, 0.4+tide2));
+		vec2 zoomstar = starscale*zoomUV2;
+		vec2 pos = floor(zoomstar / size);
+		float starValue = rand(pos);
+		if(starValue>prob){
+			vec2 center = size * pos + vec2(size, size) * 0.5;
+			float t = 0.9 + 0.2 * sin(TIME * 8.0 + (starValue - prob) / (1.0 - prob) * 45.0);
+			float color = 1.0 - distance(zoomstar, center) / (0.5 * size);
+			nebulaTexture = mix(nebulaTexture, vec4(1.0,1.0,1.0,1.0),smoothstep(0.,1.,color * t / (abs(zoomstar.y - center.y)) * t / (abs(zoomstar.x - center.x))));
+		} else {
+			zoomstar *= 5.0;
+			pos = floor(zoomstar / size);
+			float starValue2 = rand(pos + vec2(13.0,13.0));
+			if(starValue2 >= 0.95){
+				vec2 center = size * pos + vec2(size, size) * 0.5;
+				float t = 0.9 + 0.2 * sin(TIME * 8.0 + (starValue - prob) / (1.0 - prob) * 45.0);
+				float color = 1.0 - distance(zoomstar, center) / (0.5 * size);
+				nebulaTexture = mix(nebulaTexture, vec4(1.0,1.0,1.0,1.0),fbmCloud(pos,0.0)*smoothstep(0.,1.,color * t / (abs(zoomstar.y - center.y)) * t / (abs(zoomstar.x - center.x))));
+			}
+		}
+		COLOR = vec4(nebulaTexture.rgb, 1.0);
+		//COLOR = vec4(nebulaTexture.rgb,nebulaTexture.a * 1.2)
+	//} else {
+	//	COLOR = originalColor;
+	//}
+}"
+
+[sub_resource type="ShaderMaterial" id=96]
+shader = SubResource( 95 )
+shader_param/OCTAVE = 12
+shader_param/timescale = 10.0
+shader_param/CLOUD1_COL = Color( 0.282353, 0.929412, 0.12549, 0.4 )
+shader_param/CLOUD2_COL = Color( 0.14902, 0.894118, 0.992157, 0.2 )
+shader_param/CLOUD3_COL = Color( 0.270588, 0.152941, 0.937255, 1 )
+shader_param/CLOUD4_COL = Color( 0.27, 0.15, 0.33, 1 )
+shader_param/SPACE = Color( 0.403922, 0, 0.329412, 0.301961 )
+shader_param/zoomScale = 6.0
+shader_param/size = 10.0
+shader_param/starscale = 90.0
+shader_param/prob = 0.844
+
+[sub_resource type="RectangleShape2D" id=87]
+extents = Vector2( 110, 238 )
+
+[sub_resource type="Animation" id=97]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Camera2D:limit_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Camera2D:limit_right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 15250 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Yaiba:detected")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../CanvasLayer2/ColorRect2:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../BGs1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../BGs2:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../CanvasLayer/ColorRect:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../CanvasLayer/Sky:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../CanvasLayer/Moon:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../CanvasLayer/Mountain:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../CanvasLayer/Sprite:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("../AnimationPlayer/AudioStreamPlayer:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=98]
+resource_name = "Yintro"
+length = 24.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Camera2D:limit_left")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 14645 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Camera2D:limit_right")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.9 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 15250 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../explosions")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Yaiba:detected")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../CanvasLayer2/ColorRect2:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.7, 1.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../BGs1:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../BGs2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("../CanvasLayer/ColorRect:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("../CanvasLayer/Sky:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("../CanvasLayer/Moon:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("../CanvasLayer/Mountain:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("../CanvasLayer/Sprite:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("../AnimationPlayer/AudioStreamPlayer:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=100]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera2D:HudVisible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Camera2D:target")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ NodePath("../Rian") ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer2/ColorRect2:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Yaiba/Sprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Yaiba/Sprite:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Yaiba:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 15188, 141 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:limit_right")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 15250 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Camera2D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 15246, 32 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath(".:musplay")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 38 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("results:stream")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 21 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("results:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Train:rect_position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 165 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("AnimationPlayer/cutscenerian:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 14922, 151 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("AnimationPlayer/cutscenerian:animation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "dash" ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("AnimationPlayer/cutscenerian:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Camera2D:zoom")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("AnimationPlayer/cutscenerian:frame")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=99]
+resource_name = "beat yaiba"
+length = 10.0
+step = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/AudioStreamPlayer:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera2D:HudVisible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Camera2D:target")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4.5818 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ NodePath("../Yaiba"), NodePath("") ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer2/ColorRect2:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.9, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Yaiba/Sprite:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 11, 11 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Yaiba:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.9, 1.6, 2.2, 2.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 14910, 104 ), Vector2( 14910, 104 ), Vector2( 15002, 76 ), Vector2( 15171, 79 ), Vector2( 15390, 271 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Camera2D:limit_right")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 15250, 15521 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Camera2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 4.5818, 5.5, 7.1, 7.12, 7.14, 7.16, 7.18, 7.2, 7.22, 7.24, 7.26, 7.28, 7.3, 7.32, 7.34, 7.36, 7.38, 7.4, 7.42 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 15246, 32 ), Vector2( 15033, 32 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ), Vector2( 15036, 20 ), Vector2( 15034, 31 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath(".:musplay")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ null ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 9.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "playmusic"
+}, {
+"args": [ 1 ],
+"method": "CompleteStage"
+} ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("results:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/11/type = "method"
+tracks/11/path = NodePath("Rian")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("AnimationPlayer/cutscenerian:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 6.7, 7.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 14975, 151 ), Vector2( 15226, 151 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("AnimationPlayer/cutscenerian:animation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 6.7, 7.1, 7.6, 8.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "dash", "Stopbyledge", "LookWhatYouDid", "ReapWhatYou'veSown" ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("AnimationPlayer/cutscenerian:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0, 6.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Camera2D:zoom")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("AnimationPlayer/cutscenerian:frame")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 7.1, 8.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 0 ]
+}
+
+[sub_resource type="Animation" id=102]
+resource_name = "rideoff"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Train:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1, 165 ), Vector2( 3097, 165 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "loadnext"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimationPlayer/cutscenerian:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 15226, 151 ), Vector2( 18315, 151 ) ]
+}
+
+[sub_resource type="GDScript" id=101]
+resource_name = "Yaibabossend"
+script/source = "extends AnimationPlayer
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+var didit = 0
+var didit2 = 0
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Switches.YaibaDefeated == 1:
+		if didit != 1:
+			play(\"beat yaiba\")
+			didit = 1
+	if Switches.stg1complete == true:
+		if didit2 != 1:
+			clear_caches()
+			clear_queue()
+			play(\"rideoff\")
+			didit2 = 1
+	
+	print_debug(Switches.stg1complete)
+#	pass
+"
 
 [node name="Subway" type="Node2D"]
+script = ExtResource( 5 )
+next = "res://Stages/Titlescreen.tscn"
+musplay = ExtResource( 38 )
+initialTime = 69
+vidmode = 1
 
-[node name="Cutscene Area" type="Node2D" parent="."]
-
-[node name="TileMap" type="TileMap" parent="Cutscene Area"]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( -393216, -1073741824, 0, -393215, -1073741824, 0, -393214, -1073741824, 0, -393213, -1073741824, 0, -393212, -1073741824, 0, -393211, -1073741824, 0, -393210, -1073741824, 0, -393209, -1073741824, 0, -393208, -1073741824, 0, -393207, -1073741824, 0, -393206, -1073741824, 0, -393205, -1073741824, 0, -393204, -1073741824, 0, -393203, -1073741824, 0, -393202, -1073741824, 0, -393201, -1073741824, 0, -393200, -1073741824, 0, -393199, -1073741824, 0, -393198, -1073741824, 0, -393197, -1073741824, 0, -393196, -1073741824, 0, -393195, -1073741824, 0, -393194, -1073741824, 0, -393193, -1073741824, 0, -393192, -1073741824, 0, -393191, -1073741824, 0, -393190, -1073741824, 0, -393189, -1073741824, 0, -393188, -1073741824, 0, -393187, -1073741824, 0, -393186, -1073741824, 0, -393185, -1073741824, 0, -393184, -1073741824, 0, -393183, -1073741824, 0, -393182, -1073741824, 0, -393181, -1073741824, 0, -393180, -1073741824, 0, -393179, -1073741824, 0, -393178, -1073741824, 0, -393177, -1073741824, 0, -393176, -1073741824, 0, -393175, -1073741824, 0, -393174, -1073741824, 0, -393173, -1073741824, 0, -393172, -1073741824, 0, -393171, -1073741824, 0, -393170, -1073741824, 0, -393169, -1073741824, 0, -393168, -1073741824, 0, -393167, -1073741824, 0, -393166, -1073741824, 0, -393165, -1073741824, 0, -393164, -1073741824, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 917531, 0, 0, 917532, 0, 0, 917533, 0, 0, 917534, 0, 0, 917535, 0, 0, 917536, 0, 0, 917537, 0, 0, 917538, 0, 0, 917539, 0, 0, 917540, 0, 0, 917541, 0, 0, 917542, 0, 0, 917543, 0, 0, 917544, 0, 0, 917545, 0, 0, 917546, 0, 0, 917547, 0, 0, 917548, 0, 0, 917549, 0, 0, 917550, 0, 0, 917551, 0, 0, 917552, 0, 0, 917553, 0, 0, 917554, 0, 0, 917555, 0, 0, 917556, 0, 0 )
-
-[node name="Tunnel" type="Node2D" parent="."]
+[node name="BGs2" type="Node2D" parent="."]
 visible = false
 
-[node name="TileMap" type="TileMap" parent="Tunnel"]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( -393216, -1073741824, 0, -393215, -1073741824, 0, -393214, -1073741824, 0, -393213, -1073741824, 0, -393212, -1073741824, 0, -393211, -1073741824, 0, -393210, -1073741824, 0, -393209, -1073741824, 0, -393208, -1073741824, 0, -393207, -1073741824, 0, -393206, -1073741824, 0, -393205, -1073741824, 0, -393204, -1073741824, 0, -393203, -1073741824, 0, -393202, -1073741824, 0, -393201, -1073741824, 0, -393200, -1073741824, 0, -393199, -1073741824, 0, -393198, -1073741824, 0, -393197, -1073741824, 0, -393196, -1073741824, 0, -393195, -1073741824, 0, -393194, -1073741824, 0, -393193, -1073741824, 0, -393192, -1073741824, 0, -393191, -1073741824, 0, -393190, -1073741824, 0, -393189, -1073741824, 0, -393188, -1073741824, 0, -393187, -1073741824, 0, -393186, -1073741824, 0, -393185, -1073741824, 0, -393184, -1073741824, 0, -393183, -1073741824, 0, -393182, -1073741824, 0, -393181, -1073741824, 0, -393180, -1073741824, 0, -393179, -1073741824, 0, -393178, -1073741824, 0, -393177, -1073741824, 0, -393176, -1073741824, 0, -393175, -1073741824, 0, -393174, -1073741824, 0, -393173, -1073741824, 0, -393172, -1073741824, 0, -393171, -1073741824, 0, -393170, -1073741824, 0, -393169, -1073741824, 0, -393168, -1073741824, 0, -393167, -1073741824, 0, -393166, -1073741824, 0, -393165, -1073741824, 0, -393164, -1073741824, 0, -393163, -1073741824, 0, -393162, -1073741824, 0, -393161, -1073741824, 0, -393160, -1073741824, 0, -393159, -1073741824, 0, -393158, -1073741824, 0, -393157, -1073741824, 0, -393156, -1073741824, 0, -393155, -1073741824, 0, -393154, -1073741824, 0, -393153, -1073741824, 0, -393152, -1073741824, 0, -393151, -1073741824, 0, -393150, -1073741824, 0, -393149, -1073741824, 0, -393148, -1073741824, 0, -393147, -1073741824, 0, -393146, -1073741824, 0, -393145, -1073741824, 0, -393144, -1073741824, 0, -393143, -1073741824, 0, -393142, -1073741824, 0, -393141, -1073741824, 0, -393140, -1073741824, 0, -393139, -1073741824, 0, -393138, -1073741824, 0, -393137, -1073741824, 0, -393136, -1073741824, 0, -393135, -1073741824, 0, -393134, -1073741824, 0, -393133, -1073741824, 0, -393132, -1073741824, 0, -393131, -1073741824, 0, -393130, -1073741824, 0, -393129, -1073741824, 0, -393128, -1073741824, 0, -393127, -1073741824, 0, -393126, -1073741824, 0, -393125, -1073741824, 0, -393124, -1073741824, 0, -393123, -1073741824, 0, -393122, -1073741824, 0, -393121, -1073741824, 0, -393120, -1073741824, 0, -393119, -1073741824, 0, -393118, -1073741824, 0, -393117, -1073741824, 0, -393116, -1073741824, 0, -393115, -1073741824, 0, -393114, -1073741824, 0, -393113, -1073741824, 0, -393112, -1073741824, 0, -393111, -1073741824, 0, -393110, -1073741824, 0, -393109, -1073741824, 0, -393108, -1073741824, 0, -393107, -1073741824, 0, -393106, -1073741824, 0, -393105, -1073741824, 0, -393104, -1073741824, 0, -393103, -1073741824, 0, -393102, -1073741824, 0, -393101, -1073741824, 0, -393100, -1073741824, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 917531, 0, 0, 917532, 0, 0, 917533, 0, 0, 917534, 0, 0, 917535, 0, 0, 917536, 0, 0, 917537, 0, 0, 917538, 0, 0, 917539, 0, 0, 917540, 0, 0, 917541, 0, 0, 917542, 0, 0, 917543, 0, 0, 917544, 0, 0, 917545, 0, 0, 917546, 0, 0, 917547, 0, 0, 917548, 0, 0, 917549, 0, 0, 917550, 0, 0, 917551, 0, 0, 917552, 0, 0, 917553, 0, 0, 917554, 0, 0, 917555, 0, 0, 917556, 0, 0, 917557, -1073741824, 0, 917558, -1073741824, 0, 917559, -1073741824, 0, 917560, -1073741824, 0, 917561, -1073741824, 0, 917562, -1073741824, 0, 917563, -1073741824, 0, 917564, -1073741824, 0, 917565, -1073741824, 0, 917566, -1073741824, 0, 917567, -1073741824, 0, 917568, -1073741824, 0, 917569, -1073741824, 0, 917570, -1073741824, 0, 917571, -1073741824, 0, 917572, -1073741824, 0, 917573, -1073741824, 0, 917574, -1073741824, 0, 917575, -1073741824, 0, 917576, -1073741824, 0, 917577, -1073741824, 0, 917578, -1073741824, 0, 917579, -1073741824, 0, 917580, -1073741824, 0, 917581, -1073741824, 0, 917582, -1073741824, 0, 917583, -1073741824, 0, 917584, -1073741824, 0, 917585, -1073741824, 0, 917586, -1073741824, 0, 917587, -1073741824, 0, 917588, -1073741824, 0, 917589, -1073741824, 0, 917590, -1073741824, 0, 917591, -1073741824, 0, 917592, -1073741824, 0, 917593, -1073741824, 0, 917594, -1073741824, 0, 917595, -1073741824, 0, 917596, -1073741824, 0, 917597, -1073741824, 0, 917598, -1073741824, 0, 917599, -1073741824, 0, 917600, -1073741824, 0, 917601, -1073741824, 0, 917602, -1073741824, 0, 917603, -1073741824, 0, 917604, -1073741824, 0, 917605, -1073741824, 0, 917606, -1073741824, 0, 917607, -1073741824, 0, 917608, -1073741824, 0, 917609, -1073741824, 0, 917610, -1073741824, 0, 917611, -1073741824, 0, 917612, -1073741824, 0, 917613, -1073741824, 0, 917614, -1073741824, 0, 917615, -1073741824, 0, 917616, -1073741824, 0, 917617, -1073741824, 0, 917618, -1073741824, 0, 917619, -1073741824, 0, 917620, -1073741824, 0 )
+[node name="BG1" type="TextureRect" parent="BGs2"]
+material = SubResource( 6 )
+margin_left = -1.0
+margin_top = -102.0
+margin_right = 20745.0
+margin_bottom = 216.0
+grow_horizontal = 2
+texture = ExtResource( 32 )
+stretch_mode = 2
 
-[node name="Boss" type="Node2D" parent="."]
+[node name="BG2" type="TextureRect" parent="BGs2"]
+material = SubResource( 7 )
+margin_left = -1.0
+margin_top = -101.0
+margin_right = 20745.0
+margin_bottom = 217.0
+grow_horizontal = 2
+texture = ExtResource( 26 )
+stretch_mode = 2
+
+[node name="BG3" type="TextureRect" parent="BGs2"]
+material = SubResource( 8 )
+margin_left = -1.0
+margin_top = -101.0
+margin_right = 20745.0
+margin_bottom = 217.0
+grow_horizontal = 2
+texture = ExtResource( 29 )
+stretch_mode = 2
+
+[node name="BG8" type="TextureRect" parent="BGs2"]
+material = SubResource( 6 )
+margin_left = -1.0
+margin_top = -54.0
+margin_right = 20745.0
+margin_bottom = 264.0
+grow_horizontal = 2
+texture = ExtResource( 32 )
+stretch_mode = 2
+
+[node name="BG9" type="TextureRect" parent="BGs2"]
+material = SubResource( 7 )
+margin_left = -1.0
+margin_top = -53.0
+margin_right = 20745.0
+margin_bottom = 265.0
+grow_horizontal = 2
+texture = ExtResource( 26 )
+stretch_mode = 2
+
+[node name="BG10" type="TextureRect" parent="BGs2"]
+material = SubResource( 8 )
+margin_left = -1.0
+margin_top = -53.0
+margin_right = 20745.0
+margin_bottom = 265.0
+grow_horizontal = 2
+texture = ExtResource( 29 )
+stretch_mode = 2
+
+[node name="BG11" type="TextureRect" parent="BGs2"]
+material = SubResource( 6 )
+margin_left = -1.0
+margin_top = 2.0
+margin_right = 20745.0
+margin_bottom = 320.0
+grow_horizontal = 2
+texture = ExtResource( 32 )
+stretch_mode = 2
+
+[node name="BG12" type="TextureRect" parent="BGs2"]
+material = SubResource( 7 )
+margin_left = -1.0
+margin_top = 3.0
+margin_right = 20745.0
+margin_bottom = 321.0
+grow_horizontal = 2
+texture = ExtResource( 26 )
+stretch_mode = 2
+
+[node name="BG13" type="TextureRect" parent="BGs2"]
+material = SubResource( 8 )
+margin_left = -1.0
+margin_top = 3.0
+margin_right = 20745.0
+margin_bottom = 321.0
+grow_horizontal = 2
+texture = ExtResource( 29 )
+stretch_mode = 2
+
+[node name="BG7" type="TextureRect" parent="BGs2"]
+material = SubResource( 8 )
+margin_left = -88.0
+margin_top = -14.0
+margin_right = 20658.0
+margin_bottom = 304.0
+grow_horizontal = 2
+texture = ExtResource( 33 )
+stretch_mode = 2
+
+[node name="BG4" type="TextureRect" parent="BGs2"]
+material = SubResource( 9 )
+margin_left = -1.0
+margin_top = -62.0
+margin_right = 20745.0
+margin_bottom = 256.0
+grow_horizontal = 2
+texture = ExtResource( 30 )
+stretch_mode = 2
+
+[node name="BG6" type="TextureRect" parent="BGs2"]
+material = SubResource( 8 )
+margin_left = -1.0
+margin_top = -62.0
+margin_right = 20745.0
+margin_bottom = 256.0
+grow_horizontal = 2
+texture = ExtResource( 28 )
+stretch_mode = 2
+
+[node name="BG5" type="TextureRect" parent="BGs2"]
+material = SubResource( 6 )
+margin_left = -1.0
+margin_top = -63.0
+margin_right = 20745.0
+margin_bottom = 255.0
+grow_horizontal = 2
+texture = ExtResource( 27 )
+stretch_mode = 2
+
+[node name="BGs1" type="Node2D" parent="."]
+
+[node name="BG6" type="TextureRect" parent="BGs1"]
+material = SubResource( 4 )
+margin_left = 3.0
+margin_top = 77.0
+margin_right = 20749.0
+margin_bottom = 205.0
+grow_horizontal = 2
+texture = ExtResource( 10 )
+stretch_mode = 2
+
+[node name="BG7" type="TextureRect" parent="BGs1"]
+material = SubResource( 5 )
+margin_left = 3.0
+margin_top = 77.0
+margin_right = 20749.0
+margin_bottom = 205.0
+grow_horizontal = 2
+texture = ExtResource( 8 )
+stretch_mode = 2
+
+[node name="BG1" type="TextureRect" parent="BGs1"]
+material = SubResource( 6 )
+margin_left = -1.0
+margin_top = 1.0
+margin_right = 20745.0
+margin_bottom = 34.0
+grow_horizontal = 2
+texture = ExtResource( 6 )
+stretch_mode = 2
+
+[node name="BG2" type="TextureRect" parent="BGs1"]
+material = SubResource( 7 )
+margin_left = -1.0
+margin_top = 33.0
+margin_right = 20745.0
+margin_bottom = 50.0
+grow_horizontal = 2
+texture = ExtResource( 7 )
+stretch_mode = 2
+
+[node name="BG3" type="TextureRect" parent="BGs1"]
+material = SubResource( 8 )
+margin_left = -1.0
+margin_top = 50.0
+margin_right = 20745.0
+margin_bottom = 67.0
+grow_horizontal = 2
+texture = ExtResource( 7 )
+stretch_mode = 2
+
+[node name="BG4" type="TextureRect" parent="BGs1"]
+material = SubResource( 9 )
+margin_left = -1.0
+margin_top = 66.0
+margin_right = 20745.0
+margin_bottom = 74.0
+grow_horizontal = 2
+texture = ExtResource( 9 )
+stretch_mode = 2
+
+[node name="BG5" type="TextureRect" parent="BGs1"]
+material = SubResource( 10 )
+margin_left = -1.0
+margin_top = 74.0
+margin_right = 20745.0
+margin_bottom = 82.0
+grow_horizontal = 2
+texture = ExtResource( 9 )
+stretch_mode = 2
+
+[node name="Train" type="TextureRect" parent="."]
+margin_left = -1.0
+margin_top = 165.0
+margin_right = 15251.0
+margin_bottom = 265.0
+grow_horizontal = 2
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 visible = false
+position = Vector2( -3, 1 )
+collision_layer = 3
+collision_mask = 3
 
-[node name="TileMap" type="TileMap" parent="Boss"]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0, 917525, 0, 0, 917526, 0, 0, 917527, 0, 0, 917528, 0, 0, 917529, 0, 0, 917530, 0, 0, 917531, 0, 0, 917532, 0, 0, 917533, 0, 0, 917534, 0, 0, 917535, 0, 0, 917536, 0, 0, 917537, 0, 0, 917538, 0, 0, 917539, 0, 0, 917540, 0, 0, 917541, 0, 0, 917542, 0, 0, 917543, 0, 0, 917544, 0, 0, 917545, 0, 0, 917546, 0, 0, 917547, 0, 0, 917548, 0, 0, 917549, 0, 0, 917550, 0, 0, 917551, 0, 0, 917552, 0, 0, 917553, 0, 0, 917554, 0, 0, 917555, 0, 0, 917556, 0, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 10394, 237 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 10394, -67 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 15246, 32 )
+scale = Vector2( 3, 3 )
+limit_top = 1
+limit_right = 15250
+limit_bottom = 257
+editor_draw_drag_margin = false
+target = NodePath("../Rian")
+
+[node name="Rian" parent="." instance=ExtResource( 4 )]
+position = Vector2( 171, 144 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -2.662
+autoplay = true
+
+[node name="explosions" type="Node2D" parent="."]
+position = Vector2( -566, 75 )
+script = ExtResource( 14 )
+
+[node name="exp" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -295, 17 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="exp2" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -350, 7 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="exp3" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -318, -61 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="exp4" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -300, -21 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+
+[node name="exp5" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -303, 53 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="exp6" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -351, 54 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="exp7" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -363, 36 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="exp8" type="AnimatedSprite" parent="explosions"]
+position = Vector2( -376, -52 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 81 )
+animation = "no"
+playing = true
+
+[node name="fuck u" type="AudioStreamPlayer2D" parent="explosions"]
+position = Vector2( -340, 23 )
+stream = ExtResource( 13 )
+volume_db = 16.492
+attenuation = 2.73208
+bus = "SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="explosions"]
+autoplay = "explode"
+anims/RESET = SubResource( 82 )
+anims/explode = SubResource( 83 )
+
+[node name="Area2D" type="Area2D" parent="explosions" groups=["bighurt", "undodgeable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="explosions/Area2D"]
+position = Vector2( -339.25, 11 )
+shape = SubResource( 84 )
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Katana" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 928, 424 )
+
+[node name="Katana3" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 1499, 336 )
+rotation = -0.678933
+
+[node name="Katana2" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 1103, -208 )
+scale = Vector2( 1, -1 )
+
+[node name="Katana4" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 1331, -126 )
+rotation = -0.678933
+scale = Vector2( 1, -1 )
+
+[node name="Katana5" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 1668, 244 )
+rotation = -2.04923
+scale = Vector2( 1, -1 )
+
+[node name="Katana6" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 2987, -47.9999 )
+rotation = -1.02974
+scale = Vector2( 1, -1 )
+
+[node name="Katana7" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 2987, -47.9999 )
+rotation = -1.02974
+scale = Vector2( 1, -1 )
+
+[node name="Katana8" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 3316, -93.0001 )
+rotation = -1.02974
+scale = Vector2( 1, -1 )
+
+[node name="Katana9" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5004, 263 )
+rotation = -1.02974
+
+[node name="Katana11" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5091, 312 )
+rotation = 0.837758
+
+[node name="Katana12" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5555, 312 )
+rotation = -0.860447
+
+[node name="Katana13" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5220, -139 )
+rotation = 2.36667
+scale = Vector2( -1, 1 )
+
+[node name="Katana14" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5405, -123 )
+rotation = 3.89557
+scale = Vector2( -1, 1 )
+
+[node name="Katana15" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5441, 295 )
+rotation = 0.837758
+
+[node name="Katana16" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5905, 295 )
+rotation = -0.860447
+
+[node name="Katana21" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 10908, 299.001 )
+rotation = -0.860447
+
+[node name="Katana22" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 11519, 7.00012 )
+rotation = -1.87972
+
+[node name="Katana23" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12160, 477 )
+rotation = 0.0498866
+
+[node name="Katana24" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12196, 449 )
+rotation = 0.0498866
+
+[node name="Katana25" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12234, 417 )
+rotation = 0.0498866
+
+[node name="Katana26" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12270, 436 )
+rotation = 0.0498866
+
+[node name="Katana27" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12306, 474 )
+rotation = 0.0498866
+
+[node name="Katana28" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12205, -281 )
+rotation = 3.18411
+
+[node name="Katana29" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12241, -309 )
+rotation = 3.18411
+
+[node name="Katana30" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12279, -341 )
+rotation = 3.18411
+
+[node name="Katana31" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12315, -322 )
+rotation = 3.18411
+
+[node name="Katana32" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12351, -284 )
+rotation = 3.18411
+
+[node name="Katana33" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12556, 490 )
+rotation = 0.0498866
+
+[node name="Katana34" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12592, 462 )
+rotation = 0.0498866
+
+[node name="Katana35" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12630, 430 )
+rotation = 0.0498866
+
+[node name="Katana36" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12666, 449 )
+rotation = 0.0498866
+
+[node name="Katana37" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12702, 487 )
+rotation = 0.0498866
+
+[node name="Katana38" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12601, -268 )
+rotation = 3.18411
+
+[node name="Katana39" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12637, -296 )
+rotation = 3.18411
+
+[node name="Katana40" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12675, -328 )
+rotation = 3.18411
+
+[node name="Katana41" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12711, -309 )
+rotation = 3.18411
+
+[node name="Katana42" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 12747, -271 )
+rotation = 3.18411
+
+[node name="Katana20" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 8802, 52 )
+rotation = -1.53938
+
+[node name="Katana17" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5570, -156 )
+rotation = 2.36667
+scale = Vector2( -1, 1 )
+
+[node name="Katana18" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 5755, -140 )
+rotation = 3.89557
+scale = Vector2( -1, 1 )
+
+[node name="Katana10" parent="Hazards" instance=ExtResource( 15 )]
+position = Vector2( 3815, 440 )
+
+[node name="Shuriken2" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2071, 18 )
+
+[node name="Shuriken3" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2001, 155 )
+
+[node name="Shuriken4" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2103, 58 )
+
+[node name="Shuriken5" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2367, 155 )
+
+[node name="Shuriken6" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2368, 115 )
+
+[node name="Shuriken7" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2614, 17 )
+
+[node name="Shuriken8" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2809, 161 )
+
+[node name="Shuriken9" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2812, 10 )
+
+[node name="Shuriken11" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2961, 156 )
+
+[node name="Shuriken12" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 2962, 111 )
+
+[node name="Shuriken14" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 3114, 153 )
+
+[node name="Shuriken15" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 3866, 148 )
+
+[node name="Shuriken16" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 3920, 147 )
+
+[node name="Shuriken17" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 3975, 148 )
+
+[node name="Shuriken21" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 4712, 152 )
+
+[node name="Shuriken22" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 4806, 78 )
+
+[node name="Shuriken19" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 4287, 215 )
+scale = Vector2( 6, 6 )
+
+[node name="Shuriken20" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 4533, -56 )
+scale = Vector2( 6, 6 )
+
+[node name="Shuriken23" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 5519, 96 )
+
+[node name="Shuriken24" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 5487, 96 )
+
+[node name="Shuriken25" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 5455, 96 )
+
+[node name="Shuriken26" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 5971, 160 )
+
+[node name="Shuriken27" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6058, 73 )
+
+[node name="Shuriken28" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6083, 43 )
+
+[node name="Shuriken29" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6111, 15 )
+
+[node name="Shuriken31" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6326, 123 )
+
+[node name="Shuriken32" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6353, 90 )
+
+[node name="Shuriken37" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6674, 188 )
+
+[node name="Shuriken38" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6702, 154 )
+
+[node name="Shuriken39" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6729, 121 )
+
+[node name="Shuriken43" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 7504, 150 )
+
+[node name="Shuriken44" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 7536, 110 )
+
+[node name="Shuriken45" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 7574, 150 )
+
+[node name="Shuriken46" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 7758, 46 )
+
+[node name="Shuriken47" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 7758, 6 )
+
+[node name="Shuriken50" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 7958, 154 )
+
+[node name="Shuriken54" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 8600, 158 )
+
+[node name="Shuriken55" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 8691, 74 )
+
+[node name="Shuriken56" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 8782, 156 )
+
+[node name="Shuriken57" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 8883, 77 )
+
+[node name="Shuriken58" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9018, 161 )
+
+[node name="Shuriken59" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9105, 75 )
+
+[node name="Shuriken60" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9258, 20 )
+
+[node name="Shuriken61" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9284, 56 )
+
+[node name="Shuriken62" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9361, 161 )
+
+[node name="Shuriken65" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9568, 154 )
+
+[node name="Contraption" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 9943, 64 )
+z_index = 3
+speed = -50
+
+[node name="Shuriken67" parent="Hazards/Contraption" instance=ExtResource( 16 )]
+position = Vector2( -93, 3 )
+
+[node name="Shuriken68" parent="Hazards/Contraption" instance=ExtResource( 16 )]
+position = Vector2( 89, 2 )
+
+[node name="Shuriken69" parent="Hazards/Contraption" instance=ExtResource( 16 )]
+position = Vector2( 0, -89 )
+
+[node name="Shuriken70" parent="Hazards/Contraption" instance=ExtResource( 16 )]
+position = Vector2( 0, 95 )
+
+[node name="Lightning11" parent="Hazards/Contraption" instance=ExtResource( 17 )]
+scale = Vector2( 0.5, 0.35 )
+z_index = 5
+
+[node name="Lightning12" parent="Hazards/Contraption" instance=ExtResource( 17 )]
+rotation = 1.5708
+scale = Vector2( 0.5, 0.35 )
+
+[node name="Contraption3" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 10291, 60 )
+z_index = 3
+speed = -50
+
+[node name="Shuriken67" parent="Hazards/Contraption3" instance=ExtResource( 16 )]
+position = Vector2( -93, 3 )
+
+[node name="Shuriken68" parent="Hazards/Contraption3" instance=ExtResource( 16 )]
+position = Vector2( 89, 2 )
+
+[node name="Shuriken69" parent="Hazards/Contraption3" instance=ExtResource( 16 )]
+position = Vector2( 0, -89 )
+
+[node name="Shuriken70" parent="Hazards/Contraption3" instance=ExtResource( 16 )]
+position = Vector2( 0, 95 )
+
+[node name="Lightning11" parent="Hazards/Contraption3" instance=ExtResource( 17 )]
+scale = Vector2( 0.5, 0.35 )
+z_index = 5
+
+[node name="Lightning12" parent="Hazards/Contraption3" instance=ExtResource( 17 )]
+rotation = 1.5708
+scale = Vector2( 0.5, 0.35 )
+
+[node name="Shuriken33" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6411, 14 )
+
+[node name="Shuriken34" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6555, 27 )
+
+[node name="Shuriken35" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6555, 67 )
+
+[node name="Shuriken36" parent="Hazards" instance=ExtResource( 16 )]
+position = Vector2( 6555, 107 )
+
+[node name="Lightning" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 6852, 87 )
+rotation = -0.678933
+
+[node name="Lightning7" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7900, 87 )
+rotation = -0.678933
+
+[node name="Lightning11" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 11653, 48 )
+rotation = -0.678933
+
+[node name="Lightning12" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 11967, 80.0005 )
+rotation = -0.678933
+
+[node name="Lightning14" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13052, 86 )
+rotation = -0.678933
+
+[node name="Lightning15" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13188, 93 )
+rotation = 0.678933
+
+[node name="Lightning16" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13230, 105 )
+rotation = -0.678933
+
+[node name="Lightning17" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13366, 112 )
+rotation = 0.678933
+
+[node name="Lightning18" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13399, -109 )
+rotation = -0.678933
+
+[node name="Lightning19" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13535, -102 )
+rotation = 0.678933
+
+[node name="Lightning20" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13699, 257 )
+rotation = -0.678933
+
+[node name="Lightning21" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13835, 264 )
+rotation = 0.678933
+
+[node name="Lightning22" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13425, 136 )
+rotation = -0.678933
+
+[node name="Lightning23" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13561, 143 )
+rotation = 0.678933
+
+[node name="Lightning24" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13816, -30 )
+rotation = -0.678933
+
+[node name="Lightning25" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13952, -23 )
+rotation = 0.678933
+
+[node name="Lightning26" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 13978, 172 )
+rotation = -0.678933
+
+[node name="Lightning27" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 14114, 179 )
+rotation = 0.678933
+
+[node name="Lightning28" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 14014, -132 )
+rotation = -0.678933
+
+[node name="Lightning29" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 14150, -125 )
+rotation = 0.678933
+
+[node name="Lightning30" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 14240, 161 )
+rotation = -0.678933
+
+[node name="Lightning31" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 14376, 168 )
+rotation = 0.678933
+
+[node name="Lightning2" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7124, 87 )
+rotation = 0.509636
+
+[node name="Lightning8" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7996, 87 )
+rotation = 0.509636
+
+[node name="Lightning3" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7365, 92 )
+
+[node name="Lightning4" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7397, 92 )
+
+[node name="Lightning5" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7429, 92 )
+
+[node name="Lightning6" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 7461, 92 )
+
+[node name="Lightning9" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 9496, 35 )
+rotation = -0.678933
+
+[node name="Lightning10" parent="Hazards" instance=ExtResource( 17 )]
+position = Vector2( 9280, 111 )
+rotation = -0.678933
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.619608 )
+material = SubResource( 96 )
+margin_right = 383.0
+margin_bottom = 195.0
+rect_pivot_offset = Vector2( 229, 326 )
+
+[node name="Sky" type="Sprite" parent="CanvasLayer"]
+visible = false
+position = Vector2( 190, 103 )
+scale = Vector2( 1.2, 1 )
+texture = ExtResource( 31 )
+
+[node name="Moon" type="Sprite" parent="CanvasLayer"]
+visible = false
+position = Vector2( 166, 95 )
+texture = ExtResource( 23 )
+
+[node name="Mountain" type="Sprite" parent="CanvasLayer"]
+visible = false
+position = Vector2( 166, 91 )
+texture = ExtResource( 25 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+visible = false
+position = Vector2( 188, 94 )
+scale = Vector2( 1.2, 1 )
+texture = ExtResource( 24 )
+
+[node name="Trigger" type="Area2D" parent="."]
+position = Vector2( 8738, -314 )
+script = ExtResource( 18 )
+Anim = "Yintro"
+musplay = ExtResource( 22 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2( 5815, 422 )
+scale = Vector2( 0.28, 1 )
+shape = SubResource( 87 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Trigger"]
+anims/RESET = SubResource( 97 )
+anims/Yintro = SubResource( 98 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 9
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer2"]
+margin_top = -43.0
+margin_right = 390.0
+margin_bottom = 266.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="Yaiba" parent="." instance=ExtResource( 19 )]
+position = Vector2( 15188, 141 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 100 )
+"anims/beat yaiba" = SubResource( 99 )
+anims/rideoff = SubResource( 102 )
+script = SubResource( 101 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource( 20 )
+volume_db = 8.387
+
+[node name="cutscenerian" type="AnimatedSprite" parent="AnimationPlayer"]
+visible = false
+position = Vector2( 14922, 151 )
+frames = ExtResource( 34 )
+animation = "dash"
+playing = true
+
+[node name="results" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 21 )
+
+[node name="SCrys" parent="." instance=ExtResource( 35 )]
+position = Vector2( 15061, 133 )
+timeincrease = 60
+
+[node name="Pieces" type="Node2D" parent="."]
+
+[node name="Pieceob" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 433, 161 )
+
+[node name="Pieceob2" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 457, 161 )
+
+[node name="Pieceob3" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 481, 161 )
+
+[node name="Pieceob4" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 505, 161 )
+
+[node name="Pieceob5" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 529, 161 )
+
+[node name="Pieceob6" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 553, 161 )
+
+[node name="Pieceob7" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 800, 137 )
+
+[node name="Pieceob8" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 829, 105 )
+
+[node name="Pieceob9" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 858, 74 )
+
+[node name="Pieceob10" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 987, 74 )
+
+[node name="Pieceob11" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1012, 113 )
+
+[node name="Pieceob12" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1036, 153 )
+
+[node name="Pieceob13" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1372, 65 )
+
+[node name="Pieceob14" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1396, 99 )
+
+[node name="Pieceob15" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1427, 137 )
+
+[node name="Pieceob16" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1760, 140 )
+
+[node name="Pieceob17" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1792, 110 )
+
+[node name="Pieceob18" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1832, 81 )
+
+[node name="Pieceob19" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 1879, 56 )
+
+[node name="Pieceob20" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2031, 84 )
+
+[node name="Pieceob21" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2057, 118 )
+
+[node name="Pieceob22" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2086, 156 )
+
+[node name="Pieceob23" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2741, 161 )
+
+[node name="Pieceob24" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2770, 123 )
+
+[node name="Pieceob25" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2811, 88 )
+
+[node name="Pieceob26" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2851, 67 )
+
+[node name="Pieceob27" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2890, 43 )
+
+[node name="Pieceob28" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 2958, 30 )
+
+[node name="Pieceob29" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3019, 47 )
+
+[node name="Pieceob30" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3064, 75 )
+
+[node name="Pieceob31" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3110, 98 )
+
+[node name="Pieceob32" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3162, 130 )
+
+[node name="Pieceob33" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3717, 156 )
+
+[node name="Pieceob34" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3737, 117 )
+
+[node name="Pieceob35" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 3758, 77 )
+
+[node name="Pieceob36" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4027, 59 )
+
+[node name="Pieceob37" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4071, 95 )
+
+[node name="Pieceob38" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4120, 136 )
+
+[node name="Pieceob39" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4367, 43 )
+
+[node name="Pieceob40" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4393, 71 )
+
+[node name="Pieceob41" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4423, 99 )
+
+[node name="Pieceob42" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4452, 129 )
+
+[node name="Pieceob43" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4659, 144 )
+
+[node name="Pieceob44" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4682, 113 )
+
+[node name="Pieceob45" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4700, 86 )
+
+[node name="Pieceob46" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4725, 59 )
+
+[node name="Pieceob47" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 4749, 32 )
+
+[node name="Pieceob48" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5196, 159 )
+
+[node name="Pieceob49" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5230, 120 )
+
+[node name="Pieceob50" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5264, 89 )
+
+[node name="Pieceob51" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5317, 52 )
+
+[node name="Pieceob52" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5358, 84 )
+
+[node name="Pieceob53" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5388, 114 )
+
+[node name="Pieceob54" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5422, 144 )
+
+[node name="Pieceob55" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5542, 144 )
+
+[node name="Pieceob56" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5570, 115 )
+
+[node name="Pieceob57" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5597, 89 )
+
+[node name="Pieceob58" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5627, 58 )
+
+[node name="Pieceob59" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5662, 36 )
+
+[node name="Pieceob60" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5700, 60 )
+
+[node name="Pieceob61" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5740, 94 )
+
+[node name="Pieceob62" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 5774, 126 )
+
+[node name="Pieceob63" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 7862, 147 )
+
+[node name="Pieceob64" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 7885, 122 )
+
+[node name="Pieceob65" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 7913, 100 )
+
+[node name="Pieceob66" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 8014, 103 )
+
+[node name="Pieceob67" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 8037, 128 )
+
+[node name="Pieceob68" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 8062, 157 )
+
+[node name="Pieceob69" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 7953, 82 )
+
+[node name="Pieceob70" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 8169, 101 )
+
+[node name="Pieceob71" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 8168, 70 )
+
+[node name="Pieceob72" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 8168, 37 )
+
+[node name="Pieceob73" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9277, 148 )
+
+[node name="Pieceob74" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9304, 122 )
+
+[node name="Pieceob75" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9334, 96 )
+
+[node name="Pieceob76" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9897, 118 )
+
+[node name="Pieceob77" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9921, 118 )
+
+[node name="Pieceob78" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9945, 118 )
+
+[node name="Pieceob79" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9969, 118 )
+
+[node name="Pieceob80" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 9993, 118 )
+
+[node name="Pieceob81" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10236, 116 )
+
+[node name="Pieceob82" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10260, 116 )
+
+[node name="Pieceob83" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10284, 116 )
+
+[node name="Pieceob84" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10308, 116 )
+
+[node name="Pieceob85" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10332, 116 )
+
+[node name="Pieceob86" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10356, 116 )
+
+[node name="Pieceob87" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10615, 87 )
+
+[node name="Pieceob88" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10637, 62 )
+
+[node name="Pieceob89" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 10662, 41 )
+
+[node name="Pieceob90" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 11175, 152 )
+
+[node name="Pieceob91" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 11199, 152 )
+
+[node name="Pieceob92" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 11223, 152 )
+
+[node name="Pieceob93" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 11247, 152 )
+
+[node name="Pieceob94" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 11271, 152 )
+
+[node name="Pieceob95" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12447, 149 )
+
+[node name="Pieceob96" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12471, 149 )
+
+[node name="Pieceob97" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12495, 149 )
+
+[node name="Pieceob98" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12520, 121 )
+
+[node name="Pieceob99" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12496, 121 )
+
+[node name="Pieceob100" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12471, 121 )
+
+[node name="Pieceob101" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12447, 121 )
+
+[node name="Pieceob102" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12423, 121 )
+
+[node name="Pieceob103" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12423, 93 )
+
+[node name="Pieceob104" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12447, 93 )
+
+[node name="Pieceob105" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12471, 93 )
+
+[node name="Pieceob106" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12495, 93 )
+
+[node name="Pieceob107" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12519, 93 )
+
+[node name="Pieceob108" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12495, 65 )
+
+[node name="Pieceob109" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12471, 65 )
+
+[node name="Pieceob110" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 12447, 65 )
+
+[node name="Pieceob111" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13680, 153 )
+
+[node name="Pieceob112" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13703, 128 )
+
+[node name="Pieceob113" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13727, 99 )
+
+[node name="Pieceob114" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13755, 69 )
+
+[node name="Pieceob115" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13784, 40 )
+
+[node name="Pieceob116" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13670, 42 )
+
+[node name="Pieceob117" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13699, 68 )
+
+[node name="Pieceob118" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13757, 129 )
+
+[node name="Pieceob119" parent="Pieces" instance=ExtResource( 36 )]
+position = Vector2( 13783, 159 )
+
+[node name="threedriver" parent="." instance=ExtResource( 37 )]
+position = Vector2( 14867, 75 )
+
+[connection signal="area_entered" from="Trigger" to="Trigger" method="_on_BossTrigger_area_entered"]
+[connection signal="animation_finished" from="Trigger/AnimationPlayer" to="Trigger" method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="Yaiba"]

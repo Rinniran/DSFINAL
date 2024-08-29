@@ -14,7 +14,7 @@
 [ext_resource path="res://Sprites/Stage/SCity/builds2.png" type="Texture" id=12]
 [ext_resource path="res://Sprites/Stage/SCity/Monitors.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/Stage/SCity/backbuilds.png" type="Texture" id=14]
-[ext_resource path="res://Sprites/Textures/clouds.jpg" type="Texture" id=15]
+[ext_resource path="res://meshes/STAGE/CS/Textures/clouds.jpg" type="Texture" id=15]
 [ext_resource path="res://Audio/BGS/citybgs.ogg" type="AudioStream" id=17]
 
 [sub_resource type="GDScript" id=266]

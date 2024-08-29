@@ -44,6 +44,10 @@ var floormax = deg2rad(64.0)
 var hp = 5
 
 
+var organichurt = preload("res://Audio/SE/OrganicHurt.wav")
+var organicNL = preload("res://Audio/SE/OrganicNL.mp3")
+var crit = preload("res://Audio/SE/CRIT.wav")
+
 export var flip = false
 
 # Called when the node enters the scene tree for the first time.
@@ -290,7 +294,8 @@ func _on_Hurt_area_entered(area):
 			damobj.position = global_position
 			damobj.value = str(0.8 + Globals.atkmult)
 			get_parent().add_child(damobj)
-			
+			$hurt.stream = organichurt
+			$hurt.play()
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
 			$AnimationPlayer.stop(true)
 			states = "HURT"
@@ -313,6 +318,8 @@ func _on_Hurt_area_entered(area):
 			get_parent().add_child(damobj)
 			Input.start_joy_vibration(0, 1, 1, 0.2) 
 			$AnimationPlayer.stop(true)
+			$hurt.stream = organichurt
+			$hurt.play()
 			states = "HURT"
 			var hs = preload("res://Subrooms/hitspark.tscn")
 			var ma = hs.instance()
@@ -333,7 +340,8 @@ func _on_Hurt_area_entered(area):
 			damobj.position = global_position
 			damobj.value = str(1 + Globals.atkmult)
 			get_parent().add_child(damobj)
-			
+			$hurt.stream = organicNL
+			$hurt.play()
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
 			$AnimationPlayer.stop(true)
 			states = "HURT"
@@ -356,7 +364,8 @@ func _on_Hurt_area_entered(area):
 			damobj.value = str(0.4 + Globals.atkmult)
 			get_parent().add_child(damobj)
 			
-			
+			$hurt.stream = organichurt
+			$hurt.play()
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
@@ -387,6 +396,9 @@ func _on_Hurt_area_entered(area):
 			get_parent().add_child(damobj)
 			$AnimationPlayer.stop(true)
 			
+			$hurt.stream = crit
+			$hurt.play()
+			
 			states = "HURT"
 			Globals.score += 100
 			var hs = preload("res://Subrooms/hitspark.tscn")
@@ -409,7 +421,8 @@ func _on_Hurt_area_entered(area):
 			damobj.value = str(1 + Globals.atkmult)
 			get_parent().add_child(damobj)
 			
-			
+			$hurt.stream = organichurt
+			$hurt.play()
 			Input.start_joy_vibration(0, 1, 1, 0.3) 
 			$multihurt.start()
 			$multihurtrepeat.start()
@@ -427,7 +440,8 @@ func _on_Hurt_area_entered(area):
 			hp -= 7 + Globals.atkmult
 			Globals.combotimer = 60 * 10
 			Globals.combo += 1
-			
+			$hurt.stream = crit
+			$hurt.play()
 			var damage = preload("res://Subrooms/DAMAGE ENEMY.tscn")
 			var damobj = damage.instance()
 			damobj.position = global_position

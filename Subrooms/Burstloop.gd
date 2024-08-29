@@ -21,3 +21,5 @@ func _on_Burstloop_area_entered(area):
 		
 		Globals.player.zoomdir = 0
 		$woosh.play()
+		
+		

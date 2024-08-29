@@ -3,6 +3,7 @@ extends Node
 #=====BEAT EVENTS======
 var foresightreached = 0
 var foresightdefeated = 0
+var YaibaDefeated = 0
 
 
 
@@ -26,3 +27,12 @@ var tookdamage = 0
 #====CHOICE EVENTS====
 var fullmeteronforesight = 0
 
+#====STAGE COMPLETION=====
+var stg1complete = false
+var stg2complete = false
+var stg3complete = false
+var stg4complete = false
+var stg5complete = false
+var stg6complete = false
+var stg7complete = false
+var stgxcomplete = false

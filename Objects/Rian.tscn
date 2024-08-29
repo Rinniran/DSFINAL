@@ -247,8 +247,8 @@ script = ExtResource( 13 )
 material = SubResource( 33 )
 position = Vector2( 1, 0 )
 frames = ExtResource( 14 )
-animation = "OdachiFlash"
-frame = 3
+animation = "ReapWhatYou'veSown"
+frame = 2
 playing = true
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Rspr"]
@@ -477,7 +477,7 @@ tint_progress = Color( 1, 0, 0, 1 )
 position = Vector2( 59, 9.83606 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 31 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="SPARKS" type="AnimatedSprite" parent="."]
@@ -485,13 +485,13 @@ visible = false
 scale = Vector2( 1.5, 1.5 )
 z_index = 6
 frames = SubResource( 26 )
-frame = 3
+frame = 5
 playing = true
 
 [node name="Odachi" type="Area2D" parent="." groups=["Odachi", "enemproject"]]
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Odachi"]
-polygon = PoolVector2Array( -76, -78, -15, -17, 5, -16, 17, -8, 21, 16, 10, 40, -2, 54, 31, 75, 67, 95, 80, 91, 97, 54, 101, 13, 88, -35, 44, -78, 2, -87, -35, -87 )
+polygon = PoolVector2Array( -76, -78, -15, -17, -11, -12, -14, -3, -13, 12, -5, 26, -2, 54, 31, 75, 67, 95, 80, 91, 97, 54, 101, 13, 88, -35, 44, -78, 2, -87, -35, -87 )
 
 [node name="AboveDetect" type="Area2D" parent="."]
 scale = Vector2( 1, -1 )

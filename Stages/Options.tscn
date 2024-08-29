@@ -4,7 +4,7 @@
 [ext_resource path="res://src/settings/GeneralOptions.gd" type="Script" id=2]
 [ext_resource path="res://TextMain.tres" type="Theme" id=3]
 [ext_resource path="res://Objects/UI/Cursor.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Sprites/Textures/twoDriver.png" type="Texture" id=5]
+[ext_resource path="res://meshes/STAGE/CS/Textures/twoDriver.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/gui/OPTKEY8.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/gui/OPTKEY6.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/gui/OPTKEY7.png" type="Texture" id=8]
@@ -89,6 +89,8 @@ script/source = "extends Node2D
 # var a = 2
 # var b = \"text\"
 var select = 0
+
+var uimode = \"FUN\"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -99,21 +101,23 @@ func _process(delta):
 	if visible:
 		$FLASHYVIS.text = str(\"FLASHY VISUALS: \") + str(Settings.FLASHYVIS)
 		
-		$MUSPAUSE.text = str(\"JUST DODGE MUSIC PAUSE: \") + str(Settings.MUSPAUSE)
+		$UITYPE.text = str(\"UI TYPE: \") + str(uimode)
 		
 		$SHADER.text = str(\"SHADER EFFECTS: \") + str(Settings.SHADER)
 		
 		$CRT.text = str(\"CRT FILTER: \") + str(Settings.CRT)
 		
-		if Input.is_action_just_pressed(\"ui_down\"):
-			select += 1
-			if select > 4:
-				select = 0
+		if (Input.is_action_just_pressed(\"ui_down\") || Input.is_action_just_pressed(\"stickdown\")):
+#			select += 1
+#			if select > 4:
+#				select = 0
+			select = 4
 		
-		if Input.is_action_just_pressed(\"ui_up\"):
-			select -= 1
-			if select < 0:
-				select = 4
+		if (Input.is_action_just_pressed(\"ui_up\") || Input.is_action_just_pressed(\"stickup\")):
+#			select -= 1
+#			if select < 0:
+#				select = 4
+			select = 0
 		
 		
 		
@@ -121,10 +125,12 @@ func _process(delta):
 			0:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 39
-				if Input.is_action_just_pressed(\"ui_left\"):
-					Settings.MUSPAUSE = \"OFF\"
-				if Input.is_action_just_pressed(\"ui_right\"):
-					Settings.MUSPAUSE = \"ON\"
+				if (Input.is_action_just_pressed(\"ui_left\") || Input.is_action_just_pressed(\"stickleft\")):
+					Globals.uitype = 1
+					uimode = \"FUN\"
+				if (Input.is_action_just_pressed(\"ui_right\") || Input.is_action_just_pressed(\"stickright\")):
+					Globals.uitype = 2
+					uimode = \"MINIMAL\"
 			1:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 92
@@ -167,9 +173,9 @@ func _process(delta):
 			4:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 406
-				if Input.is_action_just_pressed(\"ui_left\"):
+				if (Input.is_action_just_pressed(\"ui_left\") || Input.is_action_just_pressed(\"stickleft\")):
 					Settings.Fscreen = false
-				if Input.is_action_just_pressed(\"ui_right\"):
+				if (Input.is_action_just_pressed(\"ui_right\") || Input.is_action_just_pressed(\"stickright\")):
 					Settings.Fscreen = true
 		
 		
@@ -308,7 +314,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	rotation_degrees += 0.1
+	rotation_degrees += 7 * delta
 #	pass
 "
 
@@ -328,6 +334,7 @@ margin_bottom = 18.0
 color = Color( 0, 0, 0, 0.486275 )
 
 [node name="GeneralOptions" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 2 )
 
 [node name="Header" type="Label" parent="GeneralOptions"]
@@ -400,7 +407,6 @@ position = Vector2( 186.125, 406 )
 scale = Vector2( 0.939375, 0.27 )
 
 [node name="GameOptions" type="Node2D" parent="."]
-visible = false
 script = SubResource( 188 )
 
 [node name="Header" type="Label" parent="GameOptions"]
@@ -414,6 +420,7 @@ __meta__ = {
 }
 
 [node name="FLASHYVIS" type="Label" parent="GameOptions"]
+visible = false
 margin_left = 23.0
 margin_top = 86.0
 margin_right = 983.0
@@ -424,18 +431,19 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MUSPAUSE" type="Label" parent="GameOptions"]
+[node name="UITYPE" type="Label" parent="GameOptions"]
 margin_left = 22.0
 margin_top = 32.0
 margin_right = 982.0
 margin_bottom = 64.0
 theme = ExtResource( 3 )
-text = "JUST DODGE MUSIC PAUSE: ON"
+text = "UI TYPE: FUN"
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="SHADER" type="Label" parent="GameOptions"]
+visible = false
 margin_left = 22.0
 margin_top = 141.0
 margin_right = 982.0
@@ -447,6 +455,7 @@ __meta__ = {
 }
 
 [node name="CRT" type="Label" parent="GameOptions"]
+visible = false
 margin_left = 22.0
 margin_top = 198.0
 margin_right = 982.0
@@ -479,11 +488,27 @@ script = SubResource( 187 )
 [node name="Header" type="Label" parent="KeyConfig"]
 margin_right = 767.0
 margin_bottom = 32.0
+rect_pivot_offset = Vector2( 180, 66 )
 theme = ExtResource( 3 )
 text = "Key Config"
 align = 1
 
+[node name="Header2" type="Label" parent="KeyConfig"]
+margin_left = -196.0
+margin_top = 268.0
+margin_right = 571.0
+margin_bottom = 300.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 180, 66 )
+theme = ExtResource( 3 )
+text = "COMING SOON
+
+(To compensate, moves have multiple bindings.
+WASD players rejoice!)"
+align = 1
+
 [node name="REBIND" type="Label" parent="KeyConfig"]
+visible = false
 margin_left = 18.0
 margin_top = 33.0
 margin_right = 978.0
@@ -492,6 +517,7 @@ theme = ExtResource( 3 )
 text = "REBIND"
 
 [node name="JUMP" type="Label" parent="KeyConfig"]
+visible = false
 margin_left = 22.0
 margin_top = 94.0
 margin_right = 982.0
@@ -500,6 +526,7 @@ theme = ExtResource( 3 )
 text = "JUMP"
 
 [node name="DASH" type="Label" parent="KeyConfig"]
+visible = false
 margin_left = 23.0
 margin_top = 148.0
 margin_right = 983.0
@@ -509,6 +536,7 @@ text = "DASH
 "
 
 [node name="ATTACK" type="Label" parent="KeyConfig"]
+visible = false
 margin_left = 22.0
 margin_top = 203.0
 margin_right = 982.0
@@ -517,6 +545,7 @@ theme = ExtResource( 3 )
 text = "ATTACK"
 
 [node name="resolution" type="Label" parent="KeyConfig"]
+visible = false
 margin_left = 1.0
 margin_top = 398.0
 margin_right = 765.0
@@ -526,6 +555,7 @@ text = "PRESS A BUTTON TO REBIND \"ACTION\""
 align = 1
 
 [node name="Cursor" parent="KeyConfig" instance=ExtResource( 4 )]
+visible = false
 position = Vector2( 188, 209 )
 scale = Vector2( 0.939375, 0.27 )
 

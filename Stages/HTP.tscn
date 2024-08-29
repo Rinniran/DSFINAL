@@ -7,7 +7,7 @@
 [ext_resource path="res://Sprites/gui/how to play screen L3.png" type="Texture" id=5]
 [ext_resource path="res://Sprites/Misc/screenblack.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Light FX/light round.png" type="Texture" id=7]
-[ext_resource path="res://Sprites/Textures/LOADING.png" type="Texture" id=8]
+[ext_resource path="res://meshes/STAGE/CS/Textures/LOADING.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Stage/SCity/FGwaver.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]

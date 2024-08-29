@@ -21,12 +21,12 @@ func _process(delta):
 		
 		$VOICE.text = str("VOICE: ") + str(Settings.VOICEVOL)
 		
-		if Input.is_action_just_pressed("ui_down"):
+		if Input.is_action_just_pressed("ui_down") || Input.is_action_just_pressed("stickdown"):
 			select += 1
 			if select > 4:
 				select = 0
 		
-		if Input.is_action_just_pressed("ui_up"):
+		if Input.is_action_just_pressed("ui_up") || Input.is_action_just_pressed("stickup"):
 			select -= 1
 			if select < 0:
 				select = 4
@@ -37,39 +37,39 @@ func _process(delta):
 			0:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 39
-				if Input.is_action_just_pressed("ui_left") && Settings.MASTERVOL > 0:
+				if (Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("stickleft")) && Settings.MASTERVOL > 0:
 					Settings.MASTERVOL -= 1
-				if Input.is_action_just_pressed("ui_right") && Settings.MASTERVOL < 5:
+				if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("stickright")) && Settings.MASTERVOL < 5:
 					Settings.MASTERVOL += 1
 			1:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 92
-				if Input.is_action_just_pressed("ui_left") && Settings.BGMVOL > 0:
+				if (Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("stickleft")) && Settings.BGMVOL > 0:
 					Settings.BGMVOL -= 1
-				if Input.is_action_just_pressed("ui_right") && Settings.BGMVOL < 8:
+				if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("stickright")) && Settings.BGMVOL < 8:
 					Settings.BGMVOL += 1
 			2:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 148
-				if Input.is_action_just_pressed("ui_left") && Settings.SFXVOL > 0:
+				if (Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("stickleft")) && Settings.SFXVOL > 0:
 					Settings.SFXVOL -= 1
-				if Input.is_action_just_pressed("ui_right") && Settings.SFXVOL < 8:
+				if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("stickright")) && Settings.SFXVOL < 8:
 					Settings.SFXVOL += 1
 			
 			3:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 205
-				if Input.is_action_just_pressed("ui_left") && Settings.VOICEVOL > 0:
+				if (Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("stickleft")) && Settings.VOICEVOL > 0:
 					Settings.VOICEVOL -= 1
-				if Input.is_action_just_pressed("ui_right") && Settings.VOICEVOL < 8:
+				if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("stickright")) && Settings.VOICEVOL < 8:
 					Settings.VOICEVOL += 1
 			
 			4:
 				$Cursor.position.x = 186.125
 				$Cursor.position.y = 406
-				if Input.is_action_just_pressed("ui_left"):
+				if (Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("stickleft")):
 					Settings.Fscreen = false
-				if Input.is_action_just_pressed("ui_right"):
+				if (Input.is_action_just_pressed("ui_right") || Input.is_action_just_pressed("stickright")):
 					Settings.Fscreen = true
 		
 		

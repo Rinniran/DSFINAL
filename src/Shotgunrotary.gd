@@ -58,7 +58,7 @@ func _process(delta):
 		get_parent().add_child(shoti)
 	
 	position = Globals.playerpos
-	
-	if Globals.player.is_on_floor():
-		queue_free()
+	if is_instance_valid(Globals.player):
+		if Globals.player.is_on_floor():
+			queue_free()
 #	pass

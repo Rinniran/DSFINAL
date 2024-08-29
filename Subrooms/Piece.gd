@@ -19,6 +19,11 @@ func _on_Piece_area_entered(area):
 		Globals.link += 1
 		Globals.linktimer = 60 * 10
 		
+		Globals.groovePoints += 5
+		Globals.grooveTimer = Globals.grooveTimerMax
+		Globals.grooveList.append("Piece")
+		Globals.grooveList.pop_front()
+		
 		if Globals.pieces == 100 || Globals.pieces == 250 || Globals.pieces == 500 || Globals.pieces == 600:
 			Globals.lives += 1
 		

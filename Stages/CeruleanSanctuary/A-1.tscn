@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://TextMain.tres" type="Theme" id=1]
 [ext_resource path="res://Blockout.tres" type="TileSet" id=3]
-[ext_resource path="res://Sprites/Textures/twoDriver.png" type="Texture" id=6]
+[ext_resource path="res://meshes/STAGE/CS/Textures/twoDriver.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Wave.tres" type="Material" id=7]
-[ext_resource path="res://Objects/Cache.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Stages/Stickhusk.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Stages/GhostChaser.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Sprites/Stage/phHAZARD.png" type="Texture" id=15]
@@ -74,7 +73,7 @@ tile_set = SubResource( 15 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
-[node name="Notes" type="Node2D" parent="."]
+[node name="Notes" type="Control" parent="."]
 
 [node name="N01" type="Label" parent="Notes"]
 margin_left = 2454.0
@@ -2393,6 +2392,7 @@ text = "Vs Marine Unusual
 "
 
 [node name="N14" type="Label" parent="Notes"]
+visible = false
 margin_left = -53.0
 margin_top = 1857.0
 margin_right = 27.0
@@ -2657,8 +2657,6 @@ position = Vector2( 21795, 2758 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
-
-[node name="MatCache" parent="." instance=ExtResource( 8 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/AutoplayTest = SubResource( 6 )

@@ -3,13 +3,13 @@
 [ext_resource path="res://Stages/Titlescreen.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Misc/Dreamshock Logo Final.png" type="Texture" id=2]
 [ext_resource path="res://meshes/TITCYL/title cylinder.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://Sprites/Textures/scityfogeffect.png" type="Texture" id=4]
+[ext_resource path="res://meshes/STAGE/CS/Textures/scityfogeffect.png" type="Texture" id=4]
 [ext_resource path="res://Stages/title cylinder.gd" type="Script" id=5]
 [ext_resource path="res://Audio/BGM/Intro.wav" type="AudioStream" id=6]
 [ext_resource path="res://TextMain.tres" type="Theme" id=7]
 [ext_resource path="res://Sprites/Misc/SAGE2023ALTPIXELART.PNG" type="Texture" id=8]
 [ext_resource path="res://Audio/SE/Start.wav" type="AudioStream" id=9]
-[ext_resource path="res://Sprites/Textures/LOADING.png" type="Texture" id=10]
+[ext_resource path="res://meshes/STAGE/CS/Textures/LOADING.png" type="Texture" id=10]
 [ext_resource path="res://Subrooms/SESC.gd" type="Script" id=12]
 
 [sub_resource type="SpatialMaterial" id=17]
@@ -492,17 +492,18 @@ autoplay = true
 bus = "BGM"
 
 [node name="DemoText" type="Label" parent="."]
-margin_left = 261.0
-margin_top = 186.0
-margin_right = 1025.0
-margin_bottom = 211.0
+margin_left = -76.0
+margin_top = 107.0
+margin_right = 688.0
+margin_bottom = 132.0
 theme = ExtResource( 7 )
 text = "DEMO
 "
 align = 1
 
 [node name="SAGEDEMO" type="Sprite" parent="."]
-position = Vector2( 577, 132 )
+position = Vector2( 302, 87 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 8 )
 script = ExtResource( 12 )
 
@@ -596,8 +597,8 @@ volume_db = 15.663
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource( 12 )
-margin_right = 768.0
-margin_bottom = 432.0
+margin_right = 384.0
+margin_bottom = 224.0
 __meta__ = {
 "_edit_lock_": true
 }

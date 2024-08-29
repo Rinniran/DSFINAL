@@ -50,4 +50,4 @@ text = "1"
 anims/RESET = SubResource( 1 )
 anims/Spawn = SubResource( 2 )
 
-[connection signal="animation_finished" from="Damage/AnimationPlayer" to="Damage" method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_finished" from="Damage/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

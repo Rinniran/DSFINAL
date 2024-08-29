@@ -13,18 +13,18 @@ script/source = "extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	update_activity()
+	#update_activity()
 	pass # Replace with function body.
 
-func update_activity() -> void:
-	var activity = Discord.Activity.new()
-	activity.set_application_id(920666278652440577)
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_state(\"Starting Up!\")
-	activity.set_details(\"Splash Screens\")
-	
-	var assets = activity.get_assets()
-	assets.set_large_image(\"dsdrp\")
+#func update_activity() -> void:
+#	var activity = Discord.Activity.new()
+#	activity.set_application_id(920666278652440577)
+#	activity.set_type(Discord.ActivityType.Playing)
+#	activity.set_state(\"Starting Up!\")
+#	activity.set_details(\"Splash Screens\")
+#
+#	var assets = activity.get_assets()
+#	assets.set_large_image(\"dsdrp\")
 	
 	
 	
@@ -33,7 +33,7 @@ func update_activity() -> void:
 #	pass
 "
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id=3]
 script/source = "extends VideoPlayer
 
 
@@ -48,7 +48,9 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
+func _process(delta):
+	if Input.is_action_just_pressed(\"pause\"):
+		get_tree().change_scene(\"res://Subrooms/trnk.tscn\")
 #	pass
 
 
@@ -65,8 +67,7 @@ margin_right = 384.0
 margin_bottom = 223.0
 audio_track = 1
 stream = ExtResource( 1 )
-volume_db = 3.76
 autoplay = true
-script = SubResource( 1 )
+script = SubResource( 3 )
 
 [connection signal="finished" from="VideoPlayer" to="VideoPlayer" method="_on_VideoPlayer_finished"]

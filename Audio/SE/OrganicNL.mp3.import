@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/OrganicNL.mp3-b595e98874c28f1f67c0c86393480c5d.mp3str"
+
+[deps]
+
+source_file="res://Audio/SE/OrganicNL.mp3"
+dest_files=[ "res://.import/OrganicNL.mp3-b595e98874c28f1f67c0c86393480c5d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

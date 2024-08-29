@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://TextMain.tres" type="Theme" id=2]
 [ext_resource path="res://Objects/HUD.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ShaderMaterial" id=3]
@@ -43,7 +42,8 @@ func _physics_process(delta):
 		Globals.camera = self
 	offset = Vector2(rand_range(-shake_amount, shake_amount), rand_range(-shake_amount, shake_amount)) * delta + default_offset
 	#print_debug(str(\"Cam Pos: \") + str(position))
-	gonowmyson = get_node(target)
+	if target != null:
+		gonowmyson = get_node(target)
 	if gonowmyson:
 		if Globals.playerspriteflip == false:
 			if focusx < 2.5:
@@ -216,26 +216,6 @@ shader_param/aperture_grille_rate = 0.119
 shader_param/rf_switch_esque_blur = 0.876
 shader_param/white_noise_rate = 0.0
 
-[sub_resource type="GDScript" id=20]
-resource_name = "Glist"
-script/source = "extends Label
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	text = str(Globals.stuntList) + str(\"\\n\") + str (Globals.groovePoints) + str(\"\\n\") + str (Globals.grooveRankText)
-"
-
 [node name="Camera2D" type="Camera2D"]
 material = SubResource( 3 )
 anchor_mode = 0
@@ -272,17 +252,11 @@ margin_right = 496.0
 margin_bottom = 224.0
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+visible = false
 material = SubResource( 23 )
 margin_right = 384.0
 margin_bottom = 225.0
 rect_pivot_offset = Vector2( 173, 289 )
-
-[node name="groovelist" type="Label" parent="CanvasLayer"]
-margin_right = 40.0
-margin_bottom = 14.0
-theme = ExtResource( 2 )
-text = "These are my extras."
-script = SubResource( 20 )
 
 [node name="GUIStuff" parent="." instance=ExtResource( 3 )]
 
